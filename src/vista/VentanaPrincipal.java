@@ -67,11 +67,11 @@ public class VentanaPrincipal extends JFrame {
 		panelContenedor.setVisible(true);		
 		setContentPane(panelContenedor);
 
-		panelLogin = new Vista_Login();
-		panelLogin = Vista_Login.inicializarComponentes();
+		panelLogin = new Login();
+		panelLogin = Login.inicializarComponentes();
 		
-		panelMenuPrincipal = new Vista_Menu_Principal();
-		panelMenuPrincipal = Vista_Menu_Principal.inicializarComponentes();		
+		panelMenuPrincipal = new MenuPrincipal();
+		panelMenuPrincipal = MenuPrincipal.inicializarComponentes();		
 
 		
 		
