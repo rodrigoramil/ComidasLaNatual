@@ -9,9 +9,9 @@ import javax.swing.JButton;
 
 public class MenuPrincipal extends JPanel {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1426442970510327864L;
 	
-	private static JPanel oanelMenuPrincipal;
+	private static JPanel panelMenuPrincipal;
 	private static JButton btn_Contabilidad;
 	private static JButton btn_Ventas;
 	private static JButton btn_Recetario;
@@ -26,7 +26,7 @@ public class MenuPrincipal extends JPanel {
 
 	public MenuPrincipal() {			
 		
-		oanelMenuPrincipal = new JPanel();		
+		panelMenuPrincipal = new JPanel();		
 		btn_Contabilidad = new JButton("Contabilidad");		
 		btn_Ventas = new JButton("Ventas");
 		btn_Recetario = new JButton("Recetario");		
@@ -35,7 +35,7 @@ public class MenuPrincipal extends JPanel {
 		btn_Cerrar_Sesion = new JButton("Cerrar Sesi\u00F3n");
 		
 		establecerManejador();		
-		oanelMenuPrincipal.setVisible(false);
+		panelMenuPrincipal.setVisible(false);
 	}
 
 	
@@ -43,34 +43,34 @@ public class MenuPrincipal extends JPanel {
 	
 	public static JPanel inicializarComponentes() {
 		
-		oanelMenuPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
-		oanelMenuPrincipal.setBounds(posicionPanel_x, posicionPanel_y, ancho, alto);
-		oanelMenuPrincipal.setLayout(null);
+		panelMenuPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
+		panelMenuPrincipal.setBounds(posicionPanel_x, posicionPanel_y, ancho, alto);
+		panelMenuPrincipal.setLayout(null);
 
 		btn_Contabilidad.setEnabled(true);
 		btn_Contabilidad.setBounds(337, 148, 91, 23);
-		oanelMenuPrincipal.add(btn_Contabilidad);
+		panelMenuPrincipal.add(btn_Contabilidad);
 		
 		btn_Ventas.setBounds(16, 148, 91, 23);
-		oanelMenuPrincipal.add(btn_Ventas);
+		panelMenuPrincipal.add(btn_Ventas);
 		
 		btn_Recetario.setEnabled(true);
 		btn_Recetario.setBounds(123, 148, 91, 23);
-		oanelMenuPrincipal.add(btn_Recetario);
+		panelMenuPrincipal.add(btn_Recetario);
 		
 		btn_Almacen.setEnabled(true);
 		btn_Almacen.setBounds(230, 148, 91, 23);
-		oanelMenuPrincipal.add(btn_Almacen);
+		panelMenuPrincipal.add(btn_Almacen);
 		
 		btn_Gestion_Usuario.setEnabled(true);
 		btn_Gestion_Usuario.setBounds(444, 148, 136, 23);
-		oanelMenuPrincipal.add(btn_Gestion_Usuario);
+		panelMenuPrincipal.add(btn_Gestion_Usuario);
 		
 		btn_Cerrar_Sesion.setBounds(230, 255, 97, 23);
-		oanelMenuPrincipal.add(btn_Cerrar_Sesion);
+		panelMenuPrincipal.add(btn_Cerrar_Sesion);
 		
 		
-		return oanelMenuPrincipal;
+		return panelMenuPrincipal;
 	}
 	
 

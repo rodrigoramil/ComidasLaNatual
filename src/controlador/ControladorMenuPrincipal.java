@@ -18,7 +18,8 @@ public class ControladorMenuPrincipal implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == MenuPrincipal.getBtn_Ventas()) {
-			
+			VentanaPrincipal.getPanelMenuPrincipal().setVisible(false);
+			VentanaPrincipal.getPanelGestionPedidos().setVisible(true);
 		}
 		
 		if (e.getSource() == MenuPrincipal.getBtn_Recetario()) {

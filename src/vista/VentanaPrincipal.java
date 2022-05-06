@@ -16,6 +16,7 @@ public class VentanaPrincipal extends JFrame {
 	private static JPanel panelContenedor;
 	private static JPanel panelLogin;
 	private static JPanel panelMenuPrincipal;
+	private static JPanel panelGestionPedidos;
 	private static JPanel panelListadoListaCompra;
 	private static JPanel panelProducto;
 	private static JPanel panelAlmacen;
@@ -27,7 +28,6 @@ public class VentanaPrincipal extends JFrame {
 	private static JPanel panelDetalleFactura;
 	private static JPanel panelDetalleBasto;
 	private static JPanel panelFacturar;
-	private static JPanel panelGestionPedidos;
 	private static JPanel panelGestionUsuarios;
 	private static JPanel panelListaGastos;
 	private static JPanel panelListaCompra;
@@ -41,10 +41,11 @@ public class VentanaPrincipal extends JFrame {
 	private int ancho = 800;
 	private int alto = 600;
 
-
+	/**
+	 * Creamos la ventana principal que contendrá todos los paneles
+	 */
 	public VentanaPrincipal() {
 		
-//		contenedor = getContentPane();
 		setResizable(false); // fina el tamaño de la ventana
 		setTitle("Comidas La Natural");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -58,7 +59,9 @@ public class VentanaPrincipal extends JFrame {
 	}
 	
 	
-	
+	/**
+	 * Inicializamos los objetos paneles
+	 */
 	private void inicializarPaneles() {
 		
 		panelContenedor = new JPanel();
@@ -71,7 +74,10 @@ public class VentanaPrincipal extends JFrame {
 		panelLogin = Login.inicializarComponentes();
 		
 		panelMenuPrincipal = new MenuPrincipal();
-		panelMenuPrincipal = MenuPrincipal.inicializarComponentes();		
+		panelMenuPrincipal = MenuPrincipal.inicializarComponentes();
+		
+		panelGestionPedidos = new GestionPedidos();
+		panelGestionPedidos = GestionPedidos.inicializarComponentes();
 
 		
 		
@@ -92,10 +98,15 @@ public class VentanaPrincipal extends JFrame {
 		
 		panelContenedor.add(panelLogin);
 		panelContenedor.add(panelMenuPrincipal);
+		panelContenedor.add(panelGestionPedidos);
 		
 	}
 
 
+	/**
+	 * Get y Set
+	 * @return
+	 */
 
 	public static JPanel getPanelLogin() {
 		return panelLogin;
@@ -105,6 +116,138 @@ public class VentanaPrincipal extends JFrame {
 
 	public static JPanel getPanelMenuPrincipal() {
 		return panelMenuPrincipal;
+	}
+
+
+
+	public static JPanel getPanelContenedor() {
+		return panelContenedor;
+	}
+
+
+
+	public static JPanel getPanelGestionPedidos() {
+		return panelGestionPedidos;
+	}
+
+
+
+	public static JPanel getPanelListadoListaCompra() {
+		return panelListadoListaCompra;
+	}
+
+
+
+	public static JPanel getPanelProducto() {
+		return panelProducto;
+	}
+
+
+
+	public static JPanel getPanelAlmacen() {
+		return panelAlmacen;
+	}
+
+
+
+	public static JPanel getPanelBuscarComidaBebida() {
+		return panelBuscarComidaBebida;
+	}
+
+
+
+	public static JPanel getPanelCalculoGanancias() {
+		return panelCalculoGanancias;
+	}
+
+
+
+	public static JPanel getPanelCalculoGastos() {
+		return panelCalculoGastos;
+	}
+
+
+
+	public static JPanel getPanelCliente() {
+		return panelCliente;
+	}
+
+
+
+	public static JPanel getPanelContabilidad() {
+		return panelContabilidad;
+	}
+
+
+
+	public static JPanel getPanelDetalleFactura() {
+		return panelDetalleFactura;
+	}
+
+
+
+	public static JPanel getPanelDetalleBasto() {
+		return panelDetalleBasto;
+	}
+
+
+
+	public static JPanel getPanelFacturar() {
+		return panelFacturar;
+	}
+
+
+
+	public static JPanel getPanelGestionUsuarios() {
+		return panelGestionUsuarios;
+	}
+
+
+
+	public static JPanel getPanelListaGastos() {
+		return panelListaGastos;
+	}
+
+
+
+	public static JPanel getPanelListaCompra() {
+		return panelListaCompra;
+	}
+
+
+
+	public static JPanel getPanelListaFacturaciones() {
+		return panelListaFacturaciones;
+	}
+
+
+
+	public static JPanel getPanelPedido() {
+		return panelPedido;
+	}
+
+
+
+	public static JPanel getPanelProductosAlmacen() {
+		return panelProductosAlmacen;
+	}
+
+
+
+	public static JPanel getPanelReceta() {
+		return panelReceta;
+	}
+
+
+
+	public static JPanel getPanelRecetario() {
+		return panelRecetario;
+	}
+
+
+
+	public static JPanel getPanelUsuarios() {
+		return panelUsuarios;
 	}
 
 
