@@ -16,40 +16,15 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 
-public class Vista_Recetario extends JFrame {
+public class Vista_Recetario extends JPanel {
 
 	private JPanel contentPane;
 	private JTextField textField;
 	private JTable table;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Vista_Recetario frame = new Vista_Recetario();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
-	/**
-	 * Create the frame.
-	 */
 	public Vista_Recetario() {
-		setResizable(false);
-		setTitle("Recetario");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
+
 		
 		textField = new JTextField();
 		textField.setBounds(10, 45, 169, 20);
