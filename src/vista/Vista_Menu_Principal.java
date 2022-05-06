@@ -35,6 +35,7 @@ public class Vista_Menu_Principal extends JFrame {
 		
 		btn_Ventas = new JButton("Ventas");
 		btn_Ventas.setBounds(16, 148, 91, 23);
+		btn_Ventas.setEnabled(false);
 		getContentPane().add(btn_Ventas);
 		
 		btn_Recetario = new JButton("Recetario");

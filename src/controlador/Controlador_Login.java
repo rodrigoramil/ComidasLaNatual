@@ -45,6 +45,7 @@ public class Controlador_Login implements ActionListener {
 				System.out.println(estado);
 			} else if (estado.equals("Venta")) {
 				vistaMenuPrincipal = new Vista_Menu_Principal();
+				vistaMenuPrincipal.getBtn_Ventas().setEnabled(true);
 				vistaMenuPrincipal.setVisible(true);
 
 			}else {
