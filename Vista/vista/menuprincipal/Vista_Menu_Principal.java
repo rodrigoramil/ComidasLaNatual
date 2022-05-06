@@ -1,20 +1,10 @@
 package vista.menuprincipal;
 
 import javax.swing.JFrame;
-
-import controlador.login.Controlador_Login;
 import controlador.menuprincipal.Controlador_Menu_Principal;
 import vista.login.Vista_Login;
-
 import javax.swing.JButton;
-import java.awt.BorderLayout;
 import java.awt.Component;
-import java.awt.FlowLayout;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
 
 
 public class Vista_Menu_Principal extends JFrame {

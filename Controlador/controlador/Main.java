@@ -3,7 +3,8 @@ package controlador;
 import java.awt.EventQueue;
 
 import modelo.CreacionBBDD;
-import vista.login.Vista_Login;
+//	import vista.login.Vista_Login;
+import ventanaPrincipal.VentanaPrincipal;
 
 public class Main {
 
@@ -14,8 +15,9 @@ public class Main {
 					try {
 						CreacionBBDD creacionBBDD = new CreacionBBDD();
 						creacionBBDD.creacionBBDD();
-						Vista_Login frame = new Vista_Login();
-						frame.setVisible(true);
+						VentanaPrincipal ventana = new VentanaPrincipal();
+//						ventana.setVisible(true);
+
 					} catch (Exception e) {
 						e.printStackTrace();
 					}

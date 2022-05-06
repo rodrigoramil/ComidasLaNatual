@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 
 import modelo.SentenciasSQL;
+import ventanaPrincipal.VentanaPrincipal;
 import vista.login.Vista_Login;
 import vista.menuprincipal.Vista_Menu_Principal;
 import vista.pedido.Vista_Pedido;
@@ -16,6 +17,8 @@ public class Controlador_Login implements ActionListener{
 	private String entrada_usuario;
 	private String entrada_contrasena;
 
+	
+	
 	public Controlador_Login(Vista_Login vista_Login) {
 		this.vistaLogin = vista_Login;
 	}
@@ -25,17 +28,19 @@ public class Controlador_Login implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == vistaLogin.getBtn_Aceptar()) {
-
+			
+			
 			 entrada_usuario = vistaLogin.getJtf_Entrada_Nombre().getText();
 			 entrada_contrasena = vistaLogin.getJtf_Entrada_Contrasena().getText();
 
 				boolean estado = SentenciasSQL.iniciar_Sesion(entrada_usuario, entrada_contrasena );
 				
 				if (estado) {
-					vistaLogin.setVisible(false);
+//					vistaLogin.getContentPane().setVisible(false);
+//					vistaLogin.setVisible(false);
+										
 					vistaMenuPrincipal = new Vista_Menu_Principal();
 					vistaMenuPrincipal.setVisible(true);
-					
 					
 					
 				}else {
