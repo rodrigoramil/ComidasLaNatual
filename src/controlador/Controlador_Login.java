@@ -7,6 +7,8 @@ import javax.swing.JOptionPane;
 
 import modelo.SentenciasSQL;
 import vista.VentanaPrincipal;
+
+
 import vista.Vista_Login;
 import vista.Vista_Menu_Principal;
 import vista.Vista_Pedido;
@@ -31,24 +33,52 @@ public class Controlador_Login implements ActionListener{
 			 entrada_usuario = vistaLogin.getJtf_Entrada_Nombre().getText();
 			 entrada_contrasena = vistaLogin.getJtf_Entrada_Contrasena().getText();
 
-				boolean estado = SentenciasSQL.iniciar_Sesion(entrada_usuario, entrada_contrasena );
+				String estado = SentenciasSQL.iniciar_Sesion(entrada_usuario, entrada_contrasena );
 				
-				if (estado) {
-//					vistaLogin.getContentPane().setVisible(false);
-//					vistaLogin.setVisible(false);
-										
+				switch (estado) {
+				case "Administrador": {
+					System.out.println("Admin dentro");
+					
+				}
+				case "Cocina": {
+					System.out.println("Cocina dentro");
 					vistaMenuPrincipal = new Vista_Menu_Principal();
+					
+					vistaMenuPrincipal.getBtn_Recetario().setEnabled(true);
 					vistaMenuPrincipal.setVisible(true);
 					
+				}
+				case "Venta": {
+					System.out.println("Venta dentro");
+					vistaMenuPrincipal = new Vista_Menu_Principal();
+					vistaMenuPrincipal.setVisible(true);
+					System.out.println("Tambien estas aqui tronquete aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 					
-				}else {
-					JOptionPane.showMessageDialog(vistaLogin, "Nombre de usuario o contraseña incorrectas.");
 				}
 				
-			borrarCajaTexto ();
+				default:
+					//throw new IllegalArgumentException("Unexpected value: " + estado);
+				}
+				
+//				if (estado>1) {
+//					vistaLogin.getContentPane().setVisible(false);
+//					vistaLogin.setVisible(false);
+//										
+//					vistaMenuPrincipal = new Vista_Menu_Principal();
+//					vistaMenuPrincipal.setVisible(true);
+//					
+//					
+//					
+//				}
+//				else {
+//					JOptionPane.showMessageDialog(vistaLogin, "Nombre de usuario o contraseña incorrectas.");
+//				}
+				//}
+				
+			
 			
 		}
-		
+		borrarCajaTexto ();
 		if (e.getSource() == vistaLogin.getBtn_Borrar()) {
 			borrarCajaTexto ();
 
