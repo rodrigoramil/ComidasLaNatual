@@ -9,7 +9,7 @@ import ventanaPrincipal.VentanaPrincipal;
 public class Main {
 
 	public static void main(String[] args) {
-		
+
 			EventQueue.invokeLater(new Runnable() {
 				public void run() {
 					try {
@@ -20,11 +20,12 @@ public class Main {
 
 					} catch (Exception e) {
 						e.printStackTrace();
+						System.out.print("test");
 					}
 				}
 			});
 		}
 
-	
+
 
 }
