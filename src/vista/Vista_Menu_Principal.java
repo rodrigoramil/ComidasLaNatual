@@ -20,15 +20,17 @@ public class Vista_Menu_Principal extends JFrame {
 	private JButton btn_Cerrar_Sesion;
 
 
-	public Vista_Menu_Principal() {		
+	public Vista_Menu_Principal() {
 		
-
-		setTitle(Vista_Login.getTituloVentana()+"Men\u00FA Principal");
+		this.setBounds(200, 0, 650, 380);
+		this.setLocationRelativeTo(null);
+		setTitle("Men\u00FA Principal");
 		getContentPane().setLayout(null);
 		
 		btn_Contabilidad = new JButton("Contabilidad");
 		btn_Contabilidad.setEnabled(false);
-		btn_Contabilidad.setBounds(337, 148, 91, 23);
+		btn_Contabilidad.setBounds(330, 148, 105, 23);
+	
 		getContentPane().add(btn_Contabilidad);
 		
 		btn_Ventas = new JButton("Ventas");
@@ -47,11 +49,12 @@ public class Vista_Menu_Principal extends JFrame {
 		
 		btn_Gestion_Usuario = new JButton("Gesti\u00F3n de usuarios");
 		btn_Gestion_Usuario.setEnabled(false);
-		btn_Gestion_Usuario.setBounds(444, 148, 136, 23);
+		btn_Gestion_Usuario.setBounds(444, 148, 150, 23);
+		
 		getContentPane().add(btn_Gestion_Usuario);
 		
 		btn_Cerrar_Sesion = new JButton("Cerrar Sesi\u00F3n");
-		btn_Cerrar_Sesion.setBounds(230, 255, 97, 23);
+		btn_Cerrar_Sesion.setBounds(230, 255, 150, 23);
 		getContentPane().add(btn_Cerrar_Sesion);
 
 	}
