@@ -19,16 +19,14 @@ public class Vista_Login extends JPanel {
 	private static JPasswordField jtf_Entrada_Contrasena;
 	private static JButton btn_Aceptar;
 	private static JButton btn_Borrar;
-	
-	private static String tituloVentana = "Login";
-	private static int ancho = 450;
-	private static int alto = 300;
-
 	private static JPanel vistaLogin;
+	
+	private static int ancho = 800;
+	private static int alto = 600;
+	private static int posicionPanel_x = 180;
+	private static int posicionPanel_y = 80;
 
-
-	public Vista_Login() {
-		
+	public Vista_Login() {		
 	
 		vistaLogin = new JPanel();
 		btn_Aceptar = new JButton("Aceptar");
@@ -37,9 +35,9 @@ public class Vista_Login extends JPanel {
 		jtf_Entrada_Contrasena = new JPasswordField();
 		lbl_Usuario = new JLabel("Usuario");
 		lbl_Contraseña = new JLabel("Contrase\u00F1a");
-
-		establecerManejador();
 		
+		establecerManejador();
+		vistaLogin.setVisible(true);
 	}
 
 
@@ -48,7 +46,7 @@ public class Vista_Login extends JPanel {
 		
 		
 		vistaLogin.setBorder(new EmptyBorder(5, 5, 5, 5));
-		vistaLogin.setBounds(0, 0, 450, 300);
+		vistaLogin.setBounds(posicionPanel_x, posicionPanel_y, ancho, alto);
 		vistaLogin.setLayout(null);
 		
 		
@@ -103,14 +101,8 @@ public class Vista_Login extends JPanel {
 	}
 
 
-	public static String getTituloVentana() {
-		return tituloVentana;
-	}
 
 
-	public static void setTituloVentana(String tituloVentana) {
-		Vista_Login.tituloVentana = tituloVentana;
-	}
 
 
 

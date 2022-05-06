@@ -13,14 +13,9 @@ public class VentanaPrincipal extends JFrame {
 	 */
 	private static final long serialVersionUID = -3544609316086588704L;
 	
-	private int ancho = 450;
-	private int alto = 300;
-
-	private Container contenedor;
-
-
+	private static JPanel panelContenedor;
 	private static JPanel panelLogin;
-	private static JPanel panelMenuprincipal;
+	private static JPanel panelMenuPrincipal;
 	private static JPanel panelListadoListaCompra;
 	private static JPanel panelProducto;
 	private static JPanel panelAlmacen;
@@ -38,20 +33,24 @@ public class VentanaPrincipal extends JFrame {
 	private static JPanel panelListaCompra;
 	private static JPanel panelListaFacturaciones;
 	private static JPanel panelPedido;
-	private static JPanel _panelProductosAlmacen;
+	private static JPanel panelProductosAlmacen;
 	private static JPanel panelReceta;
 	private static JPanel panelRecetario;
 	private static JPanel panelUsuarios;
+	
+	private int ancho = 800;
+	private int alto = 600;
+
 
 	public VentanaPrincipal() {
 		
-		contenedor = getContentPane();
+//		contenedor = getContentPane();
 		setResizable(false); // fina el tamaño de la ventana
 		setTitle("Comidas La Natural");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(ancho, alto);	// tamaño de la ventana
 		setLocationRelativeTo(null); // ventana en el centro de la pantalla
-		contenedor.setLayout(null); // desactiva el organizador de objetos de la ventana
+		setLayout(null); // desactiva el organizador de objetos de la ventana
 //		setIconImage(Toolkit.getDefaultToolkit().getImage("img/imagenicono.jpg"));
 		setVisible(true);
 				
@@ -62,12 +61,37 @@ public class VentanaPrincipal extends JFrame {
 	
 	private void inicializarPaneles() {
 		
+		panelContenedor = new JPanel();
+		panelContenedor.setBounds(0 , 0, ancho, alto);
+		panelContenedor.setLayout(null);
+		panelContenedor.setVisible(true);		
+		setContentPane(panelContenedor);
 
 		panelLogin = new Vista_Login();
-		panelLogin = Vista_Login.inicializarComponentes();		
-		setContentPane(panelLogin);	
-		panelLogin.setVisible(true);
+		panelLogin = Vista_Login.inicializarComponentes();
 		
+		panelMenuPrincipal = new Vista_Menu_Principal();
+		panelMenuPrincipal = Vista_Menu_Principal.inicializarComponentes();		
+
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		panelContenedor.add(panelLogin);
+		panelContenedor.add(panelMenuPrincipal);
 		
 	}
 
@@ -79,10 +103,11 @@ public class VentanaPrincipal extends JFrame {
 
 
 
-	public static void setPanelLogin(JPanel panelLogin) {
-		VentanaPrincipal.panelLogin = panelLogin;
+	public static JPanel getPanelMenuPrincipal() {
+		return panelMenuPrincipal;
 	}
-	
+
+
 	
 	
 
