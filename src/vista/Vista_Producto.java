@@ -1,6 +1,7 @@
 package vista;
 
-
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -12,8 +13,7 @@ import java.awt.Choice;
 import java.awt.Label;
 import java.awt.Button;
 
-
-public class Vista_Productos_Almacen extends JFrame {
+public class Vista_Producto extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField tfd_Nombre;
@@ -21,14 +21,35 @@ public class Vista_Productos_Almacen extends JFrame {
 	private JTextField tfd_Minimo;
 	private JTextField tfd_Maximo;
 
-	public Vista_Productos_Almacen() {
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Vista_Producto frame = new Vista_Producto();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
 
-
+	/**
+	 * Create the frame.
+	 */
+	public Vista_Producto() {
+		setTitle("Producto Almacen");
+		setResizable(false);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-
+		
 		JLabel lbl_Nombre = new JLabel("Nombre");
 		lbl_Nombre.setBounds(10, 42, 51, 14);
 		contentPane.add(lbl_Nombre);
