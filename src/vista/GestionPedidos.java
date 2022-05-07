@@ -171,114 +171,53 @@ public class GestionPedidos extends JPanel {
 
 
 
-
 	public static JTable getTable() {
 		return table;
 	}
-
-
-
-
-
 
 	public static JButton getBtn_Mesa_1() {
 		return btn_Mesa_1;
 	}
 
-
-
-
-
-
 	public static JButton getBtn_Mesa_2() {
 		return btn_Mesa_2;
 	}
-
-
-
-
-
 
 	public static JButton getBtn_Mesa_3() {
 		return btn_Mesa_3;
 	}
 
-
-
-
-
-
 	public static JButton getBtn_Mesa_4() {
 		return btn_Mesa_4;
 	}
-
-
-
-
-
 
 	public static JButton getBtn_Mesa_8() {
 		return btn_Mesa_8;
 	}
 
-
-
-
-
-
 	public static JButton getBtn_Mesa_7() {
 		return btn_Mesa_7;
 	}
-
-
-
-
-
 
 	public static JButton getBtn_Mesa_6() {
 		return btn_Mesa_6;
 	}
 
-
-
-
-
-
 	public static JButton getBtn_Mesa_5() {
 		return btn_Mesa_5;
 	}
-
-
-
-
-
 
 	public static JButton getBtn_Nuevo_Cliente() {
 		return btn_Nuevo_Cliente;
 	}
 
-
-
-
-
-
 	public static JButton getBtn_ajustes() {
 		return btn_ajustes;
 	}
 
-
-
-
-
-
 	public static JButton getBtn_volver() {
 		return btn_volver;
 	}
-
-
-
-
-
 
 	public static JButton getBtn_Pedido() {
 		return btn_Pedido;

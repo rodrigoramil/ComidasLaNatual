@@ -11,59 +11,63 @@ import javax.swing.JTextField;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-public class Almacen extends JFrame {
+import controlador.ControladorAlmacen;
 
-	private JPanel contentPane;
-	private JTextField textField;
-	private JTable table;
+public class Almacen extends JPanel {
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Almacen frame = new Almacen();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+	private static JPanel panelAlmacen;
+	private static JTextField textField;
+	private static JTable table;
+	private static JButton btn_todos_los_Productos;
+	private static JButton btn_Buscar;
+	private static JButton btn_Volver;
+	private static JButton btn_Realizar_Lista_Compra;
+	private static JButton btn_Ver_Listas_Compras;
+	private static JButton btn_Modificar;
+	private static JButton btn_Nuevo;
+
+	private static int ancho = 800;
+	private static int alto = 600;
+	private static int posicionPanel_x = 180;
+	private static int posicionPanel_y = 80;
+	
+	
+	public Almacen() {
+		
+		panelAlmacen = new JPanel();	
+		btn_todos_los_Productos = new JButton("Todos los productos");
+		textField = new JTextField();
+		btn_Buscar = new JButton("Buscar");
+		btn_Volver = new JButton("Volver");
+		table = new JTable();
+		btn_Realizar_Lista_Compra = new JButton("Realizar lista de la compra");
+		btn_Ver_Listas_Compras = new JButton("Ver listas de la compra");
+		btn_Modificar = new JButton("Modificar");
+		btn_Nuevo = new JButton("Nuevo");
+		
+		establecerManejador();		
+		panelAlmacen.setVisible(false);
 	}
 
-	/**
-	 * Create the frame.
-	 */
-	public Almacen() {
-		setTitle("Almac\u00E9n");
-		setResizable(false);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 473, 351);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
+	public static JPanel inicializarComponentes() {
 		
-		JButton btn_todos_los_Productos = new JButton("Todos los productos");
+		panelAlmacen.setBorder(new EmptyBorder(5, 5, 5, 5));
+		panelAlmacen.setBounds(posicionPanel_x, posicionPanel_y, ancho, alto);
+		panelAlmacen.setLayout(null);
+
 		btn_todos_los_Productos.setBounds(10, 11, 142, 23);
-		contentPane.add(btn_todos_los_Productos);
+		panelAlmacen.add(btn_todos_los_Productos);
 		
-		textField = new JTextField();
 		textField.setBounds(10, 45, 177, 20);
-		contentPane.add(textField);
+		panelAlmacen.add(textField);
 		textField.setColumns(10);
 		
-		JButton btn_Buscar = new JButton("Buscar");
 		btn_Buscar.setBounds(193, 44, 89, 23);
-		contentPane.add(btn_Buscar);
+		panelAlmacen.add(btn_Buscar);
 		
-		JButton btn_Volver = new JButton("Volver");
 		btn_Volver.setBounds(378, 11, 69, 23);
-		contentPane.add(btn_Volver);
+		panelAlmacen.add(btn_Volver);
 		
-		table = new JTable();
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
 				{null, null, null, null},
@@ -92,23 +96,85 @@ public class Almacen extends JFrame {
 			}
 		));
 		table.setBounds(10, 76, 437, 141);
-		contentPane.add(table);
+		panelAlmacen.add(table);
 		
-		JButton btn_Realizar_Lista_Compra = new JButton("Realizar lista de la compra");
 		btn_Realizar_Lista_Compra.setBounds(10, 236, 157, 23);
-		contentPane.add(btn_Realizar_Lista_Compra);
+		panelAlmacen.add(btn_Realizar_Lista_Compra);
 		
-		JButton btn_Ver_Listas_Compras = new JButton("Ver listas de la compra");
 		btn_Ver_Listas_Compras.setBounds(178, 236, 142, 23);
-		contentPane.add(btn_Ver_Listas_Compras);
+		panelAlmacen.add(btn_Ver_Listas_Compras);
 		
-		JButton btn_Modificar = new JButton("Modificar");
 		btn_Modificar.setBounds(368, 228, 79, 23);
-		contentPane.add(btn_Modificar);
+		panelAlmacen.add(btn_Modificar);
 		
-		JButton btn_Nuevo = new JButton("Nuevo");
 		btn_Nuevo.setBounds(368, 263, 79, 23);
-		contentPane.add(btn_Nuevo);
+		panelAlmacen.add(btn_Nuevo);
+		
+		return panelAlmacen;				
+	}
+	
+	public void establecerManejador() {	
+		
+		ControladorAlmacen controlador = new ControladorAlmacen(this);	
+		textField.addActionListener(controlador);
+		table.addMouseListener(controlador);
+		btn_todos_los_Productos.addActionListener(controlador);
+		btn_Buscar.addActionListener(controlador);
+		btn_Volver.addActionListener(controlador);
+		btn_Realizar_Lista_Compra.addActionListener(controlador);
+		btn_Ver_Listas_Compras.addActionListener(controlador);
+		btn_Modificar.addActionListener(controlador);
+		btn_Nuevo.addActionListener(controlador);
+
+	
 	}
 
+	public static JPanel getPanelAlmacen() {
+		return panelAlmacen;
+	}
+
+	public static JTextField getTextField() {
+		return textField;
+	}
+
+	public static JTable getTable() {
+		return table;
+	}
+
+	public static JButton getBtn_todos_los_Productos() {
+		return btn_todos_los_Productos;
+	}
+
+	public static JButton getBtn_Buscar() {
+		return btn_Buscar;
+	}
+
+	public static JButton getBtn_Volver() {
+		return btn_Volver;
+	}
+
+	public static JButton getBtn_Realizar_Lista_Compra() {
+		return btn_Realizar_Lista_Compra;
+	}
+
+	public static JButton getBtn_Ver_Listas_Compras() {
+		return btn_Ver_Listas_Compras;
+	}
+
+	public static JButton getBtn_Modificar() {
+		return btn_Modificar;
+	}
+
+	public static JButton getBtn_Nuevo() {
+		return btn_Nuevo;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

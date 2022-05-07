@@ -29,8 +29,9 @@ public class ControladorLogin implements ActionListener {
 			entrada_usuario = Login.getJtf_Entrada_Nombre().getText();
 			entrada_contrasena = Login.getJtf_Entrada_Contrasena().getText();
 
-			String estado = SentenciasSQL.iniciar_Sesion(entrada_usuario, entrada_contrasena);
-
+		String estado = SentenciasSQL.iniciar_Sesion(entrada_usuario, entrada_contrasena);
+	
+		
 			if (estado.equals("Administrador")) {				
 				cambiarMenuPrincipal ();
 

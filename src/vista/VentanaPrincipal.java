@@ -54,8 +54,8 @@ public class VentanaPrincipal extends JFrame {
 		setLocationRelativeTo(null); // ventana en el centro de la pantalla
 		setLayout(null); // desactiva el organizador de objetos de la ventana
 //		setIconImage(Toolkit.getDefaultToolkit().getImage("img/imagenicono.jpg"));
-		setVisible(true);
-				
+		
+		setVisible(true);				
 		inicializarPaneles();		
 	}
 	
@@ -80,6 +80,11 @@ public class VentanaPrincipal extends JFrame {
 		panelGestionPedidos = new GestionPedidos();
 		panelGestionPedidos = GestionPedidos.inicializarComponentes();
 
+		panelRecetario = new Recetario();
+		panelRecetario = Recetario.inicializarComponentes();
+		
+		panelAlmacen = new Almacen();
+		panelAlmacen = Almacen.inicializarComponentes();
 		
 		
 		
@@ -100,6 +105,8 @@ public class VentanaPrincipal extends JFrame {
 		panelContenedor.add(panelLogin);
 		panelContenedor.add(panelMenuPrincipal);
 		panelContenedor.add(panelGestionPedidos);
+		panelContenedor.add(panelRecetario);
+		panelContenedor.add(panelAlmacen);
 		
 	}
 
