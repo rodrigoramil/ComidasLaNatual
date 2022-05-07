@@ -1,11 +1,9 @@
 package vista;
 
-<<<<<<< HEAD
+
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 
-=======
->>>>>>> alexis
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -16,10 +14,6 @@ public class VentanaPrincipal extends JFrame {
 	 */
 	private static final long serialVersionUID = -3544609316086588704L;
 	
-<<<<<<< HEAD
-
-=======
->>>>>>> alexis
 	private static JPanel panelContenedor;
 	private static JPanel panelLogin;
 	private static JPanel panelMenuPrincipal;
@@ -117,26 +111,15 @@ public class VentanaPrincipal extends JFrame {
 
 	public static JPanel getPanelLogin() {
 		return panelLogin;
-<<<<<<< HEAD
-=======
-
->>>>>>> alexis
 	}
 
 
 
 	public static JPanel getPanelMenuPrincipal() {
 		return panelMenuPrincipal;
-<<<<<<< HEAD
 	}
 
 
-
-=======
-
-	}
-
->>>>>>> alexis
 	public static JPanel getPanelContenedor() {
 		return panelContenedor;
 	}

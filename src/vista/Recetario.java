@@ -16,23 +16,17 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 
-<<<<<<<< HEAD:src/vista/Vista_Recetario.java
-public class Vista_Recetario extends JPanel {
-========
+
 public class Recetario extends JPanel {
->>>>>>>> alexis:src/vista/Recetario.java
+
 
 	private JPanel contentPane;
 	private JTextField textField;
 	private JTable table;
 
 
-<<<<<<<< HEAD:src/vista/Vista_Recetario.java
-	public Vista_Recetario() {
-========
-	public Recetario() {
->>>>>>>> alexis:src/vista/Recetario.java
 
+	public Recetario() {
 		
 		textField = new JTextField();
 		textField.setBounds(10, 45, 169, 20);

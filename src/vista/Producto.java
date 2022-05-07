@@ -13,11 +13,7 @@ import java.awt.Choice;
 import java.awt.Label;
 import java.awt.Button;
 
-<<<<<<<< HEAD:src/vista/Vista_Producto.java
-public class Vista_Producto extends JFrame {
-========
 public class Producto extends JFrame {
->>>>>>>> alexis:src/vista/Producto.java
 
 	private JPanel contentPane;
 	private JTextField tfd_Nombre;
@@ -32,11 +28,9 @@ public class Producto extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-<<<<<<<< HEAD:src/vista/Vista_Producto.java
-					Vista_Producto frame = new Vista_Producto();
-========
+
 					Producto frame = new Producto();
->>>>>>>> alexis:src/vista/Producto.java
+
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -48,11 +42,9 @@ public class Producto extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-<<<<<<<< HEAD:src/vista/Vista_Producto.java
-	public Vista_Producto() {
-========
+
 	public Producto() {
->>>>>>>> alexis:src/vista/Producto.java
+
 		setTitle("Producto Almacen");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

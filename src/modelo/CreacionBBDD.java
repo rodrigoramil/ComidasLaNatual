@@ -5,10 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-<<<<<<< HEAD
-=======
 
->>>>>>> alexis
 public class CreacionBBDD {	
 
 	private Statement stmt=null;
