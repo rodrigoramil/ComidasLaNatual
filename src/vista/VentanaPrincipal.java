@@ -13,6 +13,7 @@ public class VentanaPrincipal extends JFrame {
 	 */
 	private static final long serialVersionUID = -3544609316086588704L;
 	
+
 	private static JPanel panelContenedor;
 	private static JPanel panelLogin;
 	private static JPanel panelMenuPrincipal;
@@ -249,13 +250,6 @@ public class VentanaPrincipal extends JFrame {
 	public static JPanel getPanelUsuarios() {
 		return panelUsuarios;
 	}
-
-
-	
-	
-
-	
-	
 
 }
 

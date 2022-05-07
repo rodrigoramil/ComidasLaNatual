@@ -6,7 +6,6 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
-
 import controlador.ControladorLogin;
 
 public class Login extends JPanel {
@@ -20,7 +19,6 @@ public class Login extends JPanel {
 	private static JButton btn_Aceptar;
 	private static JButton btn_Borrar;
 	private static JPanel panelLogin;
-	
 	private static int ancho = 800;
 	private static int alto = 600;
 	private static int posicionPanel_x = 180;
@@ -41,15 +39,12 @@ public class Login extends JPanel {
 	}
 
 
-	public static JPanel inicializarComponentes() {
-		
-		
+	public static JPanel inicializarComponentes() {		
 		
 		panelLogin.setBorder(new EmptyBorder(5, 5, 5, 5));
 		panelLogin.setBounds(posicionPanel_x, posicionPanel_y, ancho, alto);
 		panelLogin.setLayout(null);
-		
-		
+				
 		btn_Aceptar.setBounds(93, 200, 90, 23);
 		panelLogin.add(btn_Aceptar);
 		
@@ -80,7 +75,6 @@ public class Login extends JPanel {
 	}
 
 
-
 	public static JTextField getJtf_Entrada_Nombre() {
 		return jtf_Entrada_Nombre;
 	}
@@ -90,25 +84,12 @@ public class Login extends JPanel {
 		return jtf_Entrada_Contrasena;
 	}
 
-
 	public static JButton getBtn_Aceptar() {
 		return btn_Aceptar;
 	}
 
-
 	public static JButton getBtn_Borrar() {
 		return btn_Borrar;
 	}
-
-
-
-
-
-
-
-
-	
-
-	
 
 }
