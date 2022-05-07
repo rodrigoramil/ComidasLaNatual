@@ -101,7 +101,7 @@ public class CreacionBBDD {
 	public void crearTablaCliente() throws SQLException {
 		stmt.execute("CREATE TABLE IF NOT EXISTS Cliente("
 				+ "IdCliente INT NOT NULL AUTO_INCREMENT, "
-				+ "NombreCliente VARCHAR(45) NOT NULL, "
+				+ "NombreCliente VARCHAR(45) NOT NULL unique, "
 				+ "Telefono INT(9) NOT NULL, "
 				+ "PRIMARY KEY(IdCliente)"
 				+ ")ENGINE=INNODB;");
