@@ -21,7 +21,9 @@ public class Producto extends JPanel {
 	private JTextField tfd_Minimo;
 	private JTextField tfd_Maximo;
 
-
+//*************************************************
+//Clase Repetida
+//*************************************************
 	public Producto() {
 
 		

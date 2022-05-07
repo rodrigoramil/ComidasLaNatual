@@ -28,11 +28,11 @@ public class Recetario extends JPanel {
 	private static final long serialVersionUID = 3846625552235103376L;
 	
 	private static JPanel panelRecetario;
-	private static JTextField textField;
+	private static JTextField caja_nombre_receta;	
 	private static JTable table;
-	private static JButton btn_Cambiar_Estado;
-	private static JButton btn_Modificar_Receta;
-	private static JButton btnNewButton;
+	private static JButton btn_cambiar_estado;
+	private static JButton btn_modificar_receta;
+	private static JButton btn_nueva_receta;
 	private static JButton btn_ver_recetas;
 	private static JButton btn_listadoRecetas;
 	private static JButton btn_buscar;
@@ -47,15 +47,15 @@ public class Recetario extends JPanel {
 	public Recetario() {
 		
 		panelRecetario= new JPanel();
-		textField = new JTextField();
+		caja_nombre_receta = new JTextField();
 		btn_listadoRecetas = new JButton("Lista de todas las recetas");
 		btn_buscar = new JButton("Buscar");
 		btn_volver = new JButton("Volver");
 		table = new JTable();
 		btn_ver_recetas = new JButton("Ver");
-		btnNewButton = new JButton("Nuevo");
-		btn_Modificar_Receta = new JButton("Modificar");
-		btn_Cambiar_Estado = new JButton("Cambiar Estado");
+		btn_nueva_receta = new JButton("Nuevo");
+		btn_modificar_receta = new JButton("Modificar");
+		btn_cambiar_estado = new JButton("Cambiar Estado");
 				
 		establecerManejador();
 		panelRecetario.setVisible(false);
@@ -68,9 +68,9 @@ public class Recetario extends JPanel {
 		panelRecetario.setLayout(null);
 		
 		
-		textField.setBounds(10, 45, 169, 20);
-		panelRecetario.add(textField);
-		textField.setColumns(10);
+		caja_nombre_receta.setBounds(10, 45, 169, 20);
+		panelRecetario.add(caja_nombre_receta);
+		caja_nombre_receta.setColumns(10);
 		
 	
 		btn_listadoRecetas.setBounds(10, 11, 156, 23);
@@ -113,14 +113,14 @@ public class Recetario extends JPanel {
 		btn_ver_recetas.setBounds(10, 227, 57, 23);
 		panelRecetario.add(btn_ver_recetas);
 		
-		btnNewButton.setBounds(77, 227, 65, 23);
-		panelRecetario.add(btnNewButton);
+		btn_nueva_receta.setBounds(77, 227, 65, 23);
+		panelRecetario.add(btn_nueva_receta);
 		
-		btn_Modificar_Receta.setBounds(154, 227, 75, 23);
-		panelRecetario.add(btn_Modificar_Receta);
+		btn_modificar_receta.setBounds(154, 227, 75, 23);
+		panelRecetario.add(btn_modificar_receta);
 		
-		btn_Cambiar_Estado.setBounds(287, 227, 107, 23);
-		panelRecetario.add(btn_Cambiar_Estado);
+		btn_cambiar_estado.setBounds(287, 227, 107, 23);
+		panelRecetario.add(btn_cambiar_estado);
 			
 		
 		return panelRecetario;	
@@ -129,10 +129,10 @@ public class Recetario extends JPanel {
 	public void establecerManejador() {		
 		ControladorRecetario controlador = new ControladorRecetario(this);
 		
-		textField.addActionListener(controlador);
-		btn_Cambiar_Estado.addActionListener(controlador);
-		btn_Modificar_Receta.addActionListener(controlador);
-		btnNewButton.addActionListener(controlador);
+		caja_nombre_receta.addActionListener(controlador);
+		btn_cambiar_estado.addActionListener(controlador);
+		btn_modificar_receta.addActionListener(controlador);
+		btn_nueva_receta.addActionListener(controlador);
 		btn_ver_recetas.addActionListener(controlador);
 		btn_listadoRecetas.addActionListener(controlador);
 		btn_buscar.addActionListener(controlador);
@@ -142,41 +142,87 @@ public class Recetario extends JPanel {
 		
 	}
 
+	public static JPanel getPanelRecetario() {
+		return panelRecetario;
+	}
+
+	public static void setPanelRecetario(JPanel panelRecetario) {
+		Recetario.panelRecetario = panelRecetario;
+	}
+
+	public static JTextField getCaja_nombre_receta() {
+		return caja_nombre_receta;
+	}
+
+	public static void setCaja_nombre_receta(JTextField caja_nombre_receta) {
+		Recetario.caja_nombre_receta = caja_nombre_receta;
+	}
+
 	public static JTable getTable() {
 		return table;
 	}
 
-	public static JButton getBtn_Cambiar_Estado() {
-		return btn_Cambiar_Estado;
+	public static void setTable(JTable table) {
+		Recetario.table = table;
 	}
 
-	public static JButton getBtn_Modificar_Receta() {
-		return btn_Modificar_Receta;
+	public static JButton getBtn_cambiar_estado() {
+		return btn_cambiar_estado;
 	}
 
-	public static JButton getBtnNewButton() {
-		return btnNewButton;
+	public static void setBtn_cambiar_estado(JButton btn_cambiar_estado) {
+		Recetario.btn_cambiar_estado = btn_cambiar_estado;
+	}
+
+	public static JButton getBtn_modificar_receta() {
+		return btn_modificar_receta;
+	}
+
+	public static void setBtn_modificar_receta(JButton btn_modificar_receta) {
+		Recetario.btn_modificar_receta = btn_modificar_receta;
+	}
+
+	public static JButton getBtn_nueva_receta() {
+		return btn_nueva_receta;
+	}
+
+	public static void setBtn_nueva_receta(JButton btn_nueva_receta) {
+		Recetario.btn_nueva_receta = btn_nueva_receta;
 	}
 
 	public static JButton getBtn_ver_recetas() {
 		return btn_ver_recetas;
 	}
 
+	public static void setBtn_ver_recetas(JButton btn_ver_recetas) {
+		Recetario.btn_ver_recetas = btn_ver_recetas;
+	}
+
 	public static JButton getBtn_listadoRecetas() {
 		return btn_listadoRecetas;
+	}
+
+	public static void setBtn_listadoRecetas(JButton btn_listadoRecetas) {
+		Recetario.btn_listadoRecetas = btn_listadoRecetas;
 	}
 
 	public static JButton getBtn_buscar() {
 		return btn_buscar;
 	}
 
+	public static void setBtn_buscar(JButton btn_buscar) {
+		Recetario.btn_buscar = btn_buscar;
+	}
+
 	public static JButton getBtn_volver() {
 		return btn_volver;
 	}
 
-	public static JPanel getPanelRecetario() {
-		return panelRecetario;
+	public static void setBtn_volver(JButton btn_volver) {
+		Recetario.btn_volver = btn_volver;
 	}
+
+
 	
 	
 	
