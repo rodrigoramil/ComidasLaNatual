@@ -8,17 +8,18 @@ import javax.swing.JOptionPane;
 
 import modelo.SentenciasSQL;
 import vista.Login;
-import vista.Vista_Menu_Principal;
+import vista.MenuPrincipal;
+import vista.VentanaPrincipal;
 
 public class ControladorLogin implements ActionListener {
 
-	private Vista_Menu_Principal vistaMenuPrincipal;
 	private String entrada_usuario;
 	private String entrada_contrasena;
-	private Component vistaLogin;
+	private Login panelLogin;
 
-	public ControladorLogin(Login vista_Login) {
-		this.vistaLogin = vista_Login;
+
+	public ControladorLogin(Login panelLogin) {
+		this.panelLogin = panelLogin;
 	}
 
 	@SuppressWarnings("deprecation")
@@ -30,30 +31,27 @@ public class ControladorLogin implements ActionListener {
 
 			String estado = SentenciasSQL.iniciar_Sesion(entrada_usuario, entrada_contrasena);
 
-			if (estado.equals("Administrador")) {
-				vistaMenuPrincipal = new Vista_Menu_Principal();
-				vistaMenuPrincipal.setVisible(true);
-				vistaMenuPrincipal.getBtn_Recetario().setEnabled(true);
-				vistaMenuPrincipal.getBtn_Almacen().setEnabled(true);
-				vistaMenuPrincipal.getBtn_Gestion_Usuario().setEnabled(true);
-				vistaMenuPrincipal.getBtn_Contabilidad().setEnabled(true);
+			if (estado.equals("Administrador")) {				
+				cambiarMenuPrincipal ();
 
 			} else if (estado.equals("Cocina")) {
-				vistaMenuPrincipal = new Vista_Menu_Principal();
-				vistaMenuPrincipal.setVisible(true);
-				vistaMenuPrincipal.getBtn_Almacen().setEnabled(true);
-				vistaMenuPrincipal.getBtn_Recetario().setEnabled(true);
+				cambiarMenuPrincipal ();				
+
+				MenuPrincipal.getBtn_Ventas().setEnabled(false);
+				MenuPrincipal.getBtn_Contabilidad().setEnabled(false);
+				MenuPrincipal.getBtn_Gestion_Usuario().setEnabled(false);				
 				
-				System.out.println(estado);
+
 			} else if (estado.equals("Venta")) {
-				vistaMenuPrincipal = new Vista_Menu_Principal();
-				vistaMenuPrincipal.getBtn_Ventas().setEnabled(true);
-				vistaMenuPrincipal.setVisible(true);
+				cambiarMenuPrincipal ();
+				MenuPrincipal.getBtn_Almacen().setEnabled(false);
+				MenuPrincipal.getBtn_Gestion_Usuario().setEnabled(false);
+				MenuPrincipal.getBtn_Contabilidad().setEnabled(false);
 
 			}else {
-				JOptionPane.showMessageDialog(vistaLogin, "Error de credenciales");
+				JOptionPane.showMessageDialog(panelLogin, "Error de credenciales");
 			}
-
+			System.out.println(estado);
 		}
 		borrarCajaTexto();
 		if (e.getSource() == Login.getBtn_Borrar()) {
@@ -66,4 +64,16 @@ public class ControladorLogin implements ActionListener {
 		Login.getJtf_Entrada_Nombre().setText("");
 		Login.getJtf_Entrada_Contrasena().setText("");
 	}
+	
+	private void cambiarMenuPrincipal () {
+		VentanaPrincipal.getPanelLogin().setVisible(false);
+		VentanaPrincipal.getPanelMenuPrincipal().setVisible(true);
+		MenuPrincipal.getBtn_Ventas().setEnabled(true);
+		MenuPrincipal.getBtn_Recetario().setEnabled(true);
+		MenuPrincipal.getBtn_Almacen().setEnabled(true);
+		MenuPrincipal.getBtn_Gestion_Usuario().setEnabled(true);
+		MenuPrincipal.getBtn_Contabilidad().setEnabled(true);
+
+	}
+	
 }

@@ -1,3 +1,4 @@
+
 package vista;
 
 
@@ -88,6 +89,9 @@ public class MenuPrincipal extends JPanel {
 
 
 
+	public static JPanel getPanelMenuPrincipal() {
+		return panelMenuPrincipal;
+	}
 
 
 
@@ -97,9 +101,6 @@ public class MenuPrincipal extends JPanel {
 	}
 
 
-	public static void setBtn_Contabilidad(JButton btn_Contabilidad) {
-		MenuPrincipal.btn_Contabilidad = btn_Contabilidad;
-	}
 
 
 	public static JButton getBtn_Ventas() {
@@ -107,9 +108,6 @@ public class MenuPrincipal extends JPanel {
 	}
 
 
-	public static void setBtn_Ventas(JButton btn_Ventas) {
-		MenuPrincipal.btn_Ventas = btn_Ventas;
-	}
 
 
 	public static JButton getBtn_Recetario() {
@@ -117,9 +115,6 @@ public class MenuPrincipal extends JPanel {
 	}
 
 
-	public static void setBtn_Recetario(JButton btn_Recetario) {
-		MenuPrincipal.btn_Recetario = btn_Recetario;
-	}
 
 
 	public static JButton getBtn_Almacen() {
@@ -127,9 +122,6 @@ public class MenuPrincipal extends JPanel {
 	}
 
 
-	public static void setBtn_Almacen(JButton btn_Almacen) {
-		MenuPrincipal.btn_Almacen = btn_Almacen;
-	}
 
 
 	public static JButton getBtn_Gestion_Usuario() {
@@ -137,9 +129,6 @@ public class MenuPrincipal extends JPanel {
 	}
 
 
-	public static void setBtn_Gestion_Usuario(JButton btn_Gestion_Usuario) {
-		MenuPrincipal.btn_Gestion_Usuario = btn_Gestion_Usuario;
-	}
 
 
 	public static JButton getBtn_Cerrar_Sesion() {
@@ -147,9 +136,13 @@ public class MenuPrincipal extends JPanel {
 	}
 
 
-	public static void setBtn_Cerrar_Sesion(JButton btn_Cerrar_Sesion) {
-		MenuPrincipal.btn_Cerrar_Sesion = btn_Cerrar_Sesion;
-	}
+
+
+
+
+
+
+	
 	
 	
 	
