@@ -111,6 +111,8 @@ public class VentanaPrincipal extends JFrame {
 		panelListasCompra = new ListasCompra();
 		panelListasCompra = ListasCompra.inicializarComponentes();
 	
+		panelCliente = new Cliente();
+		panelCliente = Cliente.inicializarComponentes();
 		//--
 		/*
 	
@@ -177,7 +179,7 @@ public class VentanaPrincipal extends JFrame {
 		panelContenedor.add(panelDetalleProducto);
 		panelContenedor.add(panelPrepararCompra);
 		panelContenedor.add(panelListasCompra);
-		
+		panelContenedor.add(panelCliente);	
 		/*
 		
 		
