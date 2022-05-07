@@ -12,7 +12,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.JButton;
 import java.awt.Font;
 
-public class Vista_Gestion_Usuarios extends JFrame {
+public class GestionUsuarios extends JFrame {
 
 	
 	private static final long serialVersionUID = 1L;
@@ -24,7 +24,7 @@ public class Vista_Gestion_Usuarios extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Vista_Gestion_Usuarios frame = new Vista_Gestion_Usuarios();
+					GestionUsuarios frame = new GestionUsuarios();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -34,7 +34,7 @@ public class Vista_Gestion_Usuarios extends JFrame {
 	}
 
 	
-	public Vista_Gestion_Usuarios() {
+	public GestionUsuarios() {
 		setTitle("Gesti\u00F3n de usuarios");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

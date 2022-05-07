@@ -12,7 +12,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JButton;
 
-public class Vista_Calculo_Gastos extends JFrame {
+public class CalculoGastos extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textField;
@@ -26,7 +26,7 @@ public class Vista_Calculo_Gastos extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Vista_Calculo_Gastos frame = new Vista_Calculo_Gastos();
+					CalculoGastos frame = new CalculoGastos();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -38,7 +38,7 @@ public class Vista_Calculo_Gastos extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Vista_Calculo_Gastos() {
+	public CalculoGastos() {
 		setResizable(false);
 		setTitle("Calculo de gastos");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

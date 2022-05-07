@@ -11,7 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-public class Vita_Detalle_Gasto extends JFrame {
+public class DetalleGasto extends JFrame {
 
 	private JPanel contentPane;
 	private JTable table;
@@ -23,7 +23,7 @@ public class Vita_Detalle_Gasto extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Vita_Detalle_Gasto frame = new Vita_Detalle_Gasto();
+					DetalleGasto frame = new DetalleGasto();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -35,7 +35,7 @@ public class Vita_Detalle_Gasto extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Vita_Detalle_Gasto() {
+	public DetalleGasto() {
 		setTitle("Detalle Gasto");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

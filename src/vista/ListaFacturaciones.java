@@ -10,7 +10,7 @@ import javax.swing.JTable;
 import javax.swing.JButton;
 import javax.swing.table.DefaultTableModel;
 
-public class Vista_Lista_Facturaciones extends JFrame {
+public class ListaFacturaciones extends JFrame {
 
 	private JPanel contentPane;
 	private JTable table;
@@ -22,7 +22,7 @@ public class Vista_Lista_Facturaciones extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Vista_Lista_Facturaciones frame = new Vista_Lista_Facturaciones();
+					ListaFacturaciones frame = new ListaFacturaciones();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -34,7 +34,7 @@ public class Vista_Lista_Facturaciones extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Vista_Lista_Facturaciones() {
+	public ListaFacturaciones() {
 		setTitle("Lista de facturaciones");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

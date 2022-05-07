@@ -12,7 +12,7 @@ import java.awt.Font;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-public class Vista_Detalle_Factura extends JFrame {
+public class DetalleFactura extends JFrame {
 
 	private JPanel contentPane;
 	private JTable table;
@@ -24,7 +24,7 @@ public class Vista_Detalle_Factura extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Vista_Detalle_Factura frame = new Vista_Detalle_Factura();
+					DetalleFactura frame = new DetalleFactura();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -36,7 +36,7 @@ public class Vista_Detalle_Factura extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Vista_Detalle_Factura() {
+	public DetalleFactura() {
 		setResizable(false);
 		setTitle("Detalle factura");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

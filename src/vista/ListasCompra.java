@@ -12,7 +12,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JSpinner;
 
-public class Vista_Lista_Compra extends JFrame {
+public class ListasCompra extends JFrame {
 
 	private JPanel contentPane;
 	private JTable table;
@@ -24,7 +24,7 @@ public class Vista_Lista_Compra extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Vista_Lista_Compra frame = new Vista_Lista_Compra();
+					ListasCompra frame = new ListasCompra();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -36,8 +36,8 @@ public class Vista_Lista_Compra extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Vista_Lista_Compra() {
-		setTitle("Lista de la compra");
+	public ListasCompra() {
+		setTitle("Listas de la compra");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);

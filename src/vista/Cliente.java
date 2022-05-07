@@ -10,7 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
-public class Vista_Cliente extends JFrame {
+public class Cliente extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField tfd_nombre;
@@ -23,7 +23,7 @@ public class Vista_Cliente extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Vista_Cliente frame = new Vista_Cliente();
+					Cliente frame = new Cliente();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -35,7 +35,7 @@ public class Vista_Cliente extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Vista_Cliente() {
+	public Cliente() {
 		setTitle("Cliente");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

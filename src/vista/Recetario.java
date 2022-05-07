@@ -16,14 +16,14 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 
-public class Vista_Recetario extends JPanel {
+public class Recetario extends JPanel {
 
 	private JPanel contentPane;
 	private JTextField textField;
 	private JTable table;
 
 
-	public Vista_Recetario() {
+	public Recetario() {
 
 		
 		textField = new JTextField();

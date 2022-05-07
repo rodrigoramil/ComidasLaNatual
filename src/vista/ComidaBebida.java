@@ -11,7 +11,7 @@ import javax.swing.JTextField;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-public class Vista_Comida_Bebida extends JFrame {
+public class ComidaBebida extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textField;
@@ -24,7 +24,7 @@ public class Vista_Comida_Bebida extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Vista_Comida_Bebida frame = new Vista_Comida_Bebida();
+					ComidaBebida frame = new ComidaBebida();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -36,7 +36,7 @@ public class Vista_Comida_Bebida extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Vista_Comida_Bebida() {
+	public ComidaBebida() {
 		setTitle("Buscar comida / bebida");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

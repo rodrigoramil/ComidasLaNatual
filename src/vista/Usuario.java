@@ -14,7 +14,7 @@ import java.awt.Choice;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 
-public class Vista_Usuarios extends JFrame {
+public class Usuario extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textField;
@@ -28,7 +28,7 @@ public class Vista_Usuarios extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Vista_Usuarios frame = new Vista_Usuarios();
+					Usuario frame = new Usuario();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -40,7 +40,7 @@ public class Vista_Usuarios extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Vista_Usuarios() {
+	public Usuario() {
 		setTitle("Usuario");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

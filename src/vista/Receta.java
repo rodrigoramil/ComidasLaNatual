@@ -16,7 +16,7 @@ import javax.swing.border.LineBorder;
 import java.awt.Color;
 import javax.swing.table.DefaultTableModel;
 
-public class Vista_Receta extends JFrame {
+public class Receta extends JFrame {
 
 	private JPanel contentPane;
 	private JTable table;
@@ -28,7 +28,7 @@ public class Vista_Receta extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Vista_Receta frame = new Vista_Receta();
+					Receta frame = new Receta();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -40,7 +40,7 @@ public class Vista_Receta extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Vista_Receta() {
+	public Receta() {
 		setTitle("Receta");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

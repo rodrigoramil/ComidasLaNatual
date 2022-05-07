@@ -10,7 +10,7 @@ import javax.swing.JTable;
 import javax.swing.JButton;
 import javax.swing.table.DefaultTableModel;
 
-public class Vista_Listas_Gastos extends JFrame {
+public class ListaGastos extends JFrame {
 
 	private JPanel contentPane;
 	private JTable table;
@@ -22,7 +22,7 @@ public class Vista_Listas_Gastos extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Vista_Listas_Gastos frame = new Vista_Listas_Gastos();
+					ListaGastos frame = new ListaGastos();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -34,7 +34,7 @@ public class Vista_Listas_Gastos extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Vista_Listas_Gastos() {
+	public ListaGastos() {
 		setTitle("Lista de gastos");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

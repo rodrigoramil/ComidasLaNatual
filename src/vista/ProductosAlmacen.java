@@ -13,7 +13,7 @@ import java.awt.Label;
 import java.awt.Button;
 
 
-public class Vista_Productos_Almacen extends JFrame {
+public class ProductosAlmacen extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField tfd_Nombre;
@@ -21,7 +21,7 @@ public class Vista_Productos_Almacen extends JFrame {
 	private JTextField tfd_Minimo;
 	private JTextField tfd_Maximo;
 
-	public Vista_Productos_Almacen() {
+	public ProductosAlmacen() {
 
 
 		contentPane = new JPanel();
