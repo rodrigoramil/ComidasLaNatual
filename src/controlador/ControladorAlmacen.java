@@ -23,7 +23,32 @@ private Almacen panelAlmacen;
 			VentanaPrincipal.getPanelAlmacen().setVisible(false);
 		}
 		
+		if (e.getSource() == Almacen.getBtn_Modificar()) {
+			VentanaPrincipal.getPanelAlmacen().setVisible(false);
+			VentanaPrincipal.getPanelDetalleProducto().setVisible(true);
+		}
+		if (e.getSource() == Almacen.getBtn_Nuevo()) {
+			VentanaPrincipal.getPanelAlmacen().setVisible(false);
+			VentanaPrincipal.getPanelDetalleProducto().setVisible(true);
+		}
 		
+		if (e.getSource() == Almacen.getBtn_Realizar_Lista_Compra()) {
+			VentanaPrincipal.getPanelAlmacen().setVisible(false);
+			VentanaPrincipal.getPanelPrepararCompra().setVisible(true);
+		}
+				
+		if (e.getSource() == Almacen.getBtn_Ver_Listas_Compras()) {
+			VentanaPrincipal.getPanelAlmacen().setVisible(false);
+			VentanaPrincipal.getPanelListasCompra().setVisible(true);
+		}
+		
+		if (e.getSource() == Almacen.getBtn_todos_los_Productos()) {
+			
+		}
+		
+		if (e.getSource() == Almacen.getBtn_Buscar()) {
+			
+		}
 		
 	}
 		

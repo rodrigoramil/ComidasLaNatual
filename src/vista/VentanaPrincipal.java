@@ -38,7 +38,7 @@ public class VentanaPrincipal extends JFrame {
 	private static JPanel panelUsuario;
 	private static JPanel panelDetalleProducto;
 	
-	private static JPanel panelProducto;	// <- clase repetida
+	private static JPanel panelProductosAlmacen;	// <- clase no implementada
 	
 	
 	private int ancho = 800;
@@ -103,14 +103,19 @@ public class VentanaPrincipal extends JFrame {
 		panelDetalleProducto = new DetalleProducto();
 		panelDetalleProducto = DetalleProducto.inicializarComponentes();
 		
+		panelPrepararCompra = new PrepararCompra();
+		panelPrepararCompra = PrepararCompra.inicializarComponentes();	
 		
+	
+	
+		panelListasCompra = new ListasCompra();
+		panelListasCompra = ListasCompra.inicializarComponentes();
+	
 		//--
 		/*
-		panelPrepararCompra = new PrepararCompra();
-		panelPrepararCompra = PrepararCompra.inicializarComponentes();
-		
-		panelProducto = new Producto();
-		panelProducto = Producto.inicializarComponentes();
+	
+		panelCliente = new Cliente();
+		panelCliente = Cliente.inicializarComponentes();
 		
 		panelBuscarComidaBebida = new BuscarComidaBebida();
 		panelBuscarComidaBebida = BuscarComidaBebida.inicializarComponentes();
@@ -121,8 +126,7 @@ public class VentanaPrincipal extends JFrame {
 		panelCalculoGastos = new CalculoGastos();
 		panelCalculoGastos = CalculoGastos.inicializarComponentes();
 		
-		panelCliente = new Cliente();
-		panelCliente = Cliente.inicializarComponentes();
+
 		
 		panelContabilidad = new Contabilidad();
 		panelContabilidad = Contabilidad.inicializarComponentes();
@@ -140,8 +144,7 @@ public class VentanaPrincipal extends JFrame {
 		panelListaGastos = new ListaGastos();
 		panelListaGastos = ListaGastos.inicializarComponentes();
 		
-		panelListasCompra = new ListasCompra();
-		panelListasCompra = ListasCompra.inicializarComponentes();
+
 		
 		panelListaFacturaciones = new ListaFacturaciones();
 		panelListaFacturaciones = ListaFacturaciones.inicializarComponentes();
@@ -149,7 +152,9 @@ public class VentanaPrincipal extends JFrame {
 		panelPedido = new Pedido();
 		panelPedido = Pedido.inicializarComponentes();
 		
-
+		// no implementada
+		panelProductosAlmacen = new ProductosAlmacen();
+		panelProductosAlmacen = Producto.inicializarComponentes();
 		
 
 		
@@ -170,20 +175,23 @@ public class VentanaPrincipal extends JFrame {
 		panelContenedor.add(panelUsuario);
 		panelContenedor.add(panelReceta);
 		panelContenedor.add(panelDetalleProducto);
+		panelContenedor.add(panelPrepararCompra);
+		panelContenedor.add(panelListasCompra);
+		
 		/*
-		panelContenedor.add(panelPrepararCompra);		
-		panelContenedor.add(panelProducto);		
+		
+		
+		panelContenedor.add(panelCliente);					
 		panelContenedor.add(panelBuscarComidaBebida);
 		panelContenedor.add(panelCalculoGanancias);
 		panelContenedor.add(panelCalculoGastos);
-		panelContenedor.add(panelCliente);
 		panelContenedor.add(panelDetalleFactura);
 		panelContenedor.add(panelDetalleGasto);
 		panelContenedor.add(panelFacturar);		
-		panelContenedor.add(panelListaGastos);
-		panelContenedor.add(panelListasCompra);
+		panelContenedor.add(panelListaGastos);		
 		panelContenedor.add(panelListaFacturaciones);
 		panelContenedor.add(panelPedido);
+		panelContenedor.add(panelProductosAlmacen);	// no implementada
 		
 		
 		
@@ -221,8 +229,8 @@ public class VentanaPrincipal extends JFrame {
 	}
 
 
-	public static JPanel getPanelProducto() {
-		return panelProducto;
+	public static JPanel getPanelProductosAlmacen() {
+		return panelProductosAlmacen;
 	}
 
 

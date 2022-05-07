@@ -128,6 +128,42 @@ public class DetalleProducto extends JPanel {
 		btn_Aceptar.addActionListener(controlador);	
 
 	}
+
+
+
+	public static JPanel getPanelDetalleProducto() {
+		return panelDetalleProducto;
+	}
+
+
+
+	public static void setPanelDetalleProducto(JPanel panelDetalleProducto) {
+		DetalleProducto.panelDetalleProducto = panelDetalleProducto;
+	}
+
+
+
+	public static JButton getBtn_volver() {
+		return btn_volver;
+	}
+
+
+
+	public static void setBtn_volver(JButton btn_volver) {
+		DetalleProducto.btn_volver = btn_volver;
+	}
+
+
+
+	public static JButton getBtn_Aceptar() {
+		return btn_Aceptar;
+	}
+
+
+
+	public static void setBtn_Aceptar(JButton btn_Aceptar) {
+		DetalleProducto.btn_Aceptar = btn_Aceptar;
+	}
 	
 	
 	

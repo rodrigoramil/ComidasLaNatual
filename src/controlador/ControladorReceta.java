@@ -27,7 +27,7 @@ public class ControladorReceta implements ActionListener, MouseListener  {
 		
 		if (e.getSource() == Receta.getBtn_nuevo_ingrediente()) {
 
-//			VentanaPrincipal.getPanelProductosAlmacen().setVisible(true);   <- No implementada
+//			VentanaPrincipal.getPanelProductosAlmacen().setVisible(true);   <- No implementada 
 //			VentanaPrincipal.getPanelReceta().setVisible(false);
 		}
 		

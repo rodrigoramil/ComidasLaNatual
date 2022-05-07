@@ -6,65 +6,121 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.JSpinner;
+
+import controlador.ControladorListasCompra;
 
 public class ListasCompra extends JPanel {
 
-	private JPanel contentPane;
-	private JTable table;
+	private static JPanel panelListasCompra;
+	private static JTable table;
+	private static JButton btn_Volver;
+	private static JButton btn_Ver;
+	
+	private static int ancho = 800;
+	private static int alto = 600;
+	private static int posicionPanel_x = 100;
+	private static int posicionPanel_y = 50;
 
 	public ListasCompra() {
-
 		
-		JLabel lblNewLabel = new JLabel("Lista de la compra N\u00BAx");
-		lblNewLabel.setBounds(10, 24, 141, 14);
-		contentPane.add(lblNewLabel);
+		panelListasCompra = new JPanel();
+		table = new JTable();	
+		btn_Volver = new JButton("Volver");			
+		btn_Ver = new JButton("Ver");
 		
-		JButton btn_volver = new JButton("Volver");
-		btn_volver.setBounds(335, 7, 89, 23);
-		contentPane.add(btn_volver);
-		
-		table = new JTable();
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-			},
-			new String[] {
-				"Productos", "Cantidad a comprar"
-			}
-		));
-		table.setBounds(10, 51, 404, 166);
-		contentPane.add(table);
-		
-		JButton btn_Guardar = new JButton("Guardar");
-		btn_Guardar.setBounds(79, 227, 89, 23);
-		contentPane.add(btn_Guardar);
-		
-		JButton btn_Imprimir = new JButton("Imprimir");
-		btn_Imprimir.setBounds(233, 227, 89, 23);
-		contentPane.add(btn_Imprimir);
+		establecerManejador();		
+		panelListasCompra.setVisible(false);
 	}
+
 
 	public static JPanel inicializarComponentes() {
-		// TODO Auto-generated method stub
-		return null;
+
+		panelListasCompra.setBorder(new EmptyBorder(5, 5, 5, 5));
+		panelListasCompra.setBounds(posicionPanel_x, posicionPanel_y, ancho, alto);
+		panelListasCompra.setLayout(null);
+		
+		btn_Volver.setBounds(335, 11, 89, 23);
+		panelListasCompra.add(btn_Volver);
+		
+
+		table.setModel(new DefaultTableModel(
+			new Object[][] {
+				{null, null, Boolean.FALSE},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+			},
+			new String[] {
+				"N\u00BA", "Fecha", "New column"
+			}
+		) {
+			Class[] columnTypes = new Class[] {
+				Integer.class, Object.class, Boolean.class
+			};
+			public Class getColumnClass(int columnIndex) {
+				return columnTypes[columnIndex];
+			}
+		});
+		table.setBounds(35, 50, 367, 119);
+		panelListasCompra.add(table);
+		
+
+		btn_Ver.setBounds(159, 197, 89, 23);
+		panelListasCompra.add(btn_Ver);
+		
+		
+		return panelListasCompra;
 	}
+	
+	public void establecerManejador() {			
+		ControladorListasCompra controlador = new ControladorListasCompra(this);
+		
+		table.addMouseListener(controlador);
+		btn_Volver.addActionListener(controlador);
+		btn_Ver.addActionListener(controlador);
+		
+	}
+
+
+	public static JTable getTable() {
+		return table;
+	}
+
+
+	public static void setTable(JTable table) {
+		ListasCompra.table = table;
+	}
+
+
+	public static JButton getBtn_Volver() {
+		return btn_Volver;
+	}
+
+
+	public static JButton getBtn_Ver() {
+		return btn_Ver;
+	}
+	
+	
+	
+	
 }
