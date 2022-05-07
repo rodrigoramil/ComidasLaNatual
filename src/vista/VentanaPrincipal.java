@@ -89,6 +89,12 @@ public class VentanaPrincipal extends JFrame {
 		panelContabilidad = new Contabilidad();
 		panelContabilidad = Contabilidad.inicializarComponentes();
 		
+		panelGestionUsuarios = new GestionUsuarios();
+		panelGestionUsuarios = GestionUsuarios.inicializarComponentes();
+		
+		panelUsuario = new Usuario();
+		panelUsuario = Usuario.inicializarComponentes();
+		
 		//--
 		/*
 		panelPrepararCompra = new PrepararCompra();
@@ -120,10 +126,7 @@ public class VentanaPrincipal extends JFrame {
 	
 		panelFacturar = new Facturar();
 		panelFacturar = Facturar.inicializarComponentes();
-		
-		
-		panelGestionUsuarios = new GestionUsuarios();
-		panelGestionUsuarios = GestionUsuarios.inicializarComponentes();
+
 		
 		panelListaGastos = new ListaGastos();
 		panelListaGastos = ListaGastos.inicializarComponentes();
@@ -143,8 +146,7 @@ public class VentanaPrincipal extends JFrame {
 		panelReceta = new Receta();
 		panelReceta = Receta.inicializarComponentes();
 		
-		panelUsuario = new Usuario();
-		panelUsuario = Usuario.inicializarComponentes();
+
 		
 
 		/**
@@ -155,11 +157,12 @@ public class VentanaPrincipal extends JFrame {
 		panelContenedor.add(panelMenuPrincipal);
 		panelContenedor.add(panelGestionPedidos);
 		panelContenedor.add(panelRecetario);
-		panelContenedor.add(panelAlmacen);
+		panelContenedor.add(panelAlmacen);		
 		panelContenedor.add(panelContabilidad);	
+		panelContenedor.add(panelGestionUsuarios);
+		panelContenedor.add(panelUsuario);
 		/*
-		panelContenedor.add(panelPrepararCompra);
-		
+		panelContenedor.add(panelPrepararCompra);		
 		panelContenedor.add(panelProducto);		
 		panelContenedor.add(panelBuscarComidaBebida);
 		panelContenedor.add(panelCalculoGanancias);
@@ -167,15 +170,14 @@ public class VentanaPrincipal extends JFrame {
 		panelContenedor.add(panelCliente);
 		panelContenedor.add(panelDetalleFactura);
 		panelContenedor.add(panelDetalleGasto);
-		panelContenedor.add(panelFacturar);
-		panelContenedor.add(panelGestionUsuarios);
+		panelContenedor.add(panelFacturar);		
 		panelContenedor.add(panelListaGastos);
 		panelContenedor.add(panelListasCompra);
 		panelContenedor.add(panelListaFacturaciones);
 		panelContenedor.add(panelPedido);
 		panelContenedor.add(panelProductosAlmacen);
 		panelContenedor.add(panelReceta);
-		panelContenedor.add(panelUsuario);
+		
 	*/
 	}
 
