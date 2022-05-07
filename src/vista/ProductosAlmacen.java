@@ -1,7 +1,6 @@
 package vista;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
+
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -13,11 +12,8 @@ import java.awt.Choice;
 import java.awt.Label;
 import java.awt.Button;
 
-<<<<<<<< HEAD:src/vista/Vista_Producto.java
-public class Vista_Producto extends JFrame {
-========
-public class Producto extends JFrame {
->>>>>>>> alexis:src/vista/Producto.java
+
+public class ProductosAlmacen extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField tfd_Nombre;
@@ -25,43 +21,14 @@ public class Producto extends JFrame {
 	private JTextField tfd_Minimo;
 	private JTextField tfd_Maximo;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-<<<<<<<< HEAD:src/vista/Vista_Producto.java
-					Vista_Producto frame = new Vista_Producto();
-========
-					Producto frame = new Producto();
->>>>>>>> alexis:src/vista/Producto.java
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	public ProductosAlmacen() {
 
-	/**
-	 * Create the frame.
-	 */
-<<<<<<<< HEAD:src/vista/Vista_Producto.java
-	public Vista_Producto() {
-========
-	public Producto() {
->>>>>>>> alexis:src/vista/Producto.java
-		setTitle("Producto Almacen");
-		setResizable(false);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		JLabel lbl_Nombre = new JLabel("Nombre");
 		lbl_Nombre.setBounds(10, 42, 51, 14);
 		contentPane.add(lbl_Nombre);

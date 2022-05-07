@@ -7,6 +7,10 @@ import java.sql.SQLException;
 
 public class Conexion {
 	Connection con = null;
+<<<<<<< HEAD
+=======
+
+>>>>>>> alexis
 	public Connection obtenerConexion() {
 		
 			String cadenaConexion = "jdbc:mysql://localhost:3306/bbdd_comidas_la_natural";

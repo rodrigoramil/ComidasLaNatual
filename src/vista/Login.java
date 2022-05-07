@@ -26,7 +26,13 @@ public class Login extends JPanel {
 
 	public Login() {		
 	
+<<<<<<< HEAD
 		panelLogin = new JPanel();
+=======
+
+		panelLogin = new JPanel();
+
+>>>>>>> alexis
 		btn_Aceptar = new JButton("Aceptar");
 		btn_Borrar = new JButton("Borrar");
 		jtf_Entrada_Nombre = new JTextField();
@@ -39,7 +45,13 @@ public class Login extends JPanel {
 	}
 
 
+<<<<<<< HEAD
 	public static JPanel inicializarComponentes() {		
+=======
+
+	public static JPanel inicializarComponentes() {		
+
+>>>>>>> alexis
 		
 		panelLogin.setBorder(new EmptyBorder(5, 5, 5, 5));
 		panelLogin.setBounds(posicionPanel_x, posicionPanel_y, ancho, alto);
