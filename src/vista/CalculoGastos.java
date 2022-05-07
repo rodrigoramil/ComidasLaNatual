@@ -12,41 +12,15 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JButton;
 
-public class CalculoGastos extends JFrame {
+public class CalculoGastos extends JPanel {
 
 	private JPanel contentPane;
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTable table;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					CalculoGastos frame = new CalculoGastos();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
-	/**
-	 * Create the frame.
-	 */
 	public CalculoGastos() {
-		setResizable(false);
-		setTitle("Calculo de gastos");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
 		
 		JLabel lbl_Desde = new JLabel("Desde");
 		lbl_Desde.setBounds(30, 63, 46, 14);
@@ -101,6 +75,11 @@ public class CalculoGastos extends JFrame {
 		JButton btn_Volver = new JButton("Volver");
 		btn_Volver.setBounds(335, 11, 75, 23);
 		contentPane.add(btn_Volver);
+	}
+
+	public static JPanel inicializarComponentes() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

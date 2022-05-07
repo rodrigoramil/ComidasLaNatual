@@ -12,39 +12,13 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import java.awt.Color;
 
-public class Pedido extends JFrame {
+public class Pedido extends JPanel {
 
 	private JPanel contentPane;
 	private JTable table;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Pedido frame = new Pedido();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
-	/**
-	 * Create the frame.
-	 */
 	public Pedido() {
-		setResizable(false);
-		setTitle("Pedido");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
 		
 		JLabel lbl_Num_Mesa = new JLabel("Mesa 1");
 		lbl_Num_Mesa.setBounds(26, 35, 46, 14);
@@ -101,5 +75,10 @@ public class Pedido extends JFrame {
 		btn_Facturar.setBackground(Color.ORANGE);
 		btn_Facturar.setBounds(335, 227, 89, 23);
 		contentPane.add(btn_Facturar);
+	}
+
+	public static JPanel inicializarComponentes() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

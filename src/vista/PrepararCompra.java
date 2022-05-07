@@ -10,40 +10,14 @@ import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-public class PrepararCompra extends JFrame {
+public class PrepararCompra extends JPanel {
 
 	private JPanel contentPane;
 	private JTable table;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					PrepararCompra frame = new PrepararCompra();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
-	/**
-	 * Create the frame.
-	 */
 	public PrepararCompra() {
-		setTitle("Listas de la compra");
-		setResizable(false);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
-		
+
 		JButton btn_Volver = new JButton("Volver");
 		btn_Volver.setBounds(335, 11, 89, 23);
 		contentPane.add(btn_Volver);
@@ -89,6 +63,12 @@ public class PrepararCompra extends JFrame {
 		JButton btn_Ver = new JButton("Ver");
 		btn_Ver.setBounds(159, 197, 89, 23);
 		contentPane.add(btn_Ver);
+	}
+
+
+	public static JPanel inicializarComponentes() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

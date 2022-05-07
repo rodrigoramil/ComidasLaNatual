@@ -12,7 +12,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.JButton;
 import java.awt.Font;
 
-public class GestionUsuarios extends JFrame {
+public class GestionUsuarios extends JPanel {
 
 	
 	private static final long serialVersionUID = 1L;
@@ -20,29 +20,8 @@ public class GestionUsuarios extends JFrame {
 	private JTable table;
 
 	
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					GestionUsuarios frame = new GestionUsuarios();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
-	
 	public GestionUsuarios() {
-		setTitle("Gesti\u00F3n de usuarios");
-		setResizable(false);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
 		
 		JLabel lbl_lista_usuarios = new JLabel("Lista de Usuarios");
 		lbl_lista_usuarios.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -83,5 +62,11 @@ public class GestionUsuarios extends JFrame {
 		JButton btn_volver = new JButton("Volver");
 		btn_volver.setBounds(335, 11, 89, 23);
 		contentPane.add(btn_volver);
+	}
+
+
+	public static JPanel inicializarComponentes() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

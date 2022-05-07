@@ -33,11 +33,13 @@ public class ControladorMenuPrincipal implements ActionListener {
 		}
 		
 		if (e.getSource() == MenuPrincipal.getBtn_Contabilidad()) {
-			
+			VentanaPrincipal.getPanelMenuPrincipal().setVisible(false);
+			VentanaPrincipal.getPanelContabilidad().setVisible(true);
 		}
 		
 		if (e.getSource() == MenuPrincipal.getBtn_Gestion_Usuario()) {
-			
+			VentanaPrincipal.getPanelMenuPrincipal().setVisible(false);
+			VentanaPrincipal.getPanelGestionUsuarios().setVisible(true);
 		}
 		
 		if (e.getSource() == MenuPrincipal.getBtn_Cerrar_Sesion()) {

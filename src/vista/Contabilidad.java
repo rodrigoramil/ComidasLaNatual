@@ -1,57 +1,90 @@
 package vista;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import controlador.ControladorContabilidad;
 import javax.swing.JButton;
 
-public class Contabilidad extends JFrame {
-
-	private JPanel contentPane;
+public class Contabilidad extends JPanel {
 
 	/**
-	 * Launch the application.
+	 * 
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Contabilidad frame = new Contabilidad();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	private static final long serialVersionUID = 5004678058994074860L;
+	
+	private static JPanel panelContabilidad;
+	private static JButton btn_Gastos;
+	private static JButton btn_volver;
+	private static JButton btn_Facturacion;
+	private static int ancho = 800;
+	private static int alto = 600;
+	private static int posicionPanel_x = 100;
+	private static int posicionPanel_y = 50;
 
-	/**
-	 * Create the frame.
-	 */
 	public Contabilidad() {
-		setResizable(false);
-		setTitle("Contabilidad");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
+			
+		panelContabilidad = new JPanel();	
+		btn_Gastos = new JButton("Gastos");
+		btn_volver = new JButton("Volver");
+		btn_Facturacion = new JButton("Facturacion");
+
+		establecerManejador();		
+		panelContabilidad.setVisible(false);
+	}
+	
+	
+	public static JPanel inicializarComponentes() {
 		
-		JButton btn_Gastos = new JButton("Gastos");
+		panelContabilidad.setBorder(new EmptyBorder(5, 5, 5, 5));
+		panelContabilidad.setBounds(posicionPanel_x, posicionPanel_y, ancho, alto);
+		panelContabilidad.setLayout(null);
+		
+		
 		btn_Gastos.setBounds(134, 78, 163, 43);
-		contentPane.add(btn_Gastos);
+		panelContabilidad.add(btn_Gastos);
 		
-		JButton btn_volver = new JButton("Volver");
 		btn_volver.setBounds(335, 23, 89, 23);
-		contentPane.add(btn_volver);
+		panelContabilidad.add(btn_volver);
 		
-		JButton btn_Facturacion = new JButton("Facturacion");
 		btn_Facturacion.setBounds(134, 133, 163, 43);
-		contentPane.add(btn_Facturacion);
+		panelContabilidad.add(btn_Facturacion);		
+		
+		
+		return panelContabilidad;		
 	}
 
+	
+	public void establecerManejador() {			
+		ControladorContabilidad controlador = new ControladorContabilidad(this);
+		btn_Gastos.addActionListener(controlador);
+		btn_Facturacion.addActionListener(controlador);
+		btn_volver.addActionListener(controlador);
+		
+	}
+
+
+	public static JPanel getPanelContabilidad() {
+		return panelContabilidad;
+	}
+
+
+	public static JButton getBtn_Gastos() {
+		return btn_Gastos;
+	}
+
+
+	public static JButton getBtn_volver() {
+		return btn_volver;
+	}
+
+
+	public static JButton getBtn_Facturacion() {
+		return btn_Facturacion;
+	}	
+	
+	
+	
+	
+	
+	
 }

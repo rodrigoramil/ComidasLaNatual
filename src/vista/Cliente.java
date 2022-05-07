@@ -10,40 +10,15 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
-public class Cliente extends JFrame {
+public class Cliente extends JPanel {
 
 	private JPanel contentPane;
 	private JTextField tfd_nombre;
 	private JTextField tfd_telefono;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Cliente frame = new Cliente();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
-	/**
-	 * Create the frame.
-	 */
 	public Cliente() {
-		setTitle("Cliente");
-		setResizable(false);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 208);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
+
 		
 		JLabel lbl_nombre = new JLabel("Nombre");
 		lbl_nombre.setBounds(59, 51, 46, 14);
@@ -71,6 +46,11 @@ public class Cliente extends JFrame {
 		JButton btn_volver = new JButton("Volver");
 		btn_volver.setBounds(361, 11, 63, 23);
 		contentPane.add(btn_volver);
+	}
+
+	public static JPanel inicializarComponentes() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

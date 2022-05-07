@@ -11,40 +11,15 @@ import javax.swing.JTextField;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-public class ComidaBebida extends JFrame {
+public class BuscarComidaBebida extends JPanel {
 
 	private JPanel contentPane;
 	private JTextField textField;
 	private JTable table;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ComidaBebida frame = new ComidaBebida();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
-	/**
-	 * Create the frame.
-	 */
-	public ComidaBebida() {
-		setTitle("Buscar comida / bebida");
-		setResizable(false);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 629, 300);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
+	public BuscarComidaBebida() {
+
 		
 		JButton btn_Comidas_Disponibles = new JButton("Comidas Disponibles");
 		btn_Comidas_Disponibles.setBounds(28, 21, 145, 23);
@@ -107,5 +82,11 @@ public class ComidaBebida extends JFrame {
 		JButton btn_ver_receta = new JButton("Ver receta");
 		btn_ver_receta.setBounds(461, 222, 89, 23);
 		contentPane.add(btn_ver_receta);
+	}
+
+
+	public static JPanel inicializarComponentes() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

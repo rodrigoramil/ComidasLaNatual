@@ -10,39 +10,14 @@ import javax.swing.JTable;
 import javax.swing.JButton;
 import javax.swing.table.DefaultTableModel;
 
-public class ListaFacturaciones extends JFrame {
+public class ListaFacturaciones extends JPanel {
 
 	private JPanel contentPane;
 	private JTable table;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ListaFacturaciones frame = new ListaFacturaciones();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
-	/**
-	 * Create the frame.
-	 */
 	public ListaFacturaciones() {
-		setTitle("Lista de facturaciones");
-		setResizable(false);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
+
 		
 		table = new JTable();
 		table.setModel(new DefaultTableModel(
@@ -86,6 +61,11 @@ public class ListaFacturaciones extends JFrame {
 		JButton btn_Calcular_Ganancias = new JButton("Calcular Ganancias");
 		btn_Calcular_Ganancias.setBounds(245, 201, 123, 23);
 		contentPane.add(btn_Calcular_Ganancias);
+	}
+
+	public static JPanel inicializarComponentes() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

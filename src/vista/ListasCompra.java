@@ -12,39 +12,13 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JSpinner;
 
-public class ListasCompra extends JFrame {
+public class ListasCompra extends JPanel {
 
 	private JPanel contentPane;
 	private JTable table;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ListasCompra frame = new ListasCompra();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
 	public ListasCompra() {
-		setTitle("Listas de la compra");
-		setResizable(false);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
+
 		
 		JLabel lblNewLabel = new JLabel("Lista de la compra N\u00BAx");
 		lblNewLabel.setBounds(10, 24, 141, 14);
@@ -87,5 +61,10 @@ public class ListasCompra extends JFrame {
 		JButton btn_Imprimir = new JButton("Imprimir");
 		btn_Imprimir.setBounds(233, 227, 89, 23);
 		contentPane.add(btn_Imprimir);
+	}
+
+	public static JPanel inicializarComponentes() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

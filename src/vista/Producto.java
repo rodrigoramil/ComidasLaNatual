@@ -13,7 +13,7 @@ import java.awt.Choice;
 import java.awt.Label;
 import java.awt.Button;
 
-public class Producto extends JFrame {
+public class Producto extends JPanel {
 
 	private JPanel contentPane;
 	private JTextField tfd_Nombre;
@@ -21,38 +21,9 @@ public class Producto extends JFrame {
 	private JTextField tfd_Minimo;
 	private JTextField tfd_Maximo;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-
-					Producto frame = new Producto();
-
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
 
 	public Producto() {
 
-		setTitle("Producto Almacen");
-		setResizable(false);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
 		
 		JLabel lbl_Nombre = new JLabel("Nombre");
 		lbl_Nombre.setBounds(10, 42, 51, 14);
@@ -105,5 +76,11 @@ public class Producto extends JFrame {
 		Button btn_Aceptar = new Button("Aceptar");
 		btn_Aceptar.setBounds(157, 212, 70, 22);
 		contentPane.add(btn_Aceptar);
+	}
+
+
+	public static JPanel inicializarComponentes() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

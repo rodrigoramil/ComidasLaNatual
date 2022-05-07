@@ -16,39 +16,12 @@ import javax.swing.border.LineBorder;
 import java.awt.Color;
 import javax.swing.table.DefaultTableModel;
 
-public class Receta extends JFrame {
+public class Receta extends JPanel {
 
 	private JPanel contentPane;
 	private JTable table;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Receta frame = new Receta();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
 	public Receta() {
-		setTitle("Receta");
-		setResizable(false);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 588, 430);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
 		
 		JLabel lbl_Nombre_Receta = new JLabel("Nombre de la receta");
 		lbl_Nombre_Receta.setFont(new Font("Tahoma", Font.BOLD, 16));
@@ -119,5 +92,10 @@ public class Receta extends JFrame {
 		JButton btn_volver = new JButton("Volver");
 		btn_volver.setBounds(473, 7, 89, 23);
 		contentPane.add(btn_volver);
+	}
+
+	public static JPanel inicializarComponentes() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

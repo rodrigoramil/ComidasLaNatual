@@ -13,7 +13,7 @@ import java.awt.Label;
 import java.awt.Button;
 
 
-public class ProductosAlmacen extends JFrame {
+public class ProductosAlmacen extends JPanel {
 
 	private JPanel contentPane;
 	private JTextField tfd_Nombre;
@@ -26,7 +26,6 @@ public class ProductosAlmacen extends JFrame {
 
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
 		JLabel lbl_Nombre = new JLabel("Nombre");
@@ -80,5 +79,10 @@ public class ProductosAlmacen extends JFrame {
 		Button btn_Aceptar = new Button("Aceptar");
 		btn_Aceptar.setBounds(157, 212, 70, 22);
 		contentPane.add(btn_Aceptar);
+	}
+
+	public static JPanel inicializarComponentes() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

@@ -12,41 +12,16 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-public class CalculoGanancias extends JFrame {
+public class CalculoGanancias extends JPanel {
 
 	private JPanel contentPane;
 	private JTable table;
 	private JTextField tfd_Desde;
 	private JTextField tfd_hasta;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					CalculoGanancias frame = new CalculoGanancias();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
-	/**
-	 * Create the frame.
-	 */
 	public CalculoGanancias() {
-		setResizable(false);
-		setTitle("Calculo de Ganancias");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
+
 		
 		JButton btn_Volver = new JButton("Volver");
 		btn_Volver.setBounds(348, 11, 76, 23);
@@ -112,6 +87,11 @@ public class CalculoGanancias extends JFrame {
 		JButton btn_Imprimir = new JButton("Imprimir");
 		btn_Imprimir.setBounds(185, 210, 76, 23);
 		contentPane.add(btn_Imprimir);
+	}
+
+	public static JPanel inicializarComponentes() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

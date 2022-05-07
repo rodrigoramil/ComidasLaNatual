@@ -12,40 +12,14 @@ import java.awt.Font;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-public class DetalleFactura extends JFrame {
+public class DetalleFactura extends JPanel {
 
 	private JPanel contentPane;
 	private JTable table;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					DetalleFactura frame = new DetalleFactura();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
-	/**
-	 * Create the frame.
-	 */
 	public DetalleFactura() {
-		setResizable(false);
-		setTitle("Detalle factura");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
-		
+	
 		JLabel lbl_Num_Mesa = new JLabel("Mesa 1");
 		lbl_Num_Mesa.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lbl_Num_Mesa.setBounds(31, 32, 46, 14);
@@ -104,6 +78,11 @@ public class DetalleFactura extends JFrame {
 		JLabel lbl_Num_IVA = new JLabel("23.60");
 		lbl_Num_IVA.setBounds(333, 231, 37, 14);
 		contentPane.add(lbl_Num_IVA);
+	}
+
+	public static JPanel inicializarComponentes() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

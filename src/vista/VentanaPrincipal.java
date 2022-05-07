@@ -18,7 +18,7 @@ public class VentanaPrincipal extends JFrame {
 	private static JPanel panelLogin;
 	private static JPanel panelMenuPrincipal;
 	private static JPanel panelGestionPedidos;
-	private static JPanel panelListadoListaCompra;
+	private static JPanel panelPrepararCompra;
 	private static JPanel panelProducto;
 	private static JPanel panelAlmacen;
 	private static JPanel panelBuscarComidaBebida;
@@ -27,17 +27,17 @@ public class VentanaPrincipal extends JFrame {
 	private static JPanel panelCliente;
 	private static JPanel panelContabilidad;
 	private static JPanel panelDetalleFactura;
-	private static JPanel panelDetalleBasto;
+	private static JPanel panelDetalleGasto;
 	private static JPanel panelFacturar;
 	private static JPanel panelGestionUsuarios;
 	private static JPanel panelListaGastos;
-	private static JPanel panelListaCompra;
+	private static JPanel panelListasCompra;
 	private static JPanel panelListaFacturaciones;
 	private static JPanel panelPedido;
 	private static JPanel panelProductosAlmacen;
 	private static JPanel panelReceta;
 	private static JPanel panelRecetario;
-	private static JPanel panelUsuarios;
+	private static JPanel panelUsuario;
 	
 	private int ancho = 800;
 	private int alto = 600;
@@ -85,29 +85,98 @@ public class VentanaPrincipal extends JFrame {
 		
 		panelAlmacen = new Almacen();
 		panelAlmacen = Almacen.inicializarComponentes();
+			
+		panelContabilidad = new Contabilidad();
+		panelContabilidad = Contabilidad.inicializarComponentes();
+		
+		//--
+		/*
+		panelPrepararCompra = new PrepararCompra();
+		panelPrepararCompra = PrepararCompra.inicializarComponentes();
+		
+		panelProducto = new Producto();
+		panelProducto = Producto.inicializarComponentes();
+		
+		panelBuscarComidaBebida = new BuscarComidaBebida();
+		panelBuscarComidaBebida = BuscarComidaBebida.inicializarComponentes();
+		
+		panelCalculoGanancias = new CalculoGanancias();
+		panelCalculoGanancias = CalculoGanancias.inicializarComponentes();
+		
+		panelCalculoGastos = new CalculoGastos();
+		panelCalculoGastos = CalculoGastos.inicializarComponentes();
+		
+		panelCliente = new Cliente();
+		panelCliente = Cliente.inicializarComponentes();
+		
+		panelContabilidad = new Contabilidad();
+		panelContabilidad = Contabilidad.inicializarComponentes();
+		
+		panelDetalleFactura = new DetalleFactura();
+		panelDetalleFactura = DetalleFactura.inicializarComponentes();
+		
+		panelDetalleGasto = new DetalleGasto();
+		panelDetalleGasto = DetalleGasto.inicializarComponentes();
+	
+		panelFacturar = new Facturar();
+		panelFacturar = Facturar.inicializarComponentes();
 		
 		
+		panelGestionUsuarios = new GestionUsuarios();
+		panelGestionUsuarios = GestionUsuarios.inicializarComponentes();
 		
+		panelListaGastos = new ListaGastos();
+		panelListaGastos = ListaGastos.inicializarComponentes();
 		
+		panelListasCompra = new ListasCompra();
+		panelListasCompra = ListasCompra.inicializarComponentes();
 		
+		panelListaFacturaciones = new ListaFacturaciones();
+		panelListaFacturaciones = ListaFacturaciones.inicializarComponentes();
 		
+		panelPedido = new Pedido();
+		panelPedido = Pedido.inicializarComponentes();
 		
+		panelProductosAlmacen = new ProductosAlmacen();
+		panelProductosAlmacen = ProductosAlmacen.inicializarComponentes();
 		
+		panelReceta = new Receta();
+		panelReceta = Receta.inicializarComponentes();
 		
+		panelUsuario = new Usuario();
+		panelUsuario = Usuario.inicializarComponentes();
 		
-		
-		
-		
-		
-		
-		
+
+		/**
+		 * Añadimos todos los paneles al panel que contiene todos los paneles
+		 */
 		
 		panelContenedor.add(panelLogin);
 		panelContenedor.add(panelMenuPrincipal);
 		panelContenedor.add(panelGestionPedidos);
 		panelContenedor.add(panelRecetario);
 		panelContenedor.add(panelAlmacen);
+		panelContenedor.add(panelContabilidad);	
+		/*
+		panelContenedor.add(panelPrepararCompra);
 		
+		panelContenedor.add(panelProducto);		
+		panelContenedor.add(panelBuscarComidaBebida);
+		panelContenedor.add(panelCalculoGanancias);
+		panelContenedor.add(panelCalculoGastos);
+		panelContenedor.add(panelCliente);
+		panelContenedor.add(panelDetalleFactura);
+		panelContenedor.add(panelDetalleGasto);
+		panelContenedor.add(panelFacturar);
+		panelContenedor.add(panelGestionUsuarios);
+		panelContenedor.add(panelListaGastos);
+		panelContenedor.add(panelListasCompra);
+		panelContenedor.add(panelListaFacturaciones);
+		panelContenedor.add(panelPedido);
+		panelContenedor.add(panelProductosAlmacen);
+		panelContenedor.add(panelReceta);
+		panelContenedor.add(panelUsuario);
+	*/
 	}
 
 
@@ -116,10 +185,14 @@ public class VentanaPrincipal extends JFrame {
 	 * @return
 	 */
 
+	public static JPanel getPanelContenedor() {
+		return panelContenedor;
+	}
+
+
 	public static JPanel getPanelLogin() {
 		return panelLogin;
 	}
-
 
 
 	public static JPanel getPanelMenuPrincipal() {
@@ -127,22 +200,14 @@ public class VentanaPrincipal extends JFrame {
 	}
 
 
-	public static JPanel getPanelContenedor() {
-		return panelContenedor;
-	}
-
-
-
 	public static JPanel getPanelGestionPedidos() {
 		return panelGestionPedidos;
 	}
 
 
-
-	public static JPanel getPanelListadoListaCompra() {
-		return panelListadoListaCompra;
+	public static JPanel getPanelPrepararCompra() {
+		return panelPrepararCompra;
 	}
-
 
 
 	public static JPanel getPanelProducto() {
@@ -150,11 +215,9 @@ public class VentanaPrincipal extends JFrame {
 	}
 
 
-
 	public static JPanel getPanelAlmacen() {
 		return panelAlmacen;
 	}
-
 
 
 	public static JPanel getPanelBuscarComidaBebida() {
@@ -162,11 +225,9 @@ public class VentanaPrincipal extends JFrame {
 	}
 
 
-
 	public static JPanel getPanelCalculoGanancias() {
 		return panelCalculoGanancias;
 	}
-
 
 
 	public static JPanel getPanelCalculoGastos() {
@@ -174,11 +235,9 @@ public class VentanaPrincipal extends JFrame {
 	}
 
 
-
 	public static JPanel getPanelCliente() {
 		return panelCliente;
 	}
-
 
 
 	public static JPanel getPanelContabilidad() {
@@ -186,17 +245,14 @@ public class VentanaPrincipal extends JFrame {
 	}
 
 
-
 	public static JPanel getPanelDetalleFactura() {
 		return panelDetalleFactura;
 	}
 
 
-
-	public static JPanel getPanelDetalleBasto() {
-		return panelDetalleBasto;
+	public static JPanel getPanelDetalleGasto() {
+		return panelDetalleGasto;
 	}
-
 
 
 	public static JPanel getPanelFacturar() {
@@ -204,11 +260,9 @@ public class VentanaPrincipal extends JFrame {
 	}
 
 
-
 	public static JPanel getPanelGestionUsuarios() {
 		return panelGestionUsuarios;
 	}
-
 
 
 	public static JPanel getPanelListaGastos() {
@@ -216,11 +270,9 @@ public class VentanaPrincipal extends JFrame {
 	}
 
 
-
-	public static JPanel getPanelListaCompra() {
-		return panelListaCompra;
+	public static JPanel getPanelListasCompra() {
+		return panelListasCompra;
 	}
-
 
 
 	public static JPanel getPanelListaFacturaciones() {
@@ -228,11 +280,9 @@ public class VentanaPrincipal extends JFrame {
 	}
 
 
-
 	public static JPanel getPanelPedido() {
 		return panelPedido;
 	}
-
 
 
 	public static JPanel getPanelProductosAlmacen() {
@@ -240,11 +290,9 @@ public class VentanaPrincipal extends JFrame {
 	}
 
 
-
 	public static JPanel getPanelReceta() {
 		return panelReceta;
 	}
-
 
 
 	public static JPanel getPanelRecetario() {
@@ -252,9 +300,8 @@ public class VentanaPrincipal extends JFrame {
 	}
 
 
-
-	public static JPanel getPanelUsuarios() {
-		return panelUsuarios;
+	public static JPanel getPanelUsuario() {
+		return panelUsuario;
 	}
 
 }

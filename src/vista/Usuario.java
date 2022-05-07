@@ -14,41 +14,16 @@ import java.awt.Choice;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 
-public class Usuario extends JFrame {
+public class Usuario extends JPanel {
 
 	private JPanel contentPane;
 	private JTextField textField;
 	private JPasswordField passwordField;
 	private JPasswordField passwordField_2;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Usuario frame = new Usuario();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
-	/**
-	 * Create the frame.
-	 */
 	public Usuario() {
-		setTitle("Usuario");
-		setResizable(false);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
+
 		
 		JLabel lbl_Nombre = new JLabel("Nombre");
 		lbl_Nombre.setBounds(10, 67, 65, 14);
@@ -99,5 +74,10 @@ public class Usuario extends JFrame {
 		JButton btnNewButton = new JButton("Volver");
 		btnNewButton.setBounds(342, 11, 71, 23);
 		contentPane.add(btnNewButton);
+	}
+
+	public static JPanel inicializarComponentes() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
