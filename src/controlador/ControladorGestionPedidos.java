@@ -33,7 +33,7 @@ public class ControladorGestionPedidos implements ActionListener, MouseListener 
 			VentanaPrincipal.getPanelCliente().setVisible(true);	
 			
 			
-			
+			SentenciasSQL.editarCliente();
 			
 			
 		}
@@ -102,7 +102,7 @@ public class ControladorGestionPedidos implements ActionListener, MouseListener 
 	@Override
 	public void mousePressed(MouseEvent e) { // Al pulsar raton
 
-		SentenciasSQL.editarCliente();
+		
 	}
 
 	@Override

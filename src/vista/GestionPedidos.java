@@ -13,7 +13,7 @@ import javax.swing.ImageIcon;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import controlador.ControladorGestionPedidos;
-
+import modelo.SentenciasSQL;
 
 import java.awt.Font;
 import java.util.ArrayList;
@@ -90,7 +90,9 @@ public class GestionPedidos extends JPanel {
 	
 	
 	public static JPanel inicializarComponentes() {
-
+		
+		SentenciasSQL.GestionPedidosClientes();
+		
 		panelGestionPedidos.setBorder(new EmptyBorder(5, 5, 5, 5));
 		panelGestionPedidos.setBounds(posicionPanel_x, posicionPanel_y, ancho, alto);
 		panelGestionPedidos.setLayout(null);

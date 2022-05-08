@@ -23,7 +23,7 @@ public class ControladorMenuPrincipal implements ActionListener {
 			VentanaPrincipal.getPanelMenuPrincipal().setVisible(false);
 			VentanaPrincipal.getPanelGestionPedidos().setVisible(true);
 			
-			SentenciasSQL.GestionPedidosClientes();
+//			SentenciasSQL.GestionPedidosClientes();
 			
 		}
 		
