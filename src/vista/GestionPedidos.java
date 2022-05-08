@@ -13,7 +13,7 @@ import javax.swing.ImageIcon;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import controlador.ControladorGestionPedidos;
-
+import modelo.SentenciasSQL;
 
 import java.awt.Font;
 import java.util.ArrayList;
@@ -51,18 +51,14 @@ public class GestionPedidos extends JPanel {
 
 	private static JList listaCliente = new JList();
     private static JScrollPane scrollCliente = new JScrollPane(listaCliente);
+    
 	
 	
 	public GestionPedidos() {
 		
 		panelGestionPedidos = new JPanel();
 		lbl_Para_llevar = new JLabel("Para llevar");
-		lbl_mesa = new JLabel("En mesa");
-		
-// *************************************************************************************************			
-//		table = new JTable();
-// *************************************************************************************************
-		
+		lbl_mesa = new JLabel("En mesa");		
 		btn_Mesa_1 = new JButton("Mesa 1 ");
 		btn_Mesa_2 = new JButton("Mesa 2");		
 		btn_Mesa_4 = new JButton("Mesa 4");		
@@ -82,6 +78,7 @@ public class GestionPedidos extends JPanel {
 		
 		establecerManejador();		
 		panelGestionPedidos.setVisible(false);
+		
 	}
 	
 	
@@ -128,31 +125,7 @@ public class GestionPedidos extends JPanel {
 		
 		panelGestionPedidos.add(scrollCliente);
         scrollCliente.setBounds(269, 74, 155, 145);
-		
-// *************************************************************************************************	
-		/*
-		table = new JTable();
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-			},
-			new String[] {
-				"New column"
-			}
-		));
-		table.setBounds(269, 74, 155, 145);
-		panelGestionPedidos.add(table);
-		*/
-//********************************************************************************************************
-		
+	
 		btn_Nuevo_Cliente.setBounds(278, 46, 107, 23);
 		panelGestionPedidos.add(btn_Nuevo_Cliente);
 		
@@ -176,12 +149,7 @@ public class GestionPedidos extends JPanel {
 	}
 	
 	public void establecerManejador() {			
-		ControladorGestionPedidos controlador = new ControladorGestionPedidos(this);
-		
-// *************************************************************************************************			
-//		table.addMouseListener(controlador);
-// *************************************************************************************************	
-		
+		ControladorGestionPedidos controlador = new ControladorGestionPedidos(this);	
 		btn_Mesa_1.addActionListener(controlador);
 		btn_Mesa_2.addActionListener(controlador);
 		btn_Mesa_3.addActionListener(controlador);
@@ -194,17 +162,16 @@ public class GestionPedidos extends JPanel {
 		btn_Editar_Cliente.addActionListener(controlador);
 		btn_volver.addActionListener(controlador);
 		btn_Ver_Pedido.addActionListener(controlador);
-		
 		listaCliente.addMouseListener(controlador);
 
 	
 	}
 	
-	public static void DatosClientes(ArrayList<String> prueba) {
+	public static void DatosClientes(ArrayList<String> bbddArrayCliente) {
 
         DefaultListModel modeloCliente = new DefaultListModel();
 
-        Object[] rellenoDatosCliente = prueba.toArray();
+        Object[] rellenoDatosCliente = bbddArrayCliente.toArray();
 
         for (int i =0; i<rellenoDatosCliente.length; i++) {
             modeloCliente.addElement(rellenoDatosCliente[i]);
@@ -212,9 +179,9 @@ public class GestionPedidos extends JPanel {
         }
         listaCliente.setModel(modeloCliente);
     }
-    public static String obtenerCliente() {
+    public static String clienteSeleccionado() {
         String clienteSeleccionado = listaCliente.getSelectedValue().toString();
-        System.out.println(clienteSeleccionado);
+        //System.out.println(clienteSeleccionado);
         return clienteSeleccionado;
 
     }

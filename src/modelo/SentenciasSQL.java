@@ -10,8 +10,14 @@ import vista.GestionPedidos;
 
 public class SentenciasSQL {
 
-	static Connection connection = null;
+	private static Connection connection = null;
+	private static GestionPedidos gestionPedidos = null;
+	private static Conexion conexion = null;
+	private static PreparedStatement sentencia = null;
+	private static ResultSet rs = null;
+	
 
+	
 	public SentenciasSQL() {
 
 	}
@@ -31,7 +37,7 @@ public class SentenciasSQL {
 			sentencia.setNString(1, entrada_usuario);
 			sentencia.setNString(2, entrada_contrasena); // <-- sustituir por la variable passcifrado
 
-			ResultSet rs = sentencia.executeQuery();
+			rs = sentencia.executeQuery();
 			
 			while (rs.next()) {
 
@@ -69,30 +75,23 @@ public class SentenciasSQL {
 	}
 	
 	
-	public static void gestionPedidosClientes() {
-        GestionPedidos gestionPedidos = new GestionPedidos();
-        Conexion conexion = new Conexion();
+	public static void listarClientes() {
+        gestionPedidos = new GestionPedidos();
+        conexion = new Conexion();
         connection = conexion.obtenerConexion();
-
-        ArrayList<String> prueba = new ArrayList<>();
-
-
-
-
+        ArrayList<String> arrayCliente = new ArrayList<>();
+        
         try {
-
-            PreparedStatement sentencia = connection.prepareStatement(
-                    "SELECT NombreCliente FROM cliente ");
-
-            ResultSet rs = sentencia.executeQuery();
+            sentencia = connection.prepareStatement("SELECT NombreCliente FROM cliente ");
+            rs = sentencia.executeQuery();
 
             while (rs.next()) {
-                prueba.add(rs.getString("NombreCliente"));
+                arrayCliente.add(rs.getString("NombreCliente"));
 
 
 
             }
-            gestionPedidos.DatosClientes(prueba);
+            gestionPedidos.DatosClientes(arrayCliente);
         } catch (SQLException e) {
             System.out.println("Error en gestionPedidosClientes SentenciasSQL");
             System.out.println(e.getMessage());
@@ -105,33 +104,30 @@ public class SentenciasSQL {
 
     }
     public static void editarCliente() {
-        GestionPedidos gestionPedidos = new GestionPedidos();
+        gestionPedidos = new GestionPedidos();
         Conexion conexion = new Conexion();
         connection = conexion.obtenerConexion();
-
-        gestionPedidos.obtenerCliente();
-        ArrayList<String> prueba = new ArrayList<>();
+        gestionPedidos.clienteSeleccionado();
+        ArrayList<String> arrayClienteModificar = new ArrayList<>();
 
 
 
 
         try {
 
-            PreparedStatement sentencia = connection.prepareStatement(
-                    "Update NombreCliente from cliente where NombreCliente = ?");
-
-            ResultSet rs = sentencia.executeQuery();
+            PreparedStatement sentencia = connection.prepareStatement("Update NombreCliente from cliente where NombreCliente = ?");
+            rs = sentencia.executeQuery();
 
             while (rs.next()) {
-                prueba.add(rs.getString("NombreCliente"));
+                arrayClienteModificar.add(rs.getString("NombreCliente"));
                 System.out.println(rs.getString("NombreCliente"));
 
 
             }
-            gestionPedidos.DatosClientes(prueba);
+            gestionPedidos.DatosClientes(arrayClienteModificar);
         } catch (SQLException e) {
         	System.out.println("Error en editarCliente SentenciasSQL");
-            System.out.println(e.getMessage());
+            //System.out.println(e.getMessage());
 
         }
 
