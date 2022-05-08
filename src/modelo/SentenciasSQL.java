@@ -71,6 +71,8 @@ public class SentenciasSQL {
 	
 	public static void GestionPedidosClientes() {
         GestionPedidos gestionPedidos = new GestionPedidos();
+        
+    
         Conexion conexion = new Conexion();
         connection = conexion.obtenerConexion();
 
@@ -92,7 +94,7 @@ public class SentenciasSQL {
 
 
             }
-            gestionPedidos.DatosClientes(prueba);
+            gestionPedidos.datosClientes(prueba);
         } catch (SQLException e) {
             System.out.println("Error al realizar el listado de productos");
             System.out.println(e.getMessage());
@@ -109,7 +111,14 @@ public class SentenciasSQL {
         Conexion conexion = new Conexion();
         connection = conexion.obtenerConexion();
 
-        gestionPedidos.obtenerCliente();
+        try {
+			gestionPedidos.clienteSelecionado();
+		} catch (NullPointerException e) {
+			System.out.println("Seleciona el cliente primero");
+			e.printStackTrace();
+		}
+        
+        
         ArrayList<String> prueba = new ArrayList<>();
 
 
@@ -128,13 +137,17 @@ public class SentenciasSQL {
 
 
             }
-            gestionPedidos.DatosClientes(prueba);
+            gestionPedidos.datosClientes(prueba);
         } catch (SQLException e) {
             System.out.println("Error al realizar el listado de productos");
             System.out.println(e.getMessage());
 
         }
 
+
+    
+    
+    
     } 
     
     

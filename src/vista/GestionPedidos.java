@@ -202,11 +202,24 @@ public class GestionPedidos extends JPanel {
 	
 	}
 	
-	public static void DatosClientes(ArrayList<String> prueba) {
+	
+	public ArrayList<Cliente> creaListaClientes() {
+		
+		DefaultListModel modeloCliente = new DefaultListModel();
+		for (Cliente c : clientes) {
+			modeloCliente.addElement(c.toString());
+		}
+		cliente.setModel(modeloCliente);
+		return clientes;
+	}
+	
+	
+	//****************************************************************************************************************
+	public static void datosClientes(ArrayList<String> clientes) {
 
         DefaultListModel modeloCliente = new DefaultListModel();
 
-        Object[] rellenoDatosCliente = prueba.toArray();
+        Object[] rellenoDatosCliente = clientes.toArray();
 
         for (int i =0; i<rellenoDatosCliente.length; i++) {
             modeloCliente.addElement(rellenoDatosCliente[i]);
@@ -214,13 +227,25 @@ public class GestionPedidos extends JPanel {
         }
         listaCliente.setModel(modeloCliente);
     }
-    public static String obtenerCliente() {
+	
+	
+	
+	
+	
+	
+	
+    public static String clienteSelecionado () {
+    	
+    	
         String clienteSeleccionado = listaCliente.getSelectedValue().toString();
-        System.out.println(clienteSeleccionado);
+        
+        System.out.println(clienteSeleccionado); // <-- Borrar luego
+        
         return clienteSeleccionado;
 
     }
-	
+    
+	//*******************************************************************************************************************
 	
 
 	public static JButton getBtn_Mesa_1() {
