@@ -102,7 +102,13 @@ public class ControladorGestionPedidos implements ActionListener, MouseListener 
 	@Override
 	public void mousePressed(MouseEvent e) { // Al pulsar raton
 
+//**********************************************************************************************
+		
 		SentenciasSQL.editarCliente();
+		
+//**********************************************************************************************		
+		
+		
 	}
 
 	@Override

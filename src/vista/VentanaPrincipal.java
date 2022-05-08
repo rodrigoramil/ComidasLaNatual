@@ -171,7 +171,7 @@ public class VentanaPrincipal extends JFrame {
 		panelContenedor.add(panelCalculoGastos);
 		panelContenedor.add(panelDetalleFactura);
 		panelContenedor.add(panelCalculoGanancias);
-		panelContenedor.add(panelProductosAlmacen);	// no implementada
+		panelContenedor.add(panelProductosAlmacen);
 
 		
 	}

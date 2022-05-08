@@ -69,15 +69,16 @@ public class SentenciasSQL {
 	}
 	
 	
-	public static void GestionPedidosClientes() {
+	
+	
+//**********************************************************************************************	
+	
+	public static void gestionPedidosClientes() {
         GestionPedidos gestionPedidos = new GestionPedidos();
         Conexion conexion = new Conexion();
         connection = conexion.obtenerConexion();
 
         ArrayList<String> prueba = new ArrayList<>();
-
-
-
 
         try {
 
@@ -89,10 +90,8 @@ public class SentenciasSQL {
             while (rs.next()) {
                 prueba.add(rs.getString("NombreCliente"));
 
-
-
             }
-            gestionPedidos.DatosClientes(prueba);
+            gestionPedidos.datosClientes(prueba);
         } catch (SQLException e) {
             System.out.println("Error al realizar el listado de productos");
             System.out.println(e.getMessage());
@@ -104,6 +103,9 @@ public class SentenciasSQL {
 
 
     }
+	
+	
+	
     public static void editarCliente() {
         GestionPedidos gestionPedidos = new GestionPedidos();
         Conexion conexion = new Conexion();
@@ -111,9 +113,6 @@ public class SentenciasSQL {
 
         gestionPedidos.obtenerCliente();
         ArrayList<String> prueba = new ArrayList<>();
-
-
-
 
         try {
 
@@ -128,7 +127,8 @@ public class SentenciasSQL {
 
 
             }
-            gestionPedidos.DatosClientes(prueba);
+            gestionPedidos.datosClientes(prueba);
+            
         } catch (SQLException e) {
             System.out.println("Error al realizar el listado de productos");
             System.out.println(e.getMessage());
@@ -136,4 +136,9 @@ public class SentenciasSQL {
         }
 
     } 
+    
+ //**********************************************************************************************
+  
+    
+    
 }

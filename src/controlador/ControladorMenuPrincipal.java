@@ -23,8 +23,9 @@ public class ControladorMenuPrincipal implements ActionListener {
 			VentanaPrincipal.getPanelMenuPrincipal().setVisible(false);
 			VentanaPrincipal.getPanelGestionPedidos().setVisible(true);
 			
-			SentenciasSQL.GestionPedidosClientes();
-			
+//**********************************************************************************************			
+			SentenciasSQL.gestionPedidosClientes();
+//**********************************************************************************************
 		}
 		
 		if (e.getSource() == MenuPrincipal.getBtn_Recetario()) {

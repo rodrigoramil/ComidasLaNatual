@@ -76,18 +76,12 @@ public class GestionPedidos extends JPanel {
 		btn_volver = new JButton("Volver");
 		btn_Ver_Pedido = new JButton("Ver Pedido");
 
-		
-		
-		
-		
+	
 		establecerManejador();		
 		panelGestionPedidos.setVisible(false);
 	}
 	
-	
-	
-	
-	
+
 	
 	public static JPanel inicializarComponentes() {
 
@@ -128,8 +122,9 @@ public class GestionPedidos extends JPanel {
 		
 		panelGestionPedidos.add(scrollCliente);
         scrollCliente.setBounds(269, 74, 155, 145);
-		
-// *************************************************************************************************	
+
+// *****************************************************************************************************
+
 		/*
 		table = new JTable();
 		table.setModel(new DefaultTableModel(
@@ -151,6 +146,7 @@ public class GestionPedidos extends JPanel {
 		table.setBounds(269, 74, 155, 145);
 		panelGestionPedidos.add(table);
 		*/
+        
 //********************************************************************************************************
 		
 		btn_Nuevo_Cliente.setBounds(278, 46, 107, 23);
@@ -195,12 +191,18 @@ public class GestionPedidos extends JPanel {
 		btn_volver.addActionListener(controlador);
 		btn_Ver_Pedido.addActionListener(controlador);
 		
+//**********************************************************************************************		
 		listaCliente.addMouseListener(controlador);
-
+//**********************************************************************************************
 	
 	}
 	
-	public static void DatosClientes(ArrayList<String> prueba) {
+	
+	
+	
+//**********************************************************************************************
+	
+	public static void datosClientes(ArrayList<String> prueba) {
 
         DefaultListModel modeloCliente = new DefaultListModel();
 
@@ -218,9 +220,16 @@ public class GestionPedidos extends JPanel {
         return clienteSeleccionado;
 
     }
-	
+    
+  //**********************************************************************************************	
 	
 
+    
+    
+    
+    
+    
+    
 	public static JButton getBtn_Mesa_1() {
 		return btn_Mesa_1;
 	}
