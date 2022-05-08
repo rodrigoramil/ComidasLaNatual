@@ -6,6 +6,10 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
 
+
+import javax.swing.JOptionPane;
+
+
 import modelo.SentenciasSQL;
 import vista.GestionPedidos;
 import vista.VentanaPrincipal;
@@ -34,9 +38,11 @@ public class ControladorGestionPedidos implements ActionListener, MouseListener 
 			try {
 				GestionPedidos.clienteSeleccionado();	VentanaPrincipal.getPanelGestionPedidos().setVisible(false);
 				VentanaPrincipal.getPanelCliente().setVisible(true);	
-			} catch (NullPointerException e1) {
+
+			} catch (NullPointerException errorSelectorVacio) {
 				
-				System.out.println("Seleccionar cliente");
+				JOptionPane.showMessageDialog(panelGestionPedidos, "Selecciona cliente a editar");
+
 			}
 		}
 		
@@ -127,5 +133,9 @@ public class ControladorGestionPedidos implements ActionListener, MouseListener 
 		
 
 	
+	
 }
+	
+	
+	
 
