@@ -31,9 +31,9 @@ public class GestionPedidos extends JPanel {
 	private static JButton btn_Mesa_6;
 	private static JButton btn_Mesa_5;	
 	private static JButton btn_Nuevo_Cliente;
-	private static JButton btn_ajustes;
+	private static JButton btn_Editar_Cliente;
+	private static JButton btn_Ver_Pedido;
 	private static JButton btn_volver;
-	private static JButton btn_Pedido;
 
 	private static int ancho = 800;
 	private static int alto = 600;
@@ -55,9 +55,9 @@ public class GestionPedidos extends JPanel {
 		btn_Mesa_6 = new JButton("Mesa 6");		
 		btn_Mesa_5 = new JButton("Mesa 5");	
 		btn_Nuevo_Cliente = new JButton("Nuevo Cliente");		
-		btn_ajustes = new JButton("");	
+		btn_Editar_Cliente = new JButton("");	
 		btn_volver = new JButton("Volver");
-		btn_Pedido = new JButton("Ver Pedido");
+		btn_Ver_Pedido = new JButton("Ver Pedido");
 
 		establecerManejador();		
 		panelGestionPedidos.setVisible(false);
@@ -128,10 +128,10 @@ public class GestionPedidos extends JPanel {
 		btn_Nuevo_Cliente.setBounds(278, 46, 107, 23);
 		panelGestionPedidos.add(btn_Nuevo_Cliente);
 		
-		btn_ajustes.setForeground(UIManager.getColor("Button.background"));
-		btn_ajustes.setIcon(new ImageIcon("C:\\Users\\Ale\\Desktop\\Proyecto DAM\\Version2\\img\\settings (1).png"));
-		btn_ajustes.setBounds(395, 46, 26, 24);
-		panelGestionPedidos.add(btn_ajustes);
+		btn_Editar_Cliente.setForeground(UIManager.getColor("Button.background"));
+		btn_Editar_Cliente.setIcon(new ImageIcon("C:\\Users\\Ale\\Desktop\\Proyecto DAM\\Version2\\img\\settings (1).png"));
+		btn_Editar_Cliente.setBounds(395, 46, 26, 24);
+		panelGestionPedidos.add(btn_Editar_Cliente);
 		
 		btn_volver.setBounds(354, 9, 70, 19);
 		panelGestionPedidos.add(btn_volver);
@@ -140,8 +140,8 @@ public class GestionPedidos extends JPanel {
 		lbl_Para_llevar.setBounds(287, 30, 70, 14);
 		panelGestionPedidos.add(lbl_Para_llevar);
 		
-		btn_Pedido.setBounds(142, 254, 89, 23);
-		panelGestionPedidos.add(btn_Pedido);
+		btn_Ver_Pedido.setBounds(142, 254, 89, 23);
+		panelGestionPedidos.add(btn_Ver_Pedido);
 		
 		
 		return panelGestionPedidos;		
@@ -160,19 +160,11 @@ public class GestionPedidos extends JPanel {
 		btn_Mesa_6.addActionListener(controlador);
 		btn_Mesa_5.addActionListener(controlador);	
 		btn_Nuevo_Cliente.addActionListener(controlador);
-		btn_ajustes.addActionListener(controlador);
+		btn_Editar_Cliente.addActionListener(controlador);
 		btn_volver.addActionListener(controlador);
-		btn_Pedido.addActionListener(controlador);
+		btn_Ver_Pedido.addActionListener(controlador);
 
 	
-	}
-
-
-
-
-
-	public static JTable getTable() {
-		return table;
 	}
 
 	public static JButton getBtn_Mesa_1() {
@@ -211,22 +203,17 @@ public class GestionPedidos extends JPanel {
 		return btn_Nuevo_Cliente;
 	}
 
-	public static JButton getBtn_ajustes() {
-		return btn_ajustes;
+	public static JButton getBtn_Editar_Cliente() {
+		return btn_Editar_Cliente;
+	}
+
+	public static JButton getBtn_Ver_Pedido() {
+		return btn_Ver_Pedido;
 	}
 
 	public static JButton getBtn_volver() {
 		return btn_volver;
 	}
-
-	public static JButton getBtn_Pedido() {
-		return btn_Pedido;
-	}
-	
-	
-	
-	
-	
 
 	
 }

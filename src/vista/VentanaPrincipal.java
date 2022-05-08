@@ -105,61 +105,45 @@ public class VentanaPrincipal extends JFrame {
 		
 		panelPrepararCompra = new PrepararCompra();
 		panelPrepararCompra = PrepararCompra.inicializarComponentes();	
-		
-	
-	
+			
 		panelListasCompra = new ListasCompra();
 		panelListasCompra = ListasCompra.inicializarComponentes();
-	
-		//--
-		/*
-	
+		
 		panelCliente = new Cliente();
 		panelCliente = Cliente.inicializarComponentes();
+	
+		panelPedido = new Pedido();
+		panelPedido = Pedido.inicializarComponentes();
 		
 		panelBuscarComidaBebida = new BuscarComidaBebida();
 		panelBuscarComidaBebida = BuscarComidaBebida.inicializarComponentes();
 		
-		panelCalculoGanancias = new CalculoGanancias();
-		panelCalculoGanancias = CalculoGanancias.inicializarComponentes();
-		
-		panelCalculoGastos = new CalculoGastos();
-		panelCalculoGastos = CalculoGastos.inicializarComponentes();
-		
-
-		
-		panelContabilidad = new Contabilidad();
-		panelContabilidad = Contabilidad.inicializarComponentes();
-		
-		panelDetalleFactura = new DetalleFactura();
-		panelDetalleFactura = DetalleFactura.inicializarComponentes();
-		
-		panelDetalleGasto = new DetalleGasto();
-		panelDetalleGasto = DetalleGasto.inicializarComponentes();
-	
 		panelFacturar = new Facturar();
 		panelFacturar = Facturar.inicializarComponentes();
-
 		
 		panelListaGastos = new ListaGastos();
 		panelListaGastos = ListaGastos.inicializarComponentes();
 		
-
-		
 		panelListaFacturaciones = new ListaFacturaciones();
 		panelListaFacturaciones = ListaFacturaciones.inicializarComponentes();
 		
-		panelPedido = new Pedido();
-		panelPedido = Pedido.inicializarComponentes();
+		panelDetalleGasto = new DetalleGasto();
+		panelDetalleGasto = DetalleGasto.inicializarComponentes();
 		
-		// no implementada
+		panelCalculoGastos = new CalculoGastos();
+		panelCalculoGastos = CalculoGastos.inicializarComponentes();
+		
+		panelDetalleFactura = new DetalleFactura();
+		panelDetalleFactura = DetalleFactura.inicializarComponentes();
+		
+		panelCalculoGanancias = new CalculoGanancias();
+		panelCalculoGanancias = CalculoGanancias.inicializarComponentes();
+
+
 		panelProductosAlmacen = new ProductosAlmacen();
-		panelProductosAlmacen = Producto.inicializarComponentes();
-		
+		panelProductosAlmacen = ProductosAlmacen.inicializarComponentes();
+	
 
-		
-
-		
 
 		/**
 		 * Añadimos todos los paneles al panel que contiene todos los paneles
@@ -177,25 +161,19 @@ public class VentanaPrincipal extends JFrame {
 		panelContenedor.add(panelDetalleProducto);
 		panelContenedor.add(panelPrepararCompra);
 		panelContenedor.add(panelListasCompra);
-		
-		/*
-		
-		
-		panelContenedor.add(panelCliente);					
+		panelContenedor.add(panelCliente);
+		panelContenedor.add(panelPedido);
 		panelContenedor.add(panelBuscarComidaBebida);
-		panelContenedor.add(panelCalculoGanancias);
+		panelContenedor.add(panelFacturar);
+		panelContenedor.add(panelListaGastos);
+		panelContenedor.add(panelListaFacturaciones);
+		panelContenedor.add(panelDetalleGasto);
 		panelContenedor.add(panelCalculoGastos);
 		panelContenedor.add(panelDetalleFactura);
-		panelContenedor.add(panelDetalleGasto);
-		panelContenedor.add(panelFacturar);		
-		panelContenedor.add(panelListaGastos);		
-		panelContenedor.add(panelListaFacturaciones);
-		panelContenedor.add(panelPedido);
+		panelContenedor.add(panelCalculoGanancias);
 		panelContenedor.add(panelProductosAlmacen);	// no implementada
+
 		
-		
-		
-	*/
 	}
 
 

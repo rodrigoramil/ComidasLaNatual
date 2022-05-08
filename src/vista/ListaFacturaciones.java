@@ -1,24 +1,49 @@
 package vista;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTable;
 import javax.swing.JButton;
 import javax.swing.table.DefaultTableModel;
 
+import controlador.ControladorListaFacturaciones;
+
 public class ListaFacturaciones extends JPanel {
 
-	private JPanel contentPane;
-	private JTable table;
-
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7034925440369387336L;
+	
+	private static JPanel panelListaFacturaciones;
+	private static JTable table;
+	private static JButton btn_Volver;
+	private static JButton btn_Ver;
+	private static JButton btn_Calcular_Ganancias;
+	
+	private static int ancho = 800;
+	private static int alto = 600;
+	private static int posicionPanel_x = 100;
+	private static int posicionPanel_y = 50;
 
 	public ListaFacturaciones() {
 
+		panelListaFacturaciones = new JPanel();
+		table = new JTable();
+		btn_Volver = new JButton("Volver");
+		btn_Ver = new JButton("Ver");
+		btn_Calcular_Ganancias = new JButton("Calcular Ganancias");
 		
+		establecerManejador();		
+		panelListaFacturaciones.setVisible(false);
+	}
+
+	public static JPanel inicializarComponentes() {
+		
+		panelListaFacturaciones.setBorder(new EmptyBorder(5, 5, 5, 5));
+		panelListaFacturaciones.setBounds(posicionPanel_x, posicionPanel_y, ancho, alto);
+		panelListaFacturaciones.setLayout(null);
+	
 		table = new JTable();
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
@@ -48,24 +73,54 @@ public class ListaFacturaciones extends JPanel {
 			}
 		));
 		table.setBounds(47, 48, 343, 134);
-		contentPane.add(table);
+		panelListaFacturaciones.add(table);
 		
-		JButton btn_Volver = new JButton("Volver");
 		btn_Volver.setBounds(335, 14, 89, 23);
-		contentPane.add(btn_Volver);
+		panelListaFacturaciones.add(btn_Volver);
 		
-		JButton btn_Ver = new JButton("Ver");
 		btn_Ver.setBounds(47, 201, 89, 23);
-		contentPane.add(btn_Ver);
+		panelListaFacturaciones.add(btn_Ver);
 		
-		JButton btn_Calcular_Ganancias = new JButton("Calcular Ganancias");
 		btn_Calcular_Ganancias.setBounds(245, 201, 123, 23);
-		contentPane.add(btn_Calcular_Ganancias);
+		panelListaFacturaciones.add(btn_Calcular_Ganancias);
+		
+		return panelListaFacturaciones;
 	}
 
-	public static JPanel inicializarComponentes() {
-		// TODO Auto-generated method stub
-		return null;
+	public void establecerManejador() {			
+		ControladorListaFacturaciones controlador = new ControladorListaFacturaciones(this);
+		
+		table.addMouseListener(controlador);
+		btn_Volver.addActionListener(controlador);
+		btn_Ver.addActionListener(controlador);
+		btn_Calcular_Ganancias.addActionListener(controlador);
+		
 	}
 
+	public static JTable getTable() {
+		return table;
+	}
+
+	public static void setTable(JTable table) {
+		ListaFacturaciones.table = table;
+	}
+
+	public static JPanel getPanelListaFacturaciones() {
+		return panelListaFacturaciones;
+	}
+
+	public static JButton getBtn_Volver() {
+		return btn_Volver;
+	}
+
+	public static JButton getBtn_Ver() {
+		return btn_Ver;
+	}
+
+	public static JButton getBtn_Calcular_Ganancias() {
+		return btn_Calcular_Ganancias;
+	}
+	
+	
+	
 }

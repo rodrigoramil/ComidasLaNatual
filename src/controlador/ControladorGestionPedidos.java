@@ -20,9 +20,63 @@ public class ControladorGestionPedidos implements ActionListener, MouseListener 
 	public void actionPerformed(ActionEvent e) {
 		
 		if (e.getSource() == GestionPedidos.getBtn_volver()) {
-			VentanaPrincipal.getPanelMenuPrincipal().setVisible(true);
 			VentanaPrincipal.getPanelGestionPedidos().setVisible(false);
+			VentanaPrincipal.getPanelMenuPrincipal().setVisible(true);			
 		}
+		if (e.getSource() == GestionPedidos.getBtn_Nuevo_Cliente()) {
+			VentanaPrincipal.getPanelGestionPedidos().setVisible(false);
+			VentanaPrincipal.getPanelCliente().setVisible(true);			
+		}
+		if (e.getSource() == GestionPedidos.getBtn_Editar_Cliente()) {
+			VentanaPrincipal.getPanelGestionPedidos().setVisible(false);
+			VentanaPrincipal.getPanelCliente().setVisible(true);	
+		}
+		
+		if (e.getSource() == GestionPedidos.getBtn_Mesa_1()) {
+			VentanaPrincipal.getPanelGestionPedidos().setVisible(false);
+			VentanaPrincipal.getPanelPedido().setVisible(true);
+		}
+		
+		if (e.getSource() == GestionPedidos.getBtn_Mesa_2()) {
+			VentanaPrincipal.getPanelGestionPedidos().setVisible(false);
+			VentanaPrincipal.getPanelPedido().setVisible(true);
+		}
+		
+		if (e.getSource() == GestionPedidos.getBtn_Mesa_3()) {
+			VentanaPrincipal.getPanelGestionPedidos().setVisible(false);
+			VentanaPrincipal.getPanelPedido().setVisible(true);
+		}
+		
+		if (e.getSource() == GestionPedidos.getBtn_Mesa_4()) {
+			VentanaPrincipal.getPanelGestionPedidos().setVisible(false);
+			VentanaPrincipal.getPanelPedido().setVisible(true);
+		}
+		
+		if (e.getSource() == GestionPedidos.getBtn_Mesa_5()) {
+			VentanaPrincipal.getPanelGestionPedidos().setVisible(false);
+			VentanaPrincipal.getPanelPedido().setVisible(true);
+		}
+		
+		if (e.getSource() == GestionPedidos.getBtn_Mesa_6()) {
+			VentanaPrincipal.getPanelGestionPedidos().setVisible(false);
+			VentanaPrincipal.getPanelPedido().setVisible(true);
+		}
+		
+		if (e.getSource() == GestionPedidos.getBtn_Mesa_7()) {
+			VentanaPrincipal.getPanelGestionPedidos().setVisible(false);
+			VentanaPrincipal.getPanelPedido().setVisible(true);
+		}
+		
+		if (e.getSource() == GestionPedidos.getBtn_Mesa_8()) {
+			VentanaPrincipal.getPanelGestionPedidos().setVisible(false);
+			VentanaPrincipal.getPanelPedido().setVisible(true);
+		}
+		
+		if (e.getSource() == GestionPedidos.getBtn_Ver_Pedido()) {
+			VentanaPrincipal.getPanelGestionPedidos().setVisible(false);
+			VentanaPrincipal.getPanelPedido().setVisible(true);
+		}
+		
 		
 	}
 	

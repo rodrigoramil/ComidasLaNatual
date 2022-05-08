@@ -1,9 +1,5 @@
 package vista;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
@@ -129,16 +125,24 @@ public class Almacen extends JPanel {
 	
 	}
 
-	public static JPanel getPanelAlmacen() {
-		return panelAlmacen;
-	}
-
 	public static JTextField getTextField() {
 		return textField;
 	}
 
+	public static void setTextField(JTextField textField) {
+		Almacen.textField = textField;
+	}
+
 	public static JTable getTable() {
 		return table;
+	}
+
+	public static void setTable(JTable table) {
+		Almacen.table = table;
+	}
+
+	public static JPanel getPanelAlmacen() {
+		return panelAlmacen;
 	}
 
 	public static JButton getBtn_todos_los_Productos() {
@@ -168,11 +172,7 @@ public class Almacen extends JPanel {
 	public static JButton getBtn_Nuevo() {
 		return btn_Nuevo;
 	}
-	
-	
-	
-	
-	
+
 	
 	
 	

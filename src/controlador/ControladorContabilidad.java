@@ -18,8 +18,18 @@ public class ControladorContabilidad implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == Contabilidad.getBtn_volver()) {
-			VentanaPrincipal.getPanelMenuPrincipal().setVisible(true);
 			VentanaPrincipal.getPanelContabilidad().setVisible(false);
+			VentanaPrincipal.getPanelMenuPrincipal().setVisible(true);			
+		}
+		
+		if (e.getSource() == Contabilidad.getBtn_Gastos()) {
+			VentanaPrincipal.getPanelContabilidad().setVisible(false);
+			VentanaPrincipal.getPanelListaGastos().setVisible(true);
+		}
+		
+		if (e.getSource() == Contabilidad.getBtn_Facturacion()) {
+			VentanaPrincipal.getPanelContabilidad().setVisible(false);
+			VentanaPrincipal.getPanelListaFacturaciones().setVisible(true);
 		}
 		
 	}
