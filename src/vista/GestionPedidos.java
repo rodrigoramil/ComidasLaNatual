@@ -1,6 +1,5 @@
 package vista;
 
-
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
@@ -11,10 +10,8 @@ import javax.swing.JTable;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.UIManager;
-import javax.swing.table.DefaultTableModel;
 import controlador.ControladorGestionPedidos;
 import modelo.SentenciasSQL;
-
 import java.awt.Font;
 import java.util.ArrayList;
 
@@ -51,6 +48,7 @@ public class GestionPedidos extends JPanel {
 
 	private static JList listaCliente = new JList();
     private static JScrollPane scrollCliente = new JScrollPane(listaCliente);
+    private static DefaultListModel modeloCliente = null;
 	
 	
 	public GestionPedidos() {
@@ -131,29 +129,7 @@ public class GestionPedidos extends JPanel {
 		panelGestionPedidos.add(scrollCliente);
         scrollCliente.setBounds(269, 74, 155, 145);
 		
-// *************************************************************************************************	
-		/*
-		table = new JTable();
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-			},
-			new String[] {
-				"New column"
-			}
-		));
-		table.setBounds(269, 74, 155, 145);
-		panelGestionPedidos.add(table);
-		*/
-//********************************************************************************************************
+
 		
 		btn_Nuevo_Cliente.setBounds(278, 46, 107, 23);
 		panelGestionPedidos.add(btn_Nuevo_Cliente);
@@ -179,11 +155,6 @@ public class GestionPedidos extends JPanel {
 	
 	public void establecerManejador() {			
 		ControladorGestionPedidos controlador = new ControladorGestionPedidos(this);
-		
-// *************************************************************************************************			
-//		table.addMouseListener(controlador);
-// *************************************************************************************************	
-		
 		btn_Mesa_1.addActionListener(controlador);
 		btn_Mesa_2.addActionListener(controlador);
 		btn_Mesa_3.addActionListener(controlador);
@@ -195,57 +166,29 @@ public class GestionPedidos extends JPanel {
 		btn_Nuevo_Cliente.addActionListener(controlador);
 		btn_Editar_Cliente.addActionListener(controlador);
 		btn_volver.addActionListener(controlador);
-		btn_Ver_Pedido.addActionListener(controlador);
-		
+		btn_Ver_Pedido.addActionListener(controlador);		
 		listaCliente.addMouseListener(controlador);
 
 	
 	}
 	
-	
-	public ArrayList<Cliente> creaListaClientes() {
-		
-		DefaultListModel modeloCliente = new DefaultListModel();
-		for (Cliente c : clientes) {
-			modeloCliente.addElement(c.toString());
-		}
-		cliente.setModel(modeloCliente);
-		return clientes;
-	}
-	
-	
-	//****************************************************************************************************************
-	public static void datosClientes(ArrayList<String> clientes) {
+	public static void DatosClientes(ArrayList<String> bbddDatosClientes) {
 
-        DefaultListModel modeloCliente = new DefaultListModel();
+        modeloCliente = new DefaultListModel();
+        Object[] rellenoDatosCliente = bbddDatosClientes.toArray();
 
-        Object[] rellenoDatosCliente = clientes.toArray();
-
-        for (int i =0; i<rellenoDatosCliente.length; i++) {
-            modeloCliente.addElement(rellenoDatosCliente[i]);
-
+        for (int i =0; i<rellenoDatosCliente.length; i++) {           
+        	modeloCliente.addElement(rellenoDatosCliente[i]);
         }
         listaCliente.setModel(modeloCliente);
     }
-	
-	
-	
-	
-	
-	
-	
-    public static String clienteSelecionado () {
-    	
-    	
+    public static String clienteSeleccionado() throws NullPointerException {
         String clienteSeleccionado = listaCliente.getSelectedValue().toString();
-        
-        System.out.println(clienteSeleccionado); // <-- Borrar luego
-        
+        System.out.println(clienteSeleccionado);
         return clienteSeleccionado;
 
     }
-    
-	//*******************************************************************************************************************
+	
 	
 
 	public static JButton getBtn_Mesa_1() {

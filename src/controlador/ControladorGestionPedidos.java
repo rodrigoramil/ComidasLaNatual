@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.IOException;
 
 import modelo.SentenciasSQL;
 import vista.GestionPedidos;
@@ -26,17 +27,17 @@ public class ControladorGestionPedidos implements ActionListener, MouseListener 
 		}
 		if (e.getSource() == GestionPedidos.getBtn_Nuevo_Cliente()) {
 			VentanaPrincipal.getPanelGestionPedidos().setVisible(false);
-			VentanaPrincipal.getPanelCliente().setVisible(true);			
+			VentanaPrincipal.getPanelCliente().setVisible(true);
+			
 		}
 		if (e.getSource() == GestionPedidos.getBtn_Editar_Cliente()) {
-			VentanaPrincipal.getPanelGestionPedidos().setVisible(false);
-			VentanaPrincipal.getPanelCliente().setVisible(true);	
-
-			
-			
-//			SentenciasSQL.editarCliente();
-			
-
+			try {
+				GestionPedidos.clienteSeleccionado();	VentanaPrincipal.getPanelGestionPedidos().setVisible(false);
+				VentanaPrincipal.getPanelCliente().setVisible(true);	
+			} catch (NullPointerException e1) {
+				
+				System.out.println("Seleccionar cliente");
+			}
 		}
 		
 		if (e.getSource() == GestionPedidos.getBtn_Mesa_1()) {
@@ -124,13 +125,7 @@ public class ControladorGestionPedidos implements ActionListener, MouseListener 
 		
 	}
 		
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 }
+
