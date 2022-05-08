@@ -4,13 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.IOException;
-
-
 import javax.swing.JOptionPane;
-
-
-import modelo.SentenciasSQL;
 import vista.GestionPedidos;
 import vista.VentanaPrincipal;
 
@@ -36,9 +30,12 @@ public class ControladorGestionPedidos implements ActionListener, MouseListener 
 		}
 		if (e.getSource() == GestionPedidos.getBtn_Editar_Cliente()) {
 			try {
-				GestionPedidos.clienteSeleccionado();	VentanaPrincipal.getPanelGestionPedidos().setVisible(false);
+				System.out.println("clienteSeleccionado: --> "+GestionPedidos.clienteSeleccionado());
+				
+				VentanaPrincipal.getPanelGestionPedidos().setVisible(false);
 				VentanaPrincipal.getPanelCliente().setVisible(true);	
-
+				GestionPedidos.clienteSeleccionado();
+				
 			} catch (NullPointerException errorSelectorVacio) {
 				
 				JOptionPane.showMessageDialog(panelGestionPedidos, "Selecciona cliente a editar");

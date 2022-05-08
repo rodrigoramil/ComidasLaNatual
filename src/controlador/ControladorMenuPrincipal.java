@@ -2,15 +2,11 @@ package controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import modelo.SentenciasSQL;
 import vista.VentanaPrincipal;
 import vista.MenuPrincipal;
 
 public class ControladorMenuPrincipal implements ActionListener {
-	
-	
-	
+
 	private MenuPrincipal panelMenuPrincipal;
 	
 	public ControladorMenuPrincipal(MenuPrincipal panelMenuPrincipal) {
@@ -23,8 +19,6 @@ public class ControladorMenuPrincipal implements ActionListener {
 			VentanaPrincipal.getPanelMenuPrincipal().setVisible(false);
 			VentanaPrincipal.getPanelGestionPedidos().setVisible(true);
 
-
-			
 		}
 		
 		if (e.getSource() == MenuPrincipal.getBtn_Recetario()) {
