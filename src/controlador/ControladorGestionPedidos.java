@@ -32,6 +32,7 @@ public class ControladorGestionPedidos implements ActionListener, MouseListener 
 			VentanaPrincipal.getPanelCliente().setVisible(true);			
 		}
 		if (e.getSource() == GestionPedidos.getBtn_Editar_Cliente()) {
+<<<<<<< HEAD
 				
 			try {
 				VentanaPrincipal.getPanelGestionPedidos().setVisible(false);
@@ -40,6 +41,15 @@ public class ControladorGestionPedidos implements ActionListener, MouseListener 
 				JOptionPane.showMessageDialog(panelGestionPedidos, "Selecciona cliente a editar");
 			}
 
+=======
+			VentanaPrincipal.getPanelGestionPedidos().setVisible(false);
+			VentanaPrincipal.getPanelCliente().setVisible(true);	
+			
+			
+			SentenciasSQL.editarCliente();
+			
+			
+>>>>>>> a16688b17eea89ab66ac027398e438755f06779f
 		}
 		
 		if (e.getSource() == GestionPedidos.getBtn_Mesa_1()) {
@@ -106,7 +116,7 @@ public class ControladorGestionPedidos implements ActionListener, MouseListener 
 	@Override
 	public void mousePressed(MouseEvent e) { // Al pulsar raton
 
-		SentenciasSQL.editarCliente();
+		
 	}
 
 	@Override

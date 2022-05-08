@@ -24,7 +24,7 @@ public class ControladorMenuPrincipal implements ActionListener {
 			VentanaPrincipal.getPanelGestionPedidos().setVisible(true);
 			//SentenciasSQL.listarClientes();
 			
-		
+
 			
 		}
 		

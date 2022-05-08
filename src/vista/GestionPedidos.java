@@ -87,7 +87,9 @@ public class GestionPedidos extends JPanel {
 	
 	
 	public static JPanel inicializarComponentes() {
-
+		
+		SentenciasSQL.GestionPedidosClientes();
+		
 		panelGestionPedidos.setBorder(new EmptyBorder(5, 5, 5, 5));
 		panelGestionPedidos.setBounds(posicionPanel_x, posicionPanel_y, ancho, alto);
 		panelGestionPedidos.setLayout(null);
