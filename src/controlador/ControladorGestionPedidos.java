@@ -31,11 +31,12 @@ public class ControladorGestionPedidos implements ActionListener, MouseListener 
 		if (e.getSource() == GestionPedidos.getBtn_Editar_Cliente()) {
 			VentanaPrincipal.getPanelGestionPedidos().setVisible(false);
 			VentanaPrincipal.getPanelCliente().setVisible(true);	
+
 			
 			
-			SentenciasSQL.editarCliente();
+//			SentenciasSQL.editarCliente();
 			
-			
+
 		}
 		
 		if (e.getSource() == GestionPedidos.getBtn_Mesa_1()) {
