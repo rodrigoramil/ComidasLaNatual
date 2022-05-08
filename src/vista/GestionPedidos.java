@@ -2,10 +2,13 @@ package vista;
 
 
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JTable;
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
@@ -13,6 +16,7 @@ import controlador.ControladorGestionPedidos;
 
 
 import java.awt.Font;
+import java.util.ArrayList;
 
 public class GestionPedidos extends JPanel {
 
@@ -40,12 +44,25 @@ public class GestionPedidos extends JPanel {
 	private static int posicionPanel_x = 100;
 	private static int posicionPanel_y = 50;
 
+	private static ArrayList<Cliente> clientes;
+	private JList cliente;
+	private JScrollPane panelScrollCliente;
+	
+
+	private static JList listaCliente = new JList();
+    private static JScrollPane scrollCliente = new JScrollPane(listaCliente);
+	
+	
 	public GestionPedidos() {
 		
 		panelGestionPedidos = new JPanel();
 		lbl_Para_llevar = new JLabel("Para llevar");
 		lbl_mesa = new JLabel("En mesa");
-		table = new JTable();
+		
+// *************************************************************************************************			
+//		table = new JTable();
+// *************************************************************************************************
+		
 		btn_Mesa_1 = new JButton("Mesa 1 ");
 		btn_Mesa_2 = new JButton("Mesa 2");		
 		btn_Mesa_4 = new JButton("Mesa 4");		
@@ -59,6 +76,10 @@ public class GestionPedidos extends JPanel {
 		btn_volver = new JButton("Volver");
 		btn_Ver_Pedido = new JButton("Ver Pedido");
 
+		
+		
+		
+		
 		establecerManejador();		
 		panelGestionPedidos.setVisible(false);
 	}
@@ -105,6 +126,11 @@ public class GestionPedidos extends JPanel {
 		lbl_mesa.setBounds(83, 30, 70, 14);
 		panelGestionPedidos.add(lbl_mesa);
 		
+		panelGestionPedidos.add(scrollCliente);
+        scrollCliente.setBounds(269, 74, 155, 145);
+		
+// *************************************************************************************************	
+		/*
 		table = new JTable();
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
@@ -124,6 +150,8 @@ public class GestionPedidos extends JPanel {
 		));
 		table.setBounds(269, 74, 155, 145);
 		panelGestionPedidos.add(table);
+		*/
+//********************************************************************************************************
 		
 		btn_Nuevo_Cliente.setBounds(278, 46, 107, 23);
 		panelGestionPedidos.add(btn_Nuevo_Cliente);
@@ -150,7 +178,10 @@ public class GestionPedidos extends JPanel {
 	public void establecerManejador() {			
 		ControladorGestionPedidos controlador = new ControladorGestionPedidos(this);
 		
-		table.addMouseListener(controlador);
+// *************************************************************************************************			
+//		table.addMouseListener(controlador);
+// *************************************************************************************************	
+		
 		btn_Mesa_1.addActionListener(controlador);
 		btn_Mesa_2.addActionListener(controlador);
 		btn_Mesa_3.addActionListener(controlador);
@@ -163,9 +194,32 @@ public class GestionPedidos extends JPanel {
 		btn_Editar_Cliente.addActionListener(controlador);
 		btn_volver.addActionListener(controlador);
 		btn_Ver_Pedido.addActionListener(controlador);
+		
+		listaCliente.addMouseListener(controlador);
 
 	
 	}
+	
+	public static void DatosClientes(ArrayList<String> prueba) {
+
+        DefaultListModel modeloCliente = new DefaultListModel();
+
+        Object[] rellenoDatosCliente = prueba.toArray();
+
+        for (int i =0; i<rellenoDatosCliente.length; i++) {
+            modeloCliente.addElement(rellenoDatosCliente[i]);
+
+        }
+        listaCliente.setModel(modeloCliente);
+    }
+    public static String obtenerCliente() {
+        String clienteSeleccionado = listaCliente.getSelectedValue().toString();
+        System.out.println(clienteSeleccionado);
+        return clienteSeleccionado;
+
+    }
+	
+	
 
 	public static JButton getBtn_Mesa_1() {
 		return btn_Mesa_1;

@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import modelo.SentenciasSQL;
 import vista.GestionPedidos;
 import vista.VentanaPrincipal;
 
@@ -30,6 +31,11 @@ public class ControladorGestionPedidos implements ActionListener, MouseListener 
 		if (e.getSource() == GestionPedidos.getBtn_Editar_Cliente()) {
 			VentanaPrincipal.getPanelGestionPedidos().setVisible(false);
 			VentanaPrincipal.getPanelCliente().setVisible(true);	
+			
+			
+			
+			
+			
 		}
 		
 		if (e.getSource() == GestionPedidos.getBtn_Mesa_1()) {
@@ -96,7 +102,7 @@ public class ControladorGestionPedidos implements ActionListener, MouseListener 
 	@Override
 	public void mousePressed(MouseEvent e) { // Al pulsar raton
 
-		
+		SentenciasSQL.editarCliente();
 	}
 
 	@Override
