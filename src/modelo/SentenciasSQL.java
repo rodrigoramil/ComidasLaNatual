@@ -69,7 +69,7 @@ public class SentenciasSQL {
 	}
 	
 	
-	public static void GestionPedidosClientes() {
+	public static void gestionPedidosClientes() {
         GestionPedidos gestionPedidos = new GestionPedidos();
         Conexion conexion = new Conexion();
         connection = conexion.obtenerConexion();
@@ -94,7 +94,7 @@ public class SentenciasSQL {
             }
             gestionPedidos.DatosClientes(prueba);
         } catch (SQLException e) {
-            System.out.println("Error al realizar el listado de productos");
+            System.out.println("Error en gestionPedidosClientes SentenciasSQL");
             System.out.println(e.getMessage());
 
         }
@@ -130,7 +130,7 @@ public class SentenciasSQL {
             }
             gestionPedidos.DatosClientes(prueba);
         } catch (SQLException e) {
-            System.out.println("Error al realizar el listado de productos");
+        	System.out.println("Error en editarCliente SentenciasSQL");
             System.out.println(e.getMessage());
 
         }
