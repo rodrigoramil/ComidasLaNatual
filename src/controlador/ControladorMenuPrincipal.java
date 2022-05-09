@@ -6,9 +6,7 @@ import vista.VentanaPrincipal;
 import vista.MenuPrincipal;
 
 public class ControladorMenuPrincipal implements ActionListener {
-	
-	
-	
+
 	private MenuPrincipal panelMenuPrincipal;
 	
 	public ControladorMenuPrincipal(MenuPrincipal panelMenuPrincipal) {
@@ -20,6 +18,7 @@ public class ControladorMenuPrincipal implements ActionListener {
 		if (e.getSource() == MenuPrincipal.getBtn_Ventas()) {
 			VentanaPrincipal.getPanelMenuPrincipal().setVisible(false);
 			VentanaPrincipal.getPanelGestionPedidos().setVisible(true);
+
 		}
 		
 		if (e.getSource() == MenuPrincipal.getBtn_Recetario()) {
