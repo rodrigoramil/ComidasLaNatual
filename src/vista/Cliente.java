@@ -86,6 +86,14 @@ public class Cliente extends JPanel {
 	public static JButton getBtn_volver() {
 		return btn_volver;
 	}
+
+	public static JTextField getTfd_nombre() {
+		return tfd_nombre;
+	}
+
+	public static JTextField getTfd_telefono() {
+		return tfd_telefono;
+	}
 	
 	
 		

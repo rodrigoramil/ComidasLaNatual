@@ -5,6 +5,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.JOptionPane;
+
+import modelo.SentenciasSQL;
+import vista.Cliente;
 import vista.GestionPedidos;
 import vista.VentanaPrincipal;
 
@@ -30,11 +33,31 @@ public class ControladorGestionPedidos implements ActionListener, MouseListener 
 		}
 		if (e.getSource() == GestionPedidos.getBtn_Editar_Cliente()) {
 			try {
-				System.out.println("clienteSeleccionado: --> "+GestionPedidos.clienteSeleccionado());
+				
 				
 				VentanaPrincipal.getPanelGestionPedidos().setVisible(false);
-				VentanaPrincipal.getPanelCliente().setVisible(true);	
-				GestionPedidos.clienteSeleccionado();
+				VentanaPrincipal.getPanelCliente().setVisible(true);
+
+				System.out.println("clienteSeleccionado: --> "+GestionPedidos.clienteSeleccionado()); // <--- Borrar luego
+
+				for (int i = 0; i < SentenciasSQL.getArray_clientes().size(); i++) {
+
+					System.out.println("Cliente -> " + SentenciasSQL.getArray_clientes().get(i).getId()); // <--- Borrar luego
+
+					/**
+					 * Nota: hay que restarle uno al Id del cliente porque empieza en 1 y el array de Clientes empieza desde 0
+					 */
+					
+					if (GestionPedidos.clienteSeleccionado()==Integer.parseInt(SentenciasSQL.getArray_clientes().get(i).getId())-1) {
+
+						Cliente.getTfd_nombre().setText(SentenciasSQL.getArray_clientes().get(i).getNombre());
+						Cliente.getTfd_telefono().setText(SentenciasSQL.getArray_clientes().get(i).getTelefono());
+					}
+				}
+				
+				System.out.println(SentenciasSQL.getArray_clientes()); // <--- Borrar luego
+				
+//				GestionPedidos.clienteSeleccionado();
 				
 			} catch (NullPointerException errorSelectorVacio) {
 				

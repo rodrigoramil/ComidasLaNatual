@@ -5,6 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
+import com.mysql.cj.result.StringValueFactory;
+
 import vista.GestionPedidos;
 
 
@@ -15,6 +18,12 @@ public class SentenciasSQL {
 	private static PreparedStatement sentencia = null;
 	private static GestionPedidos gestionPedidos = null;
 	private static ArrayList<String> arrayClientes = null;
+	
+//****************************PRUEBAS****************************************************    
+	private static ArrayList<Cliente> array_clientes = null;
+	private static Cliente cliente = null;
+//****************************PRUEBAS****************************************************    	
+	
 	
 	public static String iniciar_Sesion(String entrada_usuario, String entrada_contrasena) {
 		String estado = "";
@@ -47,6 +56,8 @@ public class SentenciasSQL {
 	
 	public static void listarClientes() {
 		
+		array_clientes = new ArrayList<Cliente>();
+
         gestionPedidos = new GestionPedidos();
         conexion = new Conexion();
         connection = conexion.obtenerConexion();
@@ -57,11 +68,18 @@ public class SentenciasSQL {
         	ResultSet rs = sentencia.executeQuery();
         	
             while (rs.next()) {
-            	arrayClientes.add(rs.getString("IdCliente"));
-            	arrayClientes.add(rs.getString("NombreCliente"));
-                arrayClientes.add(rs.getString("Telefono"));
-            }            
-            gestionPedidos.datosClientes(arrayClientes);
+            			
+				cliente = new Cliente ();
+				cliente.id=rs.getString("IdCliente");
+				cliente.nombre=rs.getString("NombreCliente");
+				cliente.telefono=rs.getString("Telefono");
+				
+				getArray_clientes().add((Cliente) cliente);				
+  
+            }
+
+            
+            gestionPedidos.datosClientes(getArray_clientes());
             
         } catch (SQLException e) {
             System.out.println("Error en gestionPedidosClientes SentenciasSQL");
@@ -85,17 +103,27 @@ public class SentenciasSQL {
             ResultSet rs = sentencia.executeQuery();
             
             while (rs.next()) {
-            	
+
+            
             	arrayClientes.add(rs.getString("IdCliente"));
                 //System.out.println(rs.getString("NombreCliente"));
+                
+            
             }
-            gestionPedidos.datosClientes(arrayClientes);
+            gestionPedidos.datosClientes(getArray_clientes());
             
         } catch (SQLException e) {
         	System.out.println("Error en editarCliente SentenciasSQL");
             System.out.println(e.getMessage());
         }
-    } 
+    }
+
+
+
+
+	public static ArrayList<Cliente> getArray_clientes() {
+		return array_clientes;
+	} 
     
 }
 

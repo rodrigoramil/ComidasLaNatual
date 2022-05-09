@@ -20,6 +20,7 @@ import javax.swing.JTable;
 import javax.swing.UIManager;
 
 import controlador.ControladorGestionPedidos;
+import modelo.Cliente;
 import modelo.SentenciasSQL;
 
 
@@ -183,23 +184,38 @@ public class GestionPedidos extends JPanel {
 
 //******************************************************************************************
 	
-	public static void datosClientes(ArrayList<String> bbddDatosClientes) {
+
+	
+	public static void datosClientes(ArrayList<Cliente> bbddDatosClientes) {
 
         modeloCliente = new DefaultListModel();
         Object[] rellenoDatosCliente = bbddDatosClientes.toArray();
 
-        for (int i =0; i<rellenoDatosCliente.length; i++) {           
+        for (int i =0; i<rellenoDatosCliente.length; i++) {        	
         	modeloCliente.addElement(rellenoDatosCliente[i]);
         	System.out.println("modeloCliente: --> "+modeloCliente); // <---- Borrar luego
         }
         listaCliente.setModel(modeloCliente);
     }
 	
+	 public static int clienteSeleccionado() throws NullPointerException {
+		 int indiceSeleccionado = listaCliente.getSelectedIndex();
+		return indiceSeleccionado;		 
+	 }
+	 
+	 
+	/*
     public static String clienteSeleccionado() throws NullPointerException {
         clienteSeleccionado = listaCliente.getSelectedValue().toString();
+        System.out.println("clienteSeleccionado ------------------>>>>>>>>>>>>>>"+clienteSeleccionado);
+        // Selecciona el indice de la lista
+        int indiceSeleccionado = listaCliente.getSelectedIndex();
+        System.out.println("indiceSeleccionado --> "+indiceSeleccionado);
+        //---------------------------------
+        
         return clienteSeleccionado;
     }
-    
+    */
 //******************************************************************************************	
 	
 
