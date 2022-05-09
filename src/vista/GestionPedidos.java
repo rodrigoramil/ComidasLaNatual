@@ -1,22 +1,22 @@
 package vista;
 
+import java.awt.Font;
+import java.io.IOException;
+import java.util.ArrayList;
 
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.border.EmptyBorder;
+import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.DefaultListModel;
-import javax.swing.ImageIcon;
 import javax.swing.UIManager;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.border.EmptyBorder;
+
 import controlador.ControladorGestionPedidos;
-
-
-import java.awt.Font;
-import java.util.ArrayList;
+import modelo.SentenciasSQL;
 
 public class GestionPedidos extends JPanel {
 
@@ -51,6 +51,9 @@ public class GestionPedidos extends JPanel {
 
 	private static JList listaCliente = new JList();
     private static JScrollPane scrollCliente = new JScrollPane(listaCliente);
+    private static DefaultListModel modeloCliente = null;
+
+	private static String clienteSeleccionado;
 	
 	
 	public GestionPedidos() {
@@ -84,7 +87,9 @@ public class GestionPedidos extends JPanel {
 
 	
 	public static JPanel inicializarComponentes() {
-
+		
+		SentenciasSQL.listarClientes();
+		
 		panelGestionPedidos.setBorder(new EmptyBorder(5, 5, 5, 5));
 		panelGestionPedidos.setBounds(posicionPanel_x, posicionPanel_y, ancho, alto);
 		panelGestionPedidos.setLayout(null);
@@ -122,32 +127,6 @@ public class GestionPedidos extends JPanel {
 		
 		panelGestionPedidos.add(scrollCliente);
         scrollCliente.setBounds(269, 74, 155, 145);
-
-// *****************************************************************************************************
-
-		/*
-		table = new JTable();
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-			},
-			new String[] {
-				"New column"
-			}
-		));
-		table.setBounds(269, 74, 155, 145);
-		panelGestionPedidos.add(table);
-		*/
-        
-//********************************************************************************************************
 		
 		btn_Nuevo_Cliente.setBounds(278, 46, 107, 23);
 		panelGestionPedidos.add(btn_Nuevo_Cliente);
@@ -173,11 +152,6 @@ public class GestionPedidos extends JPanel {
 	
 	public void establecerManejador() {			
 		ControladorGestionPedidos controlador = new ControladorGestionPedidos(this);
-		
-// *************************************************************************************************			
-//		table.addMouseListener(controlador);
-// *************************************************************************************************	
-		
 		btn_Mesa_1.addActionListener(controlador);
 		btn_Mesa_2.addActionListener(controlador);
 		btn_Mesa_3.addActionListener(controlador);
@@ -189,34 +163,38 @@ public class GestionPedidos extends JPanel {
 		btn_Nuevo_Cliente.addActionListener(controlador);
 		btn_Editar_Cliente.addActionListener(controlador);
 		btn_volver.addActionListener(controlador);
-		btn_Ver_Pedido.addActionListener(controlador);
+
 		
 //**********************************************************************************************		
+
+		btn_Ver_Pedido.addActionListener(controlador);		
+
 		listaCliente.addMouseListener(controlador);
 //**********************************************************************************************
 	
 	}
 	
+
 	
 	
 	
 //**********************************************************************************************
-	
-	public static void datosClientes(ArrayList<String> prueba) {
 
-        DefaultListModel modeloCliente = new DefaultListModel();
+	public static void DatosClientes(ArrayList<String> bbddDatosClientes) {
 
-        Object[] rellenoDatosCliente = prueba.toArray();
 
-        for (int i =0; i<rellenoDatosCliente.length; i++) {
-            modeloCliente.addElement(rellenoDatosCliente[i]);
+        modeloCliente = new DefaultListModel();
+        Object[] rellenoDatosCliente = bbddDatosClientes.toArray();
 
+        for (int i =0; i<rellenoDatosCliente.length; i++) {           
+        	modeloCliente.addElement(rellenoDatosCliente[i]);
+        	System.out.println("rellenoDatosCliente: "+modeloCliente);
         }
         listaCliente.setModel(modeloCliente);
     }
-    public static String obtenerCliente() {
-        String clienteSeleccionado = listaCliente.getSelectedValue().toString();
-        System.out.println(clienteSeleccionado);
+    public static String clienteSeleccionado() throws NullPointerException {
+        clienteSeleccionado = listaCliente.getSelectedValue().toString();
+        System.out.println("Metodo ClienteSelcionado: "+clienteSeleccionado);
         return clienteSeleccionado;
 
     }

@@ -5,50 +5,44 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
 import vista.GestionPedidos;
+
+
 
 public class SentenciasSQL {
 
-	static Connection connection = null;
-
+	private static Connection connection = null;
+	private static Conexion conexion = null;
+	private static PreparedStatement sentencia = null;
+	private static GestionPedidos gestionPedidos = null;
+	private static ArrayList<String> arrayClientes = null;
+	
 	public SentenciasSQL() {
 
 	}
 
 	public static String iniciar_Sesion(String entrada_usuario, String entrada_contrasena) {
 		String estado = "";
-		Conexion conexion = new Conexion();
+		conexion = new Conexion();
 		connection = conexion.obtenerConexion();
 
 		try {
 			
 			String passcifrado =Criptografia.cifrado(entrada_contrasena);
-			System.out.println("La contraseña "+entrada_contrasena+" debe de guardarse cifrada en la BBDD -> "+passcifrado);
+			//System.out.println("La contraseña "+entrada_contrasena+" debe de guardarse cifrada en la BBDD -> "+passcifrado);
 			
-			PreparedStatement sentencia = connection.prepareStatement(
-					"SELECT NombreUsuario, Contrasena, Rol FROM Usuarios WHERE NombreUsuario= ? AND Contrasena = ?");
+			sentencia = connection.prepareStatement("SELECT NombreUsuario, Contrasena, Rol FROM Usuarios WHERE NombreUsuario= ? AND Contrasena = ?");
 			sentencia.setNString(1, entrada_usuario);
 			sentencia.setNString(2, entrada_contrasena); // <-- sustituir por la variable passcifrado
-
-			ResultSet rs = sentencia.executeQuery();
-			
+			ResultSet rs = sentencia.executeQuery();			
 			while (rs.next()) {
 
-				if (rs.getString("Rol").equals("Administrador")) {
-					estado = "Administrador";
-
-				} else if (rs.getString("Rol").equals("Cocina")) {
-					estado = "Cocina";
-
-				} else if (rs.getString("Rol").equals("Venta")) {
-					estado = "Venta";
-
-				}
-
+				if (rs.getString("Rol").equals("Administrador")) {estado = "Administrador";} 
+				else if (rs.getString("Rol").equals("Cocina")) {estado = "Cocina";} 
+				else if (rs.getString("Rol").equals("Venta")) {	estado = "Venta";}
 			}
 		} catch (SQLException e) {
-			System.out.println("Error al realizar el listado de productos");
+			System.out.println("Error al iniciar_Sesion SentenciasSQL");
 			System.out.println(e.getMessage());
 
 		}
@@ -69,31 +63,31 @@ public class SentenciasSQL {
 	}
 	
 	
-	
+
 	
 //**********************************************************************************************	
-	
-	public static void gestionPedidosClientes() {
-        GestionPedidos gestionPedidos = new GestionPedidos();
-        Conexion conexion = new Conexion();
-        connection = conexion.obtenerConexion();
 
-        ArrayList<String> prueba = new ArrayList<>();
+	public static void listarClientes() {
+        gestionPedidos = new GestionPedidos();
+        conexion = new Conexion();
+
+        connection = conexion.obtenerConexion();
+        arrayClientes = new ArrayList<>();
 
         try {
-
-            PreparedStatement sentencia = connection.prepareStatement(
-                    "SELECT NombreCliente FROM cliente ");
-
-            ResultSet rs = sentencia.executeQuery();
-
+        	sentencia = connection.prepareStatement("SELECT * FROM cliente ");
+        	ResultSet rs = sentencia.executeQuery();
             while (rs.next()) {
-                prueba.add(rs.getString("NombreCliente"));
 
+            	arrayClientes.add(rs.getString("IdCliente"));
+            	arrayClientes.add(rs.getString("NombreCliente"));
+                arrayClientes.add(rs.getString("Telefono"));
             }
-            gestionPedidos.datosClientes(prueba);
+            //System.out.println("Esto esta en Sentencias: "+arrayClientes );
+            gestionPedidos.DatosClientes(arrayClientes);
+
         } catch (SQLException e) {
-            System.out.println("Error al realizar el listado de productos");
+            System.out.println("Error en gestionPedidosClientes SentenciasSQL");
             System.out.println(e.getMessage());
 
         }
@@ -107,38 +101,45 @@ public class SentenciasSQL {
 	
 	
     public static void editarCliente() {
-        GestionPedidos gestionPedidos = new GestionPedidos();
-        Conexion conexion = new Conexion();
+        gestionPedidos = new GestionPedidos();
+        conexion = new Conexion();
         connection = conexion.obtenerConexion();
 
-        gestionPedidos.obtenerCliente();
-        ArrayList<String> prueba = new ArrayList<>();
+        gestionPedidos.clienteSeleccionado();
+
 
         try {
 
-            PreparedStatement sentencia = connection.prepareStatement(
-                    "Update NombreCliente from cliente where NombreCliente = ?");
+            sentencia = connection.prepareStatement(
+                    "update NombreCliente, Telefono from Cliente values(?,?) where IdCliente = ?");
+//            sentencia.setNString(1, entrada_usuario);
+//            sentencia.setNString(2, entrada_usuario);
+//            sentencia.setNString(3, entrada_usuario);
 
             ResultSet rs = sentencia.executeQuery();
 
             while (rs.next()) {
-                prueba.add(rs.getString("NombreCliente"));
-                System.out.println(rs.getString("NombreCliente"));
+            	arrayClientes.add(rs.getString("IdCliente"));
+                //System.out.println(rs.getString("NombreCliente"));
 
 
             }
-            gestionPedidos.datosClientes(prueba);
+
+            gestionPedidos.DatosClientes(arrayClientes);
             
+
         } catch (SQLException e) {
-            System.out.println("Error al realizar el listado de productos");
+        	System.out.println("Error en editarCliente SentenciasSQL");
             System.out.println(e.getMessage());
 
         }
 
     } 
     
+
  //**********************************************************************************************
   
     
+
     
 }

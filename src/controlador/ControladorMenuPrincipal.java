@@ -22,10 +22,9 @@ public class ControladorMenuPrincipal implements ActionListener {
 		if (e.getSource() == MenuPrincipal.getBtn_Ventas()) {
 			VentanaPrincipal.getPanelMenuPrincipal().setVisible(false);
 			VentanaPrincipal.getPanelGestionPedidos().setVisible(true);
+			//SentenciasSQL.listarClientes();
 			
-//**********************************************************************************************			
-			SentenciasSQL.gestionPedidosClientes();
-//**********************************************************************************************
+
 		}
 		
 		if (e.getSource() == MenuPrincipal.getBtn_Recetario()) {
