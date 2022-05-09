@@ -1,11 +1,8 @@
 package controlador;
 
-import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.JOptionPane;
-
 import modelo.SentenciasSQL;
 import vista.Login;
 import vista.MenuPrincipal;
@@ -28,10 +25,9 @@ public class ControladorLogin implements ActionListener {
 		if (e.getSource() == Login.getBtn_Aceptar()) {
 			entrada_usuario = Login.getJtf_Entrada_Nombre().getText();
 			entrada_contrasena = Login.getJtf_Entrada_Contrasena().getText();
-
-		String estado = SentenciasSQL.iniciar_Sesion(entrada_usuario, entrada_contrasena);
-	
-		
+			
+			String estado = SentenciasSQL.iniciar_Sesion(entrada_usuario, entrada_contrasena);
+			
 			if (estado.equals("Administrador")) {				
 				cambiarMenuPrincipal ();
 

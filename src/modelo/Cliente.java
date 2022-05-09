@@ -1,3 +1,4 @@
+
 package modelo;
 
 import java.io.Serializable;
@@ -7,14 +8,13 @@ public class Cliente implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	int idCliente;
+	String id;
 	String nombre;
 	String telefono;
-
 	
-	public Cliente(int idCliente, String nombre, String telefono) {
+	public Cliente(String id, String nombre, String telefono) {
 		super();
-		this.idCliente = idCliente;
+		this.id = id;
 		this.nombre = nombre;
 		this.telefono = telefono;
 	}
@@ -23,12 +23,14 @@ public class Cliente implements Serializable{
 		super();
 	}
 
-	public int getIdCliente() {
-		return idCliente;
+	
+
+	public String getId() {
+		return id;
 	}
 
-	public void setIdCliente(int idCliente) {
-		this.idCliente = idCliente;
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public String getNombre() {
@@ -39,7 +41,6 @@ public class Cliente implements Serializable{
 		this.nombre = nombre;
 	}
 
-
 	public String getTelefono() {
 		return telefono;
 	}
@@ -48,10 +49,10 @@ public class Cliente implements Serializable{
 		this.telefono = telefono;
 	}
 
-
-
 	@Override
 	public String toString() {
-		return " - "+ nombre + " -> " + telefono ;
+		return nombre + " tlf: " + telefono;
 	}
+
+	
 }
