@@ -2,17 +2,28 @@ package vista;
 
 
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JTable;
-import javax.swing.ImageIcon;
-import javax.swing.UIManager;
-import javax.swing.table.DefaultTableModel;
-import controlador.ControladorGestionPedidos;
-
 
 import java.awt.Font;
+
+import java.util.ArrayList;
+
+import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
+
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JList;
+
+import javax.swing.JTable;
+import javax.swing.UIManager;
+
+import controlador.ControladorGestionPedidos;
+import modelo.Cliente;
+import modelo.SentenciasSQL;
+
+
 
 public class GestionPedidos extends JPanel {
 
@@ -40,12 +51,22 @@ public class GestionPedidos extends JPanel {
 	private static int posicionPanel_x = 100;
 	private static int posicionPanel_y = 50;
 
+//**************************************************************************************************
+	private static JList listaCliente;
+    private static JScrollPane scrollCliente;
+    private static DefaultListModel modeloCliente = null;
+    
+//******
+	private static String clienteSeleccionado;
+	
+ //**************************************************************************************************
+	
 	public GestionPedidos() {
 		
 		panelGestionPedidos = new JPanel();
 		lbl_Para_llevar = new JLabel("Para llevar");
 		lbl_mesa = new JLabel("En mesa");
-		table = new JTable();
+			
 		btn_Mesa_1 = new JButton("Mesa 1 ");
 		btn_Mesa_2 = new JButton("Mesa 2");		
 		btn_Mesa_4 = new JButton("Mesa 4");		
@@ -59,17 +80,24 @@ public class GestionPedidos extends JPanel {
 		btn_volver = new JButton("Volver");
 		btn_Ver_Pedido = new JButton("Ver Pedido");
 
+//**************************************************************************************************	
+		
+		listaCliente = new JList();
+		scrollCliente = new JScrollPane(listaCliente);
+		
+//**************************************************************************************************	    
+	    
 		establecerManejador();		
 		panelGestionPedidos.setVisible(false);
 	}
-	
-	
-	
-	
-	
+
 	
 	public static JPanel inicializarComponentes() {
+		
 
+		SentenciasSQL.listarClientes();
+
+		
 		panelGestionPedidos.setBorder(new EmptyBorder(5, 5, 5, 5));
 		panelGestionPedidos.setBounds(posicionPanel_x, posicionPanel_y, ancho, alto);
 		panelGestionPedidos.setLayout(null);
@@ -105,26 +133,7 @@ public class GestionPedidos extends JPanel {
 		lbl_mesa.setBounds(83, 30, 70, 14);
 		panelGestionPedidos.add(lbl_mesa);
 		
-		table = new JTable();
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-			},
-			new String[] {
-				"New column"
-			}
-		));
-		table.setBounds(269, 74, 155, 145);
-		panelGestionPedidos.add(table);
-		
+
 		btn_Nuevo_Cliente.setBounds(278, 46, 107, 23);
 		panelGestionPedidos.add(btn_Nuevo_Cliente);
 		
@@ -144,13 +153,18 @@ public class GestionPedidos extends JPanel {
 		panelGestionPedidos.add(btn_Ver_Pedido);
 		
 		
+//**************************************************************************************************
+
+        scrollCliente.setBounds(269, 74, 155, 145);
+        panelGestionPedidos.add(scrollCliente);
+
+//**************************************************************************************************		
+        
 		return panelGestionPedidos;		
 	}
 	
 	public void establecerManejador() {			
 		ControladorGestionPedidos controlador = new ControladorGestionPedidos(this);
-		
-		table.addMouseListener(controlador);
 		btn_Mesa_1.addActionListener(controlador);
 		btn_Mesa_2.addActionListener(controlador);
 		btn_Mesa_3.addActionListener(controlador);
@@ -162,10 +176,48 @@ public class GestionPedidos extends JPanel {
 		btn_Nuevo_Cliente.addActionListener(controlador);
 		btn_Editar_Cliente.addActionListener(controlador);
 		btn_volver.addActionListener(controlador);
-		btn_Ver_Pedido.addActionListener(controlador);
+		btn_Ver_Pedido.addActionListener(controlador);		
+		listaCliente.addMouseListener(controlador);
 
 	
 	}
+
+//******************************************************************************************
+	
+
+	
+	public static void datosClientes(ArrayList<Cliente> bbddDatosClientes) {
+
+        modeloCliente = new DefaultListModel();
+        Object[] rellenoDatosCliente = bbddDatosClientes.toArray();
+
+        for (int i =0; i<rellenoDatosCliente.length; i++) {        	
+        	modeloCliente.addElement(rellenoDatosCliente[i]);
+        	System.out.println("modeloCliente: --> "+modeloCliente); // <---- Borrar luego
+        }
+        listaCliente.setModel(modeloCliente);
+    }
+	
+	 public static int clienteSeleccionado() throws NullPointerException {
+		 int indiceSeleccionado = listaCliente.getSelectedIndex();
+		return indiceSeleccionado;		 
+	 }
+	 
+	 
+	/*
+    public static String clienteSeleccionado() throws NullPointerException {
+        clienteSeleccionado = listaCliente.getSelectedValue().toString();
+        System.out.println("clienteSeleccionado ------------------>>>>>>>>>>>>>>"+clienteSeleccionado);
+        // Selecciona el indice de la lista
+        int indiceSeleccionado = listaCliente.getSelectedIndex();
+        System.out.println("indiceSeleccionado --> "+indiceSeleccionado);
+        //---------------------------------
+        
+        return clienteSeleccionado;
+    }
+    */
+//******************************************************************************************	
+	
 
 	public static JButton getBtn_Mesa_1() {
 		return btn_Mesa_1;

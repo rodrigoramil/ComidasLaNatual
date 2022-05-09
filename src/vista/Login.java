@@ -1,11 +1,15 @@
 package vista;
 
+import java.awt.Color;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-import javax.swing.border.EmptyBorder;
+// import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
+
 import controlador.ControladorLogin;
 
 public class Login extends JPanel {
@@ -23,7 +27,12 @@ public class Login extends JPanel {
 	private static int alto = 600;
 	private static int posicionPanel_x = 180;
 	private static int posicionPanel_y = 80;
-
+	
+//****
+	private static Color verdeOscuro = new Color(3,36,9);
+	private LineBorder borde1 = new LineBorder(verdeOscuro,2);
+//***	
+	
 	public Login() {		
 	
 
@@ -45,7 +54,10 @@ public class Login extends JPanel {
 	public static JPanel inicializarComponentes() {		
 
 		
-		panelLogin.setBorder(new EmptyBorder(5, 5, 5, 5));
+//		panelLogin.setBorder(new EmptyBorder(5, 5, 5, 5));
+//***		
+		panelLogin.setBorder(new LineBorder(verdeOscuro,3));
+//***		
 		panelLogin.setBounds(posicionPanel_x, posicionPanel_y, ancho, alto);
 		panelLogin.setLayout(null);
 				
