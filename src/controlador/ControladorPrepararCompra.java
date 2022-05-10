@@ -1,5 +1,6 @@
 package controlador;
 
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -35,15 +36,17 @@ private PrepararCompra panelPrepararCompra;
 		}
 		
 		if (e.getSource() == PrepararCompra.getBtn_Imprimir()) {
+			/*
 			try {
 				
-				panelPrepararCompra.getTable().print();
+				panelPrepararCompra.getPanelPrepararCompra().print();
 				
 			} catch (PrinterException e1) {
 				JOptionPane.showMessageDialog(panelPrepararCompra, "Error al imprimir la lista de la compra");
 				System.out.println("Error al imprimir la lista de la compra");
 				e1.printStackTrace();
 			}
+			*/
 		}
 		
 	}

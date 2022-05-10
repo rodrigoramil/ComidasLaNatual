@@ -34,13 +34,15 @@ public class ControladorDetalleGasto implements ActionListener, MouseListener{
 		}
 		
 		if (e.getSource() == DetalleGasto.getBtn_Imprimir()) {
-			// Imprime solo la Tabla, debería imprimir el panel completo			
+			
+			// Imprime solo la Tabla, debería imprimir el panel completo	
+			/*
 			try {				
-			panelDetalleGasto.getTable().print();				
+			panelDetalleGasto.getListaDetalleGasto().print();				
 			} catch (PrinterException e1) {
 				JOptionPane.showMessageDialog(panelDetalleGasto, "Error al imprimir el Detalle del gasto");
 			}
-			
+			*/
 	
 
 		}

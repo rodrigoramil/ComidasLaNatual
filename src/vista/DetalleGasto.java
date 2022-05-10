@@ -2,8 +2,10 @@ package vista;
 
 
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -18,7 +20,6 @@ public class DetalleGasto extends JPanel {
 	private static final long serialVersionUID = 5671748687027242086L;
 	
 	private static JPanel panelDetalleGasto;
-	private static JTable table;
 	private static JLabel lbl_Num_Lista;
 	private static JLabel lbl_detalle_lista;
 	private static JLabel lbl_Total;
@@ -30,28 +31,32 @@ public class DetalleGasto extends JPanel {
 	private static int alto = 600;
 	private static int posicionPanel_x = 100;
 	private static int posicionPanel_y = 50;
-
+	
+	private static JList listaDetalleGasto;
+    private static JScrollPane scrollDetalleGasto;
+    
 	public DetalleGasto() {
+		super();
+		inicializarComponentes();
+		establecerManejador();		
+		
+	}
+
+	public void inicializarComponentes() {
 		
 		panelDetalleGasto = new JPanel();
 		lbl_Num_Lista = new JLabel("Lista de la compra N\u00BA 5");
-		table = new JTable();
 		lbl_detalle_lista = new JLabel("Realizada el dia 05/05/2022 por Pepe");
 		lbl_Total = new JLabel("Total: 143,1\u20AC");
 		btn_Volver = new JButton("Volver");
 		btn_Guardar = new JButton("Guardar");
 		btn_Imprimir = new JButton("Imprimir");
 		
-		establecerManejador();		
-		panelDetalleGasto.setVisible(false);
-	}
-
-	public static JPanel inicializarComponentes() {
-		
 		panelDetalleGasto.setBorder(new EmptyBorder(5, 5, 5, 5));
 		panelDetalleGasto.setBounds(posicionPanel_x, posicionPanel_y, ancho, alto);
 		panelDetalleGasto.setLayout(null);
-
+		panelDetalleGasto.setVisible(false);
+		
 		lbl_Num_Lista.setBounds(10, 11, 132, 14);
 		panelDetalleGasto.add(lbl_Num_Lista);
 
@@ -60,33 +65,6 @@ public class DetalleGasto extends JPanel {
 
 		lbl_detalle_lista.setBounds(10, 36, 325, 14);
 		panelDetalleGasto.add(lbl_detalle_lista);
-
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-			},
-			new String[] {
-				"Productos", "Cantidad", "Gasto", "Precio medio"
-			}
-		) {
-			Class[] columnTypes = new Class[] {
-				Object.class, Integer.class, Object.class, Object.class
-			};
-			public Class getColumnClass(int columnIndex) {
-				return columnTypes[columnIndex];
-			}
-		});
-		table.setBounds(10, 76, 414, 123);
-		panelDetalleGasto.add(table);
 
 		lbl_Total.setBounds(175, 202, 110, 14);
 		panelDetalleGasto.add(lbl_Total);
@@ -97,13 +75,22 @@ public class DetalleGasto extends JPanel {
 		btn_Imprimir.setBounds(224, 227, 89, 23);
 		panelDetalleGasto.add(btn_Imprimir);
 		
-		return panelDetalleGasto;
+		
+	    listaDetalleGasto = new JList();
+	    listaDetalleGasto.setLayout(null);
+	    listaDetalleGasto.setVisible(true);		
+		
+	    scrollDetalleGasto = new JScrollPane(listaDetalleGasto);	
+	    scrollDetalleGasto.setBounds(10, 76, 414, 123);
+	    scrollDetalleGasto.setViewportView(listaDetalleGasto);
+	    panelDetalleGasto.add(scrollDetalleGasto);	
+
 	}
 	
 	public void establecerManejador() {			
 		ControladorDetalleGasto controlador = new ControladorDetalleGasto(this);
 		
-		table.addMouseListener(controlador);
+		listaDetalleGasto.addMouseListener(controlador);
 		lbl_Total.addMouseListener(controlador);
 		lbl_detalle_lista.addMouseListener(controlador);
 		lbl_Num_Lista.addMouseListener(controlador);
@@ -113,13 +100,6 @@ public class DetalleGasto extends JPanel {
 
 	}
 
-	public static JTable getTable() {
-		return table;
-	}
-
-	public static void setTable(JTable table) {
-		DetalleGasto.table = table;
-	}
 
 	public static JPanel getPanelDetalleGasto() {
 		return panelDetalleGasto;
@@ -159,6 +139,10 @@ public class DetalleGasto extends JPanel {
 
 	public static void setLbl_detalle_lista(JLabel lbl_detalle_lista) {
 		DetalleGasto.lbl_detalle_lista = lbl_detalle_lista;
+	}
+
+	public static JList getListaDetalleGasto() {
+		return listaDetalleGasto;
 	}	
 
 	

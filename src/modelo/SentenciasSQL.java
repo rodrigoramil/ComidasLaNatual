@@ -17,8 +17,8 @@ public class SentenciasSQL {
 	private static Conexion conexion = null;
 	private static PreparedStatement sentencia = null;
 	private static GestionPedidos gestionPedidos = null;
-	private static ArrayList<Cliente> arrayClientes = null;
-	private static Cliente cliente = null;
+	private static ArrayList<ModeloCliente> arrayClientes = null;
+	private static ModeloCliente cliente = null;
 
 	public static String iniciar_Sesion(String entrada_usuario, String entrada_contrasena) {
 		String estado = "";
@@ -46,20 +46,20 @@ public class SentenciasSQL {
 	
 	
 	
-	public static void listarClientes() {
-		arrayClientes = new ArrayList<Cliente>();
+	public static void leerClientesBBDD() {
+		arrayClientes = new ArrayList<ModeloCliente>();
         conexion = new Conexion();
         connection = conexion.obtenerConexion();
-        arrayClientes = new ArrayList<Cliente>();        
+        arrayClientes = new ArrayList<ModeloCliente>();        
         try {
         	sentencia = connection.prepareStatement("SELECT * FROM cliente ");
         	ResultSet rs = sentencia.executeQuery();        	
             while (rs.next()) {	
-				cliente = new Cliente ();
+				cliente = new ModeloCliente ();
 				cliente.id=rs.getString("IdCliente");
 				cliente.nombre=rs.getString("NombreCliente");
 				cliente.telefono=rs.getString("Telefono");				
-				arrayClientes.add((Cliente) cliente);
+				arrayClientes.add((ModeloCliente) cliente);
             }
         } catch (SQLException e) {
             System.out.println("Error en gestionPedidosClientes SentenciasSQL");
@@ -82,11 +82,11 @@ public class SentenciasSQL {
             ResultSet rs = sentencia.executeQuery();
             
             while (rs.next()) {  
-				cliente = new Cliente ();
+				cliente = new ModeloCliente ();
 				cliente.id=rs.getString("IdCliente");
 				cliente.nombre=rs.getString("NombreCliente");
 				cliente.telefono=rs.getString("Telefono");			
-				arrayClientes.add((Cliente) cliente);       
+				arrayClientes.add((ModeloCliente) cliente);       
 
             }
 
@@ -97,7 +97,7 @@ public class SentenciasSQL {
     }
 
 
-	public static ArrayList<Cliente> getArrayClientes() {
+	public static ArrayList<ModeloCliente> getArrayClientes() {
 		return arrayClientes;
 	}
 

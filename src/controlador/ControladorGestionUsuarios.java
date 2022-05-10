@@ -56,9 +56,6 @@ public class ControladorGestionUsuarios implements ActionListener, MouseListener
 	@Override
 	public void mousePressed(MouseEvent e) { // Al pulsar raton
 
-		if (e.getSource() == GestionUsuarios.getTable()) {
-			
-		}
 
 	}
 

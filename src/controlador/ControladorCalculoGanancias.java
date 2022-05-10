@@ -28,12 +28,15 @@ public class ControladorCalculoGanancias implements ActionListener, MouseListene
 		}
 		
 		if (e.getSource() == CalculoGanancias.getBtn_Imprimir()) {
-			// Imprime solo la Tabla, debería imprimir el panel completo			
+			
+			// Imprime solo la Tabla, debería imprimir el panel completo
+			/*
 			try {				
-				panelCalculoGanancias.getTable().print();				
+				panelCalculoGanancias.getListaCalculoGanancias().print();				
 			} catch (PrinterException e1) {
 				JOptionPane.showMessageDialog(panelCalculoGanancias, "Error al imprimir el Detalle del gasto");
 			}
+			*/
 		}
 		
 	}

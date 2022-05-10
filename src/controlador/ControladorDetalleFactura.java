@@ -28,12 +28,15 @@ public class ControladorDetalleFactura implements ActionListener, MouseListener{
 			VentanaPrincipal.getPanelListaFacturaciones().setVisible(true);			
 		}
 		if (e.getSource() == DetalleFactura.getBtn_Imprimir()) {
-			// Imprime solo la Tabla, debería imprimir el panel completo			
+			
+			// Imprime solo la Tabla, debería imprimir el panel completo	
+			/*
 			try {				
-				panelDetalleFactura.getTable().print();				
+				panelDetalleFactura.getListaDetalleFactura().print();				
 			} catch (PrinterException e1) {
 				JOptionPane.showMessageDialog(panelDetalleFactura, "Error al imprimir el Detalle del gasto");
 			}
+			*/
 		}
 		
 		

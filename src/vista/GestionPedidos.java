@@ -6,7 +6,7 @@ import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
 import java.awt.Font;
-
+import java.awt.Toolkit;
 import java.util.ArrayList;
 
 import javax.swing.DefaultListModel;
@@ -20,7 +20,7 @@ import javax.swing.JTable;
 import javax.swing.UIManager;
 
 import controlador.ControladorGestionPedidos;
-import modelo.Cliente;
+import modelo.ModeloCliente;
 import modelo.SentenciasSQL;
 
 
@@ -55,7 +55,7 @@ public class GestionPedidos extends JPanel {
 	private static JList listaCliente;
     private static JScrollPane scrollCliente;
     
-    private static ArrayList<Cliente> array_clientes;
+    private static ArrayList<ModeloCliente> array_clientes;
     private static DefaultListModel modeloListaCliente;
     
 //**************************************************************************************************
@@ -67,7 +67,7 @@ public class GestionPedidos extends JPanel {
 	}
 
 	
-	public JPanel inicializarComponentes() {		
+	public void inicializarComponentes() {		
 		
 		panelGestionPedidos = new JPanel();
 		panelGestionPedidos.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -122,9 +122,9 @@ public class GestionPedidos extends JPanel {
 		btn_Nuevo_Cliente.setBounds(278, 46, 107, 23);
 		panelGestionPedidos.add(btn_Nuevo_Cliente);
 		
-		btn_Editar_Cliente = new JButton("");
+		btn_Editar_Cliente = new JButton();
 		btn_Editar_Cliente.setForeground(UIManager.getColor("Button.background"));
-		btn_Editar_Cliente.setIcon(new ImageIcon("C:\\Users\\Ale\\Desktop\\Proyecto DAM\\Version2\\img\\settings (1).png"));
+		btn_Editar_Cliente.setIcon(new ImageIcon("img/settings.png"));
 		btn_Editar_Cliente.setBounds(395, 46, 26, 24);
 		panelGestionPedidos.add(btn_Editar_Cliente);
 		
@@ -143,9 +143,7 @@ public class GestionPedidos extends JPanel {
 		scrollCliente = new JScrollPane(listaCliente);	
         scrollCliente.setBounds(269, 74, 155, 145);
         scrollCliente.setViewportView(listaCliente);
-        panelGestionPedidos.add(scrollCliente);
-        
-		return panelGestionPedidos;		
+        panelGestionPedidos.add(scrollCliente);	
 	}
 	
 	public void establecerManejador() {			
@@ -166,11 +164,11 @@ public class GestionPedidos extends JPanel {
 	}
 
 	
-	public static ArrayList<Cliente> creaListaClientes() {
-		SentenciasSQL.listarClientes();
+	public static ArrayList<ModeloCliente> creaListaClientes() {
+		SentenciasSQL.leerClientesBBDD();
 		array_clientes = SentenciasSQL.getArrayClientes();
 		modeloListaCliente = new DefaultListModel();
-		for (Cliente c : array_clientes) {
+		for (ModeloCliente c : array_clientes) {
 			modeloListaCliente.addElement(c.toString());
 		}
 		listaCliente.setModel(modeloListaCliente);
@@ -182,7 +180,6 @@ public class GestionPedidos extends JPanel {
 		return indiceSeleccionado;		 
 	 }
  
-	
 
 	public static JButton getBtn_Mesa_1() {
 		return btn_Mesa_1;

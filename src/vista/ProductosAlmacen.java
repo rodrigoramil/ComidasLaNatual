@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
@@ -13,6 +14,7 @@ import controlador.ControladorProductosAlmacen;
 import controlador.ControladorRecetario;
 
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.JButton;
@@ -35,7 +37,20 @@ public class ProductosAlmacen extends JPanel {
 	private static int posicionPanel_x = 100;
 	private static int posicionPanel_y = 50;
 
+	private static JList listaProductosAlmacen;
+    private static JScrollPane scrollProductosAlmacen;
+    
 	public ProductosAlmacen() {
+		super();
+		inicializarComponentes();				
+		establecerManejador();
+
+		
+	}
+
+
+	public void inicializarComponentes() {
+		
 		panelProductosAlmacen= new JPanel();
 		caja_nombre_producto = new JTextField();
 		btn_todos_productos = new JButton("Todos los productos");
@@ -43,19 +58,11 @@ public class ProductosAlmacen extends JPanel {
 		btn_volver = new JButton("Volver");
 		table = new JTable();
 		btn_add_receta = new JButton("Añadir a la receta");
-				
-		establecerManejador();
-		panelProductosAlmacen.setVisible(false);
-		
-	}
-
-
-	public static JPanel inicializarComponentes() {
 		
 		panelProductosAlmacen.setBorder(new EmptyBorder(5, 5, 5, 5));
 		panelProductosAlmacen.setBounds(posicionPanel_x, posicionPanel_y, ancho, alto);
 		panelProductosAlmacen.setLayout(null);
-		
+		panelProductosAlmacen.setVisible(false);
 		
 		caja_nombre_producto.setBounds(10, 45, 169, 20);
 		panelProductosAlmacen.add(caja_nombre_producto);
@@ -101,10 +108,17 @@ public class ProductosAlmacen extends JPanel {
 				
 		btn_add_receta.setBounds(77, 227, 65, 23);
 		panelProductosAlmacen.add(btn_add_receta);
-
-			
 		
-		return panelProductosAlmacen;	
+		listaProductosAlmacen = new JList();
+	    listaProductosAlmacen.setLayout(null);
+	    listaProductosAlmacen.setVisible(true);		
+		
+	    scrollProductosAlmacen = new JScrollPane(listaProductosAlmacen);	
+	    scrollProductosAlmacen.setBounds(104, 79, 253, 128);
+	    scrollProductosAlmacen.setViewportView(listaProductosAlmacen);
+	    panelProductosAlmacen.add(scrollProductosAlmacen);
+			
+	
 	}
 	
 	public void establecerManejador() {		
@@ -115,12 +129,31 @@ public class ProductosAlmacen extends JPanel {
 		btn_todos_productos.addActionListener(controlador);
 		btn_buscar.addActionListener(controlador);
 		btn_volver.addActionListener(controlador);
-		table.addMouseListener(controlador);
+		listaProductosAlmacen.addMouseListener(controlador);
 			
 		
 	}
 
+	/*	
+ 	// Hay que modificar el metodo que accede a los Usuarios de la BBDD
 
+	public static ArrayList<ModeloUsuario> creaListaUsuarios() {
+		SentenciasSQL.leerClientesBBDD();
+		arrayUsuarios = SentenciasSQL.getArrayUsuarios();
+		modelo = new DefaultListModel();
+		for (ModeloUsuario c : arrayUsuarios) {
+			modelo.addElement(c.toString());
+		}
+		listaGestionUsuarios.setModel(modelo);
+		return arrayUsuarios;
+	}
+		
+	 public static int usuarioSeleccionado() throws NullPointerException {
+		 int indiceSeleccionado = listaUsuarios.getSelectedIndex();
+		return indiceSeleccionado;		 
+	 }
+*/
+	
 	public static JTextField getCaja_nombre_producto() {
 		return caja_nombre_producto;
 	}

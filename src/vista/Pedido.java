@@ -11,7 +11,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JTable;
 import controlador.ControladorPedido;
-import modelo.Cliente;
+import modelo.ModeloCliente;
 import modelo.SentenciasSQL;
 
 import java.awt.Color;
@@ -25,7 +25,6 @@ public class Pedido extends JPanel {
 	private static final long serialVersionUID = -1676364911491454052L;
 	
 	private static JPanel panelPedido;
-	private static JTable table;
 	private static JLabel lbl_Num_Mesa;
 	private static JButton btn_Guardar;
 	private static JButton btn_Volver;
@@ -39,57 +38,31 @@ public class Pedido extends JPanel {
 	private static int posicionPanel_x = 100;
 	private static int posicionPanel_y = 50;
 	
-//************************** LISTA ****************************************************************
-	private static JList lista;
-    private static JScrollPane scroll;
-    private static DefaultListModel modelo = null;
-  //************************** LISTA ****************************************************************
-	
-//*************************** TABLA *******************************************************
-	private static JScrollPane scrollTabla = null;
-	private static JTable tabla = null;
-    
-//*****************************TABLA*************************************************************   
-    
+	private static JList listaPedidos;
+    private static JScrollPane scrollPedidos;
     
     
     public Pedido() {
+		super();
+		inicializarComponentes();
+		establecerManejador();
+	}
+
+	public void inicializarComponentes() {
 		
 		panelPedido = new JPanel();
-		table = new JTable();
 		lbl_Num_Mesa = new JLabel("Mesa 1");
 		btn_Guardar = new JButton("Guardar");
 		btn_Volver = new JButton("Volver");
 		btn_Modificar = new JButton("Modificar cantidad");
 		btn_Nuevo = new JButton("Nuevo");
 		btn_Eliminar = new JButton("Eliminar");
-		btn_Facturar = new JButton("Facturar");
-		
-//************************ LISTA ******************************************************************
-		lista = new JList();
-		scroll = new JScrollPane(lista);
-//************************* LISTA *****************************************************************	
-		
-		
-//***************************** TABLA *************************************************************
-/*
-		scrollTabla = new JScrollPane();
-		tabla = new JTable();
-		*/
-//		construirTabla();
-//************************** TABLA ****************************************************************
-		
-		establecerManejador();		
-		panelPedido.setVisible(false);
-		
-		
-	}
-
-	public static JPanel inicializarComponentes() {
+		btn_Facturar = new JButton("Facturar");	
 		
 		panelPedido.setBorder(new EmptyBorder(5, 5, 5, 5));
 		panelPedido.setBounds(posicionPanel_x, posicionPanel_y, ancho, alto);
 		panelPedido.setLayout(null);
+		panelPedido.setVisible(false);
 		
 		lbl_Num_Mesa.setBounds(26, 35, 46, 14);
 		panelPedido.add(lbl_Num_Mesa);
@@ -112,44 +85,16 @@ public class Pedido extends JPanel {
 		btn_Facturar.setBackground(Color.ORANGE);
 		btn_Facturar.setBounds(335, 227, 89, 23);
 		panelPedido.add(btn_Facturar);
-		
-		
-		
-//***************************** LISTA *************************************************************
-		
-        scroll.setBounds(26, 74, 398, 112);
-        panelPedido.add(scroll);
-        
-//**************************** LISTA **************************************************************
-		
-        
-        
-        
-        
-//************************** TABLA ****************************************************************
-        	
-      		  /*  		
-      		tabla.setBackground(Color.WHITE);
-      		tabla.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
-      		tabla.setOpaque(false);
-     		scrollTabla.setViewportView(tabla);
-			table.setModel(new DefaultTableModel(
-					SentenciasSQL.listarTabla(),new String[] 
-					{"Bebida/Comida", "Cantidad", "Precio"}));
-			table.setBounds(47, 48, 343, 134);
-			
-        
- //       	tabla = crearTablaPedido();
-        
-			scrollTabla.add(tabla);      		
-      		panelPedido.add(scrollTabla);  
-      		*/
 
-      		
-//************************** TABLA ****************************************************************
+	    listaPedidos = new JList();
+	    listaPedidos.setLayout(null);
+	    listaPedidos.setVisible(true);		
+		
+	    scrollPedidos = new JScrollPane(listaPedidos);	
+	    scrollPedidos.setBounds(26, 74, 398, 112);
+	    scrollPedidos.setViewportView(listaPedidos);
+	    panelPedido.add(scrollPedidos);	
   
-        
-        return panelPedido;
 	}
 	
 	
@@ -162,81 +107,31 @@ public class Pedido extends JPanel {
 		btn_Nuevo.addActionListener(controlador);
 		btn_Eliminar.addActionListener(controlador);
 		btn_Facturar.addActionListener(controlador);
-		
-		
-		
-//*************************** LISTA ***************************************************************
-		lista.addMouseListener(controlador);	
-//******************************* LISTA ***********************************************************
-		
-		
-		
-//************************** TABLA ****************************************************************
-//		tabla.addMouseListener(controlador);
-		
-//************************** TABLA ****************************************************************
-		
+		listaPedidos.addMouseListener(controlador);	
+
 		
 	}
-	
-//**************************** LISTA **************************************************************
-	public static void datosClientes(ArrayList<Cliente> bbddDatos) {
-        modelo = new DefaultListModel();
-        Object[] rellenoDatos = bbddDatos.toArray();
-        for (int i =0; i<rellenoDatos.length; i++) {        	
-        	modelo.addElement(rellenoDatos[i]);        	
-        }
-        lista.setModel(modelo);
-    }
-	
-	 public static int clienteSeleccionado() throws NullPointerException {
-		 int indiceSeleccionado = lista.getSelectedIndex();
-		return indiceSeleccionado;		 
-	 }	 
-	 
-	 
-	 
-	 
-//******************************** LISTA ********************************************************** 
-	
-	 
-/*	 
-	public static JTable crearTablaPedido () {
-		
-		try {
-			tabla.setBackground(Color.WHITE);
-	  		tabla.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
-	  		tabla.setOpaque(false);
-	 		scrollTabla.setViewportView(tabla);
-			table.setModel(new DefaultTableModel(
-				SentenciasSQL.listarTabla(),new String[] 
-				{"Bebida/Comida", "Cantidad", "Precio"}));
-			table.setBounds(47, 48, 343, 134);
-			
-		} catch (Exception e) {
-			e.printStackTrace();
+
+	/*	
+ 	// Hay que modificar el metodo que accede a los Usuarios de la BBDD
+
+	public static ArrayList<ModeloUsuario> creaListaUsuarios() {
+		SentenciasSQL.leerClientesBBDD();
+		arrayUsuarios = SentenciasSQL.getArrayUsuarios();
+		modelo = new DefaultListModel();
+		for (ModeloUsuario c : arrayUsuarios) {
+			modelo.addElement(c.toString());
 		}
+		listaGestionUsuarios.setModel(modelo);
+		return arrayUsuarios;
+	}
 		
-		return table;
-		
-	}
-*/	 
-	 
-	 
-	 
-	
-		public static JScrollPane getScrollTabla() {
-		return scrollTabla;
-	}
-	
-	public static JTable getTable() {
-		return table;
-	}
-
-	public static void setTable(JTable table) {
-		Pedido.table = table;
-	}
-
+	 public static int usuarioSeleccionado() throws NullPointerException {
+		 int indiceSeleccionado = listaUsuarios.getSelectedIndex();
+		return indiceSeleccionado;		 
+	 }
+*/
+ 
 	 
 	public static JPanel getPanelPedido() {
 		return panelPedido;

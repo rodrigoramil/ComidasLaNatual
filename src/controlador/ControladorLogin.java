@@ -3,6 +3,8 @@ package controlador;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+
 import modelo.SentenciasSQL;
 import vista.Login;
 import vista.MenuPrincipal;
@@ -32,7 +34,8 @@ public class ControladorLogin implements ActionListener {
 				cambiarMenuPrincipal ();
 
 			} else if (estado.equals("Cocina")) {
-				cambiarMenuPrincipal ();				
+				cambiarMenuPrincipal ();	
+				
 
 				MenuPrincipal.getBtn_Ventas().setEnabled(false);
 				MenuPrincipal.getBtn_Contabilidad().setEnabled(false);

@@ -5,11 +5,15 @@ import java.awt.EventQueue;
 import java.awt.Window;
 
 import javax.swing.JFrame;
+import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTextField;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.JMenuBar;
 import javax.swing.JComboBox;
@@ -18,6 +22,8 @@ import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 
 import controlador.ControladorRecetario;
+import modelo.ModeloCliente;
+import modelo.SentenciasSQL;
 
 
 public class Recetario extends JPanel {
@@ -28,8 +34,7 @@ public class Recetario extends JPanel {
 	private static final long serialVersionUID = 3846625552235103376L;
 	
 	private static JPanel panelRecetario;
-	private static JTextField caja_nombre_receta;	
-	private static JTable table;
+	private static JTextField caja_nombre_receta;
 	private static JButton btn_cambiar_estado;
 	private static JButton btn_modificar_receta;
 	private static JButton btn_nueva_receta;
@@ -38,35 +43,41 @@ public class Recetario extends JPanel {
 	private static JButton btn_buscar;
 	private static JButton btn_volver;
 	
-	private static int ancho = 800;
-	private static int alto = 600;
-	private static int posicionPanel_x = 100;
-	private static int posicionPanel_y = 50;
+	private int ancho = 800;
+	private int alto = 600;
+	private int posicionPanel_x = 100;
+	private int posicionPanel_y = 50;
 
+	private static JList listaRecetas;
+    private static JScrollPane scrollRecetas;
+    
+    private static ArrayList<ModeloCliente> arrayRecetas;
+    private static DefaultListModel modeloListaReceta;
+    
 
 	public Recetario() {
+		super();
+		inicializarComponentes();	
+		establecerManejador();
+		
+	}
+	
+	public void inicializarComponentes() {
 		
 		panelRecetario= new JPanel();
 		caja_nombre_receta = new JTextField();
 		btn_listadoRecetas = new JButton("Lista de todas las recetas");
 		btn_buscar = new JButton("Buscar");
 		btn_volver = new JButton("Volver");
-		table = new JTable();
 		btn_ver_recetas = new JButton("Ver");
 		btn_nueva_receta = new JButton("Nuevo");
 		btn_modificar_receta = new JButton("Modificar");
 		btn_cambiar_estado = new JButton("Cambiar Estado");
-				
-		establecerManejador();
-		panelRecetario.setVisible(false);
-	}
-	
-	public static JPanel inicializarComponentes() {
 		
 		panelRecetario.setBorder(new EmptyBorder(5, 5, 5, 5));
 		panelRecetario.setBounds(posicionPanel_x, posicionPanel_y, ancho, alto);
 		panelRecetario.setLayout(null);
-		
+		panelRecetario.setVisible(false);
 		
 		caja_nombre_receta.setBounds(10, 45, 169, 20);
 		panelRecetario.add(caja_nombre_receta);
@@ -83,33 +94,7 @@ public class Recetario extends JPanel {
 
 		btn_volver.setBounds(359, 11, 65, 23);
 		panelRecetario.add(btn_volver);
-		
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-			},
-			new String[] {
-				"Recetas", "Estado"
-			}
-		));
-		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		table.setBounds(10, 76, 384, 130);
-		panelRecetario.add(table);
-		
+				
 		btn_ver_recetas.setBounds(10, 227, 57, 23);
 		panelRecetario.add(btn_ver_recetas);
 		
@@ -121,9 +106,15 @@ public class Recetario extends JPanel {
 		
 		btn_cambiar_estado.setBounds(287, 227, 107, 23);
 		panelRecetario.add(btn_cambiar_estado);
-			
+
+	    listaRecetas = new JList();
+	    listaRecetas.setLayout(null);
+	    listaRecetas.setVisible(true);		
 		
-		return panelRecetario;	
+	    scrollRecetas = new JScrollPane(listaRecetas);	
+	    scrollRecetas.setBounds(10, 76, 384, 130);
+	    scrollRecetas.setViewportView(listaRecetas);
+	    panelRecetario.add(scrollRecetas);
 	}
 	
 	public void establecerManejador() {		
@@ -137,11 +128,28 @@ public class Recetario extends JPanel {
 		btn_listadoRecetas.addActionListener(controlador);
 		btn_buscar.addActionListener(controlador);
 		btn_volver.addActionListener(controlador);
-		table.addMouseListener(controlador);
-			
-		
+		listaRecetas.addMouseListener(controlador);
+
 	}
 
+
+	public static ArrayList<ModeloCliente> creaListaRecetas() {
+		SentenciasSQL.leerClientesBBDD();
+		arrayRecetas = SentenciasSQL.getArrayClientes();
+		modeloListaReceta = new DefaultListModel();
+		for (ModeloCliente c : arrayRecetas) {
+			modeloListaReceta.addElement(c.toString());
+		}
+		listaRecetas.setModel(modeloListaReceta);
+		return arrayRecetas;
+	}
+		
+	 public static int clienteSeleccionado() throws NullPointerException {
+		 int indiceSeleccionado = listaRecetas.getSelectedIndex();
+		return indiceSeleccionado;		 
+	 }
+	
+	
 	public static JPanel getPanelRecetario() {
 		return panelRecetario;
 	}
@@ -158,13 +166,6 @@ public class Recetario extends JPanel {
 		Recetario.caja_nombre_receta = caja_nombre_receta;
 	}
 
-	public static JTable getTable() {
-		return table;
-	}
-
-	public static void setTable(JTable table) {
-		Recetario.table = table;
-	}
 
 	public static JButton getBtn_cambiar_estado() {
 		return btn_cambiar_estado;
@@ -222,10 +223,4 @@ public class Recetario extends JPanel {
 		Recetario.btn_volver = btn_volver;
 	}
 
-
-	
-	
-	
-	
-	
 }

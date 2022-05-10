@@ -1,8 +1,10 @@
 package vista;
 
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
+import javax.swing.JList;
 import javax.swing.JTextField;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -13,7 +15,6 @@ public class Almacen extends JPanel {
 
 	private static JPanel panelAlmacen;
 	private static JTextField textField;
-	private static JTable table;
 	private static JButton btn_todos_los_Productos;
 	private static JButton btn_Buscar;
 	private static JButton btn_Volver;
@@ -22,34 +23,38 @@ public class Almacen extends JPanel {
 	private static JButton btn_Modificar;
 	private static JButton btn_Nuevo;
 
-	private static int ancho = 800;
-	private static int alto = 600;
-	private static int posicionPanel_x = 180;
-	private static int posicionPanel_y = 80;
+	private int ancho = 800;
+	private int alto = 600;
+	private int posicionPanel_x = 180;
+	private int posicionPanel_y = 80;
 	
-	
+	private static JList listaAlamcen;
+    private static JScrollPane scrollAlmacen;
+    
 	public Almacen() {
+		
+		super();
+		inicializarComponentes();		
+		establecerManejador();		
+		
+	}
+
+	public void inicializarComponentes() {
 		
 		panelAlmacen = new JPanel();	
 		btn_todos_los_Productos = new JButton("Todos los productos");
 		textField = new JTextField();
 		btn_Buscar = new JButton("Buscar");
 		btn_Volver = new JButton("Volver");
-		table = new JTable();
 		btn_Realizar_Lista_Compra = new JButton("Realizar lista de la compra");
 		btn_Ver_Listas_Compras = new JButton("Ver listas de la compra");
 		btn_Modificar = new JButton("Modificar");
 		btn_Nuevo = new JButton("Nuevo");
 		
-		establecerManejador();		
-		panelAlmacen.setVisible(false);
-	}
-
-	public static JPanel inicializarComponentes() {
-		
 		panelAlmacen.setBorder(new EmptyBorder(5, 5, 5, 5));
 		panelAlmacen.setBounds(posicionPanel_x, posicionPanel_y, ancho, alto);
 		panelAlmacen.setLayout(null);
+		panelAlmacen.setVisible(false);
 
 		btn_todos_los_Productos.setBounds(10, 11, 142, 23);
 		panelAlmacen.add(btn_todos_los_Productos);
@@ -64,36 +69,6 @@ public class Almacen extends JPanel {
 		btn_Volver.setBounds(378, 11, 69, 23);
 		panelAlmacen.add(btn_Volver);
 		
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-			},
-			new String[] {
-				"Productos", "Actual", "M\u00EDnimo", "M\u00E1ximo"
-			}
-		));
-		table.setBounds(10, 76, 437, 141);
-		panelAlmacen.add(table);
-		
 		btn_Realizar_Lista_Compra.setBounds(10, 236, 157, 23);
 		panelAlmacen.add(btn_Realizar_Lista_Compra);
 		
@@ -105,15 +80,23 @@ public class Almacen extends JPanel {
 		
 		btn_Nuevo.setBounds(368, 263, 79, 23);
 		panelAlmacen.add(btn_Nuevo);
+
+	    listaAlamcen = new JList();
+	    listaAlamcen.setLayout(null);
+	    listaAlamcen.setVisible(true);		
 		
-		return panelAlmacen;				
+	    scrollAlmacen = new JScrollPane(listaAlamcen);	
+	    scrollAlmacen.setBounds(10, 76, 437, 141);
+	    scrollAlmacen.setViewportView(listaAlamcen);
+	    panelAlmacen.add(scrollAlmacen);	
+				
 	}
 	
 	public void establecerManejador() {	
 		
 		ControladorAlmacen controlador = new ControladorAlmacen(this);	
 		textField.addActionListener(controlador);
-		table.addMouseListener(controlador);
+		
 		btn_todos_los_Productos.addActionListener(controlador);
 		btn_Buscar.addActionListener(controlador);
 		btn_Volver.addActionListener(controlador);
@@ -121,7 +104,7 @@ public class Almacen extends JPanel {
 		btn_Ver_Listas_Compras.addActionListener(controlador);
 		btn_Modificar.addActionListener(controlador);
 		btn_Nuevo.addActionListener(controlador);
-
+		listaAlamcen.addMouseListener(controlador);
 	
 	}
 
@@ -131,14 +114,6 @@ public class Almacen extends JPanel {
 
 	public static void setTextField(JTextField textField) {
 		Almacen.textField = textField;
-	}
-
-	public static JTable getTable() {
-		return table;
-	}
-
-	public static void setTable(JTable table) {
-		Almacen.table = table;
 	}
 
 	public static JPanel getPanelAlmacen() {

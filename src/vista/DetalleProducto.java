@@ -39,8 +39,13 @@ public class DetalleProducto extends JPanel {
 
 
 	public DetalleProducto() {
+		super();
+		inicializarComponentes();
+		establecerManejador();
+	}
 
-
+	public void inicializarComponentes() {
+		
 		panelDetalleProducto = new JPanel();
 		lbl_Nombre = new JLabel("Nombre");		
 		tfd_Nombre = new JTextField();
@@ -58,18 +63,10 @@ public class DetalleProducto extends JPanel {
 		unidadMedida = new Choice();
 		
 		
-		establecerManejador();		
-		panelDetalleProducto.setVisible(false);
-	}
-
-
-
-	public static JPanel inicializarComponentes() {
-		
 		panelDetalleProducto.setBorder(new EmptyBorder(5, 5, 5, 5));
 		panelDetalleProducto.setBounds(posicionPanel_x, posicionPanel_y, ancho, alto);
 		panelDetalleProducto.setLayout(null);
-
+		panelDetalleProducto.setVisible(false);
 
 		lbl_Nombre.setBounds(10, 42, 51, 14);
 		panelDetalleProducto.add(lbl_Nombre);
@@ -117,7 +114,6 @@ public class DetalleProducto extends JPanel {
 		tipo.setBounds(71, 80, 72, 20);
 		panelDetalleProducto.add(tipo);
 		
-		return panelDetalleProducto;
 	}
 	
 	
@@ -164,11 +160,7 @@ public class DetalleProducto extends JPanel {
 	public static void setBtn_Aceptar(JButton btn_Aceptar) {
 		DetalleProducto.btn_Aceptar = btn_Aceptar;
 	}
-	
-	
-	
-	
-	
+
 	
 	
 }

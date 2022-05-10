@@ -29,7 +29,13 @@ public class Cliente extends JPanel {
 	private static int posicionPanel_y = 50;
 
 	public Cliente() {
+		super();
+		inicializarComponentes();
+		establecerManejador();		
+	}
 
+	public void inicializarComponentes() {
+		
 		panelcliente = new JPanel();
 		lbl_nombre = new JLabel("Nombre");
 		lbl_telefono = new JLabel("Telefono");
@@ -38,15 +44,11 @@ public class Cliente extends JPanel {
 		tfd_nombre = new JTextField();
 		tfd_telefono = new JTextField();
 
-		establecerManejador();		
-		panelcliente.setVisible(false);
-	}
-
-	public static JPanel inicializarComponentes() {
 		
 		panelcliente.setBorder(new EmptyBorder(5, 5, 5, 5));
 		panelcliente.setBounds(posicionPanel_x, posicionPanel_y, ancho, alto);
 		panelcliente.setLayout(null);
+		panelcliente.setVisible(false);
 		
 		lbl_nombre.setBounds(59, 51, 46, 14);
 		panelcliente.add(lbl_nombre);
@@ -68,8 +70,7 @@ public class Cliente extends JPanel {
 
 		btn_volver.setBounds(361, 11, 63, 23);
 		panelcliente.add(btn_volver);
-		
-		return panelcliente;
+
 	}
 
 	public void establecerManejador() {			
@@ -93,6 +94,10 @@ public class Cliente extends JPanel {
 
 	public static JTextField getTfd_telefono() {
 		return tfd_telefono;
+	}
+
+	public static JPanel getPanelcliente() {
+		return panelcliente;
 	}
 	
 	

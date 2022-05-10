@@ -1,13 +1,11 @@
 package vista;
 
-
-import java.awt.Container;
-import java.awt.event.ActionEvent;
-
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import modelo.SentenciasSQL;
 
 public class VentanaPrincipal extends JFrame {
 
@@ -41,107 +39,118 @@ public class VentanaPrincipal extends JFrame {
 	private static JPanel panelDetalleProducto;	
 	private static JPanel panelProductosAlmacen;	
 	
-	private int ancho = 800;
-	private int alto = 600;
+	private static int resolucionBaseX = 800;
+	private static int resolucionBaseY = 600;
+	private static int resolucionX;
+	private static int resolucionY;
+	private static float cordenadaX;
+	private static float cordenadaY;
+
+
+
+//	private int ancho = 800;
+//	private int alto = 600;
 
 	/**
 	 * Creamos la ventana principal que contendrá todos los paneles
 	 */
 	public VentanaPrincipal() {
 		
-		setResizable(false); // fina el tamaño de la ventana
+
+		setResizable(false); // fija el tamaño de la ventana
 		setTitle("Comidas La Natural");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(ancho, alto);	// tamaño de la ventana
+		calculoResolucion();
+		setSize(resolucionX, resolucionY);
+		setExtendedState(MAXIMIZED_BOTH); //PANTALLA COMPLETA
 		setLocationRelativeTo(null); // ventana en el centro de la pantalla
-		setLayout(null); // desactiva el organizador de objetos de la ventana
-//		setIconImage(Toolkit.getDefaultToolkit().getImage("img/imagenicono.jpg"));
-		
+//		setIconImage(Toolkit.getDefaultToolkit().getImage("img/imagenicono.jpg"));		
 		setVisible(true);				
-		inicializarPaneles();		
+		inicializarPaneles();
+
 	}
 	
 	
 	/**
 	 * Inicializamos los objetos paneles
 	 */
-	private void inicializarPaneles() {		
+	private void inicializarPaneles() {	
 		
 		panelContenedor = new JPanel();
-		panelContenedor.setBounds(0 , 0, ancho, alto);
+		panelContenedor.setBounds(0, 0, resolucionX,resolucionY);
+		panelContenedor.setBackground(new Color(12,75,115));
 		panelContenedor.setLayout(null);
-		panelContenedor.setVisible(true);		
 		setContentPane(panelContenedor);
-
+		
 		panelLogin = new Login();
 		panelLogin = Login.getPanelLogin();
 		
 		panelMenuPrincipal = new MenuPrincipal();
-		panelMenuPrincipal = MenuPrincipal.inicializarComponentes();
+		panelMenuPrincipal = MenuPrincipal.getPanelMenuPrincipal();
 		
 		panelGestionPedidos = new GestionPedidos();
 		panelGestionPedidos = GestionPedidos.getPanelGestionPedidos();
 
 		panelRecetario = new Recetario();
-		panelRecetario = Recetario.inicializarComponentes();
+		panelRecetario = Recetario.getPanelRecetario();
 		
 		panelAlmacen = new Almacen();
-		panelAlmacen = Almacen.inicializarComponentes();
+		panelAlmacen = Almacen.getPanelAlmacen();
 			
 		panelContabilidad = new Contabilidad();
-		panelContabilidad = Contabilidad.inicializarComponentes();
+		panelContabilidad = Contabilidad.getPanelContabilidad();
 		
 		panelGestionUsuarios = new GestionUsuarios();
-		panelGestionUsuarios = GestionUsuarios.inicializarComponentes();
+		panelGestionUsuarios = GestionUsuarios.getPanelGestionUsuarios();
 		
 		panelUsuario = new Usuario();
-		panelUsuario = Usuario.inicializarComponentes();
+		panelUsuario = Usuario.getPanelUsuario();
 		
 		panelReceta = new Receta();
-		panelReceta = Receta.inicializarComponentes();
+		panelReceta = Receta.getPanelReceta();
 		
 		panelDetalleProducto = new DetalleProducto();
-		panelDetalleProducto = DetalleProducto.inicializarComponentes();
+		panelDetalleProducto = DetalleProducto.getPanelDetalleProducto();
 		
 		panelPrepararCompra = new PrepararCompra();
-		panelPrepararCompra = PrepararCompra.inicializarComponentes();	
+		panelPrepararCompra = PrepararCompra.getPanelPrepararCompra();	
 			
 		panelListasCompra = new ListasCompra();
-		panelListasCompra = ListasCompra.inicializarComponentes();
+		panelListasCompra = ListasCompra.getPanelListasCompra();
 		
 		panelCliente = new Cliente();
-		panelCliente = Cliente.inicializarComponentes();
+		panelCliente = Cliente.getPanelcliente();
 	
 		panelPedido = new Pedido();
-		panelPedido = Pedido.inicializarComponentes();
+		panelPedido = Pedido.getPanelPedido();
 		
 		panelBuscarComidaBebida = new BuscarComidaBebida();
-		panelBuscarComidaBebida = BuscarComidaBebida.inicializarComponentes();
+		panelBuscarComidaBebida = BuscarComidaBebida.getPanelBuscarComidaBebida();
 		
 		panelFacturar = new Facturar();
-		panelFacturar = Facturar.inicializarComponentes();
+		panelFacturar = Facturar.getPanelFacturar();
 		
 		panelListaGastos = new ListaGastos();
-		panelListaGastos = ListaGastos.inicializarComponentes();
+		panelListaGastos = ListaGastos.getPanelListaGastos();
 		
 		panelListaFacturaciones = new ListaFacturaciones();
-		panelListaFacturaciones = ListaFacturaciones.inicializarComponentes();
+		panelListaFacturaciones = ListaFacturaciones.getPanelListaFacturaciones();
 		
 		panelDetalleGasto = new DetalleGasto();
-		panelDetalleGasto = DetalleGasto.inicializarComponentes();
+		panelDetalleGasto = DetalleGasto.getPanelDetalleGasto();
 		
 		panelCalculoGastos = new CalculoGastos();
-		panelCalculoGastos = CalculoGastos.inicializarComponentes();
+		panelCalculoGastos = CalculoGastos.getPaneCalculoGastos();
 		
 		panelDetalleFactura = new DetalleFactura();
-		panelDetalleFactura = DetalleFactura.inicializarComponentes();
+		panelDetalleFactura = DetalleFactura.getPanelDetalleFactura();
 		
 		panelCalculoGanancias = new CalculoGanancias();
-		panelCalculoGanancias = CalculoGanancias.inicializarComponentes();
+		panelCalculoGanancias = CalculoGanancias.getPanelCalculoGanancias();
 
 
 		panelProductosAlmacen = new ProductosAlmacen();
-		panelProductosAlmacen = ProductosAlmacen.inicializarComponentes();
+		panelProductosAlmacen = ProductosAlmacen.getPanelProductosAlmacen();
 	
 
 
@@ -173,11 +182,19 @@ public class VentanaPrincipal extends JFrame {
 		panelContenedor.add(panelCalculoGanancias);
 		panelContenedor.add(panelProductosAlmacen);
 
-		
-//		SentenciasSQL.listarClientes();
+
 	}
 
-
+public void calculoResolucion() {
+		
+		Dimension resolucion = Toolkit.getDefaultToolkit().getScreenSize(); //OBTENEMOS LA RESOLUCIÓN DE LA PANTALLA
+		resolucionX = (int)resolucion.width;
+		resolucionY = (int)resolucion.height;
+		cordenadaX = ((float)resolucionX/resolucionBaseX);
+		cordenadaY = ((float)resolucionY/resolucionBaseY);
+		System.out.println(resolucionX+" "+cordenadaX);
+		
+	}
 	/**
 	 * Get y Set
 	 * @return
@@ -301,6 +318,27 @@ public class VentanaPrincipal extends JFrame {
 	public static JPanel getPanelUsuario() {
 		return panelUsuario;
 	}
+
+
+	public static int getResolucionX() {
+		return resolucionX;
+	}
+
+
+	public static int getResolucionY() {
+		return resolucionY;
+	}
+
+
+	public static float getCordenadaX() {
+		return cordenadaX;
+	}
+
+
+	public static float getCordenadaY() {
+		return cordenadaY;
+	}
+	
 
 }
 

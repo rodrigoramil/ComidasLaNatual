@@ -1,8 +1,10 @@
 package vista;
 
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JButton;
 import java.awt.Font;
 import javax.swing.JTable;
@@ -18,7 +20,6 @@ public class DetalleFactura extends JPanel {
 	private static final long serialVersionUID = 5869503885016901049L;
 	
 	private static JPanel panelDetalleFactura;
-	private static JTable table;
 	private static JLabel lbl_Num_Mesa;
 	private static JLabel lbl_Detalle_Factura;
 	private static JLabel lbl_Total;
@@ -33,29 +34,33 @@ public class DetalleFactura extends JPanel {
 	private static int posicionPanel_x = 100;
 	private static int posicionPanel_y = 50;
 
+	private static JList listaDetalleFactura;
+    private static JScrollPane scrollDetalleFactura;
+    
 	public DetalleFactura() {
-	
+		super();
+		inicializarComponentes();
+		establecerManejador();		
+
+	}
+
+	public void inicializarComponentes() {
+		
 		panelDetalleFactura = new JPanel();
 		lbl_Num_Mesa = new JLabel("Mesa 1");
 		btn_Volver = new JButton("Volver");
-		lbl_Detalle_Factura = new JLabel("Facturada el dia 05/05/2022 a las 14:08 h por pepe");
-		table = new JTable();		
+		lbl_Detalle_Factura = new JLabel("Facturada el dia 05/05/2022 a las 14:08 h por pepe");	
 		btn_Imprimir = new JButton("Imprimir");	
 		lbl_Total = new JLabel("Total:");		
 		lbl_Cantidad_Total = new JLabel("0,00");		
 		lbl_IVA = new JLabel("Total + IVA(21%):");	
 		lbl_Cantidad_Total_IVA = new JLabel("0,00");
 		
-		establecerManejador();		
-		panelDetalleFactura.setVisible(false);
-	}
-
-	public static JPanel inicializarComponentes() {
-		
 		panelDetalleFactura.setBorder(new EmptyBorder(5, 5, 5, 5));
 		panelDetalleFactura.setBounds(posicionPanel_x, posicionPanel_y, ancho, alto);
 		panelDetalleFactura.setLayout(null);
-
+		panelDetalleFactura.setVisible(false);
+		
 		lbl_Num_Mesa.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lbl_Num_Mesa.setBounds(31, 32, 46, 14);
 		panelDetalleFactura.add(lbl_Num_Mesa);
@@ -65,32 +70,6 @@ public class DetalleFactura extends JPanel {
 
 		lbl_Detalle_Factura.setBounds(41, 56, 298, 14);
 		panelDetalleFactura.add(lbl_Detalle_Factura);
-		
-		table = new JTable();
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null, "", null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-			},
-			new String[] {
-				"Comida / Bebida", "Precio unidad", "Cantidad", "Precio Final"
-			}
-		));
-		table.setBounds(41, 81, 362, 120);
-		panelDetalleFactura.add(table);
 		
 		btn_Imprimir.setBounds(39, 227, 76, 23);
 		panelDetalleFactura.add(btn_Imprimir);
@@ -107,14 +86,22 @@ public class DetalleFactura extends JPanel {
 		lbl_Cantidad_Total_IVA.setBounds(333, 231, 37, 14);
 		panelDetalleFactura.add(lbl_Cantidad_Total_IVA);
 		
-		return panelDetalleFactura;
+		listaDetalleFactura = new JList();
+	    listaDetalleFactura.setLayout(null);
+	    listaDetalleFactura.setVisible(true);		
+		
+	    scrollDetalleFactura = new JScrollPane(listaDetalleFactura);	
+	    scrollDetalleFactura.setBounds(41, 81, 362, 120);
+	    scrollDetalleFactura.setViewportView(listaDetalleFactura);
+	    panelDetalleFactura.add(scrollDetalleFactura);	
+        
 	}
 
 	
 	public void establecerManejador() {			
 		ControladorDetalleFactura controlador = new ControladorDetalleFactura(this);
 		
-		table.addMouseListener(controlador);
+		listaDetalleFactura.addMouseListener(controlador);
 		lbl_Detalle_Factura.addMouseListener(controlador);
 		lbl_Cantidad_Total.addMouseListener(controlador);
 		lbl_Cantidad_Total_IVA.addMouseListener(controlador);
@@ -125,15 +112,27 @@ public class DetalleFactura extends JPanel {
 
 
 	}
+	
+	/*	
+ 	// Hay que modificar el metodo que accede a los Usuarios de la BBDD
 
-	public static JTable getTable() {
-		return table;
+	public static ArrayList<ModeloUsuario> creaListaUsuarios() {
+		SentenciasSQL.leerClientesBBDD();
+		arrayUsuarios = SentenciasSQL.getArrayUsuarios();
+		modelo = new DefaultListModel();
+		for (ModeloUsuario c : arrayUsuarios) {
+			modelo.addElement(c.toString());
+		}
+		listaGestionUsuarios.setModel(modelo);
+		return arrayUsuarios;
 	}
-
-	public static void setTable(JTable table) {
-		DetalleFactura.table = table;
-	}
-
+		
+	 public static int usuarioSeleccionado() throws NullPointerException {
+		 int indiceSeleccionado = listaUsuarios.getSelectedIndex();
+		return indiceSeleccionado;		 
+	 }
+*/
+	
 	public static JLabel getLbl_Num_Mesa() {
 		return lbl_Num_Mesa;
 	}
@@ -176,8 +175,11 @@ public class DetalleFactura extends JPanel {
 
 	public static JButton getBtn_Imprimir() {
 		return btn_Imprimir;
+	}
+
+	public static JList getListaDetalleFactura() {
+		return listaDetalleFactura;
 	}	
-	
 	
 	
 }
