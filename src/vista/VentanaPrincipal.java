@@ -65,7 +65,7 @@ public class VentanaPrincipal extends JFrame {
 	/**
 	 * Inicializamos los objetos paneles
 	 */
-	private void inicializarPaneles() {
+	private void inicializarPaneles() {		
 		
 		panelContenedor = new JPanel();
 		panelContenedor.setBounds(0 , 0, ancho, alto);

@@ -22,8 +22,8 @@ public class ControladorMenuPrincipal implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == MenuPrincipal.getBtn_Ventas()) {
 			
-//			ArrayList<Cliente> clientes = GestionPedidos.creaListaClientes();
-//			System.out.println(clientes);
+			GestionPedidos.creaListaClientes();
+			
 			
 			VentanaPrincipal.getPanelMenuPrincipal().setVisible(false);
 			VentanaPrincipal.getPanelGestionPedidos().setVisible(true);
