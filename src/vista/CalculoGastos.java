@@ -5,8 +5,10 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JTextField;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -17,15 +19,10 @@ import javax.swing.JButton;
 
 public class CalculoGastos extends JPanel {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -5487305966660378713L;
 	
 	private static JPanel paneCalculoGastos;
 	private static JTextField caja_Desde;
 	private static JTextField caja_Hasta;
-	private static JTable table;
 	private static JLabel lbl_Desde;
 	private static JLabel lbl_Hasta;
 	private static JLabel lbl_Gastos;
@@ -38,10 +35,17 @@ public class CalculoGastos extends JPanel {
 	private static int posicionPanel_x = 100;
 	private static int posicionPanel_y = 50;
 
+	private static JList listaCalculoGasto;
+    private static JScrollPane scrollCalculoGasto;
+    
 	public CalculoGastos() {
-		
-		paneCalculoGastos = new JPanel();
-		table = new JTable();
+		super();
+		inicializarComponentes();
+		establecerManejador();	
+	}
+
+	public void inicializarComponentes() {
+				paneCalculoGastos = new JPanel();
 		lbl_Desde = new JLabel("Desde");
 		lbl_Hasta = new JLabel("Hasta");
 		caja_Desde = new JTextField();
@@ -50,17 +54,10 @@ public class CalculoGastos extends JPanel {
 		lbl_Cuenta_Gastos = new JLabel("0,00 \u20AC");
 		btn_Volver = new JButton("Volver");
 		btn_Imprimir = new JButton("Imprimir");
-		
-		establecerManejador();		
-		paneCalculoGastos.setVisible(false);
-	}
-
-	public static JPanel inicializarComponentes() {
 
 		paneCalculoGastos.setBorder(new EmptyBorder(5, 5, 5, 5));
 		paneCalculoGastos.setBounds(posicionPanel_x, posicionPanel_y, ancho, alto);
-		paneCalculoGastos.setLayout(null);
-		
+		paneCalculoGastos.setLayout(null);		paneCalculoGastos.setVisible(false);		
 		lbl_Desde.setBounds(30, 63, 46, 14);
 		paneCalculoGastos.add(lbl_Desde);
 
@@ -81,45 +78,27 @@ public class CalculoGastos extends JPanel {
 		paneCalculoGastos.add(lbl_Gastos);
 		
 		lbl_Cuenta_Gastos.setBounds(40, 195, 46, 14);
-		paneCalculoGastos.add(lbl_Cuenta_Gastos);
-		
-		table = new JTable();
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-			},
-			new String[] {
-				"N\u00BA", "Fecha", "Gasto"
-			}
-		));
-		table.setBounds(233, 63, 173, 146);
-		paneCalculoGastos.add(table);
-		
+		paneCalculoGastos.add(lbl_Cuenta_Gastos);
 		btn_Volver.setBounds(335, 11, 75, 23);
 		paneCalculoGastos.add(btn_Volver);
 		
 		btn_Imprimir.setBounds(224, 227, 89, 23);
 		paneCalculoGastos.add(btn_Imprimir);
 		
-		return paneCalculoGastos;
+		listaCalculoGasto = new JList();
+	    listaCalculoGasto.setLayout(null);
+	    listaCalculoGasto.setVisible(true);		
+		
+	    scrollCalculoGasto = new JScrollPane(listaCalculoGasto);	
+	    scrollCalculoGasto.setBounds(233, 63, 173, 146);
+	    scrollCalculoGasto.setViewportView(listaCalculoGasto);
+	    paneCalculoGastos.add(scrollCalculoGasto);
+
 	}
 
 	public void establecerManejador() {			
 		ControladorCalculoGastos controlador = new ControladorCalculoGastos(this);
-		
-		table.addMouseListener(controlador);
+				listaCalculoGasto.addMouseListener(controlador);
 		lbl_Cuenta_Gastos.addMouseListener(controlador);
 		caja_Desde.addActionListener(controlador);
 		caja_Hasta.addActionListener(controlador);	
@@ -128,6 +107,26 @@ public class CalculoGastos extends JPanel {
 			
 	}
 
+	
+	/*	
+ 	// Hay que modificar el metodo que accede a los Usuarios de la BBDD
+
+	public static ArrayList<ModeloUsuario> creaListaUsuarios() {
+		SentenciasSQL.leerClientesBBDD();
+		arrayUsuarios = SentenciasSQL.getArrayUsuarios();
+		modelo = new DefaultListModel();
+		for (ModeloUsuario c : arrayUsuarios) {
+			modelo.addElement(c.toString());
+		}
+		listaGestionUsuarios.setModel(modelo);
+		return arrayUsuarios;
+	}
+		
+	 public static int usuarioSeleccionado() throws NullPointerException {
+		 int indiceSeleccionado = listaUsuarios.getSelectedIndex();
+		return indiceSeleccionado;		 
+	 }
+*/
 	public static JTextField getCaja_Desde() {
 		return caja_Desde;
 	}
@@ -142,14 +141,6 @@ public class CalculoGastos extends JPanel {
 
 	public static void setCaja_Hasta(JTextField caja_Hasta) {
 		CalculoGastos.caja_Hasta = caja_Hasta;
-	}
-
-	public static JTable getTable() {
-		return table;
-	}
-
-	public static void setTable(JTable table) {
-		CalculoGastos.table = table;
 	}
 
 	public static JLabel getLbl_Cuenta_Gastos() {

@@ -5,15 +5,21 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import controlador.ControladorGestionUsuarios;
+import modelo.ModeloUsuario;
+import modelo.SentenciasSQL;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import java.awt.Font;
+import java.util.ArrayList;
 
 public class GestionUsuarios extends JPanel {
 
@@ -23,7 +29,6 @@ public class GestionUsuarios extends JPanel {
 	private static final long serialVersionUID = 3656793065573268429L;
 	
 	private static JPanel panelGestionUsuarios;
-	private static JTable table;
 	private static JLabel lbl_lista_usuarios;
 	private static JButton btn_nuevo;
 	private static JButton btn_Modificar;
@@ -35,50 +40,37 @@ public class GestionUsuarios extends JPanel {
 	private static int posicionPanel_x = 100;
 	private static int posicionPanel_y = 50;
 	
+	private static JList listaGestionUsuarios;
+    private static JScrollPane scrollGestionUsuarios;
+    
+    private static ArrayList<ModeloUsuario> arrayUsuarios;
+    private static DefaultListModel modelo;
+    
+	public GestionUsuarios() {		
+		super();
+		inicializarComponentes();
+		establecerManejador();		
+	}
 
-	public GestionUsuarios() {
+
+	public void inicializarComponentes() {
 		
 		panelGestionUsuarios = new JPanel();		
-		lbl_lista_usuarios = new JLabel("Lista de Usuarios");		
-		table = new JTable();		
+		lbl_lista_usuarios = new JLabel("Lista de Usuarios");			
 		btn_nuevo = new JButton("Nuevo");		
 		btn_Modificar = new JButton("Modificar");		
 		btn_eliminar = new JButton("Eliminar");		
 		btn_volver = new JButton("Volver");
 		
-		establecerManejador();		
-		panelGestionUsuarios.setVisible(false);
-	}
-
-
-	public static JPanel inicializarComponentes() {
-		
 		panelGestionUsuarios.setBorder(new EmptyBorder(5, 5, 5, 5));
 		panelGestionUsuarios.setBounds(posicionPanel_x, posicionPanel_y, ancho, alto);
 		panelGestionUsuarios.setLayout(null);
-
+		panelGestionUsuarios.setVisible(false);
+		
 		lbl_lista_usuarios.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lbl_lista_usuarios.setBounds(171, 51, 143, 14);
 		panelGestionUsuarios.add(lbl_lista_usuarios);
-		
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-			},
-			new String[] {
-				"New column", "New column"
-			}
-		));
-		table.setBounds(104, 79, 253, 128);
-		panelGestionUsuarios.add(table);
-		
+			
 		btn_nuevo.setBounds(33, 221, 89, 23);
 		panelGestionUsuarios.add(btn_nuevo);
 		
@@ -90,15 +82,22 @@ public class GestionUsuarios extends JPanel {
 		
 		btn_volver.setBounds(335, 11, 89, 23);
 		panelGestionUsuarios.add(btn_volver);
+
+	    listaGestionUsuarios = new JList();
+	    listaGestionUsuarios.setLayout(null);
+	    listaGestionUsuarios.setVisible(true);		
 		
-		return panelGestionUsuarios;
+	    scrollGestionUsuarios = new JScrollPane(listaGestionUsuarios);	
+	    scrollGestionUsuarios.setBounds(104, 79, 253, 128);
+	    scrollGestionUsuarios.setViewportView(listaGestionUsuarios);
+        panelGestionUsuarios.add(scrollGestionUsuarios);	
 	}
 	
 	private void establecerManejador() {
 		
 		ControladorGestionUsuarios controlador = new ControladorGestionUsuarios(this);
 		
-		table.addMouseListener(controlador);
+		listaGestionUsuarios.addMouseListener(controlador);
 		btn_Modificar.addActionListener(controlador);
 		btn_nuevo.addActionListener(controlador);
 		btn_eliminar.addActionListener(controlador);
@@ -106,17 +105,29 @@ public class GestionUsuarios extends JPanel {
 
 		
 	}
+/*	
+ 	// Hay que modificar el metodo que accede a los Usuarios de la BBDD
 
-
+	public static ArrayList<ModeloUsuario> creaListaUsuarios() {
+		SentenciasSQL.leerClientesBBDD();
+		arrayUsuarios = SentenciasSQL.getArrayUsuarios();
+		modelo = new DefaultListModel();
+		for (ModeloUsuario c : arrayUsuarios) {
+			modelo.addElement(c.toString());
+		}
+		listaGestionUsuarios.setModel(modelo);
+		return arrayUsuarios;
+	}
+		
+	 public static int usuarioSeleccionado() throws NullPointerException {
+		 int indiceSeleccionado = listaUsuarios.getSelectedIndex();
+		return indiceSeleccionado;		 
+	 }
+*/
+	 
 	public static JPanel getPanelGestionUsuarios() {
 		return panelGestionUsuarios;
 	}
-
-
-	public static JTable getTable() {
-		return table;
-	}
-
 
 	public static JButton getBtn_nuevo() {
 		return btn_nuevo;

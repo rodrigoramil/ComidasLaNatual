@@ -1,8 +1,10 @@
 package vista;
 
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JButton;
 import java.awt.Font;
 import javax.swing.JTable;
@@ -37,8 +39,18 @@ public class Facturar extends JPanel {
 	private static int alto = 600;
 	private static int posicionPanel_x = 100;
 	private static int posicionPanel_y = 50;
-
+	
+	private static JList listaFactura;
+    private static JScrollPane scrollFactura;
+    
 	public Facturar() {
+		super();
+		inicializarComponentes();
+		establecerManejador();			
+	}
+
+
+	public void inicializarComponentes() {
 		
 		panelFacturar = new JPanel();
 		lbl_mesa = new JLabel("Mesa 0");
@@ -54,17 +66,11 @@ public class Facturar extends JPanel {
 		lbl_valor_total = new JLabel("0,00");
 		lbl_valor_IVA = new JLabel("0,00");		
 		lbl_valor_devolver = new JLabel("0,00");
-
-		establecerManejador();		
-		panelFacturar.setVisible(false);
-	}
-
-
-	public static JPanel inicializarComponentes() {
 		
 		panelFacturar.setBorder(new EmptyBorder(5, 5, 5, 5));
 		panelFacturar.setBounds(posicionPanel_x, posicionPanel_y, ancho, alto);
 		panelFacturar.setLayout(null);
+		panelFacturar.setVisible(false);
 		
 		lbl_mesa.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lbl_mesa.setBounds(25, 35, 63, 14);
@@ -72,38 +78,6 @@ public class Facturar extends JPanel {
 
 		btn_volver.setBounds(335, 11, 89, 23);
 		panelFacturar.add(btn_volver);
-
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-			},
-			new String[] {
-				"Comida /Bebidda", "Precio unidad", "Cantidad", "Precio Final"
-			}
-		));
-		table.getColumnModel().getColumn(0).setPreferredWidth(236);
-		table.getColumnModel().getColumn(1).setPreferredWidth(90);
-		table.setBounds(25, 63, 399, 171);
-		panelFacturar.add(table);
 
 		btn_pagado.setBounds(25, 278, 89, 23);
 		panelFacturar.add(btn_pagado);
@@ -134,14 +108,22 @@ public class Facturar extends JPanel {
 
 		lbl_valor_devolver.setBounds(360, 320, 46, 14);
 		panelFacturar.add(lbl_valor_devolver);
+
+	    listaFactura = new JList();
+	    listaFactura.setLayout(null);
+	    listaFactura.setVisible(true);		
 		
-		return panelFacturar;
+	    scrollFactura = new JScrollPane(listaFactura);	
+	    scrollFactura.setBounds(25, 63, 399, 171);
+	    scrollFactura.setViewportView(listaFactura);
+	    panelFacturar.add(scrollFactura);	
+		
 	}
 	
 	public void establecerManejador() {			
 		ControladorFacturar controlador = new ControladorFacturar(this);
 		
-		table.addMouseListener(controlador);
+		listaFactura.addMouseListener(controlador);
 		lbl_valor_total.addMouseListener(controlador);
 		lbl_valor_devolver.addMouseListener(controlador);
 		lbl_valor_IVA.addMouseListener(controlador);
@@ -151,7 +133,26 @@ public class Facturar extends JPanel {
 		btn_pago_tarjeta.addActionListener(controlador);
 		
 	}
+	
+	/*	
+ 	// Hay que modificar el metodo que accede a los Usuarios de la BBDD
 
+	public static ArrayList<ModeloUsuario> creaListaUsuarios() {
+		SentenciasSQL.leerClientesBBDD();
+		arrayUsuarios = SentenciasSQL.getArrayUsuarios();
+		modelo = new DefaultListModel();
+		for (ModeloUsuario c : arrayUsuarios) {
+			modelo.addElement(c.toString());
+		}
+		listaGestionUsuarios.setModel(modelo);
+		return arrayUsuarios;
+	}
+		
+	 public static int usuarioSeleccionado() throws NullPointerException {
+		 int indiceSeleccionado = listaUsuarios.getSelectedIndex();
+		return indiceSeleccionado;		 
+	 }
+*/
 
 	public static JTable getTable() {
 		return table;
@@ -215,11 +216,7 @@ public class Facturar extends JPanel {
 
 	public static JTextField getCaja_abonado() {
 		return caja_abonado;
-	}
-	
-	
-	
-	
+	}	
 	
 	
 }

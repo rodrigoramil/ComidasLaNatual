@@ -3,7 +3,7 @@ package modelo;
 
 import java.io.Serializable;
 
-public class Cliente implements Serializable{
+public class ModeloCliente implements Serializable{
 	/**
 	 * 
 	 */
@@ -12,14 +12,14 @@ public class Cliente implements Serializable{
 	String nombre;
 	String telefono;
 	
-	public Cliente(String id, String nombre, String telefono) {
+	public ModeloCliente(String id, String nombre, String telefono) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
 		this.telefono = telefono;
 	}
 
-	public Cliente() {
+	public ModeloCliente() {
 		super();
 	}
 

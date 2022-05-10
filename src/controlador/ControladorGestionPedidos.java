@@ -40,22 +40,22 @@ public class ControladorGestionPedidos implements ActionListener, MouseListener 
 
 				System.out.println("clienteSeleccionado: --> "+GestionPedidos.clienteSeleccionado()); // <--- Borrar luego
 
-				for (int i = 0; i < SentenciasSQL.getArray_clientes().size(); i++) {
+				for (int i = 0; i < SentenciasSQL.getArrayClientes().size(); i++) {
 
-					System.out.println("Cliente -> " + SentenciasSQL.getArray_clientes().get(i).getId()); // <--- Borrar luego
+					System.out.println("Cliente -> " + SentenciasSQL.getArrayClientes().get(i).getId()); // <--- Borrar luego
 
 					/**
 					 * Nota: hay que restarle uno al Id del cliente porque empieza en 1 y el array de Clientes empieza desde 0
 					 */
 					
-					if (GestionPedidos.clienteSeleccionado()==Integer.parseInt(SentenciasSQL.getArray_clientes().get(i).getId())-1) {
+					if (GestionPedidos.clienteSeleccionado()==Integer.parseInt(SentenciasSQL.getArrayClientes().get(i).getId())-1) {
 
-						Cliente.getTfd_nombre().setText(SentenciasSQL.getArray_clientes().get(i).getNombre());
-						Cliente.getTfd_telefono().setText(SentenciasSQL.getArray_clientes().get(i).getTelefono());
+						Cliente.getTfd_nombre().setText(SentenciasSQL.getArrayClientes().get(i).getNombre());
+						Cliente.getTfd_telefono().setText(SentenciasSQL.getArrayClientes().get(i).getTelefono());
 					}
 				}
 				
-				System.out.println(SentenciasSQL.getArray_clientes()); // <--- Borrar luego
+				System.out.println(SentenciasSQL.getArrayClientes()); // <--- Borrar luego
 				
 //				GestionPedidos.clienteSeleccionado();
 				
@@ -129,6 +129,7 @@ public class ControladorGestionPedidos implements ActionListener, MouseListener 
 
 	@Override
 	public void mousePressed(MouseEvent e) { // Al pulsar raton
+
 
 		
 	}
