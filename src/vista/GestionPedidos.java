@@ -56,103 +56,104 @@ public class GestionPedidos extends JPanel {
     private static JScrollPane scrollCliente;
     private static DefaultListModel modeloCliente = null;
     
+    private static ArrayList<Cliente> array_clientes;
+    private static DefaultListModel modeloListaCliente;
+    
 //**************************************************************************************************
 	
 	public GestionPedidos() {
-		
-		panelGestionPedidos = new JPanel();
-		lbl_Para_llevar = new JLabel("Para llevar");
-		lbl_mesa = new JLabel("En mesa");
-			
-		btn_Mesa_1 = new JButton("Mesa 1 ");
-		btn_Mesa_2 = new JButton("Mesa 2");		
-		btn_Mesa_4 = new JButton("Mesa 4");		
-		btn_Mesa_3 = new JButton("Mesa 3");		
-		btn_Mesa_8 = new JButton("Mesa 8");
-		btn_Mesa_7 = new JButton("Mesa 7");		
-		btn_Mesa_6 = new JButton("Mesa 6");		
-		btn_Mesa_5 = new JButton("Mesa 5");	
-		btn_Nuevo_Cliente = new JButton("Nuevo Cliente");		
-		btn_Editar_Cliente = new JButton("");	
-		btn_volver = new JButton("Volver");
-		btn_Ver_Pedido = new JButton("Ver Pedido");
-
-//**************************************************************************************************	
-		
-		listaCliente = new JList();
-		scrollCliente = new JScrollPane(listaCliente);
-		
-//**************************************************************************************************	    
-	    
-		establecerManejador();		
-		panelGestionPedidos.setVisible(false);
+		super();
+		inicializarComponentes();
+		establecerManejador();
 	}
 
 	
-	public static JPanel inicializarComponentes() {
-		
-
-		SentenciasSQL.listarClientes();
-
-		
+	public JPanel inicializarComponentes() {
+				
+		panelGestionPedidos = new JPanel();
 		panelGestionPedidos.setBorder(new EmptyBorder(5, 5, 5, 5));
 		panelGestionPedidos.setBounds(posicionPanel_x, posicionPanel_y, ancho, alto);
 		panelGestionPedidos.setLayout(null);
-		
+		panelGestionPedidos.setVisible(false);
+
+		btn_Mesa_1 = new JButton("Mesa 1 ");		
 		btn_Mesa_1.setBounds(10, 70, 107, 23);
 		panelGestionPedidos.add(btn_Mesa_1);
 		
-
+		btn_Mesa_2 = new JButton("Mesa 2");		
 		btn_Mesa_2.setBounds(142, 70, 89, 23);
 		panelGestionPedidos.add(btn_Mesa_2);
-
-		btn_Mesa_4.setBounds(142, 110, 89, 23);
-		panelGestionPedidos.add(btn_Mesa_4);
 		
+		btn_Mesa_3 = new JButton("Mesa 3");	
 		btn_Mesa_3.setBounds(10, 110, 107, 23);
 		panelGestionPedidos.add(btn_Mesa_3);
 		
-		btn_Mesa_8.setBounds(142, 192, 89, 23);
-		panelGestionPedidos.add(btn_Mesa_8);
-		
+		btn_Mesa_4 = new JButton("Mesa 4");	
+		btn_Mesa_4.setBounds(142, 110, 89, 23);
+		panelGestionPedidos.add(btn_Mesa_4);
 
+		
+		btn_Mesa_7 = new JButton("Mesa 7");	
 		btn_Mesa_7.setBounds(10, 192, 107, 23);
 		panelGestionPedidos.add(btn_Mesa_7);
 		
-
+		btn_Mesa_6 = new JButton("Mesa 6");	
 		btn_Mesa_6.setBounds(142, 152, 89, 23);
 		panelGestionPedidos.add(btn_Mesa_6);
 		
+		btn_Mesa_5 = new JButton("Mesa 5");	
 		btn_Mesa_5.setBounds(10, 152, 107, 23);
 		panelGestionPedidos.add(btn_Mesa_5);
 		
+		btn_Mesa_8 = new JButton("Mesa 8");
+		btn_Mesa_8.setBounds(142, 192, 89, 23);
+		panelGestionPedidos.add(btn_Mesa_8);
+
+		lbl_mesa = new JLabel("En mesa");
 		lbl_mesa.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lbl_mesa.setBounds(83, 30, 70, 14);
 		panelGestionPedidos.add(lbl_mesa);
 		
+		lbl_Para_llevar = new JLabel("Para llevar");
+		lbl_Para_llevar.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lbl_Para_llevar.setBounds(287, 30, 70, 14);
+		panelGestionPedidos.add(lbl_Para_llevar);	
+		
+		
+		
 
+//**************************************************************************************************	
+		
+
+		
+		btn_Nuevo_Cliente = new JButton("Nuevo Cliente");
 		btn_Nuevo_Cliente.setBounds(278, 46, 107, 23);
 		panelGestionPedidos.add(btn_Nuevo_Cliente);
 		
+		btn_Editar_Cliente = new JButton("");
 		btn_Editar_Cliente.setForeground(UIManager.getColor("Button.background"));
 		btn_Editar_Cliente.setIcon(new ImageIcon("C:\\Users\\Ale\\Desktop\\Proyecto DAM\\Version2\\img\\settings (1).png"));
 		btn_Editar_Cliente.setBounds(395, 46, 26, 24);
 		panelGestionPedidos.add(btn_Editar_Cliente);
 		
+		btn_volver = new JButton("Volver");
 		btn_volver.setBounds(354, 9, 70, 19);
-		panelGestionPedidos.add(btn_volver);
-		
-		lbl_Para_llevar.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lbl_Para_llevar.setBounds(287, 30, 70, 14);
-		panelGestionPedidos.add(lbl_Para_llevar);
-		
+		panelGestionPedidos.add(btn_volver);		
+
+		btn_Ver_Pedido = new JButton("Ver Pedido");
 		btn_Ver_Pedido.setBounds(142, 254, 89, 23);
 		panelGestionPedidos.add(btn_Ver_Pedido);
 		
 		
 //**************************************************************************************************
-
+		listaCliente = new JList();
+		listaCliente.setLayout(null);
+		listaCliente.setVisible(true);
+		
+		
+		scrollCliente = new JScrollPane(listaCliente);	
         scrollCliente.setBounds(269, 74, 155, 145);
+        scrollCliente.setViewportView(listaCliente);
         panelGestionPedidos.add(scrollCliente);
 
 //**************************************************************************************************		
@@ -176,9 +177,32 @@ public class GestionPedidos extends JPanel {
 		btn_Ver_Pedido.addActionListener(controlador);		
 		listaCliente.addMouseListener(controlador);
 
+		
 	
 	}
 
+	
+	
+	
+	public static ArrayList<Cliente> creaListaClientes() {
+		array_clientes = SentenciasSQL.listarClientes();
+		modeloListaCliente = new DefaultListModel();
+		for (Cliente c : array_clientes) {
+			modeloListaCliente.addElement(c.toString());
+		}
+		listaCliente.setModel(modeloListaCliente);
+		return array_clientes;
+	
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 //******************************************************************************************
 // System.out.println("modeloCliente: --> "+modeloCliente); // <---- Borrar luego	
 
@@ -248,6 +272,13 @@ public class GestionPedidos extends JPanel {
 	public static JButton getBtn_volver() {
 		return btn_volver;
 	}
+
+
+	public static JPanel getPanelGestionPedidos() {
+		return panelGestionPedidos;
+	}
+	
+	
 
 	
 }

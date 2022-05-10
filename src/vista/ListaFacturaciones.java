@@ -73,8 +73,8 @@ public class ListaFacturaciones extends JPanel {
 			
 //			,new String[] {"N\u00BA", "Fecha", "Hora", "Ganancia", "Usuario"}
 //		));
-		table.setBounds(47, 48, 343, 134);
-		panelListaFacturaciones.add(table);
+//		table.setBounds(47, 48, 343, 134);
+//		panelListaFacturaciones.add(table);
 		
 		btn_Volver.setBounds(335, 14, 89, 23);
 		panelListaFacturaciones.add(btn_Volver);
@@ -91,13 +91,13 @@ public class ListaFacturaciones extends JPanel {
 	public void establecerManejador() {			
 		ControladorListaFacturaciones controlador = new ControladorListaFacturaciones(this);
 		
-		table.addMouseListener(controlador);
+//		table.addMouseListener(controlador);
 		btn_Volver.addActionListener(controlador);
 		btn_Ver.addActionListener(controlador);
 		btn_Calcular_Ganancias.addActionListener(controlador);
 		
 	}
-
+/*
 	public static JTable getTable() {
 		return table;
 	}
@@ -105,7 +105,7 @@ public class ListaFacturaciones extends JPanel {
 	public static void setTable(JTable table) {
 		ListaFacturaciones.table = table;
 	}
-
+*/
 	public static JPanel getPanelListaFacturaciones() {
 		return panelListaFacturaciones;
 	}

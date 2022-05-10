@@ -22,9 +22,9 @@ public class ControladorLogin implements ActionListener {
 	@SuppressWarnings("deprecation")
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == Login.getBtn_Aceptar()) {
-			entrada_usuario = Login.getJtf_Entrada_Nombre().getText();
-			entrada_contrasena = Login.getJtf_Entrada_Contrasena().getText();
+		if (e.getSource() == panelLogin.getBtn_Aceptar()) {
+			entrada_usuario = panelLogin.getJtf_Entrada_Nombre().getText();
+			entrada_contrasena = panelLogin.getJtf_Entrada_Contrasena().getText();
 			
 			String estado = SentenciasSQL.iniciar_Sesion(entrada_usuario, entrada_contrasena);
 			
@@ -51,15 +51,15 @@ public class ControladorLogin implements ActionListener {
 			System.out.println(estado);
 		}
 		borrarCajaTexto();
-		if (e.getSource() == Login.getBtn_Borrar()) {
+		if (e.getSource() == panelLogin.getBtn_Borrar()) {
 			borrarCajaTexto();
 
 		}
 	}
 
 	public void borrarCajaTexto() {
-		Login.getJtf_Entrada_Nombre().setText("");
-		Login.getJtf_Entrada_Contrasena().setText("");
+		panelLogin.getJtf_Entrada_Nombre().setText("");
+		panelLogin.getJtf_Entrada_Contrasena().setText("");
 	}
 	
 	private void cambiarMenuPrincipal () {

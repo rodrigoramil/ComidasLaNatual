@@ -5,17 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-
-import javax.swing.DefaultListModel;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumnModel;
-
-import com.mysql.cj.result.StringValueFactory;
-
 import vista.GestionPedidos;
 import vista.Pedido;
 
@@ -65,12 +54,14 @@ public class SentenciasSQL {
 	
 
 	
-	public static void listarClientes() {
+	public static ArrayList<Cliente> listarClientes() {
 		
-		pedidos = new Pedido();
+//		pedidos = new Pedido();
+		
+		
+//      gestionPedidos = new GestionPedidos();
 		
 		array_clientes = new ArrayList<Cliente>();
-        gestionPedidos = new GestionPedidos();
         conexion = new Conexion();
         connection = conexion.obtenerConexion();
         arrayClientes = new ArrayList<>();
@@ -79,23 +70,22 @@ public class SentenciasSQL {
         	sentencia = connection.prepareStatement("SELECT * FROM cliente ");
         	ResultSet rs = sentencia.executeQuery();
         	
-            while (rs.next()) {
-	
+            while (rs.next()) {	
 				cliente = new Cliente ();
 				cliente.id=rs.getString("IdCliente");
 				cliente.nombre=rs.getString("NombreCliente");
-				cliente.telefono=rs.getString("Telefono");
-				
+				cliente.telefono=rs.getString("Telefono");				
 				array_clientes.add((Cliente) cliente);				
   
             }
-            pedidos.datosClientes(array_clientes);
-            gestionPedidos.datosClientes(array_clientes);
+ //           pedidos.datosClientes(array_clientes);
+ //           gestionPedidos.datosClientes(array_clientes);
             
         } catch (SQLException e) {
             System.out.println("Error en gestionPedidosClientes SentenciasSQL");
-            System.out.println(e.getMessage());
+ //           System.out.println(e.getMessage());
         }
+        return array_clientes;
     }
 	
     public static void editarCliente() {

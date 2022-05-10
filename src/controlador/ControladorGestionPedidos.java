@@ -42,7 +42,8 @@ public class ControladorGestionPedidos implements ActionListener, MouseListener 
 				
 //********************************************************************************************************************************
 				
-			try {				
+			try {	
+				
 				System.out.println("clienteSeleccionado: --> "+GestionPedidos.clienteSeleccionado()); // <--- Borrar luego
 				for (int i = 0; i < SentenciasSQL.getArray_clientes().size(); i++) {
 					System.out.println("Cliente -> " + SentenciasSQL.getArray_clientes().get(i).getId()); // <--- Borrar luego

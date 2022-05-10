@@ -7,6 +7,8 @@ import java.awt.event.ActionEvent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import modelo.SentenciasSQL;
+
 public class VentanaPrincipal extends JFrame {
 
 	/**
@@ -70,19 +72,15 @@ public class VentanaPrincipal extends JFrame {
 		panelContenedor.setLayout(null);
 		panelContenedor.setVisible(true);		
 		setContentPane(panelContenedor);
-//****************************************************************
-		
-//		NOTA --> INICIALIZAR LOS PANELES EN SU PROPIA CLASE LLAMANDO AL MÉTODO INICIALIZAR DESDE SU CONSTRUCTOR
-		
-//***************************************************************		
+
 		panelLogin = new Login();
-		panelLogin = Login.inicializarComponentes();
+		panelLogin = Login.getPanelLogin();
 		
 		panelMenuPrincipal = new MenuPrincipal();
 		panelMenuPrincipal = MenuPrincipal.inicializarComponentes();
 		
 		panelGestionPedidos = new GestionPedidos();
-		panelGestionPedidos = GestionPedidos.inicializarComponentes();
+		panelGestionPedidos = GestionPedidos.getPanelGestionPedidos();
 
 		panelRecetario = new Recetario();
 		panelRecetario = Recetario.inicializarComponentes();
@@ -176,6 +174,7 @@ public class VentanaPrincipal extends JFrame {
 		panelContenedor.add(panelProductosAlmacen);
 
 		
+//		SentenciasSQL.listarClientes();
 	}
 
 
