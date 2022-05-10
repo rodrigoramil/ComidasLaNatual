@@ -116,6 +116,7 @@ public class VentanaPrincipal extends JFrame {
 		panelPrepararCompra = PrepararCompra.getPanelPrepararCompra();	
 			
 		panelListasCompra = new ListasCompra();
+
 		panelListasCompra = ListasCompra.getPanelListasCompra();
 		
 		panelCliente = new Cliente();
