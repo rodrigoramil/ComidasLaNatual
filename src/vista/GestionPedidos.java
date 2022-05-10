@@ -61,32 +61,9 @@ public class GestionPedidos extends JPanel {
 //**************************************************************************************************
 	
 	public GestionPedidos() {
-/*<<<<<<< HEAD
 		super();
 		inicializarComponentes();
 		establecerManejador();
-=======*/
-		
-		panelGestionPedidos = new JPanel();
-		lbl_Para_llevar = new JLabel("Para llevar");
-		lbl_mesa = new JLabel("En mesa");
-			
-		btn_Mesa_1 = new JButton("Mesa 1 ");
-		btn_Mesa_2 = new JButton("Mesa 2");		
-		btn_Mesa_4 = new JButton("Mesa 4");		
-		btn_Mesa_3 = new JButton("Mesa 3");		
-		btn_Mesa_8 = new JButton("Mesa 8");
-		btn_Mesa_7 = new JButton("Mesa 7");		
-		btn_Mesa_6 = new JButton("Mesa 6");		
-		btn_Mesa_5 = new JButton("Mesa 5");	
-		btn_Nuevo_Cliente = new JButton("Nuevo Cliente");		
-		btn_Editar_Cliente = new JButton("");	
-		btn_volver = new JButton("Volver");
-		btn_Ver_Pedido = new JButton("Ver Pedido");
-		listaCliente = new JList();
-		scrollCliente = new JScrollPane(listaCliente);
-		establecerManejador();		
-		panelGestionPedidos.setVisible(false);
 	}
 
 
@@ -189,20 +166,6 @@ public class GestionPedidos extends JPanel {
 	}
 
 
-
-	public static void datosClientes(ArrayList<ModeloCliente> arrayList) {
-
-
-
-        DefaultListModel modeloCliente = new DefaultListModel();
-        Object[] rellenoDatosCliente = arrayList.toArray();
-
-        for (int i =0; i<rellenoDatosCliente.length; i++) {        	
-        	modeloCliente.addElement(rellenoDatosCliente[i]);
-        	System.out.println("modeloCliente: --> "+modeloCliente); // <---- Borrar luego
-        }
-        listaCliente.setModel(modeloCliente);
-    }
 	
 	public static ArrayList<ModeloCliente> creaListaClientes() {
 		SentenciasSQL.leerClientesBBDD();
@@ -220,7 +183,6 @@ public class GestionPedidos extends JPanel {
 		return indiceSeleccionado;		 
 	 }
 
-    
 	public static JButton getBtn_Mesa_1() {
 		return btn_Mesa_1;
 	}
