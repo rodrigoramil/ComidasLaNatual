@@ -4,6 +4,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.print.PrinterException;
+
+import javax.swing.JOptionPane;
 
 import vista.PrepararCompra;
 import vista.VentanaPrincipal;
@@ -32,7 +35,15 @@ private PrepararCompra panelPrepararCompra;
 		}
 		
 		if (e.getSource() == PrepararCompra.getBtn_Imprimir()) {
-			
+			try {
+				
+				panelPrepararCompra.getTable().print();
+				
+			} catch (PrinterException e1) {
+				JOptionPane.showMessageDialog(panelPrepararCompra, "Error al imprimir la lista de la compra");
+				System.out.println("Error al imprimir la lista de la compra");
+				e1.printStackTrace();
+			}
 		}
 		
 	}

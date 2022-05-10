@@ -4,6 +4,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.print.PrinterException;
+
+import javax.swing.JOptionPane;
 
 import vista.DetalleGasto;
 import vista.VentanaPrincipal;
@@ -31,7 +34,15 @@ public class ControladorDetalleGasto implements ActionListener, MouseListener{
 		}
 		
 		if (e.getSource() == DetalleGasto.getBtn_Imprimir()) {
+			// Imprime solo la Tabla, debería imprimir el panel completo			
+			try {				
+			panelDetalleGasto.getTable().print();				
+			} catch (PrinterException e1) {
+				JOptionPane.showMessageDialog(panelDetalleGasto, "Error al imprimir el Detalle del gasto");
+			}
 			
+	
+
 		}
 	
 	}

@@ -36,10 +36,8 @@ public class VentanaPrincipal extends JFrame {
 	private static JPanel panelReceta;
 	private static JPanel panelRecetario;
 	private static JPanel panelUsuario;
-	private static JPanel panelDetalleProducto;
-	
-	private static JPanel panelProductosAlmacen;	// <- clase no implementada
-	
+	private static JPanel panelDetalleProducto;	
+	private static JPanel panelProductosAlmacen;	
 	
 	private int ancho = 800;
 	private int alto = 600;
@@ -72,7 +70,11 @@ public class VentanaPrincipal extends JFrame {
 		panelContenedor.setLayout(null);
 		panelContenedor.setVisible(true);		
 		setContentPane(panelContenedor);
-
+//****************************************************************
+		
+//		NOTA --> INICIALIZAR LOS PANELES EN SU PROPIA CLASE LLAMANDO AL MÉTODO INICIALIZAR DESDE SU CONSTRUCTOR
+		
+//***************************************************************		
 		panelLogin = new Login();
 		panelLogin = Login.inicializarComponentes();
 		
@@ -171,7 +173,7 @@ public class VentanaPrincipal extends JFrame {
 		panelContenedor.add(panelCalculoGastos);
 		panelContenedor.add(panelDetalleFactura);
 		panelContenedor.add(panelCalculoGanancias);
-		panelContenedor.add(panelProductosAlmacen);	// no implementada
+		panelContenedor.add(panelProductosAlmacen);
 
 		
 	}

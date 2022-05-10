@@ -56,10 +56,7 @@ public class GestionPedidos extends JPanel {
     private static JScrollPane scrollCliente;
     private static DefaultListModel modeloCliente = null;
     
-//******
-	private static String clienteSeleccionado;
-	
- //**************************************************************************************************
+//**************************************************************************************************
 	
 	public GestionPedidos() {
 		
@@ -183,17 +180,14 @@ public class GestionPedidos extends JPanel {
 	}
 
 //******************************************************************************************
-	
+// System.out.println("modeloCliente: --> "+modeloCliente); // <---- Borrar luego	
 
 	
 	public static void datosClientes(ArrayList<Cliente> bbddDatosClientes) {
-
         modeloCliente = new DefaultListModel();
         Object[] rellenoDatosCliente = bbddDatosClientes.toArray();
-
         for (int i =0; i<rellenoDatosCliente.length; i++) {        	
-        	modeloCliente.addElement(rellenoDatosCliente[i]);
-        	System.out.println("modeloCliente: --> "+modeloCliente); // <---- Borrar luego
+        	modeloCliente.addElement(rellenoDatosCliente[i]);        	
         }
         listaCliente.setModel(modeloCliente);
     }
@@ -204,18 +198,6 @@ public class GestionPedidos extends JPanel {
 	 }
 	 
 	 
-	/*
-    public static String clienteSeleccionado() throws NullPointerException {
-        clienteSeleccionado = listaCliente.getSelectedValue().toString();
-        System.out.println("clienteSeleccionado ------------------>>>>>>>>>>>>>>"+clienteSeleccionado);
-        // Selecciona el indice de la lista
-        int indiceSeleccionado = listaCliente.getSelectedIndex();
-        System.out.println("indiceSeleccionado --> "+indiceSeleccionado);
-        //---------------------------------
-        
-        return clienteSeleccionado;
-    }
-    */
 //******************************************************************************************	
 	
 

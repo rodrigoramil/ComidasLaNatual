@@ -58,21 +58,21 @@ public class PrepararCompra extends JPanel {
 		
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
+				{"algo", "algo"},
+				{"algo", "algo"},
+				{"algo", "algo"},
+				{"algo", "algo"},
+				{"algo", "algo"},
+				{"algo", "algo"},
+				{"algo", "algo"},
+				{"algo", "algo"},
+				{"algo", "algo"},
+				{"algo", "algo"},
+				{"algo", "algo"},
+				{"algo", "algo"},
+				{"algo", "algo"},
+				{"algo", "algo"},
+				{"algo", "algo"},
 			},
 			new String[] {
 				"Productos", "Cantidad a comprar"
@@ -118,6 +118,14 @@ public class PrepararCompra extends JPanel {
 
 	public static JButton getBtn_Imprimir() {
 		return btn_Imprimir;
+	}
+
+	public static JTable getTable() {
+		return table;
+	}
+
+	public static void setTable(JTable table) {
+		PrepararCompra.table = table;
 	}
 
 	

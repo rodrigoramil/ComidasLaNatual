@@ -4,6 +4,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.print.PrinterException;
+
+import javax.swing.JOptionPane;
 
 import vista.DetalleFactura;
 import vista.VentanaPrincipal;
@@ -25,7 +28,12 @@ public class ControladorDetalleFactura implements ActionListener, MouseListener{
 			VentanaPrincipal.getPanelListaFacturaciones().setVisible(true);			
 		}
 		if (e.getSource() == DetalleFactura.getBtn_Imprimir()) {
-			
+			// Imprime solo la Tabla, debería imprimir el panel completo			
+			try {				
+				panelDetalleFactura.getTable().print();				
+			} catch (PrinterException e1) {
+				JOptionPane.showMessageDialog(panelDetalleFactura, "Error al imprimir el Detalle del gasto");
+			}
 		}
 		
 		

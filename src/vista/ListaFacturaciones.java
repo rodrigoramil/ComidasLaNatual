@@ -7,6 +7,7 @@ import javax.swing.JButton;
 import javax.swing.table.DefaultTableModel;
 
 import controlador.ControladorListaFacturaciones;
+import modelo.SentenciasSQL;
 
 public class ListaFacturaciones extends JPanel {
 
@@ -44,34 +45,34 @@ public class ListaFacturaciones extends JPanel {
 		panelListaFacturaciones.setBounds(posicionPanel_x, posicionPanel_y, ancho, alto);
 		panelListaFacturaciones.setLayout(null);
 	
-		table = new JTable();
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-			},
-			new String[] {
-				"N\u00BA", "Fecha", "Hora", "Ganancia", "Usuario"
-			}
-		));
+//		table = new JTable();
+//		table.setModel(new DefaultTableModel(
+//				SentenciasSQL.listarTabla()
+				
+//			new Object[][] {
+//				{null, null, null, null, null},
+//				{null, null, null, null, null},
+//				{null, null, null, null, null},
+//				{null, null, null, null, null},
+//				{null, null, null, null, null},
+//				{null, null, null, null, null},
+//				{null, null, null, null, null},
+//				{null, null, null, null, null},
+//				{null, null, null, null, null},
+//				{null, null, null, null, null},
+//				{null, null, null, null, null},
+//				{null, null, null, null, null},
+//				{null, null, null, null, null},
+//				{null, null, null, null, null},
+//				{null, null, null, null, null},
+//				{null, null, null, null, null},
+//				{null, null, null, null, null},
+//				{null, null, null, null, null},
+//				{null, null, null, null, null},
+//				{null, null, null, null, null},}
+			
+//			,new String[] {"N\u00BA", "Fecha", "Hora", "Ganancia", "Usuario"}
+//		));
 		table.setBounds(47, 48, 343, 134);
 		panelListaFacturaciones.add(table);
 		

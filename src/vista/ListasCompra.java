@@ -30,7 +30,7 @@ public class ListasCompra extends JPanel {
 		table = new JTable();	
 		btn_Volver = new JButton("Volver");			
 		btn_Ver = new JButton("Ver");
-		
+		inicializarComponentes();
 		establecerManejador();		
 		panelListasCompra.setVisible(false);
 	}

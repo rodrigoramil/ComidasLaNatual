@@ -5,10 +5,19 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+
+import javax.swing.DefaultListModel;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 
 import com.mysql.cj.result.StringValueFactory;
 
 import vista.GestionPedidos;
+import vista.Pedido;
 
 
 public class SentenciasSQL {
@@ -22,6 +31,8 @@ public class SentenciasSQL {
 //****************************PRUEBAS****************************************************    
 	private static ArrayList<Cliente> array_clientes = null;
 	private static Cliente cliente = null;
+	private static Pedido pedidos;
+//	private static FilasTabla filasTabla;
 //****************************PRUEBAS****************************************************    	
 	
 	
@@ -56,8 +67,9 @@ public class SentenciasSQL {
 	
 	public static void listarClientes() {
 		
+		pedidos = new Pedido();
+		
 		array_clientes = new ArrayList<Cliente>();
-
         gestionPedidos = new GestionPedidos();
         conexion = new Conexion();
         connection = conexion.obtenerConexion();
@@ -68,18 +80,17 @@ public class SentenciasSQL {
         	ResultSet rs = sentencia.executeQuery();
         	
             while (rs.next()) {
-            			
+	
 				cliente = new Cliente ();
 				cliente.id=rs.getString("IdCliente");
 				cliente.nombre=rs.getString("NombreCliente");
 				cliente.telefono=rs.getString("Telefono");
 				
-				getArray_clientes().add((Cliente) cliente);				
+				array_clientes.add((Cliente) cliente);				
   
             }
-
-            
-            gestionPedidos.datosClientes(getArray_clientes());
+            pedidos.datosClientes(array_clientes);
+            gestionPedidos.datosClientes(array_clientes);
             
         } catch (SQLException e) {
             System.out.println("Error en gestionPedidosClientes SentenciasSQL");
@@ -92,7 +103,8 @@ public class SentenciasSQL {
         gestionPedidos = new GestionPedidos();
         conexion = new Conexion();
         connection = conexion.obtenerConexion();
-        gestionPedidos.clienteSeleccionado();
+        
+        int seleccionado = gestionPedidos.clienteSeleccionado();
         
         try {
             sentencia = connection.prepareStatement(
@@ -102,15 +114,21 @@ public class SentenciasSQL {
 //            sentencia.setNString(3, entrada_usuario);
             ResultSet rs = sentencia.executeQuery();
             
-            while (rs.next()) {
-
-            
+            while (rs.next()) {            
             	arrayClientes.add(rs.getString("IdCliente"));
                 //System.out.println(rs.getString("NombreCliente"));
-                
             
+            //******************* MODIFICAR *******************************
+				cliente = new Cliente ();
+				cliente.id=rs.getString("IdCliente");
+				cliente.nombre=rs.getString("NombreCliente");
+				cliente.telefono=rs.getString("Telefono");			
+				array_clientes.add((Cliente) cliente);	
+             //****************** ^^^^^^^^^^ ********************************   
+            
+
             }
-            gestionPedidos.datosClientes(getArray_clientes());
+            gestionPedidos.datosClientes(array_clientes);
             
         } catch (SQLException e) {
         	System.out.println("Error en editarCliente SentenciasSQL");
@@ -118,12 +136,92 @@ public class SentenciasSQL {
         }
     }
 
-
-
-
+    
 	public static ArrayList<Cliente> getArray_clientes() {
 		return array_clientes;
 	} 
     
+	
+	
+	  
+//*************************************************************************	
+//************************ TABLA ******************************************	  
+//*************************************************************************	
+/*	
+	
+	static ArrayList<String> arrayStrings;
+	static ArrayList<ModeloPedido> lista;
+	static Object[][] objetoTabla;
+	
+	// implementada en forma de prueba en la clase ListaFacturaciones
+	
+	public static Object[][] listarTabla() {
+		
+		arrayStrings = new ArrayList<String>();
+        gestionPedidos = new GestionPedidos();
+        conexion = new Conexion();
+        connection = conexion.obtenerConexion();
+
+        lista=new ArrayList<>();
+        try {
+        	sentencia = connection.prepareStatement("SELECT * FROM cliente ");
+        	ResultSet rs = sentencia.executeQuery();
+        	
+            while (rs.next()) {
+
+				arrayStrings.add(rs.getString("IdCliente"));
+				arrayStrings.add(rs.getString("NombreCliente"));
+				arrayStrings.add(rs.getString("Telefono"));
+
+				lista.add(new ModeloPedido(
+						rs.getString("IdCliente"), 
+						rs.getString("NombreCliente"),
+						rs.getString("Telefono"))); 
+            }
+
+            objetoTabla = obtenerMatrizDatos(arrayStrings);
+
+        } catch (SQLException e) {
+            System.out.println("Error en gestionPedidosClientes SentenciasSQL");
+            System.out.println(e.getMessage());
+        }
+		return objetoTabla;
+    }
+
+	private static Object[][] obtenerMatrizDatos(ArrayList<String> titulosList) {
+		
+		String informacion[][] = new String[lista.size()][titulosList.size()];
+		
+		final int COMIDABEBIDA=0;
+		final int CANTIDAD=1;
+		final int PRECIO=3;	
+		
+		for (int x = 0; x < informacion.length; x++) {			
+			informacion[x][COMIDABEBIDA] = lista.get(x).getComidaBebida()+ "";
+			informacion[x][CANTIDAD] = lista.get(x).getCantidad()+ "";
+			informacion[x][PRECIO] = lista.get(x).getPrecio()+ "";
+		}
+		return informacion;
+	}
+	
+	static JTable table;
+	public static JTable crearTablaPedido (JTable tabla) {		
+		
+		try {
+			table.setModel(new DefaultTableModel(
+				SentenciasSQL.listarTabla(),new String[] 
+				{"Bebida/Comida", "Cantidad", "Precio"}));
+			table.setBounds(47, 48, 343, 134);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}		
+		return table;		
+	}
+*/	
+	
+	
+	
+	
 }
 

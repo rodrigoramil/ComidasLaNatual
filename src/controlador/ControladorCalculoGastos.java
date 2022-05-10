@@ -4,6 +4,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.print.PrinterException;
+
+import javax.swing.JOptionPane;
 
 import vista.CalculoGastos;
 import vista.VentanaPrincipal;
@@ -25,7 +28,12 @@ public class ControladorCalculoGastos implements ActionListener, MouseListener  
 		}
 		
 		if (e.getSource() == CalculoGastos.getBtn_Imprimir()) {
-			
+			// Imprime solo la Tabla, debería imprimir el panel completo			
+			try {				
+				panelCalculoGastos.getTable().print();				
+			} catch (PrinterException e1) {
+				JOptionPane.showMessageDialog(panelCalculoGastos, "Error al imprimir el Detalle del gasto");
+			}
 		}
 		
 	}
