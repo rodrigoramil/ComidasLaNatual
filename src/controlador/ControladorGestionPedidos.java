@@ -113,13 +113,7 @@ public class ControladorGestionPedidos implements ActionListener, MouseListener 
 		
 		
 	}
-	
-	
-	
-	
-	
-	
-	
+
 
 	@Override
 	public void mouseClicked(MouseEvent e) { // Al hacer clic con el raton
@@ -151,9 +145,7 @@ public class ControladorGestionPedidos implements ActionListener, MouseListener 
 
 		
 	}
-		
 
-	
 	
 }
 	

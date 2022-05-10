@@ -28,8 +28,12 @@ public class Login extends JPanel {
 	private static JPasswordField jtf_Entrada_Contrasena;
 	private static JButton btn_Aceptar;
 	private static JButton btn_Borrar;
+	private static int ancho = 800;
+	private static int alto = 600;
+	private static int posicionPanel_x = 180;
+	private static int posicionPanel_y = 80;
+	
 
-	private static  Color verdeOscuro = new Color(3,36,9);
 	
 	public Login() {
 		super();		
@@ -71,6 +75,7 @@ public class Login extends JPanel {
 								y, 														//posicion VERTICAL
 								xPanelLogin,											//tamaño HORIZONTA
 								yPanelLogin);											//tamaño VERTICAL
+
 		panelLogin.setLayout(null);
 		
 		//situacion USUARIO

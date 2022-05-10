@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Base64;
 
+import vista.Cliente;
 import vista.GestionPedidos;
 import vista.Pedido;
 
@@ -45,34 +46,59 @@ public class SentenciasSQL {
 	}
 	
 	
+
 	
 	public static void leerClientesBBDD() {
+
+		
 		arrayClientes = new ArrayList<ModeloCliente>();
+        gestionPedidos = new GestionPedidos();
         conexion = new Conexion();
+
         connection = conexion.obtenerConexion();
+
+        arrayClientes = new ArrayList<>();
         arrayClientes = new ArrayList<ModeloCliente>();        
         try {
         	sentencia = connection.prepareStatement("SELECT * FROM cliente ");
         	ResultSet rs = sentencia.executeQuery();        	
             while (rs.next()) {	
 				cliente = new ModeloCliente ();
+
+        
+
 				cliente.id=rs.getString("IdCliente");
 				cliente.nombre=rs.getString("NombreCliente");
 				cliente.telefono=rs.getString("Telefono");				
 				arrayClientes.add((ModeloCliente) cliente);
             }
+
+
+            
+            gestionPedidos.datosClientes(getArrayClientes());
+            
+
+
         } catch (SQLException e) {
             System.out.println("Error en gestionPedidosClientes SentenciasSQL");
         }        
     }
 	
-	
+
+
+
     public static void editarCliente() {
     	
         gestionPedidos = new GestionPedidos();
         conexion = new Conexion();
-        connection = conexion.obtenerConexion();        
+    
         int seleccionado = gestionPedidos.clienteSeleccionado();        
+
+        connection = conexion.obtenerConexion();
+
+        gestionPedidos.clienteSeleccionado();
+
+
         try {
             sentencia = connection.prepareStatement(
                     "update NombreCliente, Telefono from Cliente values(?,?) where IdCliente = ?");
@@ -90,6 +116,11 @@ public class SentenciasSQL {
 
             }
 
+
+            gestionPedidos.datosClientes(getArrayClientes());
+            
+
+
         } catch (SQLException e) {
         	System.out.println("Error en editarCliente SentenciasSQL");
             System.out.println(e.getMessage());
@@ -97,10 +128,10 @@ public class SentenciasSQL {
     }
 
 
+
 	public static ArrayList<ModeloCliente> getArrayClientes() {
 		return arrayClientes;
 	}
 
-	
 }
 

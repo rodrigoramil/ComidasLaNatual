@@ -46,11 +46,6 @@ public class VentanaPrincipal extends JFrame {
 	private static float cordenadaX;
 	private static float cordenadaY;
 
-
-
-//	private int ancho = 800;
-//	private int alto = 600;
-
 	/**
 	 * Creamos la ventana principal que contendrá todos los paneles
 	 */
