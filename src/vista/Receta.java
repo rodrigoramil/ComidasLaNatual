@@ -5,8 +5,10 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 import javax.swing.JTable;
@@ -23,7 +25,7 @@ import controlador.ControladorReceta;
 public class Receta extends JPanel {
 
 	private static JPanel panelReceta;
-	private static JTable table;
+	
 	private static JTextArea texto_elaboracion;
 	private static JLabel lbl_ingredientes;
 	private static JLabel lbl_elaboracion;
@@ -33,17 +35,27 @@ public class Receta extends JPanel {
 	private static JButton btn_guardar;
 	private static JButton btn_volver;
 	private static JTextField nombre_receta;
-
+	
+	private static JList listaReceta;
+    private static JScrollPane scrollReceta;
+    
 	private static int ancho = 800;
 	private static int alto = 600;
 	private static int posicionPanel_x = 100;
 	private static int posicionPanel_y = 50;
 	
-	public Receta() {
+	public Receta() {		
+		super();
+		inicializarComponentes();
+		establecerManejador();		
 		
+	}
+
+	public void inicializarComponentes() {
+
 		panelReceta = new JPanel();
 		nombre_receta = new JTextField("Nombre de la receta");
-		table = new JTable();		
+	
 		texto_elaboracion = new JTextArea();		
 		lbl_ingredientes = new JLabel("Ingredientes");		
 		lbl_elaboracion = new JLabel("Elaboraci\u00F3n");		
@@ -53,51 +65,16 @@ public class Receta extends JPanel {
 		btn_guardar = new JButton("Guardar");		
 		btn_volver = new JButton("Volver");
 		
-		establecerManejador();		
-		panelReceta.setVisible(false);
-	}
-
-	public static JPanel inicializarComponentes() {
-
 		panelReceta.setBorder(new EmptyBorder(5, 5, 5, 5));
 		panelReceta.setBounds(posicionPanel_x, posicionPanel_y, ancho, alto);
 		panelReceta.setLayout(null);
+		panelReceta.setVisible(false);
 		
 		nombre_receta.setFont(new Font("Tahoma", Font.BOLD, 16));
 		nombre_receta.setHorizontalAlignment(SwingConstants.CENTER);
 		nombre_receta.setBounds(89, 0, 424, 35);
 		panelReceta.add(nombre_receta);
 		
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-			},
-			new String[] {
-				"Nombre", "Cantidad"
-			}
-		));
-		table.setBorder(new LineBorder(new Color(0, 0, 0)));
-		table.setBounds(15, 51, 217, 268);
-		panelReceta.add(table);
 		
 		texto_elaboracion.setBounds(331, 51, 217, 268);
 		panelReceta.add(texto_elaboracion);
@@ -123,15 +100,21 @@ public class Receta extends JPanel {
 		btn_volver.setBounds(473, 7, 89, 23);
 		panelReceta.add(btn_volver);
 
+	    listaReceta = new JList();
+	    listaReceta.setLayout(null);
+	    listaReceta.setVisible(true);		
 		
-		
-		return panelReceta;
+	    scrollReceta = new JScrollPane(listaReceta);	
+	    scrollReceta.setBounds(15, 51, 217, 268);
+	    scrollReceta.setViewportView(listaReceta);
+	    panelReceta.add(scrollReceta);	
+
 	}
 	
 
 	private void establecerManejador() {
 		ControladorReceta controlador = new ControladorReceta(this);
-		table.addMouseListener(controlador);
+		
 		texto_elaboracion.addMouseListener(controlador);
 		btn_nuevo_ingrediente.addActionListener(controlador);
 		btn_modificar_cantidad.addActionListener(controlador);
@@ -139,7 +122,7 @@ public class Receta extends JPanel {
 		btn_guardar.addActionListener(controlador);
 		btn_volver.addActionListener(controlador);
 		nombre_receta.addActionListener(controlador);
-		
+		listaReceta.addMouseListener(controlador);
 		
 		
 	}
@@ -157,13 +140,6 @@ public class Receta extends JPanel {
 		Receta.panelReceta = panelReceta;
 	}
 
-	public static JTable getTable() {
-		return table;
-	}
-
-	public static void setTable(JTable table) {
-		Receta.table = table;
-	}
 
 	public static JTextArea getTexto_elaboracion() {
 		return texto_elaboracion;

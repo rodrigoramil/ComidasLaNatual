@@ -22,23 +22,24 @@ public class Contabilidad extends JPanel {
 	private static int posicionPanel_y = 50;
 
 	public Contabilidad() {
-			
+		super();
+		inicializarComponentes();
+		establecerManejador();		
+	
+	}
+	
+	
+	public void inicializarComponentes() {
+		
 		panelContabilidad = new JPanel();	
 		btn_Gastos = new JButton("Gastos");
 		btn_volver = new JButton("Volver");
 		btn_Facturacion = new JButton("Facturacion");
-
-		establecerManejador();		
-		panelContabilidad.setVisible(false);
-	}
-	
-	
-	public static JPanel inicializarComponentes() {
 		
 		panelContabilidad.setBorder(new EmptyBorder(5, 5, 5, 5));
 		panelContabilidad.setBounds(posicionPanel_x, posicionPanel_y, ancho, alto);
 		panelContabilidad.setLayout(null);
-		
+		panelContabilidad.setVisible(false);
 		
 		btn_Gastos.setBounds(134, 78, 163, 43);
 		panelContabilidad.add(btn_Gastos);
@@ -48,9 +49,7 @@ public class Contabilidad extends JPanel {
 		
 		btn_Facturacion.setBounds(134, 133, 163, 43);
 		panelContabilidad.add(btn_Facturacion);		
-		
-		
-		return panelContabilidad;		
+
 	}
 
 	

@@ -37,6 +37,13 @@ public class Usuario extends JPanel {
 
 
 	public Usuario() {
+		super();
+		inicializarComponentes();
+		establecerManejador();		
+		
+	}
+
+	public void inicializarComponentes() {
 		
 		panelUsuario = new JPanel();
 		lbl_nombre = new JLabel("Nombre");		
@@ -52,17 +59,12 @@ public class Usuario extends JPanel {
 		caja_pass_1 = new JPasswordField();		
 		caja_pass_2 = new JPasswordField();		
 		
-		establecerManejador();		
-		panelUsuario.setVisible(false);
-		
-	}
-
-	public static JPanel inicializarComponentes() {
 		
 		panelUsuario.setBorder(new EmptyBorder(5, 5, 5, 5));
 		panelUsuario.setBounds(posicionPanel_x, posicionPanel_y, ancho, alto);
 		panelUsuario.setLayout(null);
-
+		panelUsuario.setVisible(false);
+		
 		lbl_nombre.setBounds(10, 67, 65, 14);
 		panelUsuario.add(lbl_nombre);
 		
@@ -101,7 +103,6 @@ public class Usuario extends JPanel {
 		btn_volver.setBounds(342, 11, 71, 23);
 		panelUsuario.add(btn_volver);
 		
-		return panelUsuario;
 	}
 	
 	private void establecerManejador() {

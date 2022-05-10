@@ -4,7 +4,9 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTable;
 import javax.swing.JButton;
@@ -20,7 +22,6 @@ public class ListaGastos extends JPanel {
 	private static final long serialVersionUID = 6019873536027225543L;
 	
 	private static JPanel panelListaGastos;
-	private static JTable table;
 	private static JButton btn_Volver;
 	private static JButton btn_Ver;
 	private static JButton btn_Calcular_Gastos;
@@ -29,63 +30,29 @@ public class ListaGastos extends JPanel {
 	private static int alto = 600;
 	private static int posicionPanel_x = 100;
 	private static int posicionPanel_y = 50;
+	
+	private static JList listaListaGastos;
+    private static JScrollPane scrollListaGastos;
 
 	public ListaGastos() {
+		super();
+		inicializarComponentes();		
+		establecerManejador();		
+	}
+
+	
+	public void inicializarComponentes() {
 		
-		panelListaGastos = new JPanel();
-		table = new JTable();	
+		panelListaGastos = new JPanel();	
 		btn_Volver = new JButton("Volver");
 		btn_Ver = new JButton("Ver");
 		btn_Calcular_Gastos = new JButton("Calcular gastos");
 		
-		establecerManejador();		
-		panelListaGastos.setVisible(false);
-	}
-
-	public static JPanel inicializarComponentes() {
-	
 		panelListaGastos.setBorder(new EmptyBorder(5, 5, 5, 5));
 		panelListaGastos.setBounds(posicionPanel_x, posicionPanel_y, ancho, alto);
 		panelListaGastos.setLayout(null);
-		
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-			},
-			new String[] {
-				"N\u00BA", "Fecha", "Compra hecha", "Gasto", "Usuario"
-			}
-		) {
-			Class[] columnTypes = new Class[] {
-				Object.class, Object.class, Boolean.class, Float.class, Object.class
-			};
-			public Class getColumnClass(int columnIndex) {
-				return columnTypes[columnIndex];
-			}
-		});
-		table.getColumnModel().getColumn(2).setPreferredWidth(106);
-		table.setBounds(65, 45, 330, 159);
-		panelListaGastos.add(table);
-		
+		panelListaGastos.setVisible(false);
+				
 		btn_Volver.setBounds(335, 11, 89, 23);
 		panelListaGastos.add(btn_Volver);
 		
@@ -95,28 +62,47 @@ public class ListaGastos extends JPanel {
 		btn_Calcular_Gastos.setBounds(242, 215, 112, 23);
 		panelListaGastos.add(btn_Calcular_Gastos);
 		
+	    listaListaGastos = new JList();
+	    listaListaGastos.setLayout(null);
+	    listaListaGastos.setVisible(true);		
 		
-		return panelListaGastos;
+	    scrollListaGastos = new JScrollPane(listaListaGastos);	
+	    scrollListaGastos.setBounds(65, 45, 330, 159);
+	    scrollListaGastos.setViewportView(listaListaGastos);
+	    panelListaGastos.add(scrollListaGastos);	
+
 	}
 	
 	public void establecerManejador() {			
 		ControladorListaGastos controlador = new ControladorListaGastos(this);
 		
-		table.addMouseListener(controlador);
+		listaListaGastos.addMouseListener(controlador);
 		btn_Volver.addActionListener(controlador);
 		btn_Ver.addActionListener(controlador);
 		btn_Calcular_Gastos.addActionListener(controlador);
 		
 	}
 
-	public static JTable getTable() {
-		return table;
-	}
+	/*	
+ 	// Hay que modificar el metodo que accede a los Usuarios de la BBDD
 
-	public static void setTable(JTable table) {
-		ListaGastos.table = table;
+	public static ArrayList<ModeloUsuario> creaListaUsuarios() {
+		SentenciasSQL.leerClientesBBDD();
+		arrayUsuarios = SentenciasSQL.getArrayUsuarios();
+		modelo = new DefaultListModel();
+		for (ModeloUsuario c : arrayUsuarios) {
+			modelo.addElement(c.toString());
+		}
+		listaGestionUsuarios.setModel(modelo);
+		return arrayUsuarios;
 	}
-
+		
+	 public static int usuarioSeleccionado() throws NullPointerException {
+		 int indiceSeleccionado = listaUsuarios.getSelectedIndex();
+		return indiceSeleccionado;		 
+	 }
+*/
+	
 	public static JPanel getPanelListaGastos() {
 		return panelListaGastos;
 	}

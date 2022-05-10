@@ -5,10 +5,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
-import com.mysql.cj.result.StringValueFactory;
+import java.util.Base64;
 
 import vista.GestionPedidos;
+import vista.Pedido;
 
 
 public class SentenciasSQL {
@@ -17,27 +17,20 @@ public class SentenciasSQL {
 	private static Conexion conexion = null;
 	private static PreparedStatement sentencia = null;
 	private static GestionPedidos gestionPedidos = null;
-	private static ArrayList<String> arrayClientes = null;
-	
-//****************************PRUEBAS****************************************************    
-	private static ArrayList<Cliente> array_clientes = null;
-	private static Cliente cliente = null;
-//****************************PRUEBAS****************************************************    	
-	
-	
+	private static ArrayList<ModeloCliente> arrayClientes = null;
+	private static ModeloCliente cliente = null;
+
 	public static String iniciar_Sesion(String entrada_usuario, String entrada_contrasena) {
 		String estado = "";
 		conexion = new Conexion();
 		connection = conexion.obtenerConexion();
 
-		try {
-			
-			String passcifrado =Criptografia.cifrado(entrada_contrasena);
-			//System.out.println("La contraseña "+entrada_contrasena+" debe de guardarse cifrada en la BBDD -> "+passcifrado);
-			
+		try {			
+			String passcifrado =Base64.getEncoder().encodeToString(entrada_contrasena.getBytes());
 			sentencia = connection.prepareStatement("SELECT NombreUsuario, Contrasena, Rol FROM Usuarios WHERE NombreUsuario= ? AND Contrasena = ?");
 			sentencia.setNString(1, entrada_usuario);
-			sentencia.setNString(2, entrada_contrasena); // <-- sustituir por la variable passcifrado
+			sentencia.setNString(2, passcifrado); //
+//			sentencia.setNString(2, entrada_contrasena); // <-- BORRAR
 			ResultSet rs = sentencia.executeQuery();			
 			while (rs.next()) {
 				if (rs.getString("Rol").equals("Administrador")) {estado = "Administrador";} 
@@ -52,41 +45,25 @@ public class SentenciasSQL {
 	}
 	
 	
-
-	public static void listarClientes() {
-		
-		array_clientes = new ArrayList<Cliente>();
-
-        gestionPedidos = new GestionPedidos();
+	public static void leerClientesBBDD() {
+		arrayClientes = new ArrayList<ModeloCliente>();
         conexion = new Conexion();
-
         connection = conexion.obtenerConexion();
-        arrayClientes = new ArrayList<>();
-
+        arrayClientes = new ArrayList<ModeloCliente>();        
         try {
         	sentencia = connection.prepareStatement("SELECT * FROM cliente ");
-        	ResultSet rs = sentencia.executeQuery();
-        	
-            while (rs.next()) {
-
-            			
-				cliente = new Cliente ();
+        	ResultSet rs = sentencia.executeQuery();        	
+            while (rs.next()) {	
+				cliente = new ModeloCliente ();
 				cliente.id=rs.getString("IdCliente");
 				cliente.nombre=rs.getString("NombreCliente");
-				cliente.telefono=rs.getString("Telefono");
-				
-				getArray_clientes().add((Cliente) cliente);				
-  
+				cliente.telefono=rs.getString("Telefono");				
+				arrayClientes.add((ModeloCliente) cliente);
             }
-
-            
-            gestionPedidos.datosClientes(getArray_clientes());
-            
 
         } catch (SQLException e) {
             System.out.println("Error en gestionPedidosClientes SentenciasSQL");
-            System.out.println(e.getMessage());
-        }
+        }        
     }
 	
 
@@ -94,9 +71,8 @@ public class SentenciasSQL {
     	
         gestionPedidos = new GestionPedidos();
         conexion = new Conexion();
-        connection = conexion.obtenerConexion();
-
-        gestionPedidos.clienteSeleccionado();
+        connection = conexion.obtenerConexion();        
+        int seleccionado = gestionPedidos.clienteSeleccionado();        
 
         try {
             sentencia = connection.prepareStatement(
@@ -106,17 +82,14 @@ public class SentenciasSQL {
 //            sentencia.setNString(3, entrada_usuario);
             ResultSet rs = sentencia.executeQuery();
             
-            while (rs.next()) {
+            while (rs.next()) {  
+				cliente = new ModeloCliente ();
+				cliente.id=rs.getString("IdCliente");
+				cliente.nombre=rs.getString("NombreCliente");
+				cliente.telefono=rs.getString("Telefono");			
+				arrayClientes.add((ModeloCliente) cliente);       
 
-            
-            	arrayClientes.add(rs.getString("IdCliente"));
-                //System.out.println(rs.getString("NombreCliente"));
-                
-            
             }
-
-            gestionPedidos.datosClientes(getArray_clientes());
-            
 
         } catch (SQLException e) {
         	System.out.println("Error en editarCliente SentenciasSQL");
@@ -124,14 +97,10 @@ public class SentenciasSQL {
         }
     }
 
+	public static ArrayList<ModeloCliente> getArrayClientes() {
+		return arrayClientes;
+	}
 
-  
 
-
-	public static ArrayList<Cliente> getArray_clientes() {
-		return array_clientes;
-	} 
-
-    
 }
 

@@ -29,41 +29,41 @@ public class ControladorGestionPedidos implements ActionListener, MouseListener 
 		if (e.getSource() == GestionPedidos.getBtn_Nuevo_Cliente()) {
 			VentanaPrincipal.getPanelGestionPedidos().setVisible(false);
 			VentanaPrincipal.getPanelCliente().setVisible(true);
+			Cliente.getTfd_nombre().setText("");
+			Cliente.getTfd_telefono().setText("");
+			
 			
 		}
 		if (e.getSource() == GestionPedidos.getBtn_Editar_Cliente()) {
-			try {
-				
+			
 				
 				VentanaPrincipal.getPanelGestionPedidos().setVisible(false);
 				VentanaPrincipal.getPanelCliente().setVisible(true);
-
+				
+//********************************************************************************************************************************
+				
+			try {
+				
 				System.out.println("clienteSeleccionado: --> "+GestionPedidos.clienteSeleccionado()); // <--- Borrar luego
-
-				for (int i = 0; i < SentenciasSQL.getArray_clientes().size(); i++) {
-
-					System.out.println("Cliente -> " + SentenciasSQL.getArray_clientes().get(i).getId()); // <--- Borrar luego
-
+				for (int i = 0; i < SentenciasSQL.getArrayClientes().size(); i++) {
+					System.out.println("Cliente -> " + SentenciasSQL.getArrayClientes().get(i).getId()); // <--- Borrar luego
 					/**
 					 * Nota: hay que restarle uno al Id del cliente porque empieza en 1 y el array de Clientes empieza desde 0
-					 */
-					
-					if (GestionPedidos.clienteSeleccionado()==Integer.parseInt(SentenciasSQL.getArray_clientes().get(i).getId())-1) {
-
-						Cliente.getTfd_nombre().setText(SentenciasSQL.getArray_clientes().get(i).getNombre());
-						Cliente.getTfd_telefono().setText(SentenciasSQL.getArray_clientes().get(i).getTelefono());
+					 */					
+					if (GestionPedidos.clienteSeleccionado()==Integer.parseInt(SentenciasSQL.getArrayClientes().get(i).getId())-1) {
+						Cliente.getTfd_nombre().setText(SentenciasSQL.getArrayClientes().get(i).getNombre());
+						Cliente.getTfd_telefono().setText(SentenciasSQL.getArrayClientes().get(i).getTelefono());
 					}
-				}
-				
-				System.out.println(SentenciasSQL.getArray_clientes()); // <--- Borrar luego
-				
-//				GestionPedidos.clienteSeleccionado();
-				
-			} catch (NullPointerException errorSelectorVacio) {
-				
+				}				
+				System.out.println(SentenciasSQL.getArrayClientes()); // <--- Borrar luego				
+//				GestionPedidos.clienteSeleccionado();				
+			} catch (NullPointerException errorSelectorVacio) {				
 				JOptionPane.showMessageDialog(panelGestionPedidos, "Selecciona cliente a editar");
-
 			}
+			
+//********************************************************************************************************************************			
+			
+			
 		}
 		
 		if (e.getSource() == GestionPedidos.getBtn_Mesa_1()) {
