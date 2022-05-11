@@ -10,7 +10,7 @@ import java.util.Base64;
 import vista.GestionPedidos;
 import vista.Pedido;
 
-
+/*
 public class SentenciasSQL {
 
 	private static Connection connection = null;
@@ -105,4 +105,4 @@ public class SentenciasSQL {
 
 
 }
-
+*/

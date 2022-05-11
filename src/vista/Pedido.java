@@ -2,20 +2,12 @@ package vista;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.JLabel;
 import javax.swing.JList;
-import javax.swing.DefaultListModel;
 import javax.swing.JButton;
-import javax.swing.JTable;
 import controlador.ControladorPedido;
-import modelo.ModeloCliente;
-import modelo.SentenciasSQL;
-
 import java.awt.Color;
-import java.util.ArrayList;
 
 public class Pedido extends JPanel {
 

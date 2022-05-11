@@ -1,21 +1,12 @@
 package vista;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JList;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-
 import controlador.ControladorGestionUsuarios;
 import modelo.ModeloUsuario;
-import modelo.SentenciasSQL;
-
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import java.awt.Font;

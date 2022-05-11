@@ -3,7 +3,6 @@ package vista;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.Window;
-
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JPanel;
@@ -20,10 +19,9 @@ import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
-
 import controlador.ControladorRecetario;
+import modelo.BbddVentas;
 import modelo.ModeloCliente;
-import modelo.SentenciasSQL;
 
 
 public class Recetario extends JPanel {
@@ -134,8 +132,8 @@ public class Recetario extends JPanel {
 
 
 	public static ArrayList<ModeloCliente> creaListaRecetas() {
-		SentenciasSQL.leerClientesBBDD();
-		arrayRecetas = SentenciasSQL.getArrayClientes();
+		BbddVentas.listarClientes();
+		arrayRecetas = BbddVentas.getArrayClientes();
 		modeloListaReceta = new DefaultListModel();
 		for (ModeloCliente c : arrayRecetas) {
 			modeloListaReceta.addElement(c.toString());

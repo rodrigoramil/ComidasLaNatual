@@ -2,10 +2,6 @@ package controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-
-import modelo.ModeloCliente;
-import modelo.SentenciasSQL;
 import vista.VentanaPrincipal;
 import vista.GestionPedidos;
 import vista.MenuPrincipal;
@@ -24,6 +20,7 @@ public class ControladorMenuPrincipal implements ActionListener {
 		
 		
 		if (e.getSource() == panelMenuPrincipal.getBtn_Ventas()) {
+			
 			GestionPedidos.creaListaClientes();			
 			
 			VentanaPrincipal.getPanelMenuPrincipal().setVisible(false);

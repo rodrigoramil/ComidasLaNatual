@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import modelo.SentenciasSQL;
+import modelo.BbddLogin;
 import vista.Login;
 import vista.MenuPrincipal;
 import vista.VentanaPrincipal;
@@ -28,7 +28,7 @@ public class ControladorLogin implements ActionListener {
 			entrada_usuario = panelLogin.getJtf_Entrada_Nombre().getText();
 			entrada_contrasena = panelLogin.getJtf_Entrada_Contrasena().getText();
 			
-			String estado = SentenciasSQL.iniciar_Sesion(entrada_usuario, entrada_contrasena);
+			String estado = BbddLogin.iniciar_Sesion(entrada_usuario, entrada_contrasena);
 			
 			if (estado.equals("Administrador")) {				
 				cambiarMenuPrincipal ();

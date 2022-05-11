@@ -20,8 +20,8 @@ import javax.swing.JTable;
 import javax.swing.UIManager;
 
 import controlador.ControladorGestionPedidos;
+import modelo.BbddVentas;
 import modelo.ModeloCliente;
-import modelo.SentenciasSQL;
 
 
 
@@ -32,7 +32,6 @@ public class GestionPedidos extends JPanel {
 	private static JPanel panelGestionPedidos;
 	private static JLabel lbl_mesa;
 	private static JLabel lbl_Para_llevar;
-	private static JTable table;
 	private static JButton btn_Mesa_1;
 	private static JButton btn_Mesa_2;
 	private static JButton btn_Mesa_3;
@@ -168,8 +167,8 @@ public class GestionPedidos extends JPanel {
 
 	
 	public static ArrayList<ModeloCliente> creaListaClientes() {
-		SentenciasSQL.leerClientesBBDD();
-		array_clientes = SentenciasSQL.getArrayClientes();
+		BbddVentas.listarClientes();
+		array_clientes = BbddVentas.getArrayClientes();
 		modeloListaCliente = new DefaultListModel();
 		quitarMesaLista();	
 		listaCliente.setModel(modeloListaCliente);
