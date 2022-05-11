@@ -168,13 +168,28 @@ public class GestionPedidos extends JPanel {
 		SentenciasSQL.leerClientesBBDD();
 		array_clientes = SentenciasSQL.getArrayClientes();
 		modeloListaCliente = new DefaultListModel();
-		for (ModeloCliente c : array_clientes) {
-			modeloListaCliente.addElement(c.toString());
-		}
+		quitarMesaLista();	
 		listaCliente.setModel(modeloListaCliente);
 		return array_clientes;
 	}
 		
+	public static void quitarMesaLista () {
+		for (ModeloCliente c : array_clientes) {			
+			if (!(c.toString().equals("Mesa1 tlf: 0") || 
+					c.toString().equals("Mesa2 tlf: 0") ||
+					c.toString().equals("Mesa3 tlf: 0") ||
+					c.toString().equals("Mesa4 tlf: 0") ||
+					c.toString().equals("Mesa5 tlf: 0") ||
+					c.toString().equals("Mesa6 tlf: 0") ||
+					c.toString().equals("Mesa7 tlf: 0") ||
+					c.toString().equals("Mesa8 tlf: 0")
+					)) {
+				modeloListaCliente.addElement(c.toString());
+			} 
+		}
+	}
+	
+	
 	 public static int clienteSeleccionado() throws NullPointerException {
 		 int indiceSeleccionado = listaCliente.getSelectedIndex();
 		return indiceSeleccionado;		 
@@ -231,6 +246,11 @@ public class GestionPedidos extends JPanel {
 
 	public static JPanel getPanelGestionPedidos() {
 		return panelGestionPedidos;
+	}
+
+
+	public static JList getListaCliente() {
+		return listaCliente;
 	}
 	
 }

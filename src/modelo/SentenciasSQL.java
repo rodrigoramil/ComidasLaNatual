@@ -47,7 +47,6 @@ public class SentenciasSQL {
 	
 	
 	public static void leerClientesBBDD() {
-		arrayClientes = new ArrayList<ModeloCliente>();
         conexion = new Conexion();
         connection = conexion.obtenerConexion();
         arrayClientes = new ArrayList<ModeloCliente>();        
