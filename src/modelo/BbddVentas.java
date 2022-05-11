@@ -16,24 +16,32 @@ public class BbddVentas {
 	private static PreparedStatement sentencia = null;
 	private static GestionPedidos gestionPedidos = null;
 	private static ArrayList<ModeloCliente> arrayClientes = null;
+	private static ArrayList<ModeloReceta> arrayRecetas=null; // <---- BORRAR
 
 	public static void listarClientes() {
 		conexion = new Conexion();
 		connection = conexion.obtenerConexion();
 		arrayClientes = new ArrayList<ModeloCliente>();
-
+		arrayRecetas = new ArrayList<ModeloReceta>();  // <---- BORRAR
 		try {
 			sentencia = connection.prepareStatement("SELECT * FROM cliente ");
 			ResultSet rs = sentencia.executeQuery();
 
 			while (rs.next()) {
-
+				
 				ModeloCliente cliente = new ModeloCliente(
 						rs.getInt("IdCliente"), 
 						rs.getString("NombreCliente"),
 						rs.getString("Telefono"));
 				arrayClientes.add(cliente);
-
+				
+				// <---- BORRAR ----->
+				ModeloReceta receta = new ModeloReceta(
+						rs.getString("NombreCliente"), 
+						rs.getString("Telefono"));
+				arrayRecetas.add(receta);
+				// <---- BORRAR ----->
+				
 			}
 
 		} catch (SQLException e) {
@@ -68,6 +76,11 @@ public class BbddVentas {
 	
 	public static ArrayList<ModeloCliente> getArrayClientes() {
 		return arrayClientes;
+	}
+
+
+	public static ArrayList<ModeloReceta> getArrayRecetas() {
+		return arrayRecetas;
 	}
   
 

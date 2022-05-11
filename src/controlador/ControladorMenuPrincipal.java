@@ -2,6 +2,8 @@ package controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import modelo.BbddVentas;
 import vista.VentanaPrincipal;
 import vista.GestionPedidos;
 import vista.MenuPrincipal;
@@ -31,7 +33,7 @@ public class ControladorMenuPrincipal implements ActionListener {
 		
 		if (e.getSource() == panelMenuPrincipal.getBtn_Recetario()) {
 			
-			Recetario.creaListaRecetas(); 
+			Recetario.datosReceta(); 
 			
 			VentanaPrincipal.getPanelMenuPrincipal().setVisible(false);
 			VentanaPrincipal.getPanelRecetario().setVisible(true);

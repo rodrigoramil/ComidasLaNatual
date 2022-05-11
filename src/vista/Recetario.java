@@ -13,6 +13,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.awt.event.ActionEvent;
 import javax.swing.JMenuBar;
 import javax.swing.JComboBox;
@@ -22,6 +23,7 @@ import javax.swing.table.DefaultTableModel;
 import controlador.ControladorRecetario;
 import modelo.BbddVentas;
 import modelo.ModeloCliente;
+import modelo.ModeloReceta;
 
 
 public class Recetario extends JPanel {
@@ -46,13 +48,21 @@ public class Recetario extends JPanel {
 	private int posicionPanel_x = 100;
 	private int posicionPanel_y = 50;
 
-	private static JList listaRecetas;
+//	private static JList listaRecetas;
     private static JScrollPane scrollRecetas;
     
-    private static ArrayList<ModeloCliente> arrayRecetas;
-    private static DefaultListModel modeloListaReceta;
+    private static ArrayList<ModeloReceta> arrayRecetas;
+//    private static DefaultListModel modeloListaReceta;
     
+    
+	//**************************************************************************************************
+    
+	private static JTable tablaRecetas;
+    private static DefaultTableModel modeloRecetas = null;
+	private static String recetasSeleccionado;
 
+	//**************************************************************************************************	
+	
 	public Recetario() {
 		super();
 		inicializarComponentes();	
@@ -71,6 +81,14 @@ public class Recetario extends JPanel {
 		btn_nueva_receta = new JButton("Nuevo");
 		btn_modificar_receta = new JButton("Modificar");
 		btn_cambiar_estado = new JButton("Cambiar Estado");
+		
+		//**************************************************************************************************	
+		
+				tablaRecetas = new JTable();
+				scrollRecetas = new JScrollPane(tablaRecetas);
+				
+		//**************************************************************************************************			
+		
 		
 		panelRecetario.setBorder(new EmptyBorder(5, 5, 5, 5));
 		panelRecetario.setBounds(posicionPanel_x, posicionPanel_y, ancho, alto);
@@ -104,7 +122,7 @@ public class Recetario extends JPanel {
 		
 		btn_cambiar_estado.setBounds(287, 227, 107, 23);
 		panelRecetario.add(btn_cambiar_estado);
-
+/*
 	    listaRecetas = new JList();
 	    listaRecetas.setLayout(null);
 	    listaRecetas.setVisible(true);		
@@ -113,6 +131,15 @@ public class Recetario extends JPanel {
 	    scrollRecetas.setBounds(10, 76, 384, 130);
 	    scrollRecetas.setViewportView(listaRecetas);
 	    panelRecetario.add(scrollRecetas);
+	    
+*/	    
+	    
+	    
+	    scrollRecetas.setBounds(10, 76, 384, 130);
+	    panelRecetario.add(scrollRecetas);
+	    
+	    
+	    
 	}
 	
 	public void establecerManejador() {		
@@ -126,11 +153,58 @@ public class Recetario extends JPanel {
 		btn_listadoRecetas.addActionListener(controlador);
 		btn_buscar.addActionListener(controlador);
 		btn_volver.addActionListener(controlador);
-		listaRecetas.addMouseListener(controlador);
+//		listaRecetas.addMouseListener(controlador);
 
+		tablaRecetas.addMouseListener(controlador);
 	}
+	
+	
+	
+	public static void datosReceta () {
+		arrayRecetas = new ArrayList<ModeloReceta>();
+        modeloRecetas = new DefaultTableModel(0,0);
+        BbddVentas.listarClientes();
+        arrayRecetas = BbddVentas.getArrayRecetas();
+        Iterator<ModeloReceta> it = arrayRecetas.iterator();
+        modeloRecetas.addColumn("NOMBRE RRECETA");
+        modeloRecetas.addColumn("ESTADO");
+        while (it.hasNext()) {
+        	modeloRecetas.addRow(new Object[] {it.next().getReceta()});
+		}
 
+        tablaRecetas.setModel(modeloRecetas);
+        modeloRecetas.fireTableDataChanged();
 
+    }
+
+	 public static int recetaSeleccionado() throws NullPointerException {
+		 int indiceSeleccionado = tablaRecetas.getSelectedRow();
+	
+		return indiceSeleccionado;		 
+	 }
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+/*
 	public static ArrayList<ModeloCliente> creaListaRecetas() {
 		BbddVentas.listarClientes();
 		arrayRecetas = BbddVentas.getArrayClientes();
@@ -146,7 +220,7 @@ public class Recetario extends JPanel {
 		 int indiceSeleccionado = listaRecetas.getSelectedIndex();
 		return indiceSeleccionado;		 
 	 }
-	
+	*/
 	
 	public static JPanel getPanelRecetario() {
 		return panelRecetario;
