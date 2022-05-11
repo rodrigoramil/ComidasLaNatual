@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import vista.Cliente;
+import vista.GestionPedidos;
 import vista.VentanaPrincipal;
 
 public class Controladorcliente implements ActionListener{
@@ -20,11 +21,13 @@ public class Controladorcliente implements ActionListener{
 		if (e.getSource() == Cliente.getBtn_volver()) {
 			VentanaPrincipal.getPanelCliente().setVisible(false);
 			VentanaPrincipal.getPanelGestionPedidos().setVisible(true);
+			GestionPedidos.getListaCliente().clearSelection();
 		}
 		
 		if (e.getSource() == Cliente.getBtn_Aceptar()) {
 			VentanaPrincipal.getPanelCliente().setVisible(false);
 			VentanaPrincipal.getPanelGestionPedidos().setVisible(true);
+			GestionPedidos.getListaCliente().clearSelection();
 		}
 		
 	}
