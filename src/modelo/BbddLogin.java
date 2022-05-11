@@ -16,12 +16,7 @@ public class BbddLogin {
 	private static PreparedStatement sentencia = null;
 	private static GestionPedidos gestionPedidos = null;
 	private static ArrayList<String> arrayClientes = null;
-	
-//****************************PRUEBAS****************************************************    
-	private static ArrayList<String> array_clientes = null;
-	private static String cliente = null;
-//****************************PRUEBAS****************************************************    	
-	
+		
 	public static String iniciar_Sesion(String entrada_usuario, String entrada_contrasena) {
 		String estado = "";
 		conexion = new Conexion();

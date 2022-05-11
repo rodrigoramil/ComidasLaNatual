@@ -153,5 +153,14 @@ public class Pedido extends JPanel {
 		return btn_Facturar;
 	}
 
+	public static JLabel getLbl_Num_Mesa() {
+		return lbl_Num_Mesa;
+	}
+
+	public static void setLbl_Num_Mesa(JLabel lbl_Num_Mesa) {
+		Pedido.lbl_Num_Mesa = lbl_Num_Mesa;
+	}
+	
+
 	
 }

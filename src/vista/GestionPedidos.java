@@ -126,6 +126,7 @@ public class GestionPedidos extends JPanel {
 		btn_Editar_Cliente.setForeground(UIManager.getColor("Button.background"));
 		btn_Editar_Cliente.setIcon(new ImageIcon("img/settings.png"));
 		btn_Editar_Cliente.setBounds(395, 46, 26, 24);
+		btn_Editar_Cliente.setEnabled(false);
 		panelGestionPedidos.add(btn_Editar_Cliente);
 		
 		btn_volver = new JButton("Volver");
@@ -170,25 +171,18 @@ public class GestionPedidos extends JPanel {
 		BbddVentas.listarClientes();
 		array_clientes = BbddVentas.getArrayClientes();
 		modeloListaCliente = new DefaultListModel();
-		quitarMesaLista();	
+
+		for (ModeloCliente c : array_clientes) {
+			System.out.println("IdCliente: "+c.getId()); // <-- BORRAR
+			// no añadimos a la lista los primeros ID porque son mesas
+			if (c.getId()>=9) {
+				System.out.println(" NO es MESA ->  "+c.getId()); // <-- BORRAR
+				modeloListaCliente.addElement(c.toString());
+			}
+		}	
+
 		listaCliente.setModel(modeloListaCliente);
 		return array_clientes;
-	}
-		
-	public static void quitarMesaLista () {
-		for (ModeloCliente c : array_clientes) {			
-			if (!(c.toString().equals("Mesa1 tlf: 0") || 
-					c.toString().equals("Mesa2 tlf: 0") ||
-					c.toString().equals("Mesa3 tlf: 0") ||
-					c.toString().equals("Mesa4 tlf: 0") ||
-					c.toString().equals("Mesa5 tlf: 0") ||
-					c.toString().equals("Mesa6 tlf: 0") ||
-					c.toString().equals("Mesa7 tlf: 0") ||
-					c.toString().equals("Mesa8 tlf: 0")
-					)) {
-				modeloListaCliente.addElement(c.toString());
-			} 
-		}
 	}
 	
 	

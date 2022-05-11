@@ -8,11 +8,11 @@ public class ModeloCliente implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	String id;
+	int id;
 	String nombre;
 	String telefono;
 	
-	public ModeloCliente(String id, String nombre, String telefono) {
+	public ModeloCliente(int id, String nombre, String telefono) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -25,11 +25,11 @@ public class ModeloCliente implements Serializable{
 
 	
 
-	public String getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 

@@ -20,7 +20,7 @@ public class BbddVentas {
 	public static void listarClientes() {
 		conexion = new Conexion();
 		connection = conexion.obtenerConexion();
-		arrayClientes = new ArrayList<>();
+		arrayClientes = new ArrayList<ModeloCliente>();
 
 		try {
 			sentencia = connection.prepareStatement("SELECT * FROM cliente ");
@@ -29,7 +29,7 @@ public class BbddVentas {
 			while (rs.next()) {
 
 				ModeloCliente cliente = new ModeloCliente(
-						rs.getString("IdCliente"), 
+						rs.getInt("IdCliente"), 
 						rs.getString("NombreCliente"),
 						rs.getString("Telefono"));
 				arrayClientes.add(cliente);
@@ -43,7 +43,7 @@ public class BbddVentas {
 	}
 
     
-	public static void editarCliente(String id, String nombre, String telefono) {
+	public static void editarCliente(int id, String nombre, String telefono) {
     	
         conexion = new Conexion();
         connection = conexion.obtenerConexion();
@@ -52,7 +52,7 @@ public class BbddVentas {
             sentencia = connection.prepareStatement("update Cliente set NombreCliente = ?, Telefono = ?  where IdCliente = ?");
             sentencia.setString(1, nombre);
             sentencia.setString(2, telefono);
-            sentencia.setString(3, id);
+            sentencia.setInt(3, id);
             sentencia.executeUpdate();
             
             System.out.println("llega: "+ nombre);

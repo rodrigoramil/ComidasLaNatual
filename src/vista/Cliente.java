@@ -7,7 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import controlador.Controladorcliente;
+import controlador.ControladorCliente;
 
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -74,7 +74,7 @@ public class Cliente extends JPanel {
 	}
 
 	public void establecerManejador() {			
-		Controladorcliente controlador = new Controladorcliente(this);
+		ControladorCliente controlador = new ControladorCliente(this);
 		
 		btn_Aceptar.addActionListener(controlador);
 		btn_volver.addActionListener(controlador);

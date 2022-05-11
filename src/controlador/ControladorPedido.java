@@ -4,6 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+
+import vista.GestionPedidos;
 import vista.Pedido;
 import vista.VentanaPrincipal;
 
@@ -21,10 +23,12 @@ public class ControladorPedido  implements ActionListener, MouseListener {
 		if (e.getSource() == Pedido.getBtn_Volver()) {			
 			VentanaPrincipal.getPanelGestionPedidos().setVisible(true);
 			VentanaPrincipal.getPanelPedido().setVisible(false);
+			GestionPedidos.getBtn_Editar_Cliente().setEnabled(false);
 		}
 		if (e.getSource() == Pedido.getBtn_Guardar()) {
 			VentanaPrincipal.getPanelGestionPedidos().setVisible(true);
-			VentanaPrincipal.getPanelPedido().setVisible(false);			
+			VentanaPrincipal.getPanelPedido().setVisible(false);
+			GestionPedidos.getBtn_Editar_Cliente().setEnabled(false);
 		}
 		if (e.getSource() == Pedido.getBtn_Nuevo()) {
 			VentanaPrincipal.getPanelPedido().setVisible(false);
