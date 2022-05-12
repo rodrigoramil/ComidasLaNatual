@@ -2,10 +2,14 @@ package vista;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import controlador.ControladorGestionUsuarios;
+import modelo.BbddLogin;
+import modelo.BbddVentas;
 import modelo.ModeloUsuario;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -31,11 +35,9 @@ public class GestionUsuarios extends JPanel {
 	private static int posicionPanel_x = 100;
 	private static int posicionPanel_y = 50;
 	
-	private static JList listaGestionUsuarios;
-    private static JScrollPane scrollGestionUsuarios;
-    
+	private static JTable tabla;
+    private static JScrollPane scroll;    
     private static ArrayList<ModeloUsuario> arrayUsuarios;
-    private static DefaultListModel modelo;
     
 	public GestionUsuarios() {		
 		super();
@@ -52,6 +54,7 @@ public class GestionUsuarios extends JPanel {
 		btn_Modificar = new JButton("Modificar");		
 		btn_eliminar = new JButton("Eliminar");		
 		btn_volver = new JButton("Volver");
+		tabla = new JTable();
 		
 		panelGestionUsuarios.setBorder(new EmptyBorder(5, 5, 5, 5));
 		panelGestionUsuarios.setBounds(posicionPanel_x, posicionPanel_y, ancho, alto);
@@ -74,21 +77,17 @@ public class GestionUsuarios extends JPanel {
 		btn_volver.setBounds(335, 11, 89, 23);
 		panelGestionUsuarios.add(btn_volver);
 
-	    listaGestionUsuarios = new JList();
-	    listaGestionUsuarios.setLayout(null);
-	    listaGestionUsuarios.setVisible(true);		
-		
-	    scrollGestionUsuarios = new JScrollPane(listaGestionUsuarios);	
-	    scrollGestionUsuarios.setBounds(104, 79, 253, 128);
-	    scrollGestionUsuarios.setViewportView(listaGestionUsuarios);
-        panelGestionUsuarios.add(scrollGestionUsuarios);	
+	    scroll = new JScrollPane(tabla);
+	    scroll.setViewportView(tabla);
+	    scroll.setBounds(104, 79, 253, 128);
+        panelGestionUsuarios.add(scroll);	
 	}
 	
 	private void establecerManejador() {
 		
 		ControladorGestionUsuarios controlador = new ControladorGestionUsuarios(this);
 		
-		listaGestionUsuarios.addMouseListener(controlador);
+		tabla.addMouseListener(controlador);
 		btn_Modificar.addActionListener(controlador);
 		btn_nuevo.addActionListener(controlador);
 		btn_eliminar.addActionListener(controlador);
@@ -96,25 +95,30 @@ public class GestionUsuarios extends JPanel {
 
 		
 	}
-/*	
- 	// Hay que modificar el metodo que accede a los Usuarios de la BBDD
+	
+	public static void listarUsuarios () {
+		arrayUsuarios = new ArrayList<ModeloUsuario>();			// <-- modificar el tipo de array al modelo objeto que corresponda
+        BbddLogin.listarUsuarios();							// <-- modificar el método para que llame a la sentencia SQL que corresponda y y cargue los datos
+        arrayUsuarios = BbddLogin.getArrayUsuarios();			// <-- crear y modificar el metodo GET que trae los datos del array que corresponda
+        DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
+        modelo.addColumn("PRODUCTOS");
+        modelo.addColumn("STOCK ACTUAL");
+        
+        Object filaDato[] = new Object[2];     
+        for (int i = 0; i < arrayUsuarios.size(); i++) {
+        	filaDato[0] = arrayUsuarios.get(i).getNombreUsuario();	// <-- llamar el dato que corresponda del objeto modelo
+        	filaDato[1] = arrayUsuarios.get(i).getRol();  	// <-- llamar el dato que corresponda del objeto modelo
+        	modelo.addRow(filaDato);
+    	}
+        tabla.setModel(modelo);
+        modelo.fireTableDataChanged();
+    }
+	
 
-	public static ArrayList<ModeloUsuario> creaListaUsuarios() {
-		SentenciasSQL.leerClientesBBDD();
-		arrayUsuarios = SentenciasSQL.getArrayUsuarios();
-		modelo = new DefaultListModel();
-		for (ModeloUsuario c : arrayUsuarios) {
-			modelo.addElement(c.toString());
-		}
-		listaGestionUsuarios.setModel(modelo);
-		return arrayUsuarios;
-	}
-		
-	 public static int usuarioSeleccionado() throws NullPointerException {
-		 int indiceSeleccionado = listaUsuarios.getSelectedIndex();
-		return indiceSeleccionado;		 
+	 public static int productoSeleccionado() throws NullPointerException {
+		 int indiceSeleccionado = tabla.getSelectedRow();
+		 return indiceSeleccionado;	
 	 }
-*/
 	 
 	public static JPanel getPanelGestionUsuarios() {
 		return panelGestionUsuarios;

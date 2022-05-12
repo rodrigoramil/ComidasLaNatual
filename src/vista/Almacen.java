@@ -3,6 +3,9 @@ package vista;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
+
+import java.util.ArrayList;
+
 import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.JTextField;
@@ -10,6 +13,8 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import controlador.ControladorAlmacen;
+import modelo.BbddVentas;
+import modelo.ModeloReceta;
 
 public class Almacen extends JPanel {
 
@@ -28,8 +33,9 @@ public class Almacen extends JPanel {
 	private int posicionPanel_x = 180;
 	private int posicionPanel_y = 80;
 	
-	private static JList listaAlamcen;
-    private static JScrollPane scrollAlmacen;
+	private static JTable tabla;
+    private static JScrollPane scroll;
+	private static ArrayList<ModeloReceta> arrayProductos;
     
 	public Almacen() {
 		
@@ -50,6 +56,7 @@ public class Almacen extends JPanel {
 		btn_Ver_Listas_Compras = new JButton("Ver listas de la compra");
 		btn_Modificar = new JButton("Modificar");
 		btn_Nuevo = new JButton("Nuevo");
+		tabla = new JTable();
 		
 		panelAlmacen.setBorder(new EmptyBorder(5, 5, 5, 5));
 		panelAlmacen.setBounds(posicionPanel_x, posicionPanel_y, ancho, alto);
@@ -81,14 +88,10 @@ public class Almacen extends JPanel {
 		btn_Nuevo.setBounds(368, 263, 79, 23);
 		panelAlmacen.add(btn_Nuevo);
 
-	    listaAlamcen = new JList();
-	    listaAlamcen.setLayout(null);
-	    listaAlamcen.setVisible(true);		
-		
-	    scrollAlmacen = new JScrollPane(listaAlamcen);	
-	    scrollAlmacen.setBounds(10, 76, 437, 141);
-	    scrollAlmacen.setViewportView(listaAlamcen);
-	    panelAlmacen.add(scrollAlmacen);	
+	    scroll = new JScrollPane(tabla);
+	    scroll.setViewportView(tabla);
+	    scroll.setBounds(10, 76, 437, 141);
+	    panelAlmacen.add(scroll);	
 				
 	}
 	
@@ -104,10 +107,53 @@ public class Almacen extends JPanel {
 		btn_Ver_Listas_Compras.addActionListener(controlador);
 		btn_Modificar.addActionListener(controlador);
 		btn_Nuevo.addActionListener(controlador);
-		listaAlamcen.addMouseListener(controlador);
+		tabla.addMouseListener(controlador);
 	
 	}
 
+	
+	//*******
+	
+	public static void listarProductos () {
+		arrayProductos = new ArrayList<ModeloReceta>();			// <-- modificar el tipo de array al modelo objeto que corresponda
+        BbddVentas.listarClientes();							// <-- modificar el método para que llame a la sentencia SQL que corresponda y y cargue los datos
+        arrayProductos = BbddVentas.getArrayRecetas();			// <-- crear y modificar el metodo GET que trae los datos del array que corresponda
+        DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
+        modelo.addColumn("PRODUCTOS");
+        modelo.addColumn("ACTUAL");
+        modelo.addColumn("MÍNIMO");
+        modelo.addColumn("MAXIMO");
+        
+        Object filaDato[] = new Object[4];     
+        for (int i = 0; i < arrayProductos.size(); i++) {
+        	filaDato[0] = arrayProductos.get(i).getReceta();	// <-- llamar el dato que corresponda del objeto modelo
+        	filaDato[1] = arrayProductos.get(i).getEstado();  	// <-- llamar el dato que corresponda del objeto modelo
+        	filaDato[2] = arrayProductos.get(i).getReceta();	// <-- llamar el dato que corresponda del objeto modelo
+        	filaDato[3] = arrayProductos.get(i).getEstado();  	// <-- llamar el dato que corresponda del objeto modelo
+        	
+        	modelo.addRow(filaDato);
+    	}
+        tabla.setModel(modelo);
+        modelo.fireTableDataChanged();
+    }
+	
+
+	 public static int productoSeleccionado() throws NullPointerException {			// <-- modificar el nombre del metodo
+		 int indiceSeleccionado = tabla.getSelectedRow();
+		 return indiceSeleccionado;	
+	 }
+	
+	//*******	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	public static JTextField getTextField() {
 		return textField;
 	}

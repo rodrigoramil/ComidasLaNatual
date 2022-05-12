@@ -3,6 +3,9 @@ package vista;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
+
+import java.util.ArrayList;
+
 import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.JTextField;
@@ -10,6 +13,8 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import controlador.ControladorBuscarComidaBebida;
+import modelo.BbddVentas;
+import modelo.ModeloReceta;
 
 public class BuscarComidaBebida extends JPanel {
 
@@ -33,14 +38,17 @@ public class BuscarComidaBebida extends JPanel {
 	private static int posicionPanel_x = 100;
 	private static int posicionPanel_y = 50;
 
-	private static JList listaBuscarComidaBebida;
-    private static JScrollPane scrollBuscarComidaBebida;
+	private static JTable tabla;
+    private static JScrollPane scroll;
+
+	private static ArrayList<ModeloReceta> arrayComidaBebida;
+
     
 	public BuscarComidaBebida() {
 
 		inicializarComponentes();
 		establecerManejador();		
-		panelBuscarComidaBebida.setVisible(false);
+		
 	}
 
 
@@ -55,11 +63,13 @@ public class BuscarComidaBebida extends JPanel {
 		caja_buscar = new JTextField();
 		btn_anadir = new JButton("A\u00F1adir");
 		btn_ver_receta = new JButton("Ver receta");
-
+		tabla = new JTable();
+		
 		panelBuscarComidaBebida.setBorder(new EmptyBorder(5, 5, 5, 5));
 		panelBuscarComidaBebida.setBounds(posicionPanel_x, posicionPanel_y, ancho, alto);
 		panelBuscarComidaBebida.setLayout(null);
-
+		panelBuscarComidaBebida.setVisible(false);
+		
 		btn_comidas_disponibles.setBounds(28, 21, 145, 23);
 		panelBuscarComidaBebida.add(btn_comidas_disponibles);
 
@@ -86,21 +96,18 @@ public class BuscarComidaBebida extends JPanel {
 		panelBuscarComidaBebida.add(btn_ver_receta);
 
 	    
-	    listaBuscarComidaBebida = new JList();
-	    listaBuscarComidaBebida.setLayout(null);
-	    listaBuscarComidaBebida.setVisible(true);		
-			
-	    scrollBuscarComidaBebida = new JScrollPane(listaBuscarComidaBebida);	
-	    scrollBuscarComidaBebida.setBounds(38, 89, 531, 122);
-	    scrollBuscarComidaBebida.setViewportView(listaBuscarComidaBebida);
-		panelBuscarComidaBebida.add(scrollBuscarComidaBebida);
+		scroll = new JScrollPane(tabla);	
+
+	    scroll.setBounds(38, 89, 531, 122);
+	    scroll.setViewportView(tabla);
+		panelBuscarComidaBebida.add(scroll);
 
 	}
 	
 	public void establecerManejador() {			
 		ControladorBuscarComidaBebida controlador = new ControladorBuscarComidaBebida(this);
 		
-		listaBuscarComidaBebida.addMouseListener(controlador);
+		tabla.addMouseListener(controlador);
 		btn_comidas_disponibles.addActionListener(controlador);
 		btn_bebidas_disponibles.addActionListener(controlador);
 		btn_listar_todo.addActionListener(controlador);
@@ -112,25 +119,31 @@ public class BuscarComidaBebida extends JPanel {
 	
 	}
 
-	/*	
- 	// Hay que modificar el metodo que accede a los Usuarios de la BBDD
+	public static void pedidos () {
+		arrayComidaBebida = new ArrayList<ModeloReceta>(); 		// <-- modificar el tipo de array al modelo objeto que corresponda
+        BbddVentas.listarClientes();							// <-- modificar el método para que llame a la sentencia SQL que corresponda y y cargue los datos
+        arrayComidaBebida = BbddVentas.getArrayRecetas();		// <-- crear y modificar el metodo GET que trae los datos del array que corresponda
+        DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
+        modelo.addColumn("COMIDA/BEBIDA");
+        modelo.addColumn("PRECIO");
+        modelo.addColumn("ESTADO");
+        
+        Object filaDato[] = new Object[3];     
+        for (int i = 0; i < arrayComidaBebida.size(); i++) {
+        	filaDato[0] = arrayComidaBebida.get(i).getReceta();		// <-- llamar el dato que corresponda del objeto modelo
+        	filaDato[1] = arrayComidaBebida.get(i).getEstado();  	// <-- llamar el dato que corresponda del objeto modelo
+        	filaDato[2] = arrayComidaBebida.get(i).getEstado(); 	// <-- llamar el dato que corresponda del objeto modelo
+        	modelo.addRow(filaDato);
+    	}
+        tabla.setModel(modelo);
+        modelo.fireTableDataChanged();
+    }
+	
 
-	public static ArrayList<ModeloUsuario> creaListaUsuarios() {
-		SentenciasSQL.leerClientesBBDD();
-		arrayUsuarios = SentenciasSQL.getArrayUsuarios();
-		modelo = new DefaultListModel();
-		for (ModeloUsuario c : arrayUsuarios) {
-			modelo.addElement(c.toString());
-		}
-		listaGestionUsuarios.setModel(modelo);
-		return arrayUsuarios;
-	}
-		
-	 public static int usuarioSeleccionado() throws NullPointerException {
-		 int indiceSeleccionado = listaUsuarios.getSelectedIndex();
-		return indiceSeleccionado;		 
+	 public static int productoSeleccionado() throws NullPointerException {
+		 int indiceSeleccionado = tabla.getSelectedRow();
+		 return indiceSeleccionado;	
 	 }
-*/
 
 
 	public static JPanel getPanelBuscarComidaBebida() {

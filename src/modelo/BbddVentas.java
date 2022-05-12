@@ -5,16 +5,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Iterator;
-
-import vista.GestionPedidos;
 
 public class BbddVentas {
 
 	private static Connection connection = null;
 	private static Conexion conexion = null;
 	private static PreparedStatement sentencia = null;
-	private static GestionPedidos gestionPedidos = null;
 	private static ArrayList<ModeloCliente> arrayClientes = null;
 	private static ArrayList<ModeloReceta> arrayRecetas=null; // <---- BORRAR
 

@@ -1,23 +1,28 @@
 package vista;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JList;
+
+import java.util.ArrayList;
+
 import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import controlador.ControladorPrepararCompra;
+import modelo.BbddVentas;
+import modelo.ModeloReceta;
 
-import javax.swing.JSpinner;
 
 public class PrepararCompra extends JPanel {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5924949977958580722L;
 
 	private static JPanel panelPrepararCompra;
 
@@ -30,9 +35,11 @@ public class PrepararCompra extends JPanel {
 	private static int alto = 600;
 	private static int posicionPanel_x = 100;
 	private static int posicionPanel_y = 50;
-	
-	private static JList listaPrepararCompra;
-    private static JScrollPane scrollPrepararCompra;
+	private static JTable tabla;
+    private static JScrollPane scroll;
+
+	private static ArrayList<ModeloReceta> arrayProductos;
+
 
 	public PrepararCompra() {
 		super();
@@ -53,6 +60,7 @@ public class PrepararCompra extends JPanel {
 		panelPrepararCompra.setBounds(posicionPanel_x, posicionPanel_y, ancho, alto);
 		panelPrepararCompra.setLayout(null);
 		panelPrepararCompra.setVisible(false);
+		tabla = new JTable();
 		
 		lblNewLabel.setBounds(10, 24, 141, 14);
 		panelPrepararCompra.add(lblNewLabel);
@@ -67,14 +75,10 @@ public class PrepararCompra extends JPanel {
 		btn_Imprimir.setBounds(233, 227, 89, 23);
 		panelPrepararCompra.add(btn_Imprimir);
 		
-	    listaPrepararCompra = new JList();
-	    listaPrepararCompra.setLayout(null);
-	    listaPrepararCompra.setVisible(true);		
-		
-	    scrollPrepararCompra = new JScrollPane(listaPrepararCompra);	
-	    scrollPrepararCompra.setBounds(10, 51, 404, 166);
-	    scrollPrepararCompra.setViewportView(listaPrepararCompra);
-	    panelPrepararCompra.add(scrollPrepararCompra);
+	    scroll = new JScrollPane(tabla);
+	    scroll.setViewportView(tabla);
+	    scroll.setBounds(10, 51, 404, 166);
+	    panelPrepararCompra.add(scroll);
 
 	}
 	
@@ -82,7 +86,7 @@ public class PrepararCompra extends JPanel {
 	public void establecerManejador() {			
 		ControladorPrepararCompra controlador = new ControladorPrepararCompra(this);
 		
-		listaPrepararCompra.addMouseListener(controlador);
+		tabla.addMouseListener(controlador);
 		btn_volver.addActionListener(controlador);
 		btn_Guardar.addActionListener(controlador);
 		btn_Imprimir.addActionListener(controlador);
@@ -90,6 +94,33 @@ public class PrepararCompra extends JPanel {
 		
 	}
 
+	public static void listarProductos () {
+		arrayProductos = new ArrayList<ModeloReceta>();			// <-- modificar el tipo de array al modelo objeto que corresponda
+        BbddVentas.listarClientes();							// <-- modificar el método para que llame a la sentencia SQL que corresponda y y cargue los datos
+        arrayProductos = BbddVentas.getArrayRecetas();			// <-- crear y modificar el metodo GET que trae los datos del array que corresponda
+        DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
+        modelo.addColumn("PRODUCTOS");
+        modelo.addColumn("CANTIDAD A COMPRAR");
+        
+        Object filaDato[] = new Object[2];     
+        for (int i = 0; i < arrayProductos.size(); i++) {
+        	filaDato[0] = arrayProductos.get(i).getReceta();	// <-- llamar el dato que corresponda del objeto modelo
+        	filaDato[1] = arrayProductos.get(i).getEstado();  	// <-- llamar el dato que corresponda del objeto modelo
+        	modelo.addRow(filaDato);
+    	}
+        tabla.setModel(modelo);
+        modelo.fireTableDataChanged();
+    }
+	
+
+	 public static int productoSeleccionado() throws NullPointerException {			// <-- modificar el nombre del metodo
+		 int indiceSeleccionado = tabla.getSelectedRow();
+		 return indiceSeleccionado;	
+	 }
+	
+	
+	
+	
 	public static JPanel getPanelPrepararCompra() {
 		return panelPrepararCompra;
 	}
@@ -104,14 +135,6 @@ public class PrepararCompra extends JPanel {
 
 	public static JButton getBtn_Imprimir() {
 		return btn_Imprimir;
-	}
-
-	public static JList getListaPrepararCompra() {
-		return listaPrepararCompra;
-	}
-
-	public static JScrollPane getScrollPrepararCompra() {
-		return scrollPrepararCompra;
 	}
 
 

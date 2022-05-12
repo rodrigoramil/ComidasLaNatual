@@ -2,6 +2,7 @@ package vista;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JList;
@@ -13,6 +14,8 @@ import javax.swing.JButton;
 import javax.swing.table.DefaultTableModel;
 
 import controlador.ControladorListaGastos;
+import modelo.BbddVentas;
+import modelo.ModeloReceta;
 
 public class ListaGastos extends JPanel {
 
@@ -31,8 +34,10 @@ public class ListaGastos extends JPanel {
 	private static int posicionPanel_x = 100;
 	private static int posicionPanel_y = 50;
 	
-	private static JList listaListaGastos;
-    private static JScrollPane scrollListaGastos;
+	private static JTable tabla;
+    private static JScrollPane scroll;
+
+	private static ArrayList<ModeloReceta> arrayListaGastos;
 
 	public ListaGastos() {
 		super();
@@ -47,7 +52,7 @@ public class ListaGastos extends JPanel {
 		btn_Volver = new JButton("Volver");
 		btn_Ver = new JButton("Ver");
 		btn_Calcular_Gastos = new JButton("Calcular gastos");
-		
+		tabla = new JTable();
 		panelListaGastos.setBorder(new EmptyBorder(5, 5, 5, 5));
 		panelListaGastos.setBounds(posicionPanel_x, posicionPanel_y, ancho, alto);
 		panelListaGastos.setLayout(null);
@@ -62,46 +67,52 @@ public class ListaGastos extends JPanel {
 		btn_Calcular_Gastos.setBounds(242, 215, 112, 23);
 		panelListaGastos.add(btn_Calcular_Gastos);
 		
-	    listaListaGastos = new JList();
-	    listaListaGastos.setLayout(null);
-	    listaListaGastos.setVisible(true);		
-		
-	    scrollListaGastos = new JScrollPane(listaListaGastos);	
-	    scrollListaGastos.setBounds(65, 45, 330, 159);
-	    scrollListaGastos.setViewportView(listaListaGastos);
-	    panelListaGastos.add(scrollListaGastos);	
+	    scroll = new JScrollPane(tabla);
+	    scroll.setViewportView(tabla);
+	    scroll.setBounds(65, 45, 330, 159);
+	    panelListaGastos.add(scroll);	
 
 	}
 	
 	public void establecerManejador() {			
 		ControladorListaGastos controlador = new ControladorListaGastos(this);
 		
-		listaListaGastos.addMouseListener(controlador);
+		tabla.addMouseListener(controlador);
 		btn_Volver.addActionListener(controlador);
 		btn_Ver.addActionListener(controlador);
 		btn_Calcular_Gastos.addActionListener(controlador);
 		
 	}
 
-	/*	
- 	// Hay que modificar el metodo que accede a los Usuarios de la BBDD
+	public static void listarGastos () {
+		arrayListaGastos = new ArrayList<ModeloReceta>();			// <-- modificar el tipo de array al modelo objeto que corresponda
+        BbddVentas.listarClientes();							// <-- modificar el método para que llame a la sentencia SQL que corresponda y y cargue los datos
+        arrayListaGastos = BbddVentas.getArrayRecetas();			// <-- crear y modificar el metodo GET que trae los datos del array que corresponda
+        DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
+        modelo.addColumn("Nº");
+        modelo.addColumn("FECHA");
+        modelo.addColumn("COMPRA HECHA");
+        modelo.addColumn("GASTO");
+        modelo.addColumn("USUARIO");
+        
+        Object filaDato[] = new Object[5];     
+        for (int i = 0; i < arrayListaGastos.size(); i++) {
+        	filaDato[0] = arrayListaGastos.get(i).getReceta();	// <-- llamar el dato que corresponda del objeto modelo
+        	filaDato[1] = arrayListaGastos.get(i).getEstado();  	// <-- llamar el dato que corresponda del objeto modelo
+        	filaDato[2] = arrayListaGastos.get(i).getReceta();	// <-- llamar el dato que corresponda del objeto modelo
+        	filaDato[3] = arrayListaGastos.get(i).getEstado();  	// <-- llamar el dato que corresponda del objeto modelo
+        	filaDato[4] = arrayListaGastos.get(i).getReceta();	// <-- llamar el dato que corresponda del objeto modelo
+        	modelo.addRow(filaDato);
+    	}
+        tabla.setModel(modelo);
+        modelo.fireTableDataChanged();
+    }
+	
 
-	public static ArrayList<ModeloUsuario> creaListaUsuarios() {
-		SentenciasSQL.leerClientesBBDD();
-		arrayUsuarios = SentenciasSQL.getArrayUsuarios();
-		modelo = new DefaultListModel();
-		for (ModeloUsuario c : arrayUsuarios) {
-			modelo.addElement(c.toString());
-		}
-		listaGestionUsuarios.setModel(modelo);
-		return arrayUsuarios;
-	}
-		
-	 public static int usuarioSeleccionado() throws NullPointerException {
-		 int indiceSeleccionado = listaUsuarios.getSelectedIndex();
-		return indiceSeleccionado;		 
+	 public static int productoSeleccionado() throws NullPointerException {			// <-- modificar el nombre del metodo
+		 int indiceSeleccionado = tabla.getSelectedRow();
+		 return indiceSeleccionado;	
 	 }
-*/
 	
 	public static JPanel getPanelListaGastos() {
 		return panelListaGastos;

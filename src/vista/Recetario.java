@@ -157,7 +157,7 @@ public class Recetario extends JPanel {
 	}
 		
 	
-	public static void datosReceta () {
+	public static void listarRecetas () {
 		arrayRecetas = new ArrayList<ModeloReceta>();
         BbddVentas.listarClientes();
         arrayRecetas = BbddVentas.getArrayRecetas();

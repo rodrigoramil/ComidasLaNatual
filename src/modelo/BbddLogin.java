@@ -6,16 +6,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Base64;
+import javax.swing.JOptionPane;
 
-import com.mysql.cj.result.StringValueFactory;
-
-import vista.GestionPedidos;
+import vista.VentanaPrincipal;
 public class BbddLogin {
 	private static Connection connection = null;
 	private static Conexion conexion = null;
 	private static PreparedStatement sentencia = null;
-	private static GestionPedidos gestionPedidos = null;
-	private static ArrayList<String> arrayClientes = null;
+	private static ArrayList<ModeloUsuario> arrayUsuarios = null;
 		
 	public static String iniciar_Sesion(String entrada_usuario, String entrada_contrasena) {
 		String estado = "";
@@ -33,11 +31,44 @@ public class BbddLogin {
 				else if (rs.getString("Rol").equals("Cocina")) {estado = "Cocina";} 
 				else if (rs.getString("Rol").equals("Venta")) {	estado = "Venta";}
 			}
-		} catch (SQLException e) {
-			System.out.println("Error al iniciar_Sesion SentenciasSQL");
-			System.out.println(e.getMessage());
+		} catch (SQLException  | NullPointerException e) {
+			
+			JOptionPane.showMessageDialog(VentanaPrincipal.getPanelLogin(), "Error al iniciar Sesion");
+			System.out.println("Error al iniciar Sesion SentenciasSQL");
 		}
 		return estado;
 	}
+	
+	
+	public static void listarUsuarios() {
+		conexion = new Conexion();
+		connection = conexion.obtenerConexion();
+
+		try {
+			
+			sentencia = connection.prepareStatement("select NombreUsuario, Rol from Usuarios;");
+			ResultSet rs = sentencia.executeQuery();			
+			while (rs.next()) {				
+				ModeloUsuario usuario = new ModeloUsuario(
+						rs.getString("NombreUsuario"),
+						rs.getString("Rol"));
+				arrayUsuarios.add(usuario);				
+			}
+		} catch (SQLException | NullPointerException e) {
+			
+			JOptionPane.showMessageDialog(VentanaPrincipal.getPanelLogin(), "Error al acceder a los Usuarios de la Base de Datos");
+			System.out.println("Error al acceder a los Usuarios de la Base de Datos");
+		}
+			
+	}
+	
+	
+	public static ArrayList<ModeloUsuario> getArrayUsuarios() {
+		return arrayUsuarios;
+	}
+
+	
+	
+	
 	
 }

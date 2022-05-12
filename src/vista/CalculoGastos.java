@@ -1,9 +1,5 @@
 package vista;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
@@ -14,11 +10,20 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import controlador.ControladorCalculoGastos;
+import modelo.BbddVentas;
+import modelo.ModeloReceta;
+
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 
 public class CalculoGastos extends JPanel {
 
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5172361613940509176L;
 	
 	private static JPanel paneCalculoGastos;
 	private static JTextField caja_Desde;
@@ -29,14 +34,17 @@ public class CalculoGastos extends JPanel {
 	private static JLabel lbl_Cuenta_Gastos;
 	private static JButton btn_Volver;
 	private static JButton btn_Imprimir;
-	
+	private static JTable tabla;
+    private static JScrollPane scroll;
+    
 	private static int ancho = 800;
 	private static int alto = 600;
 	private static int posicionPanel_x = 100;
 	private static int posicionPanel_y = 50;
 
-	private static JList listaCalculoGasto;
-    private static JScrollPane scrollCalculoGasto;
+	private static ArrayList<ModeloReceta> arrayGastos;
+
+
     
 	public CalculoGastos() {
 		super();
@@ -54,7 +62,8 @@ public class CalculoGastos extends JPanel {
 		lbl_Cuenta_Gastos = new JLabel("0,00 \u20AC");
 		btn_Volver = new JButton("Volver");
 		btn_Imprimir = new JButton("Imprimir");
-
+		tabla = new JTable();
+		
 		paneCalculoGastos.setBorder(new EmptyBorder(5, 5, 5, 5));
 		paneCalculoGastos.setBounds(posicionPanel_x, posicionPanel_y, ancho, alto);
 		paneCalculoGastos.setLayout(null);		paneCalculoGastos.setVisible(false);		
@@ -85,20 +94,16 @@ public class CalculoGastos extends JPanel {
 		btn_Imprimir.setBounds(224, 227, 89, 23);
 		paneCalculoGastos.add(btn_Imprimir);
 		
-		listaCalculoGasto = new JList();
-	    listaCalculoGasto.setLayout(null);
-	    listaCalculoGasto.setVisible(true);		
-		
-	    scrollCalculoGasto = new JScrollPane(listaCalculoGasto);	
-	    scrollCalculoGasto.setBounds(233, 63, 173, 146);
-	    scrollCalculoGasto.setViewportView(listaCalculoGasto);
-	    paneCalculoGastos.add(scrollCalculoGasto);
+	    scroll = new JScrollPane(tabla);
+	    scroll.setViewportView(tabla);
+	    scroll.setBounds(233, 63, 173, 146);
+	    paneCalculoGastos.add(scroll);
 
 	}
 
 	public void establecerManejador() {			
 		ControladorCalculoGastos controlador = new ControladorCalculoGastos(this);
-				listaCalculoGasto.addMouseListener(controlador);
+				tabla.addMouseListener(controlador);
 		lbl_Cuenta_Gastos.addMouseListener(controlador);
 		caja_Desde.addActionListener(controlador);
 		caja_Hasta.addActionListener(controlador);	
@@ -108,61 +113,68 @@ public class CalculoGastos extends JPanel {
 	}
 
 	
-	/*	
- 	// Hay que modificar el metodo que accede a los Usuarios de la BBDD
-
-	public static ArrayList<ModeloUsuario> creaListaUsuarios() {
-		SentenciasSQL.leerClientesBBDD();
-		arrayUsuarios = SentenciasSQL.getArrayUsuarios();
-		modelo = new DefaultListModel();
-		for (ModeloUsuario c : arrayUsuarios) {
-			modelo.addElement(c.toString());
-		}
-		listaGestionUsuarios.setModel(modelo);
-		return arrayUsuarios;
+	public static void listarGastos () {
+		arrayGastos = new ArrayList<ModeloReceta>();			// <-- modificar el tipo de array al modelo objeto que corresponda
+        BbddVentas.listarClientes();							// <-- modificar el método para que llame a la sentencia SQL que corresponda y y cargue los datos
+        arrayGastos = BbddVentas.getArrayRecetas();				// <-- crear y modificar el metodo GET que trae los datos del array que corresponda
+        DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
+        modelo.addColumn("Nº");
+        modelo.addColumn("FECHA");
+        modelo.addColumn("GASTO");
+        
+        Object filaDato[] = new Object[3];     
+        for (int i = 0; i < arrayGastos.size(); i++) {
+        	filaDato[0] = arrayGastos.get(i).getReceta();	// <-- llamar el dato que corresponda del objeto modelo
+        	filaDato[1] = arrayGastos.get(i).getEstado();  	// <-- llamar el dato que corresponda del objeto modelo
+        	filaDato[2] = arrayGastos.get(i).getEstado();  	// <-- llamar el dato que corresponda del objeto modelo
+        	modelo.addRow(filaDato);
+    	}
+        tabla.setModel(modelo);
+        modelo.fireTableDataChanged();
 	}
-		
-	 public static int usuarioSeleccionado() throws NullPointerException {
-		 int indiceSeleccionado = listaUsuarios.getSelectedIndex();
-		return indiceSeleccionado;		 
+	
+
+	 public static int productoSeleccionado() throws NullPointerException {
+		 int indiceSeleccionado = tabla.getSelectedRow();
+		 return indiceSeleccionado;	
 	 }
-*/
+	 
 	public static JTextField getCaja_Desde() {
 		return caja_Desde;
 	}
-
+	
 	public static void setCaja_Desde(JTextField caja_Desde) {
 		CalculoGastos.caja_Desde = caja_Desde;
 	}
-
+	
 	public static JTextField getCaja_Hasta() {
 		return caja_Hasta;
 	}
-
+	
 	public static void setCaja_Hasta(JTextField caja_Hasta) {
 		CalculoGastos.caja_Hasta = caja_Hasta;
 	}
-
+	
 	public static JLabel getLbl_Cuenta_Gastos() {
 		return lbl_Cuenta_Gastos;
 	}
-
+	
 	public static void setLbl_Cuenta_Gastos(JLabel lbl_Cuenta_Gastos) {
 		CalculoGastos.lbl_Cuenta_Gastos = lbl_Cuenta_Gastos;
 	}
-
+	
 	public static JPanel getPaneCalculoGastos() {
 		return paneCalculoGastos;
 	}
-
+	
 	public static JButton getBtn_Volver() {
 		return btn_Volver;
 	}
-
+	
 	public static JButton getBtn_Imprimir() {
 		return btn_Imprimir;
 	}
-
+	
 	public static void setPaneCalculoGastos(JPanel paneCalculoGastos) {
 		CalculoGastos.paneCalculoGastos = paneCalculoGastos;
 	}	

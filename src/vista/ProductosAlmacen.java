@@ -29,7 +29,6 @@ public class ProductosAlmacen extends JPanel {
 
 	private static JPanel panelProductosAlmacen;
 	private static JTextField caja_nombre_producto;	
-	private static JTable tabla;
 	private static JButton btn_add_receta;;
 	private static JButton btn_todos_productos;
 	private static JButton btn_buscar;
@@ -40,7 +39,13 @@ public class ProductosAlmacen extends JPanel {
 	private static int posicionPanel_x = 100;
 	private static int posicionPanel_y = 50;
 
+	//*******
+
+	private static JTable tabla;
     private static JScrollPane scroll;
+
+	//*******
+
 private static ArrayList<ModeloReceta> arrayProductos;
     
 	public ProductosAlmacen() {
@@ -54,13 +59,21 @@ private static ArrayList<ModeloReceta> arrayProductos;
 
 	public void inicializarComponentes() {
 		
+
 		panelProductosAlmacen= new JPanel();
 		caja_nombre_producto = new JTextField();
 		btn_todos_productos = new JButton("Todos los productos");
 		btn_buscar = new JButton("Buscar");
 		btn_volver = new JButton("Volver");
-		tabla = new JTable();
 		btn_add_receta = new JButton("Añadir a la receta");
+
+
+		//*******
+
+		tabla = new JTable();
+
+		//*******
+
 		
 		panelProductosAlmacen.setBorder(new EmptyBorder(5, 5, 5, 5));
 		panelProductosAlmacen.setBounds(posicionPanel_x, posicionPanel_y, ancho, alto);
@@ -86,9 +99,15 @@ private static ArrayList<ModeloReceta> arrayProductos;
 				
 		btn_add_receta.setBounds(77, 227, 65, 23);
 		panelProductosAlmacen.add(btn_add_receta);
-			
 
-	    scroll = new JScrollPane(tabla);	
+		
+		//*******
+
+	    scroll = new JScrollPane(tabla);
+	    scroll.setViewportView(tabla);
+
+	    //*******	
+
 	    scroll.setBounds(10, 76, 384, 130);
 	    panelProductosAlmacen.add(scroll);
 			
@@ -108,19 +127,20 @@ private static ArrayList<ModeloReceta> arrayProductos;
 		
 	}
 
+	//*******
 	
-	public static void datosIngredientes () {
-		arrayProductos = new ArrayList<ModeloReceta>();
-        BbddVentas.listarClientes();
-        arrayProductos = BbddVentas.getArrayRecetas();
+	public static void listarProductos () {
+		arrayProductos = new ArrayList<ModeloReceta>();			// <-- modificar el tipo de array al modelo objeto que corresponda
+        BbddVentas.listarClientes();							// <-- modificar el método para que llame a la sentencia SQL que corresponda y y cargue los datos
+        arrayProductos = BbddVentas.getArrayRecetas();			// <-- crear y modificar el metodo GET que trae los datos del array que corresponda
         DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
         modelo.addColumn("PRODUCTOS");
         modelo.addColumn("STOCK ACTUAL");
         
         Object filaDato[] = new Object[2];     
         for (int i = 0; i < arrayProductos.size(); i++) {
-        	filaDato[0] = arrayProductos.get(i).getReceta();
-        	filaDato[1] = arrayProductos.get(i).getEstado();  
+        	filaDato[0] = arrayProductos.get(i).getReceta();	// <-- llamar el dato que corresponda del objeto modelo
+        	filaDato[1] = arrayProductos.get(i).getEstado();  	// <-- llamar el dato que corresponda del objeto modelo
         	modelo.addRow(filaDato);
     	}
         tabla.setModel(modelo);
@@ -128,12 +148,12 @@ private static ArrayList<ModeloReceta> arrayProductos;
     }
 	
 
-	 public static int recetaSeleccionado() throws NullPointerException {
+	 public static int productoSeleccionado() throws NullPointerException {
 		 int indiceSeleccionado = tabla.getSelectedRow();
 		 return indiceSeleccionado;	
 	 }
 	
-	 
+	//*******	 
 	
 	public static JTextField getCaja_nombre_producto() {
 		return caja_nombre_producto;

@@ -4,11 +4,16 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTable;
+
+import java.util.ArrayList;
+
 import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.table.DefaultTableModel;
 
 import controlador.ControladorListaFacturaciones;
+import modelo.BbddVentas;
+import modelo.ModeloReceta;
 
 public class ListaFacturaciones extends JPanel {
 
@@ -22,14 +27,16 @@ public class ListaFacturaciones extends JPanel {
 	private static JButton btn_Volver;
 	private static JButton btn_Ver;
 	private static JButton btn_Calcular_Ganancias;
-	
+	private static JTable tabla;
+    private static JScrollPane scroll;
+    
 	private static int ancho = 800;
 	private static int alto = 600;
 	private static int posicionPanel_x = 100;
 	private static int posicionPanel_y = 50;
-	
-	private static JList listaListaFacturaciones;
-    private static JScrollPane scrollListaFacturaciones;
+
+	private static ArrayList<ModeloReceta> arrayListaFacturaciones;
+
 	public ListaFacturaciones() {
 		super();
 		inicializarComponentes();
@@ -42,6 +49,7 @@ public class ListaFacturaciones extends JPanel {
 		btn_Volver = new JButton("Volver");
 		btn_Ver = new JButton("Ver");
 		btn_Calcular_Ganancias = new JButton("Calcular Ganancias");
+		tabla = new JTable();
 		
 		panelListaFacturaciones.setBorder(new EmptyBorder(5, 5, 5, 5));
 		panelListaFacturaciones.setBounds(posicionPanel_x, posicionPanel_y, ancho, alto);
@@ -58,45 +66,50 @@ public class ListaFacturaciones extends JPanel {
 		btn_Calcular_Ganancias.setBounds(245, 201, 123, 23);
 		panelListaFacturaciones.add(btn_Calcular_Ganancias);
 
-		listaListaFacturaciones = new JList();
-		listaListaFacturaciones.setLayout(null);
-		listaListaFacturaciones.setVisible(true);		
-		
-	    scrollListaFacturaciones = new JScrollPane(listaListaFacturaciones);	
-	    scrollListaFacturaciones.setBounds(47, 48, 343, 134);
-	    scrollListaFacturaciones.setViewportView(listaListaFacturaciones);
-	    panelListaFacturaciones.add(scrollListaFacturaciones);
+	    scroll = new JScrollPane(tabla);
+	    scroll.setViewportView(tabla);	
+	    scroll.setBounds(47, 48, 343, 134);
+	    panelListaFacturaciones.add(scroll);
 	}
 
 	public void establecerManejador() {			
 		ControladorListaFacturaciones controlador = new ControladorListaFacturaciones(this);
 		
-		listaListaFacturaciones.addMouseListener(controlador);
+		tabla.addMouseListener(controlador);
 		btn_Volver.addActionListener(controlador);
 		btn_Ver.addActionListener(controlador);
 		btn_Calcular_Ganancias.addActionListener(controlador);
 		
 	}
 	
-	/*	
- 	// Hay que modificar el metodo que accede a los Usuarios de la BBDD
+	public static void listarFacturaciones () {
+		arrayListaFacturaciones = new ArrayList<ModeloReceta>();			// <-- modificar el tipo de array al modelo objeto que corresponda
+        BbddVentas.listarClientes();							// <-- modificar el método para que llame a la sentencia SQL que corresponda y y cargue los datos
+        arrayListaFacturaciones = BbddVentas.getArrayRecetas();			// <-- crear y modificar el metodo GET que trae los datos del array que corresponda
+        DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
+        modelo.addColumn("Nº");
+        modelo.addColumn("FECHA-HORA");
+        modelo.addColumn("GANANCIA");
+        modelo.addColumn("USUARIO");
+        
+        Object filaDato[] = new Object[4];     
+        for (int i = 0; i < arrayListaFacturaciones.size(); i++) {
+        	filaDato[0] = arrayListaFacturaciones.get(i).getReceta();	// <-- llamar el dato que corresponda del objeto modelo
+        	filaDato[1] = arrayListaFacturaciones.get(i).getEstado();  	// <-- llamar el dato que corresponda del objeto modelo
+        	filaDato[2] = arrayListaFacturaciones.get(i).getEstado();  	// <-- llamar el dato que corresponda del objeto modelo
+        	filaDato[3] = arrayListaFacturaciones.get(i).getEstado();  	// <-- llamar el dato que corresponda del objeto modelo
+        	modelo.addRow(filaDato);
+    	}
+        tabla.setModel(modelo);
+        modelo.fireTableDataChanged();
+    }
+	
 
-	public static ArrayList<ModeloUsuario> creaListaUsuarios() {
-		SentenciasSQL.leerClientesBBDD();
-		arrayUsuarios = SentenciasSQL.getArrayUsuarios();
-		modelo = new DefaultListModel();
-		for (ModeloUsuario c : arrayUsuarios) {
-			modelo.addElement(c.toString());
-		}
-		listaGestionUsuarios.setModel(modelo);
-		return arrayUsuarios;
-	}
-		
-	 public static int usuarioSeleccionado() throws NullPointerException {
-		 int indiceSeleccionado = listaUsuarios.getSelectedIndex();
-		return indiceSeleccionado;		 
+	 public static int productoSeleccionado() throws NullPointerException {
+		 int indiceSeleccionado = tabla.getSelectedRow();
+		 return indiceSeleccionado;	
 	 }
-*/
+	
 	
 	public static JPanel getPanelListaFacturaciones() {
 		return panelListaFacturaciones;

@@ -7,11 +7,15 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JButton;
 import java.awt.Font;
+import java.util.ArrayList;
+
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import controlador.ControladorFacturar;
+import modelo.BbddVentas;
+import modelo.ModeloReceta;
 
 public class Facturar extends JPanel {
 
@@ -21,7 +25,6 @@ public class Facturar extends JPanel {
 	private static final long serialVersionUID = 7174555621388070151L;
 	
 	private static JPanel panelFacturar;
-	private static JTable table;
 	private static JButton btn_volver;
 	private static JButton btn_pagado;
 	private static JButton btn_pago_tarjeta;
@@ -40,8 +43,11 @@ public class Facturar extends JPanel {
 	private static int posicionPanel_x = 100;
 	private static int posicionPanel_y = 50;
 	
-	private static JList listaFactura;
-    private static JScrollPane scrollFactura;
+	private static JTable tabla;
+    private static JScrollPane scroll;
+
+	private static ArrayList<ModeloReceta> arrayFacturas;
+
     
 	public Facturar() {
 		super();
@@ -55,7 +61,7 @@ public class Facturar extends JPanel {
 		panelFacturar = new JPanel();
 		lbl_mesa = new JLabel("Mesa 0");
 		btn_volver = new JButton("Volver");
-		table = new JTable();		
+		tabla = new JTable();		
 		btn_pagado = new JButton("Pagado");
 		btn_pago_tarjeta = new JButton("Pago con tarjeta");
 		caja_abonado = new JTextField();
@@ -109,21 +115,17 @@ public class Facturar extends JPanel {
 		lbl_valor_devolver.setBounds(360, 320, 46, 14);
 		panelFacturar.add(lbl_valor_devolver);
 
-	    listaFactura = new JList();
-	    listaFactura.setLayout(null);
-	    listaFactura.setVisible(true);		
-		
-	    scrollFactura = new JScrollPane(listaFactura);	
-	    scrollFactura.setBounds(25, 63, 399, 171);
-	    scrollFactura.setViewportView(listaFactura);
-	    panelFacturar.add(scrollFactura);	
+	    scroll = new JScrollPane(tabla);
+	    scroll.setViewportView(tabla);
+	    scroll.setBounds(25, 63, 399, 171);
+	    panelFacturar.add(scroll);	
 		
 	}
 	
 	public void establecerManejador() {			
 		ControladorFacturar controlador = new ControladorFacturar(this);
 		
-		listaFactura.addMouseListener(controlador);
+		tabla.addMouseListener(controlador);
 		lbl_valor_total.addMouseListener(controlador);
 		lbl_valor_devolver.addMouseListener(controlador);
 		lbl_valor_IVA.addMouseListener(controlador);
@@ -134,35 +136,33 @@ public class Facturar extends JPanel {
 		
 	}
 	
-	/*	
- 	// Hay que modificar el metodo que accede a los Usuarios de la BBDD
+	public static void factura () {
+		arrayFacturas = new ArrayList<ModeloReceta>();			// <-- modificar el tipo de array al modelo objeto que corresponda
+        BbddVentas.listarClientes();							// <-- modificar el método para que llame a la sentencia SQL que corresponda y y cargue los datos
+        arrayFacturas = BbddVentas.getArrayRecetas();			// <-- crear y modificar el metodo GET que trae los datos del array que corresponda
+        DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
+        modelo.addColumn("COMIDA/BEBIDA");
+        modelo.addColumn("PRECIO UNIDAD");
+        modelo.addColumn("CANTIDAD");
+        modelo.addColumn("PRECIO");
+        
+        Object filaDato[] = new Object[4];     
+        for (int i = 0; i < arrayFacturas.size(); i++) {
+        	filaDato[0] = arrayFacturas.get(i).getReceta();	// <-- llamar el dato que corresponda del objeto modelo
+        	filaDato[1] = arrayFacturas.get(i).getEstado();  	// <-- llamar el dato que corresponda del objeto modelo
+        	filaDato[2] = arrayFacturas.get(i).getEstado();  	// <-- llamar el dato que corresponda del objeto modelo
+        	filaDato[3] = arrayFacturas.get(i).getEstado();  	// <-- llamar el dato que corresponda del objeto modelo
+        	modelo.addRow(filaDato);
+    	}
+        tabla.setModel(modelo);
+        modelo.fireTableDataChanged();
+    }
+	
 
-	public static ArrayList<ModeloUsuario> creaListaUsuarios() {
-		SentenciasSQL.leerClientesBBDD();
-		arrayUsuarios = SentenciasSQL.getArrayUsuarios();
-		modelo = new DefaultListModel();
-		for (ModeloUsuario c : arrayUsuarios) {
-			modelo.addElement(c.toString());
-		}
-		listaGestionUsuarios.setModel(modelo);
-		return arrayUsuarios;
-	}
-		
-	 public static int usuarioSeleccionado() throws NullPointerException {
-		 int indiceSeleccionado = listaUsuarios.getSelectedIndex();
-		return indiceSeleccionado;		 
+	 public static int productoSeleccionado() throws NullPointerException {			// <-- modificar el nombre del metodo
+		 int indiceSeleccionado = tabla.getSelectedRow();
+		 return indiceSeleccionado;	
 	 }
-*/
-
-	public static JTable getTable() {
-		return table;
-	}
-
-
-	public static void setTable(JTable table) {
-		Facturar.table = table;
-	}
-
 
 	public static JLabel getLbl_valor_total() {
 		return lbl_valor_total;

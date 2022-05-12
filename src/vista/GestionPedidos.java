@@ -177,7 +177,7 @@ public class GestionPedidos extends JPanel {
 			// no añadimos a la lista los primeros ID porque son mesas
 			if (c.getId()>=9) {
 				System.out.println(" NO es MESA ->  "+c.getId()); // <-- BORRAR
-				modeloListaCliente.addElement(c.toString());
+				modeloListaCliente.addElement(c.getNombre());
 			}
 		}	
 

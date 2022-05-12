@@ -5,6 +5,10 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import javax.swing.JOptionPane;
+
+import vista.VentanaPrincipal;
+
 public class Conexion {
 	Connection con = null;
 
@@ -15,17 +19,16 @@ public class Conexion {
 			String pass = ""; 
 			
 			try {
-			
 				con = DriverManager.getConnection(cadenaConexion, user, pass);
 				System.out.println("Se ha establecido la conexión con la Base de datos");
 				return con;
 				
-			} catch (SQLException e) {
-				System.out.println("No se ha podido establecer la conexión con la BD");
-				System.out.println(e.getMessage());
+			} catch (SQLException | NullPointerException e ) {
+				JOptionPane.showMessageDialog(VentanaPrincipal.getPanelLogin(), "No se ha podido establecer la conexión con la Base de Datos");
+				System.out.println("No se ha podido establecer la conexión con la Base de Datos");
+//				System.out.println(e.getMessage());
 				return null;
 			}
-			
 			
 		
 	}

@@ -5,8 +5,21 @@ import java.awt.event.ActionListener;
 
 import modelo.BbddVentas;
 import vista.VentanaPrincipal;
+import vista.Almacen;
+import vista.BuscarComidaBebida;
+import vista.CalculoGanancias;
+import vista.CalculoGastos;
+import vista.DetalleFactura;
+import vista.DetalleGasto;
+import vista.Facturar;
 import vista.GestionPedidos;
+import vista.GestionUsuarios;
+import vista.ListaFacturaciones;
+import vista.ListaGastos;
+import vista.ListasCompra;
 import vista.MenuPrincipal;
+import vista.Pedido;
+import vista.PrepararCompra;
 import vista.ProductosAlmacen;
 import vista.Receta;
 import vista.Recetario;
@@ -25,7 +38,11 @@ public class ControladorMenuPrincipal implements ActionListener {
 		
 		if (e.getSource() == panelMenuPrincipal.getBtn_Ventas()) {
 			
-			GestionPedidos.creaListaClientes();			
+			GestionPedidos.creaListaClientes();
+			Pedido.pedidos();
+			BuscarComidaBebida.pedidos();
+			Facturar.factura();
+			
 			
 			VentanaPrincipal.getPanelMenuPrincipal().setVisible(false);
 			VentanaPrincipal.getPanelGestionPedidos().setVisible(true);
@@ -35,9 +52,9 @@ public class ControladorMenuPrincipal implements ActionListener {
 		
 		if (e.getSource() == panelMenuPrincipal.getBtn_Recetario()) {
 			
-			Recetario.datosReceta();
-			Receta.datosIngredientes();
-			ProductosAlmacen.datosIngredientes();
+			Recetario.listarRecetas();
+			Receta.listarIngredientes();
+			ProductosAlmacen.listarProductos();
 			
 			VentanaPrincipal.getPanelMenuPrincipal().setVisible(false);
 			VentanaPrincipal.getPanelRecetario().setVisible(true);
@@ -46,16 +63,32 @@ public class ControladorMenuPrincipal implements ActionListener {
 		if (e.getSource() == panelMenuPrincipal.getBtn_Almacen()) {
 			VentanaPrincipal.getPanelMenuPrincipal().setVisible(false);
 			VentanaPrincipal.getPanelAlmacen().setVisible(true);
+			
+			Almacen.listarProductos();
+			PrepararCompra.listarProductos();
+			ListasCompra.listarCompras();
+			
 		}
 		
 		if (e.getSource() == panelMenuPrincipal.getBtn_Contabilidad()) {
 			VentanaPrincipal.getPanelMenuPrincipal().setVisible(false);
 			VentanaPrincipal.getPanelContabilidad().setVisible(true);
+		
+			ListaGastos.listarGastos();
+			DetalleGasto.listarDetalleGasto();
+			CalculoGastos.listarGastos();
+			ListaFacturaciones.listarFacturaciones();
+			DetalleFactura.listarDetalleFactura();
+			CalculoGanancias.listarGanancias();
+			
 		}
+		
 		
 		if (e.getSource() == panelMenuPrincipal.getBtn_Gestion_Usuario()) {
 			VentanaPrincipal.getPanelMenuPrincipal().setVisible(false);
 			VentanaPrincipal.getPanelGestionUsuarios().setVisible(true);
+			
+			GestionUsuarios.listarUsuarios();
 		}
 		
 		if (e.getSource() == panelMenuPrincipal.getBtn_Cerrar_Sesion()) {
