@@ -47,7 +47,7 @@ public class DetalleFactura extends JPanel {
 		super();
 		inicializarComponentes();
 		establecerManejador();		
-
+		listarDetalleFactura();
 	}
 
 	public void inicializarComponentes() {

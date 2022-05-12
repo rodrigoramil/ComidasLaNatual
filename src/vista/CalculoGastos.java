@@ -49,7 +49,8 @@ public class CalculoGastos extends JPanel {
 	public CalculoGastos() {
 		super();
 		inicializarComponentes();
-		establecerManejador();	
+		establecerManejador();
+		listarGastos();
 	}
 
 	public void inicializarComponentes() {

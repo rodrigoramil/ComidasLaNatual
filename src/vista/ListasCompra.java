@@ -41,7 +41,8 @@ public class ListasCompra extends JPanel {
 	public ListasCompra() {
 		super();
 		inicializarComponentes();
-		establecerManejador();		
+		establecerManejador();
+		listarCompras();
 	}
 
 

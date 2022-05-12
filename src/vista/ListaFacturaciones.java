@@ -41,7 +41,7 @@ public class ListaFacturaciones extends JPanel {
 		super();
 		inicializarComponentes();
 		establecerManejador();		
-
+		listarFacturaciones();
 	}
 
 	public static void inicializarComponentes() {

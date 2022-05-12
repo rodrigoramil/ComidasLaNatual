@@ -48,7 +48,7 @@ public class BuscarComidaBebida extends JPanel {
 
 		inicializarComponentes();
 		establecerManejador();		
-		
+		pedidos();
 	}
 
 

@@ -36,13 +36,14 @@ public class GestionUsuarios extends JPanel {
 	private static int posicionPanel_y = 50;
 	
 	private static JTable tabla;
-    private static JScrollPane scroll;    
-    private static ArrayList<ModeloUsuario> arrayUsuarios;
+    private static JScrollPane scroll;
+	private static ArrayList<ModeloUsuario> arrayUsuarios;    
     
 	public GestionUsuarios() {		
 		super();
 		inicializarComponentes();
-		establecerManejador();		
+		establecerManejador();
+		listarUsuarios();
 	}
 
 
@@ -98,11 +99,11 @@ public class GestionUsuarios extends JPanel {
 	
 	public static void listarUsuarios () {
 		arrayUsuarios = new ArrayList<ModeloUsuario>();			// <-- modificar el tipo de array al modelo objeto que corresponda
-        BbddLogin.listarUsuarios();							// <-- modificar el método para que llame a la sentencia SQL que corresponda y y cargue los datos
+        BbddLogin.listarUsuarios();								// <-- modificar el método para que llame a la sentencia SQL que corresponda y y cargue los datos
         arrayUsuarios = BbddLogin.getArrayUsuarios();			// <-- crear y modificar el metodo GET que trae los datos del array que corresponda
         DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
-        modelo.addColumn("PRODUCTOS");
-        modelo.addColumn("STOCK ACTUAL");
+        modelo.addColumn("USUARIO");
+        modelo.addColumn("ROL");
         
         Object filaDato[] = new Object[2];     
         for (int i = 0; i < arrayUsuarios.size(); i++) {

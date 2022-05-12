@@ -42,6 +42,7 @@ public class DetalleProducto extends JPanel {
 		super();
 		inicializarComponentes();
 		establecerManejador();
+		
 	}
 
 	public void inicializarComponentes() {

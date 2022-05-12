@@ -52,7 +52,8 @@ public class Facturar extends JPanel {
 	public Facturar() {
 		super();
 		inicializarComponentes();
-		establecerManejador();			
+		establecerManejador();
+		factura();
 	}
 
 

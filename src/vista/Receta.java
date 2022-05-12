@@ -39,8 +39,7 @@ public class Receta extends JPanel {
 	private static JButton btn_guardar;
 	private static JButton btn_volver;
 	private static JTextField nombre_receta;
-	
-
+	private static JTable tabla;
     private static JScrollPane scrollReceta;
     
 	private static int ancho = 800;
@@ -50,13 +49,13 @@ public class Receta extends JPanel {
 
 	private static ArrayList<ModeloReceta> arrayIngredientes;
 
-	private static JTable tabla;
+
 	
 	public Receta() {		
 		super();
 		inicializarComponentes();
 		establecerManejador();		
-		
+		listarIngredientes();
 	}
 
 	public void inicializarComponentes() {
@@ -72,6 +71,7 @@ public class Receta extends JPanel {
 		btn_borrar_ingrediente = new JButton("Borrar ingrediente");		
 		btn_guardar = new JButton("Guardar");		
 		btn_volver = new JButton("Volver");
+		tabla = new JTable();
 		
 		panelReceta.setBorder(new EmptyBorder(5, 5, 5, 5));
 		panelReceta.setBounds(posicionPanel_x, posicionPanel_y, ancho, alto);
@@ -108,7 +108,7 @@ public class Receta extends JPanel {
 		btn_volver.setBounds(473, 7, 89, 23);
 		panelReceta.add(btn_volver);
 		
-		tabla = new JTable();
+		
 	    scrollReceta = new JScrollPane(tabla);	
 	    scrollReceta.setBounds(15, 51, 217, 268);
 	    panelReceta.add(scrollReceta);	
