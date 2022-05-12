@@ -49,7 +49,7 @@ public class Recetario extends JPanel {
 	private int posicionPanel_y = 50;
 
 //	private static JList listaRecetas;
-    private static JScrollPane scrollRecetas;
+    private static JScrollPane scroll;
     
     private static ArrayList<ModeloReceta> arrayRecetas;
 //    private static DefaultListModel modeloListaReceta;
@@ -57,8 +57,8 @@ public class Recetario extends JPanel {
     
 	//**************************************************************************************************
     
-	private static JTable tablaRecetas;
-    private static DefaultTableModel modeloRecetas = null;
+	private static JTable tabla;
+//    private static DefaultTableModel modelo = null;
 	private static String recetasSeleccionado;
 
 	//**************************************************************************************************	
@@ -84,8 +84,8 @@ public class Recetario extends JPanel {
 		
 		//**************************************************************************************************	
 		
-				tablaRecetas = new JTable();
-				scrollRecetas = new JScrollPane(tablaRecetas);
+				tabla = new JTable();
+				scroll = new JScrollPane(tabla);
 				
 		//**************************************************************************************************			
 		
@@ -135,8 +135,8 @@ public class Recetario extends JPanel {
 */	    
 	    
 	    
-	    scrollRecetas.setBounds(10, 76, 384, 130);
-	    panelRecetario.add(scrollRecetas);
+	    scroll.setBounds(10, 76, 384, 130);
+	    panelRecetario.add(scroll);
 	    
 	    
 	    
@@ -153,34 +153,32 @@ public class Recetario extends JPanel {
 		btn_listadoRecetas.addActionListener(controlador);
 		btn_buscar.addActionListener(controlador);
 		btn_volver.addActionListener(controlador);
-//		listaRecetas.addMouseListener(controlador);
-
-		tablaRecetas.addMouseListener(controlador);
+		tabla.addMouseListener(controlador);
 	}
-	
-	
+		
 	
 	public static void datosReceta () {
 		arrayRecetas = new ArrayList<ModeloReceta>();
-        modeloRecetas = new DefaultTableModel(0,0);
         BbddVentas.listarClientes();
         arrayRecetas = BbddVentas.getArrayRecetas();
-        Iterator<ModeloReceta> it = arrayRecetas.iterator();
-        modeloRecetas.addColumn("NOMBRE RRECETA");
-        modeloRecetas.addColumn("ESTADO");
-        while (it.hasNext()) {
-        	modeloRecetas.addRow(new Object[] {it.next().getReceta()});
-		}
-
-        tablaRecetas.setModel(modeloRecetas);
-        modeloRecetas.fireTableDataChanged();
-
+        DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
+        modelo.addColumn("NOMBRE RRECETA");
+        modelo.addColumn("ESTADO");
+        
+        Object filaDato[] = new Object[2];     
+        for (int i = 0; i < arrayRecetas.size(); i++) {
+        	filaDato[0] = arrayRecetas.get(i).getReceta();
+        	filaDato[1] = arrayRecetas.get(i).getEstado();  
+        	modelo.addRow(filaDato);
+    	}
+        tabla.setModel(modelo);
+        modelo.fireTableDataChanged();
     }
+	
 
 	 public static int recetaSeleccionado() throws NullPointerException {
-		 int indiceSeleccionado = tablaRecetas.getSelectedRow();
-	
-		return indiceSeleccionado;		 
+		 int indiceSeleccionado = tabla.getSelectedRow();
+		 return indiceSeleccionado;	
 	 }
 	
 	
