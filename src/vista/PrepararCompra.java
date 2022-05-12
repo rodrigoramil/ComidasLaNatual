@@ -45,10 +45,10 @@ public class PrepararCompra extends JPanel {
 		super();
 		inicializarComponentes();
 		establecerManejador();		
-		
-
+		listarProductos();
 	}
 
+	
 	public void inicializarComponentes() {
 		
 		panelPrepararCompra = new JPanel();

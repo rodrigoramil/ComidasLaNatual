@@ -43,7 +43,7 @@ public class BbddLogin {
 	public static void listarUsuarios() {
 		conexion = new Conexion();
 		connection = conexion.obtenerConexion();
-
+		arrayUsuarios = new ArrayList<ModeloUsuario>();
 		try {
 			
 			sentencia = connection.prepareStatement("select NombreUsuario, Rol from Usuarios;");

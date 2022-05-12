@@ -44,7 +44,7 @@ public class CalculoGanancias extends JPanel {
 		super();
 		inicializarComponentes();
 		establecerManejador();		
-		
+		listarGanancias();
 	}
 
 	public void inicializarComponentes() {

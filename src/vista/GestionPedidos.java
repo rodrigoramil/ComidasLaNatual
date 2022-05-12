@@ -50,19 +50,18 @@ public class GestionPedidos extends JPanel {
 	private static int posicionPanel_x = 100;
 	private static int posicionPanel_y = 50;
 
-//**************************************************************************************************
 	private static JList listaCliente;
     private static JScrollPane scrollCliente;
     
     private static ArrayList<ModeloCliente> array_clientes;
     private static DefaultListModel modeloListaCliente;
     
-//**************************************************************************************************
-	
+
 	public GestionPedidos() {
 		super();
 		inicializarComponentes();
 		establecerManejador();
+		creaListaClientes();
 	}
 
 

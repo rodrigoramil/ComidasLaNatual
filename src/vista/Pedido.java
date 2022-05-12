@@ -47,6 +47,7 @@ public class Pedido extends JPanel {
 		super();
 		inicializarComponentes();
 		establecerManejador();
+		pedidos();
 	}
 
 	public void inicializarComponentes() {

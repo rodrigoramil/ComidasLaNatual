@@ -37,13 +37,6 @@ public class ControladorMenuPrincipal implements ActionListener {
 		
 		
 		if (e.getSource() == panelMenuPrincipal.getBtn_Ventas()) {
-			
-			GestionPedidos.creaListaClientes();
-			Pedido.pedidos();
-			BuscarComidaBebida.pedidos();
-			Facturar.factura();
-			
-			
 			VentanaPrincipal.getPanelMenuPrincipal().setVisible(false);
 			VentanaPrincipal.getPanelGestionPedidos().setVisible(true);
 			GestionPedidos.getBtn_Editar_Cliente().setEnabled(false);
@@ -51,49 +44,34 @@ public class ControladorMenuPrincipal implements ActionListener {
 		}
 		
 		if (e.getSource() == panelMenuPrincipal.getBtn_Recetario()) {
-			
-			Recetario.listarRecetas();
-			Receta.listarIngredientes();
-			ProductosAlmacen.listarProductos();
-			
 			VentanaPrincipal.getPanelMenuPrincipal().setVisible(false);
 			VentanaPrincipal.getPanelRecetario().setVisible(true);
+		
 		}
 		
 		if (e.getSource() == panelMenuPrincipal.getBtn_Almacen()) {
 			VentanaPrincipal.getPanelMenuPrincipal().setVisible(false);
 			VentanaPrincipal.getPanelAlmacen().setVisible(true);
-			
-			Almacen.listarProductos();
-			PrepararCompra.listarProductos();
-			ListasCompra.listarCompras();
-			
+
 		}
 		
 		if (e.getSource() == panelMenuPrincipal.getBtn_Contabilidad()) {
 			VentanaPrincipal.getPanelMenuPrincipal().setVisible(false);
 			VentanaPrincipal.getPanelContabilidad().setVisible(true);
-		
-			ListaGastos.listarGastos();
-			DetalleGasto.listarDetalleGasto();
-			CalculoGastos.listarGastos();
-			ListaFacturaciones.listarFacturaciones();
-			DetalleFactura.listarDetalleFactura();
-			CalculoGanancias.listarGanancias();
-			
+
 		}
 		
 		
 		if (e.getSource() == panelMenuPrincipal.getBtn_Gestion_Usuario()) {
 			VentanaPrincipal.getPanelMenuPrincipal().setVisible(false);
 			VentanaPrincipal.getPanelGestionUsuarios().setVisible(true);
-			
-			GestionUsuarios.listarUsuarios();
+
 		}
 		
 		if (e.getSource() == panelMenuPrincipal.getBtn_Cerrar_Sesion()) {
 			VentanaPrincipal.getPanelLogin().setVisible(true);
 			VentanaPrincipal.getPanelMenuPrincipal().setVisible(false);
+		
 		}
 	
 	

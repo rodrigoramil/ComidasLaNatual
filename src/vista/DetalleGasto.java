@@ -47,7 +47,7 @@ public class DetalleGasto extends JPanel {
 		super();
 		inicializarComponentes();
 		establecerManejador();		
-		
+		listarDetalleGasto();
 	}
 
 	public void inicializarComponentes() {

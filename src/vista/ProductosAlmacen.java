@@ -33,18 +33,14 @@ public class ProductosAlmacen extends JPanel {
 	private static JButton btn_todos_productos;
 	private static JButton btn_buscar;
 	private static JButton btn_volver;
-	
+	private static JTable tabla;
+    private static JScrollPane scroll;
+    
 	private static int ancho = 800;
 	private static int alto = 600;
 	private static int posicionPanel_x = 100;
 	private static int posicionPanel_y = 50;
 
-	//*******
-
-	private static JTable tabla;
-    private static JScrollPane scroll;
-
-	//*******
 
 private static ArrayList<ModeloReceta> arrayProductos;
     
@@ -52,8 +48,7 @@ private static ArrayList<ModeloReceta> arrayProductos;
 		super();
 		inicializarComponentes();				
 		establecerManejador();
-
-		
+		listarProductos();		
 	}
 
 
@@ -66,14 +61,7 @@ private static ArrayList<ModeloReceta> arrayProductos;
 		btn_buscar = new JButton("Buscar");
 		btn_volver = new JButton("Volver");
 		btn_add_receta = new JButton("Añadir a la receta");
-
-
-		//*******
-
 		tabla = new JTable();
-
-		//*******
-
 		
 		panelProductosAlmacen.setBorder(new EmptyBorder(5, 5, 5, 5));
 		panelProductosAlmacen.setBounds(posicionPanel_x, posicionPanel_y, ancho, alto);
@@ -100,14 +88,8 @@ private static ArrayList<ModeloReceta> arrayProductos;
 		btn_add_receta.setBounds(77, 227, 65, 23);
 		panelProductosAlmacen.add(btn_add_receta);
 
-		
-		//*******
-
 	    scroll = new JScrollPane(tabla);
 	    scroll.setViewportView(tabla);
-
-	    //*******	
-
 	    scroll.setBounds(10, 76, 384, 130);
 	    panelProductosAlmacen.add(scroll);
 			
@@ -127,7 +109,6 @@ private static ArrayList<ModeloReceta> arrayProductos;
 		
 	}
 
-	//*******
 	
 	public static void listarProductos () {
 		arrayProductos = new ArrayList<ModeloReceta>();			// <-- modificar el tipo de array al modelo objeto que corresponda
@@ -152,9 +133,8 @@ private static ArrayList<ModeloReceta> arrayProductos;
 		 int indiceSeleccionado = tabla.getSelectedRow();
 		 return indiceSeleccionado;	
 	 }
-	
-	//*******	 
-	
+
+	 
 	public static JTextField getCaja_nombre_producto() {
 		return caja_nombre_producto;
 	}

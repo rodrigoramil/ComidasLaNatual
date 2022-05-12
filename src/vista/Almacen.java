@@ -42,7 +42,7 @@ public class Almacen extends JPanel {
 		super();
 		inicializarComponentes();		
 		establecerManejador();		
-		
+		listarProductos();
 	}
 
 	public void inicializarComponentes() {
