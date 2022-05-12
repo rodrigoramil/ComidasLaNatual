@@ -12,6 +12,8 @@ import javax.swing.table.DefaultTableModel;
 
 import controlador.ControladorProductosAlmacen;
 import controlador.ControladorRecetario;
+import modelo.BbddVentas;
+import modelo.ModeloReceta;
 
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -20,13 +22,14 @@ import javax.swing.ListSelectionModel;
 import javax.swing.JButton;
 import java.awt.Choice;
 import java.awt.Label;
+import java.util.ArrayList;
 import java.awt.Button;
 
 public class ProductosAlmacen extends JPanel {
 
 	private static JPanel panelProductosAlmacen;
 	private static JTextField caja_nombre_producto;	
-	private static JTable table;
+	private static JTable tabla;
 	private static JButton btn_add_receta;;
 	private static JButton btn_todos_productos;
 	private static JButton btn_buscar;
@@ -37,8 +40,8 @@ public class ProductosAlmacen extends JPanel {
 	private static int posicionPanel_x = 100;
 	private static int posicionPanel_y = 50;
 
-	private static JList listaProductosAlmacen;
-    private static JScrollPane scrollProductosAlmacen;
+    private static JScrollPane scroll;
+private static ArrayList<ModeloReceta> arrayProductos;
     
 	public ProductosAlmacen() {
 		super();
@@ -56,7 +59,7 @@ public class ProductosAlmacen extends JPanel {
 		btn_todos_productos = new JButton("Todos los productos");
 		btn_buscar = new JButton("Buscar");
 		btn_volver = new JButton("Volver");
-		table = new JTable();
+		tabla = new JTable();
 		btn_add_receta = new JButton("Añadir a la receta");
 		
 		panelProductosAlmacen.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -80,43 +83,14 @@ public class ProductosAlmacen extends JPanel {
 		btn_volver.setBounds(359, 11, 65, 23);
 		panelProductosAlmacen.add(btn_volver);
 		
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-			},
-			new String[] {
-				"Recetas", "Estado"
-			}
-		));
-		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		table.setBounds(10, 76, 384, 130);
-		panelProductosAlmacen.add(table);
 				
 		btn_add_receta.setBounds(77, 227, 65, 23);
 		panelProductosAlmacen.add(btn_add_receta);
-		
-		listaProductosAlmacen = new JList();
-	    listaProductosAlmacen.setLayout(null);
-	    listaProductosAlmacen.setVisible(true);		
-		
-	    scrollProductosAlmacen = new JScrollPane(listaProductosAlmacen);	
-	    scrollProductosAlmacen.setBounds(104, 79, 253, 128);
-	    scrollProductosAlmacen.setViewportView(listaProductosAlmacen);
-	    panelProductosAlmacen.add(scrollProductosAlmacen);
+			
+
+	    scroll = new JScrollPane(tabla);	
+	    scroll.setBounds(10, 76, 384, 130);
+	    panelProductosAlmacen.add(scroll);
 			
 	
 	}
@@ -129,30 +103,37 @@ public class ProductosAlmacen extends JPanel {
 		btn_todos_productos.addActionListener(controlador);
 		btn_buscar.addActionListener(controlador);
 		btn_volver.addActionListener(controlador);
-		listaProductosAlmacen.addMouseListener(controlador);
+		tabla.addMouseListener(controlador);
 			
 		
 	}
 
-	/*	
- 	// Hay que modificar el metodo que accede a los Usuarios de la BBDD
+	
+	public static void datosIngredientes () {
+		arrayProductos = new ArrayList<ModeloReceta>();
+        BbddVentas.listarClientes();
+        arrayProductos = BbddVentas.getArrayRecetas();
+        DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
+        modelo.addColumn("PRODUCTOS");
+        modelo.addColumn("STOCK ACTUAL");
+        
+        Object filaDato[] = new Object[2];     
+        for (int i = 0; i < arrayProductos.size(); i++) {
+        	filaDato[0] = arrayProductos.get(i).getReceta();
+        	filaDato[1] = arrayProductos.get(i).getEstado();  
+        	modelo.addRow(filaDato);
+    	}
+        tabla.setModel(modelo);
+        modelo.fireTableDataChanged();
+    }
+	
 
-	public static ArrayList<ModeloUsuario> creaListaUsuarios() {
-		SentenciasSQL.leerClientesBBDD();
-		arrayUsuarios = SentenciasSQL.getArrayUsuarios();
-		modelo = new DefaultListModel();
-		for (ModeloUsuario c : arrayUsuarios) {
-			modelo.addElement(c.toString());
-		}
-		listaGestionUsuarios.setModel(modelo);
-		return arrayUsuarios;
-	}
-		
-	 public static int usuarioSeleccionado() throws NullPointerException {
-		 int indiceSeleccionado = listaUsuarios.getSelectedIndex();
-		return indiceSeleccionado;		 
+	 public static int recetaSeleccionado() throws NullPointerException {
+		 int indiceSeleccionado = tabla.getSelectedRow();
+		 return indiceSeleccionado;	
 	 }
-*/
+	
+	 
 	
 	public static JTextField getCaja_nombre_producto() {
 		return caja_nombre_producto;
@@ -164,13 +145,13 @@ public class ProductosAlmacen extends JPanel {
 	}
 
 
-	public static JTable getTable() {
-		return table;
+	public static JTable getTabla() {
+		return tabla;
 	}
 
 
-	public static void setTable(JTable table) {
-		ProductosAlmacen.table = table;
+	public static void setTabla(JTable tabla) {
+		ProductosAlmacen.tabla = tabla;
 	}
 
 

@@ -11,6 +11,8 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.SwingConstants;
 import java.awt.Font;
+import java.util.ArrayList;
+
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -21,6 +23,8 @@ import java.awt.Color;
 import javax.swing.table.DefaultTableModel;
 
 import controlador.ControladorReceta;
+import modelo.BbddVentas;
+import modelo.ModeloReceta;
 
 public class Receta extends JPanel {
 
@@ -36,13 +40,17 @@ public class Receta extends JPanel {
 	private static JButton btn_volver;
 	private static JTextField nombre_receta;
 	
-	private static JList listaReceta;
+
     private static JScrollPane scrollReceta;
     
 	private static int ancho = 800;
 	private static int alto = 600;
 	private static int posicionPanel_x = 100;
 	private static int posicionPanel_y = 50;
+
+	private static ArrayList<ModeloReceta> arrayIngredientes;
+
+	private static JTable tabla;
 	
 	public Receta() {		
 		super();
@@ -99,14 +107,10 @@ public class Receta extends JPanel {
 
 		btn_volver.setBounds(473, 7, 89, 23);
 		panelReceta.add(btn_volver);
-
-	    listaReceta = new JList();
-	    listaReceta.setLayout(null);
-	    listaReceta.setVisible(true);		
 		
-	    scrollReceta = new JScrollPane(listaReceta);	
+		tabla = new JTable();
+	    scrollReceta = new JScrollPane(tabla);	
 	    scrollReceta.setBounds(15, 51, 217, 268);
-	    scrollReceta.setViewportView(listaReceta);
 	    panelReceta.add(scrollReceta);	
 
 	}
@@ -122,10 +126,38 @@ public class Receta extends JPanel {
 		btn_guardar.addActionListener(controlador);
 		btn_volver.addActionListener(controlador);
 		nombre_receta.addActionListener(controlador);
-		listaReceta.addMouseListener(controlador);
+		tabla.addMouseListener(controlador);
 		
 		
 	}
+	
+	
+	public static void datosIngredientes () {
+		arrayIngredientes = new ArrayList<ModeloReceta>();
+        BbddVentas.listarClientes();
+        arrayIngredientes = BbddVentas.getArrayRecetas();
+        
+        DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
+        modelo.addColumn("NOMBRE");
+        modelo.addColumn("CANTIDAD");
+        
+        Object filaDato[] = new Object[2];     
+        for (int i = 0; i < arrayIngredientes.size(); i++) {
+        	filaDato[0] = arrayIngredientes.get(i).getReceta();
+        	filaDato[1] = arrayIngredientes.get(i).getEstado();  
+        	modelo.addRow(filaDato);
+    	}
+        tabla.setModel(modelo);
+        modelo.fireTableDataChanged();
+    }
+	
+
+	 public static int recetaSeleccionado() throws NullPointerException {
+		 int indiceSeleccionado = tabla.getSelectedRow();
+		 return indiceSeleccionado;	
+	 }
+	
+	
 	
 	/**
 	 * Gets y Sets

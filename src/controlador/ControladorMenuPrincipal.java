@@ -7,6 +7,8 @@ import modelo.BbddVentas;
 import vista.VentanaPrincipal;
 import vista.GestionPedidos;
 import vista.MenuPrincipal;
+import vista.ProductosAlmacen;
+import vista.Receta;
 import vista.Recetario;
 
 public class ControladorMenuPrincipal implements ActionListener {
@@ -33,7 +35,9 @@ public class ControladorMenuPrincipal implements ActionListener {
 		
 		if (e.getSource() == panelMenuPrincipal.getBtn_Recetario()) {
 			
-			Recetario.datosReceta(); 
+			Recetario.datosReceta();
+			Receta.datosIngredientes();
+			ProductosAlmacen.datosIngredientes();
 			
 			VentanaPrincipal.getPanelMenuPrincipal().setVisible(false);
 			VentanaPrincipal.getPanelRecetario().setVisible(true);
