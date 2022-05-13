@@ -51,7 +51,7 @@ public class GestionPedidos extends JPanel {
 	private static int posicionPanel_y = 50;
 
 	private static JList listaCliente;
-    private static JScrollPane scrollCliente;
+    private static JScrollPane scroll;
     
     private static ArrayList<ModeloCliente> array_clientes;
     private static DefaultListModel modeloListaCliente;
@@ -68,82 +68,61 @@ public class GestionPedidos extends JPanel {
 	
 	public void inicializarComponentes() {		
 		
-		panelGestionPedidos = new JPanel();
-		panelGestionPedidos.setBorder(new EmptyBorder(5, 5, 5, 5));
-		panelGestionPedidos.setBounds(posicionPanel_x, posicionPanel_y, ancho, alto);
-		panelGestionPedidos.setLayout(null);
+		panelGestionPedidos = VentanaPrincipal.parametrosPanel(800,600);
 		panelGestionPedidos.setVisible(false);
 
-		btn_Mesa_1 = new JButton("Mesa 1 ");		
-		btn_Mesa_1.setBounds(10, 70, 107, 23);
+		btn_Mesa_1 = VentanaPrincipal.parametrosJButton("Mesa 1",70,130,120,40);		
 		panelGestionPedidos.add(btn_Mesa_1);
 		
-		btn_Mesa_2 = new JButton("Mesa 2");		
-		btn_Mesa_2.setBounds(142, 70, 89, 23);
+		btn_Mesa_2 = VentanaPrincipal.parametrosJButton("Mesa 2",70, 230, 120,40);
 		panelGestionPedidos.add(btn_Mesa_2);
 		
-		btn_Mesa_3 = new JButton("Mesa 3");	
-		btn_Mesa_3.setBounds(10, 110, 107, 23);
+		btn_Mesa_3 = VentanaPrincipal.parametrosJButton("Mesa 3",70, 330, 120,40);
 		panelGestionPedidos.add(btn_Mesa_3);
 		
-		btn_Mesa_4 = new JButton("Mesa 4");	
-		btn_Mesa_4.setBounds(142, 110, 89, 23);
+		btn_Mesa_4 = VentanaPrincipal.parametrosJButton("Mesa 4",70, 430, 120,40);
 		panelGestionPedidos.add(btn_Mesa_4);
 
-		
-		btn_Mesa_7 = new JButton("Mesa 7");	
-		btn_Mesa_7.setBounds(10, 192, 107, 23);
-		panelGestionPedidos.add(btn_Mesa_7);
-		
-		btn_Mesa_6 = new JButton("Mesa 6");	
-		btn_Mesa_6.setBounds(142, 152, 89, 23);
+		btn_Mesa_5 = VentanaPrincipal.parametrosJButton("Mesa 5",230, 130, 120,40);
+		panelGestionPedidos.add(btn_Mesa_5);
+
+		btn_Mesa_6 = VentanaPrincipal.parametrosJButton("Mesa 6",230, 230, 120,40);
 		panelGestionPedidos.add(btn_Mesa_6);
 		
-		btn_Mesa_5 = new JButton("Mesa 5");	
-		btn_Mesa_5.setBounds(10, 152, 107, 23);
-		panelGestionPedidos.add(btn_Mesa_5);
+		btn_Mesa_7 = VentanaPrincipal.parametrosJButton("Mesa 7",230, 330, 120,40);
+		panelGestionPedidos.add(btn_Mesa_7);
 		
-		btn_Mesa_8 = new JButton("Mesa 8");
-		btn_Mesa_8.setBounds(142, 192, 89, 23);
+		btn_Mesa_8 = VentanaPrincipal.parametrosJButton("Mesa 8",230, 430, 120,40);
 		panelGestionPedidos.add(btn_Mesa_8);
 
-		lbl_mesa = new JLabel("En mesa");
-		lbl_mesa.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lbl_mesa.setBounds(83, 30, 70, 14);
+		lbl_mesa = VentanaPrincipal.parametrosJlabel("En mesa",180, 30, 120, 40);
 		panelGestionPedidos.add(lbl_mesa);
 		
-		lbl_Para_llevar = new JLabel("Para llevar");
-		lbl_Para_llevar.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lbl_Para_llevar.setBounds(287, 30, 70, 14);
+		lbl_Para_llevar = VentanaPrincipal.parametrosJlabel("Para llevar", 450, 30, 120,40);
 		panelGestionPedidos.add(lbl_Para_llevar);	
 		
-		btn_Nuevo_Cliente = new JButton("Nuevo Cliente");
-		btn_Nuevo_Cliente.setBounds(278, 46, 107, 23);
+		btn_Nuevo_Cliente = VentanaPrincipal.parametrosJButton("Nuevo Cliente",450, 80, 220,40);
 		panelGestionPedidos.add(btn_Nuevo_Cliente);
 		
-		btn_Editar_Cliente = new JButton();
+		btn_Editar_Cliente = VentanaPrincipal.parametrosJButton("",690, 80, 40,40);
 		btn_Editar_Cliente.setForeground(UIManager.getColor("Button.background"));
 		btn_Editar_Cliente.setIcon(new ImageIcon("img/settings.png"));
-		btn_Editar_Cliente.setBounds(395, 46, 26, 24);
 		btn_Editar_Cliente.setEnabled(false);
 		panelGestionPedidos.add(btn_Editar_Cliente);
 		
-		btn_volver = new JButton("Volver");
-		btn_volver.setBounds(354, 9, 70, 19);
+		btn_volver = VentanaPrincipal.parametrosJButton("Volver", 710, 20, 70, 20);
 		panelGestionPedidos.add(btn_volver);		
 
-		btn_Ver_Pedido = new JButton("Ver Pedido");
-		btn_Ver_Pedido.setBounds(142, 254, 89, 23);
+		btn_Ver_Pedido = VentanaPrincipal.parametrosJButton("Ver Pedido",540, 500, 120, 40);
 		panelGestionPedidos.add(btn_Ver_Pedido);
 
 		listaCliente = new JList();
 		listaCliente.setLayout(null);
 		listaCliente.setVisible(true);		
 		
-		scrollCliente = new JScrollPane(listaCliente);	
-        scrollCliente.setBounds(269, 74, 155, 145);
-        scrollCliente.setViewportView(listaCliente);
-        panelGestionPedidos.add(scrollCliente);	
+		scroll = VentanaPrincipal.parametrosJScrollPane(450, 130, 280, 340);
+        scroll.setViewportView(listaCliente);
+        panelGestionPedidos.add(scroll);	
 	}
 	
 	public void establecerManejador() {			
