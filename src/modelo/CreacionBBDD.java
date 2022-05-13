@@ -111,7 +111,7 @@ public class CreacionBBDD {
 	}
 	
 	public void crearTablaPedidoCliente() throws SQLException {
-		stmt.execute("CREATE TABLE IF NOT EXISTS PedidoCliente (IdPedido INT NOT NULL, IdCliente INT NOT NULL, constraint fkIdPedido foreign key(IdPedido) references Ganancias(IdPedido), constraint fkIdCliente foreign key(IdCliente) references Cliente(IdCliente))ENGINE=INNODB;");
+		stmt.execute("CREATE TABLE IF NOT EXISTS PedidoCliente (IdPedido INT NOT NULL, IdCliente INT NOT NULL, constraint fkIdPedido foreign key(IdPedido) references Ganancias(IdPedido), constraint fkIdCliente foreign key(IdCliente) references Cliente (IdCliente))ENGINE=INNODB;");
 	}
 	
 	public void crearTablaPedidos() throws SQLException {

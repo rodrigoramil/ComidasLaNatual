@@ -8,6 +8,7 @@ import java.awt.event.MouseListener;
 import javax.swing.JOptionPane;
 
 import vista.GestionUsuarios;
+import vista.Usuario;
 import vista.VentanaPrincipal;
 
 public class ControladorGestionUsuarios implements ActionListener, MouseListener  {
@@ -27,12 +28,24 @@ public class ControladorGestionUsuarios implements ActionListener, MouseListener
 			VentanaPrincipal.getPanelGestionUsuarios().setVisible(false);
 		}
 		if (e.getSource() == GestionUsuarios.getBtn_nuevo()) {
+			Usuario.getRdbtn_ventas().setSelected(true);			
 			VentanaPrincipal.getPanelGestionUsuarios().setVisible(false);
 			VentanaPrincipal.getPanelUsuario().setVisible(true);
+			
+			
+			
+			
+			
+			
 		}
 		if (e.getSource() == GestionUsuarios.getBtn_Modificar()) {
 			VentanaPrincipal.getPanelGestionUsuarios().setVisible(false);
 			VentanaPrincipal.getPanelUsuario().setVisible(true);
+			
+			
+			
+			
+			
 		}
 		if (e.getSource() == GestionUsuarios.getBtn_eliminar()) {
 			

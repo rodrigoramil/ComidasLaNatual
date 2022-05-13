@@ -40,6 +40,7 @@ public class ControladorMenuPrincipal implements ActionListener {
 			VentanaPrincipal.getPanelMenuPrincipal().setVisible(false);
 			VentanaPrincipal.getPanelGestionPedidos().setVisible(true);
 			GestionPedidos.getBtn_Editar_Cliente().setEnabled(false);
+			GestionPedidos.getBtn_Ver_Pedido().setEnabled(false);
 
 		}
 		

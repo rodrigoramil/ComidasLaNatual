@@ -117,9 +117,18 @@ public class GestionUsuarios extends JPanel {
     }
 	
 
-	 public static int productoSeleccionado() throws NullPointerException {
+	 public static String usuarioSeleccionado() throws NullPointerException {
 		 int indiceSeleccionado = tabla.getSelectedRow();
-		 return indiceSeleccionado;	
+		 String usuarioSelecionado = null;
+		 for (int i = 0; i < arrayUsuarios.size(); i++) {
+			if (indiceSeleccionado==i) {
+				usuarioSelecionado = arrayUsuarios.get(i).getNombreUsuario();
+				return usuarioSelecionado;
+			}
+		}
+		return usuarioSelecionado;
+
+			
 	 }
 	 
 	public static JPanel getPanelGestionUsuarios() {
@@ -143,6 +152,11 @@ public class GestionUsuarios extends JPanel {
 
 	public static JButton getBtn_volver() {
 		return btn_volver;
+	}
+
+
+	public static JTable getTabla() {
+		return tabla;
 	}
 	
 	

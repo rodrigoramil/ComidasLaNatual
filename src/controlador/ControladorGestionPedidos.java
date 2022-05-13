@@ -15,6 +15,8 @@ public class ControladorGestionPedidos implements ActionListener, MouseListener 
 
 	private GestionPedidos panelGestionPedidos;
 	private static boolean nuevoCliente = false;
+	int clienteSelecionado;
+	int clienteBBDD;
 	
 	public ControladorGestionPedidos(GestionPedidos panelGestionPedidos) {
 		this.panelGestionPedidos = panelGestionPedidos;
@@ -22,7 +24,8 @@ public class ControladorGestionPedidos implements ActionListener, MouseListener 
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-
+		clienteSelecionado = GestionPedidos.clienteSeleccionado();
+		
 		if (e.getSource() == GestionPedidos.getBtn_Nuevo_Cliente()) {
 			VentanaPrincipal.getPanelGestionPedidos().setVisible(false);
 			VentanaPrincipal.getPanelCliente().setVisible(true);
@@ -31,38 +34,27 @@ public class ControladorGestionPedidos implements ActionListener, MouseListener 
 			Cliente.getTfd_telefono().setText("");
 			GestionPedidos.getListaCliente().clearSelection();
 			nuevoCliente = true;
-			
-			
-			for (int i = 0; i < BbddVentas.getArrayClientes().size(); i++) {
-				
-				
-				
-				
-			}
-			
-			
+
 		}
+		
+		
 		if (e.getSource() == GestionPedidos.getBtn_Editar_Cliente()) {
 			
 				VentanaPrincipal.getPanelGestionPedidos().setVisible(false);
 				VentanaPrincipal.getPanelCliente().setVisible(true);
 				nuevoCliente = false;
+				
 			try {
 				for (int i = 0; i < BbddVentas.getArrayClientes().size(); i++) {
-
-					/**
-					 * Nota: hay que restarle 1 al Id del cliente porque empieza en 1 y el array de Clientes empieza desde 0
-					 * y hay que restarle también las 8 mesas de que se encuentran al inicio del array de clientes --> TOTAL -9
-					 */	
-					int clienteSelecionado = GestionPedidos.clienteSeleccionado();
-					int clienteBBDD = BbddVentas.getArrayClientes().get(i).getId()-9;					
-					
+					clienteBBDD = BbddVentas.getArrayClientes().get(i).getId()-9;					
+					System.out.println("clienteSelecionado: "+clienteSelecionado+" ---- clienteBBDD: "+clienteBBDD);
 					if (clienteSelecionado==clienteBBDD) {	
 						System.out.println("clienteSelecionado -> "+clienteSelecionado+" clienteBBDD -> "+clienteBBDD); // <-- BORRAR
 						Cliente.getTfd_nombre().setText(BbddVentas.getArrayClientes().get(i).getNombre());
 						Cliente.getTfd_telefono().setText(BbddVentas.getArrayClientes().get(i).getTelefono());
 					}
-				}											
+				}		
+				
 			} catch (NullPointerException errorSelectorVacio) {				
 				JOptionPane.showMessageDialog(panelGestionPedidos, "Selecciona cliente a editar");
 			}			
@@ -144,13 +136,46 @@ public class ControladorGestionPedidos implements ActionListener, MouseListener 
 		if (e.getSource() == GestionPedidos.getBtn_Ver_Pedido()) {
 			VentanaPrincipal.getPanelGestionPedidos().setVisible(false);
 			VentanaPrincipal.getPanelPedido().setVisible(true);
-			Pedido.getLbl_Num_Mesa().setText(BbddVentas.getArrayClientes().get(8).getNombre());
+//			GestionPedidos.getListaCliente().clearSelection();
+			
+			for (int i = 0; i < BbddVentas.getArrayClientes().size(); i++) {
+				clienteBBDD = BbddVentas.getArrayClientes().get(i).getId()-9;					
+				if (clienteSelecionado==clienteBBDD) {	
+					Pedido.getLbl_Num_Mesa().setText(BbddVentas.getArrayClientes().get(i).getNombre());
+					System.out.println(BbddVentas.getArrayClientes().get(i).getNombre());
+				}
+				
+				
+				
+			}
+			
+			
+			
+			
+			
 		}
 		
 		if (e.getSource() == GestionPedidos.getBtn_volver()) {
 			VentanaPrincipal.getPanelGestionPedidos().setVisible(false);
 			VentanaPrincipal.getPanelMenuPrincipal().setVisible(true);
 			GestionPedidos.getListaCliente().clearSelection();
+			
+			
+			/*
+			for (int i = 0; i < BbddVentas.getArrayClientes().size(); i++) {
+				
+				clienteSelecionado = GestionPedidos.clienteSeleccionado();
+				clienteBBDD = BbddVentas.getArrayClientes().get(i).getId()-9;					
+				
+				if (clienteSelecionado==clienteBBDD) {	
+					Pedido.getLbl_Num_Mesa().setText(BbddVentas.getArrayClientes().get(i).getNombre());
+				}
+				
+				
+				
+			}
+			*/
+			
 			/*
 			// ********* BORRAR ************
 			for (int i = 0; i < BbddVentas.getArrayClientes().size(); i++) {
@@ -177,6 +202,7 @@ public class ControladorGestionPedidos implements ActionListener, MouseListener 
 	public void mousePressed(MouseEvent e) { // Al pulsar raton
 		if (!GestionPedidos.getListaCliente().isSelectionEmpty()) {
 			GestionPedidos.getBtn_Editar_Cliente().setEnabled(true);
+			GestionPedidos.getBtn_Ver_Pedido().setEnabled(true);
 		}
 		
 

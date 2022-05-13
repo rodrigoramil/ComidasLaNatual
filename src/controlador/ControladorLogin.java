@@ -34,7 +34,7 @@ public class ControladorLogin implements ActionListener {
 				cambiarMenuPrincipal ();
 
 			} else if (estado.equals("Cocina")) {
-				cambiarMenuPrincipal ();	
+				cambiarMenuPrincipal ();
 				
 
 				MenuPrincipal.getBtn_Ventas().setEnabled(false);

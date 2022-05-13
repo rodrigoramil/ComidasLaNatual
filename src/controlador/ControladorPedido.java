@@ -24,11 +24,13 @@ public class ControladorPedido  implements ActionListener, MouseListener {
 			VentanaPrincipal.getPanelGestionPedidos().setVisible(true);
 			VentanaPrincipal.getPanelPedido().setVisible(false);
 			GestionPedidos.getBtn_Editar_Cliente().setEnabled(false);
+			GestionPedidos.getBtn_Ver_Pedido().setEnabled(false);
 		}
 		if (e.getSource() == Pedido.getBtn_Guardar()) {
 			VentanaPrincipal.getPanelGestionPedidos().setVisible(true);
 			VentanaPrincipal.getPanelPedido().setVisible(false);
 			GestionPedidos.getBtn_Editar_Cliente().setEnabled(false);
+			GestionPedidos.getBtn_Ver_Pedido().setEnabled(false);
 		}
 		if (e.getSource() == Pedido.getBtn_Nuevo()) {
 			VentanaPrincipal.getPanelPedido().setVisible(false);

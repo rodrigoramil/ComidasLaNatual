@@ -7,6 +7,7 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JOptionPane;
 
+import modelo.BbddReceta;
 import vista.Recetario;
 import vista.VentanaPrincipal;
 
@@ -39,6 +40,9 @@ public class ControladorRecetario implements ActionListener, MouseListener  {
 		if (e.getSource() == Recetario.getBtn_ver_recetas()) {
 			VentanaPrincipal.getPanelRecetario().setVisible(false);
 			VentanaPrincipal.getPanelReceta().setVisible(true);
+			
+			BbddReceta.listarRecetas();
+			
 		}
 		
 		if (e.getSource() == Recetario.getBtn_nueva_receta()) {
