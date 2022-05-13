@@ -26,8 +26,7 @@ public class ControladorCliente implements ActionListener{
 			GestionPedidos.getBtn_Editar_Cliente().setEnabled(false);
 		}
 		
-		if (e.getSource() == Cliente.getBtn_Aceptar()) {
-			
+		if (e.getSource() == Cliente.getBtn_Aceptar()) {			
 			GestionPedidos.getBtn_Editar_Cliente().setEnabled(false);
 			boolean nuevoCliente = ControladorGestionPedidos.getNuevoCliente(); //  -> true		
 			String nombre = BbddVentas.getArrayClientes().get(GestionPedidos.clienteSeleccionado()).getNombre();
@@ -38,7 +37,6 @@ public class ControladorCliente implements ActionListener{
 			if (nuevoCliente) {				
 				System.out.println("Nuevo Cliente");
 				System.out.println(BbddVentas.getArrayClientes().toString());
-				
 //********************************************************************************************************	
 				
 				// Hay que hacer un método en la clase BbddVentas que realice una sentencia SQL Insert 
@@ -58,13 +56,12 @@ public class ControladorCliente implements ActionListener{
 				Cliente.getTfd_nombre().setText(nombre);
 				Cliente.getTfd_telefono().setText(tlf);				
 				
-				BbddVentas.editarCliente(BbddVentas.getArrayClientes().get(GestionPedidos.clienteSeleccionado()).getId(),
-						cajaTextoNombre, cajaTextoTlf);					
+				BbddVentas.editarCliente(BbddVentas.getArrayClientes().get(GestionPedidos.clienteSeleccionado()).getId(), cajaTextoNombre, cajaTextoTlf);				
 			}
 			
 			VentanaPrincipal.getPanelCliente().setVisible(false);
 			VentanaPrincipal.getPanelGestionPedidos().setVisible(true);
-			BbddVentas.listarClientes();
+			BbddVentas.listarRecetas();
 			GestionPedidos.getListaCliente().clearSelection();
 			
 

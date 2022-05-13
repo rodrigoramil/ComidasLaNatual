@@ -134,7 +134,7 @@ public class Receta extends JPanel {
 	
 	public static void listarIngredientes () {
 		arrayIngredientes = new ArrayList<ModeloReceta>();
-        BbddVentas.listarClientes();
+        BbddVentas.listarRecetas();
         arrayIngredientes = BbddVentas.getArrayRecetas();
         
         DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();

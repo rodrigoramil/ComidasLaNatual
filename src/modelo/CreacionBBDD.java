@@ -60,7 +60,7 @@ public class CreacionBBDD {
 				+ "IdProducto INT NOT NULL AUTO_INCREMENT, "
 				+ "NombreProducto VARCHAR(45) NOT NULL UNIQUE, "
 				+ "Cantidad FLOAT NOT NULL, "
-				+ "UnidadMedida ENUM('Kg', 'L', 'Ud') NOT NULL, "
+				+ "UnidadMedida ENUM('Kg', 'L', 'Ud') NOT NULL, " // <-- esta mal debería de ser una fk de la tabla UnidadMedidaProducto que tampoco existe
 				+ "CantidadMinima FLOAT NOT NULL, "
 				+ "CantidadMaxima FLOAT NOT NULL, "
 				+ "PRIMARY KEY(idProducto)"

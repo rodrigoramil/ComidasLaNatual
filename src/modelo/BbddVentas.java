@@ -14,7 +14,7 @@ public class BbddVentas {
 	private static ArrayList<ModeloCliente> arrayClientes = null;
 	private static ArrayList<ModeloReceta> arrayRecetas=null; // <---- BORRAR
 
-	public static void listarClientes() {
+	public static void listarRecetas() {
 		conexion = new Conexion();
 		connection = conexion.obtenerConexion();
 		arrayClientes = new ArrayList<ModeloCliente>();
@@ -56,12 +56,10 @@ public class BbddVentas {
             sentencia = connection.prepareStatement("update Cliente set NombreCliente = ?, Telefono = ?  where IdCliente = ?");
             sentencia.setString(1, nombre);
             sentencia.setString(2, telefono);
-            sentencia.setInt(3, id);
+            sentencia.setInt(3, id+8);
             sentencia.executeUpdate();
             
-            System.out.println("llega: "+ nombre);
-            System.out.println("llega: "+ id);
-            listarClientes();            
+            listarRecetas();            
 
         } catch (SQLException e) {
         	System.out.println("Error en editarCliente SentenciasSQL");
@@ -72,6 +70,24 @@ public class BbddVentas {
 	
 	public static ArrayList<ModeloCliente> getArrayClientes() {
 		return arrayClientes;
+	}
+
+	public static void insertarCliente(String nombre, String telefono) {
+		conexion = new Conexion();
+        connection = conexion.obtenerConexion();
+ 
+        try {
+            sentencia = connection.prepareStatement("INSERT INTO PERSONAS (NombreCliente, Telefono) VALUES (?, ?)"); 
+            sentencia.setString(1, nombre);
+            sentencia.setString(2, telefono);
+     
+            sentencia.executeQuery();
+            listarRecetas();            
+
+        } catch (SQLException e) {
+        	System.out.println("Error en editarCliente SentenciasSQL");
+            System.out.println(e.getMessage());
+        }
 	}
 
 
