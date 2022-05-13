@@ -168,7 +168,7 @@ public class GestionPedidos extends JPanel {
 
 	
 	public static ArrayList<ModeloCliente> creaListaClientes() {
-		BbddVentas.listarClientes();
+		BbddVentas.listarRecetas();
 		array_clientes = BbddVentas.getArrayClientes();
 		modeloListaCliente = new DefaultListModel();
 
@@ -178,6 +178,8 @@ public class GestionPedidos extends JPanel {
 			if (c.getId()>=9) {
 				System.out.println(" NO es MESA ->  "+c.getId()); // <-- BORRAR
 				modeloListaCliente.addElement(c.getNombre());
+				modeloListaCliente.addElement(c.getId());
+				
 			}
 		}	
 
