@@ -105,7 +105,7 @@ public class GestionUsuarios extends JPanel {
         modelo.addColumn("USUARIO");
         modelo.addColumn("ROL");
         
-        Object filaDato[] = new Object[2];     
+        Object filaDato[] = new Object[2];
         for (int i = 0; i < arrayUsuarios.size(); i++) {
         	filaDato[0] = arrayUsuarios.get(i).getNombreUsuario();	// <-- llamar el dato que corresponda del objeto modelo
         	filaDato[1] = arrayUsuarios.get(i).getRol();  	// <-- llamar el dato que corresponda del objeto modelo
