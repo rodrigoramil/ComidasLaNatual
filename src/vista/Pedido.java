@@ -114,7 +114,7 @@ public class Pedido extends JPanel {
 
 	public static void pedidos () {
 		arrayPedidos = new ArrayList<ModeloReceta>();
-        BbddVentas.listarRecetas();
+        BbddVentas.listarClientes();
         arrayPedidos = BbddVentas.getArrayRecetas();
         DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
         modelo.addColumn("COMIDA/BEBIDA");

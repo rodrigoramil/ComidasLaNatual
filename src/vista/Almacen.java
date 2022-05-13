@@ -13,7 +13,9 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import controlador.ControladorAlmacen;
+import modelo.BbddRecetario;
 import modelo.BbddVentas;
+import modelo.ModeloAlmacen;
 import modelo.ModeloReceta;
 
 public class Almacen extends JPanel {
@@ -35,7 +37,7 @@ public class Almacen extends JPanel {
 	
 	private static JTable tabla;
     private static JScrollPane scroll;
-	private static ArrayList<ModeloReceta> arrayProductos;
+	private static ArrayList<ModeloAlmacen> arrayAlmacen;
     
 	public Almacen() {
 		
@@ -115,9 +117,9 @@ public class Almacen extends JPanel {
 	//*******
 	
 	public static void listarProductos () {
-		arrayProductos = new ArrayList<ModeloReceta>();			// <-- modificar el tipo de array al modelo objeto que corresponda
-        BbddVentas.listarRecetas();							// <-- modificar el método para que llame a la sentencia SQL que corresponda y y cargue los datos
-        arrayProductos = BbddVentas.getArrayRecetas();			// <-- crear y modificar el metodo GET que trae los datos del array que corresponda
+		arrayAlmacen = new ArrayList<ModeloAlmacen>();
+        BbddRecetario.listarRecetas();
+        arrayAlmacen = BbddRecetario.getarrayAlmacen();	
         DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
         modelo.addColumn("PRODUCTOS");
         modelo.addColumn("ACTUAL");
@@ -125,11 +127,11 @@ public class Almacen extends JPanel {
         modelo.addColumn("MAXIMO");
         
         Object filaDato[] = new Object[4];     
-        for (int i = 0; i < arrayProductos.size(); i++) {
-        	filaDato[0] = arrayProductos.get(i).getReceta();	// <-- llamar el dato que corresponda del objeto modelo
-        	filaDato[1] = arrayProductos.get(i).getEstado();  	// <-- llamar el dato que corresponda del objeto modelo
-        	filaDato[2] = arrayProductos.get(i).getReceta();	// <-- llamar el dato que corresponda del objeto modelo
-        	filaDato[3] = arrayProductos.get(i).getEstado();  	// <-- llamar el dato que corresponda del objeto modelo
+        for (int i = 0; i < arrayAlmacen.size(); i++) {
+        	filaDato[0] = arrayAlmacen.get(i).getNombreProducto();
+        	filaDato[1] = arrayAlmacen.get(i).getCantidad();
+        	filaDato[2] = arrayAlmacen.get(i).getCantidadMinima();
+        	filaDato[3] = arrayAlmacen.get(i).getCantidadMaxima();
         	
         	modelo.addRow(filaDato);
     	}

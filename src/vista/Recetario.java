@@ -142,7 +142,7 @@ public class Recetario extends JPanel {
         Object filaDato[] = new Object[2];     
         for (int i = 0; i < arrayRecetas.size(); i++) {
         	filaDato[0] = arrayRecetas.get(i).getNombreReceta();
-        	filaDato[1] = arrayRecetas.get(i).getDisponibilidad();  
+        	filaDato[1] = arrayRecetas.get(i).getIdDisponibilidad();  
         	modelo.addRow(filaDato);
     	}
         tabla.setModel(modelo);

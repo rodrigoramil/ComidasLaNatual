@@ -37,7 +37,7 @@ public class BbddRecetario {
 
 			//Recetas
 			while (rsReceta.next()) {
-				ModeloRecetario recetas = new ModeloRecetario(rsReceta.getInt("IdTipo"), rsReceta.getString("Disponibilidad"), rsReceta.getString("NombreReceta"), rsReceta.getInt("PrecioVenta"), rsReceta.getString("Elaboracion"));
+				ModeloRecetario recetas = new ModeloRecetario(rsReceta.getInt("IdTipo"), rsReceta.getInt("IdDisponibilidad"), rsReceta.getString("NombreReceta"), rsReceta.getFloat("PrecioVenta"), rsReceta.getString("Elaboracion"));
 				arrayRecetario.add(recetas);
 			}
 			
@@ -46,6 +46,7 @@ public class BbddRecetario {
 				ModeloIngredientes ingredientes = new ModeloIngredientes(rsIngredientes.getInt("IdReceta"), rsIngredientes.getInt("IdProducto"), rsIngredientes.getFloat("Cantidad"));
 				arrayIngredientes.add(ingredientes);
 			}
+			
 			//Almacen
 			while (rsAlmacen.next()) {
 				ModeloAlmacen almacen = new ModeloAlmacen(rsAlmacen.getInt("IdProducto"), rsAlmacen.getString("NombreProducto"), rsAlmacen.getInt("Cantidad"), rsAlmacen.getInt("IdUnidadMedida"), rsAlmacen.getInt("CantidadMinima"), rsAlmacen.getInt("CantidadMaxima"));

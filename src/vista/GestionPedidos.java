@@ -167,7 +167,7 @@ public class GestionPedidos extends JPanel {
 
 	
 	public static ArrayList<ModeloCliente> creaListaClientes() {
-		BbddVentas.listarRecetas();
+		BbddVentas.listarClientes();
 		array_clientes = BbddVentas.getArrayClientes();
 		modeloListaCliente = new DefaultListModel();
 

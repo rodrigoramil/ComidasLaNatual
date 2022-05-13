@@ -10,22 +10,23 @@ public class ModeloRecetario implements Serializable{
 	//private static final long serialVersionUID = 1L;
 	int idTipo;
 	
-	String disponibilidad;
+	int IdDisponibilidad;
 	String nombreReceta;
 	float precioVenta;
 	String elaboracion;
 	
 	
-	public ModeloRecetario(int idTipo, String disponibilidad, String nombreReceta, float precioVenta, String elaboracion) {
+	public ModeloRecetario(int idTipo, int IdDisponibilidad, String nombreReceta, float precioVenta, String elaboracion) {
 		super();
 		this.idTipo = idTipo;
-		this.disponibilidad = disponibilidad;
+		this.IdDisponibilidad = IdDisponibilidad;
 		this.nombreReceta = nombreReceta;
 		this.precioVenta = precioVenta;
 		this.elaboracion = elaboracion;
 		
 	}
-	
+
+
 	public int getIdTipo() {
 		return idTipo;
 	}
@@ -36,13 +37,13 @@ public class ModeloRecetario implements Serializable{
 	}
 
 
-	public String getDisponibilidad() {
-		return disponibilidad;
+	public int getIdDisponibilidad() {
+		return IdDisponibilidad;
 	}
 
 
-	public void setDisponibilidad(String disponibilidad) {
-		this.disponibilidad = disponibilidad;
+	public void setIdDisponibilidad(int idDisponibilidad) {
+		IdDisponibilidad = idDisponibilidad;
 	}
 
 
@@ -75,11 +76,13 @@ public class ModeloRecetario implements Serializable{
 		this.elaboracion = elaboracion;
 	}
 
+
 	@Override
 	public String toString() {
-		return "ModeloRecetario [idTipo=" + idTipo + ", disponibilidad=" + disponibilidad + ", nombreReceta="
+		return "ModeloRecetario [idTipo=" + idTipo + ", IdDisponibilidad=" + IdDisponibilidad + ", nombreReceta="
 				+ nombreReceta + ", precioVenta=" + precioVenta + ", elaboracion=" + elaboracion + "]";
 	}
-
+	
+	
 
 }
