@@ -21,8 +21,24 @@ public class ControladorReceta implements ActionListener, MouseListener  {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == Receta.getBtn_volver()) {
-			VentanaPrincipal.getPanelRecetario().setVisible(true);
-			VentanaPrincipal.getPanelReceta().setVisible(false);
+			
+			
+			if (ControladorBuscarComidaBebida.getDesdeVentas()) {
+				VentanaPrincipal.getPanelReceta().setVisible(false);
+				VentanaPrincipal.getPanelBuscarComidaBebida().setVisible(true);
+				ControladorBuscarComidaBebida.setDesdeVentas(false);
+				Receta.getBtn_nuevo_ingrediente().setEnabled(true);
+				Receta.getBtn_modificar_cantidad().setEnabled(true);
+				Receta.getBtn_borrar_ingrediente().setEnabled(true);
+				Receta.getBtn_guardar().setEnabled(true);
+				
+			} else {
+				VentanaPrincipal.getPanelReceta().setVisible(false);
+				VentanaPrincipal.getPanelRecetario().setVisible(true);
+				
+			}
+			
+			
 		}
 		
 		if (e.getSource() == Receta.getBtn_nuevo_ingrediente()) {

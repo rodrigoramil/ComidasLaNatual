@@ -50,19 +50,18 @@ public class GestionPedidos extends JPanel {
 	private static int posicionPanel_x = 100;
 	private static int posicionPanel_y = 50;
 
-//**************************************************************************************************
 	private static JList listaCliente;
     private static JScrollPane scrollCliente;
     
     private static ArrayList<ModeloCliente> array_clientes;
     private static DefaultListModel modeloListaCliente;
     
-//**************************************************************************************************
-	
+
 	public GestionPedidos() {
 		super();
 		inicializarComponentes();
 		establecerManejador();
+		creaListaClientes();
 	}
 
 
@@ -168,17 +167,17 @@ public class GestionPedidos extends JPanel {
 
 	
 	public static ArrayList<ModeloCliente> creaListaClientes() {
-		BbddVentas.listarRecetas();
+		BbddVentas.listarClientes();
 		array_clientes = BbddVentas.getArrayClientes();
 		modeloListaCliente = new DefaultListModel();
 
 		for (ModeloCliente c : array_clientes) {
-			System.out.println("IdCliente: "+c.getId()); // <-- BORRAR
+//			System.out.println("Cliente: "+c.getNombre()); // <-- BORRAR
 			// no añadimos a la lista los primeros ID porque son mesas
 			if (c.getId()>=9) {
-				System.out.println(" NO es MESA ->  "+c.getId()); // <-- BORRAR
+//				System.out.println(" NO es MESA ->  "+c.getNombre()); // <-- BORRAR
 				modeloListaCliente.addElement(c.getNombre());
-				modeloListaCliente.addElement(c.getId());
+//				modeloListaCliente.addElement(c.getId());
 				
 			}
 		}	

@@ -6,11 +6,13 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import vista.BuscarComidaBebida;
+import vista.Receta;
 import vista.VentanaPrincipal;
 
 public class ControladorBuscarComidaBebida implements ActionListener, MouseListener  {
 
 	private BuscarComidaBebida panelBuscarComidaBebida;
+	private static boolean desdeVentas;
 	
 	public ControladorBuscarComidaBebida(BuscarComidaBebida panelBuscarComidaBebida) {
 		this.panelBuscarComidaBebida = panelBuscarComidaBebida;
@@ -46,6 +48,11 @@ public class ControladorBuscarComidaBebida implements ActionListener, MouseListe
 		if (e.getSource() == BuscarComidaBebida.getBtn_ver_receta()) {
 			VentanaPrincipal.getPanelBuscarComidaBebida().setVisible(false);
 			VentanaPrincipal.getPanelReceta().setVisible(true);
+			Receta.getBtn_nuevo_ingrediente().setEnabled(false);
+			Receta.getBtn_modificar_cantidad().setEnabled(false);
+			Receta.getBtn_borrar_ingrediente().setEnabled(false);
+			Receta.getBtn_guardar().setEnabled(false);
+			desdeVentas = true;
 		}
 	
 	}
@@ -79,6 +86,19 @@ public class ControladorBuscarComidaBebida implements ActionListener, MouseListe
 
 		
 	}
+
+	
+	
+	public static boolean getDesdeVentas() {
+		return desdeVentas;
+	}
+
+	public static void setDesdeVentas(boolean desdeVentas) {
+		ControladorBuscarComidaBebida.desdeVentas = desdeVentas;
+	}
 		
+	
+	
+	
 	
 }
