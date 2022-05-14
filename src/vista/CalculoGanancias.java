@@ -2,6 +2,7 @@ package vista;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
@@ -13,6 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
 import controlador.ControladorCalculoGanancias;
@@ -49,13 +51,56 @@ public class CalculoGanancias extends JPanel {
 
 	public void inicializarComponentes() {
 		
-		panelCalculoGanancias = new JPanel();
-		btn_Volver = new JButton("Volver");
-		lbl_Desde = new JLabel("Desde");		
-		lbl_Hasta = new JLabel("Hasta");
-		tfd_Desde = new JTextField();
-		tfd_hasta = new JTextField();
-		lbl_Total_Ganancias = new JLabel("Total Ganancias");
+		panelCalculoGanancias = VentanaPrincipal.parametrosPanel(800,600);
+		
+		btn_Volver = VentanaPrincipal.parametrosJButton("Volver", 710, 20, 70, 20);
+		panelCalculoGanancias.add(btn_Volver);
+		
+		lbl_Desde = VentanaPrincipal.parametrosJlabel("Desde",40, 150, 100, 20);
+		lbl_Desde.setHorizontalAlignment(SwingConstants.RIGHT);
+		panelCalculoGanancias.add(lbl_Desde); 	
+		
+		tfd_Desde = VentanaPrincipal.parametrosJTextField(150, 150, 120, 20);
+		panelCalculoGanancias.add(tfd_Desde);
+		
+		lbl_Hasta = VentanaPrincipal.parametrosJlabel("Hasta",40, 200, 100, 20);
+		lbl_Hasta.setHorizontalAlignment(SwingConstants.RIGHT);
+		panelCalculoGanancias.add(lbl_Hasta); 	
+		
+		tfd_hasta = VentanaPrincipal.parametrosJTextField(150, 200, 120, 20);
+		panelCalculoGanancias.add(tfd_hasta);
+		
+		lbl_Total_Ganancias = VentanaPrincipal.parametrosJlabel("Total Ganancias",40, 360, 200, 40);
+		lbl_Total_Ganancias.setFont(new Font("Manche Condensed",Font.BOLD,(int)(20*VentanaPrincipal.getCordenadaY())));
+		panelCalculoGanancias.add(lbl_Total_Ganancias);
+				
+		
+		lbl_Calculo_Ganancias = VentanaPrincipal.parametrosJlabel("284,76 \u20AC",40, 400, 200, 40);
+		lbl_Calculo_Ganancias.setFont(new Font("Manche Condensed",Font.BOLD,(int)(20*VentanaPrincipal.getCordenadaY())));
+		panelCalculoGanancias.add(lbl_Calculo_Ganancias);
+		
+		
+		
+		btn_Imprimir = VentanaPrincipal.parametrosJButton("Imprimir",340, 550, 120, 20);
+		panelCalculoGanancias.add(btn_Imprimir);
+				
+		
+		tabla = new JTable();
+		scroll = VentanaPrincipal.parametrosJScrollPane(400, 100, 350, 400);
+		scroll.setViewportView(tabla);	    
+		panelCalculoGanancias.add(scroll);
+	    
+		panelCalculoGanancias.setVisible(false);
+		
+		
+		
+		/*			panelCalculoGanancias = new JPanel();
+					btn_Volver = new JButton("Volver");
+					lbl_Desde = new JLabel("Desde");		
+					lbl_Hasta = new JLabel("Hasta");
+					tfd_Desde = new JTextField();
+					tfd_hasta = new JTextField();
+					lbl_Total_Ganancias = new JLabel("Total Ganancias");
 		lbl_Calculo_Ganancias = new JLabel("284,76");
 		btn_Imprimir = new JButton("Imprimir");
 		tabla = new JTable();
@@ -94,7 +139,7 @@ public class CalculoGanancias extends JPanel {
 	    scroll = new JScrollPane(tabla);
 	    scroll.setViewportView(tabla);
 	    scroll.setBounds(185, 51, 228, 148);
-	    panelCalculoGanancias.add(scroll);	
+	    panelCalculoGanancias.add(scroll);	*/
 	}
 
 	public void establecerManejador() {			

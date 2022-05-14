@@ -55,45 +55,33 @@ private static ArrayList<ModeloReceta> arrayProductos;
 	public void inicializarComponentes() {
 		
 
-		panelProductosAlmacen= new JPanel();
-		caja_nombre_producto = new JTextField();
-		btn_todos_productos = new JButton("Todos los productos");
-		btn_buscar = new JButton("Buscar");
-		btn_volver = new JButton("Volver");
-		btn_add_receta = new JButton("Añadir a la receta");
-		tabla = new JTable();
+		panelProductosAlmacen = VentanaPrincipal.parametrosPanel(800,600);
 		
-		panelProductosAlmacen.setBorder(new EmptyBorder(5, 5, 5, 5));
-		panelProductosAlmacen.setBounds(posicionPanel_x, posicionPanel_y, ancho, alto);
-		panelProductosAlmacen.setLayout(null);
-		panelProductosAlmacen.setVisible(false);
-		
-		caja_nombre_producto.setBounds(10, 45, 169, 20);
-		panelProductosAlmacen.add(caja_nombre_producto);
-		caja_nombre_producto.setColumns(10);
-		
-	
-		btn_todos_productos.setBounds(10, 11, 156, 23);
+		btn_todos_productos = VentanaPrincipal.parametrosJButton("Todos los productos",50, 30, 150, 20);
 		panelProductosAlmacen.add(btn_todos_productos);
 		
-	
-		btn_buscar.setBounds(189, 44, 65, 23);
-		panelProductosAlmacen.add(btn_buscar);
-		
-
-		btn_volver.setBounds(359, 11, 65, 23);
+		btn_volver = VentanaPrincipal.parametrosJButton("Volver", 710, 20, 70, 20);
 		panelProductosAlmacen.add(btn_volver);
 		
-				
-		btn_add_receta.setBounds(77, 227, 65, 23);
+		
+		caja_nombre_producto = VentanaPrincipal.parametrosJTextField(50, 65, 287, 20);
+		panelProductosAlmacen.add(caja_nombre_producto);
+		
+		btn_buscar = VentanaPrincipal.parametrosJButton("Buscar",350, 65, 65, 20);
+		panelProductosAlmacen.add(btn_buscar);
+		
+		btn_add_receta = VentanaPrincipal.parametrosJButton("Añadir a la receta",340, 520, 120, 20);
 		panelProductosAlmacen.add(btn_add_receta);
-
-	    scroll = new JScrollPane(tabla);
+		
+		
+		
+		tabla = new JTable();
+		scroll = VentanaPrincipal.parametrosJScrollPane(50, 100, 700, 400);
 	    scroll.setViewportView(tabla);
-	    scroll.setBounds(10, 76, 384, 130);
 	    panelProductosAlmacen.add(scroll);
-			
-	
+	    
+	    panelProductosAlmacen.setVisible(false);
+		
 	}
 	
 	public void establecerManejador() {		

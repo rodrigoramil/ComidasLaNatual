@@ -1,7 +1,9 @@
 package vista;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
@@ -49,30 +51,31 @@ public class ListaGastos extends JPanel {
 	
 	public void inicializarComponentes() {
 		
-		panelListaGastos = new JPanel();	
-		btn_Volver = new JButton("Volver");
-		btn_Ver = new JButton("Ver");
-		btn_Calcular_Gastos = new JButton("Calcular gastos");
-		tabla = new JTable();
-		panelListaGastos.setBorder(new EmptyBorder(5, 5, 5, 5));
-		panelListaGastos.setBounds(posicionPanel_x, posicionPanel_y, ancho, alto);
-		panelListaGastos.setLayout(null);
-		panelListaGastos.setVisible(false);
-				
-		btn_Volver.setBounds(335, 11, 89, 23);
-		panelListaGastos.add(btn_Volver);
 		
-		btn_Ver.setBounds(75, 215, 89, 23);
+		panelListaGastos = VentanaPrincipal.parametrosPanel(800,600);
+		
+		btn_Volver = VentanaPrincipal.parametrosJButton("Volver", 710, 20, 70, 20);
+		panelListaGastos.add(btn_Volver);
+				
+		
+		
+		
+		btn_Ver = VentanaPrincipal.parametrosJButton("Ver",200, 550, 120, 20);
 		panelListaGastos.add(btn_Ver);
 		
-		btn_Calcular_Gastos.setBounds(242, 215, 112, 23);
+		btn_Calcular_Gastos = VentanaPrincipal.parametrosJButton("Calcular gastos",480, 550, 120, 20);
 		panelListaGastos.add(btn_Calcular_Gastos);
+				
 		
-	    scroll = new JScrollPane(tabla);
-	    scroll.setViewportView(tabla);
-	    scroll.setBounds(65, 45, 330, 159);
-	    panelListaGastos.add(scroll);	
-
+		
+		tabla = new JTable();
+		scroll = VentanaPrincipal.parametrosJScrollPane(50, 100, 700, 400);
+		scroll.setViewportView(tabla);	    
+		panelListaGastos.add(scroll);
+	    
+		panelListaGastos.setVisible(false);
+		
+				
 	}
 	
 	public void establecerManejador() {			

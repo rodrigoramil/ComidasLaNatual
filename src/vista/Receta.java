@@ -40,7 +40,7 @@ public class Receta extends JPanel {
 	private static JButton btn_volver;
 	private static JTextField nombre_receta;
 	private static JTable tabla;
-    private static JScrollPane scrollReceta;
+    private static JScrollPane scroll;
     
 	private static int ancho = 800;
 	private static int alto = 600;
@@ -60,59 +60,62 @@ public class Receta extends JPanel {
 
 	public void inicializarComponentes() {
 
-		panelReceta = new JPanel();
-		nombre_receta = new JTextField("Nombre de la receta");
-	
-		texto_elaboracion = new JTextArea();		
-		lbl_ingredientes = new JLabel("Ingredientes");		
-		lbl_elaboracion = new JLabel("Elaboraci\u00F3n");		
-		btn_nuevo_ingrediente = new JButton("Nuevo ingrediente");		
-		btn_modificar_cantidad = new JButton("Modificar cantidad");		
-		btn_borrar_ingrediente = new JButton("Borrar ingrediente");		
-		btn_guardar = new JButton("Guardar");		
-		btn_volver = new JButton("Volver");
-		tabla = new JTable();
+		panelReceta = VentanaPrincipal.parametrosPanel(800,600);
 		
-		panelReceta.setBorder(new EmptyBorder(5, 5, 5, 5));
-		panelReceta.setBounds(posicionPanel_x, posicionPanel_y, ancho, alto);
-		panelReceta.setLayout(null);
-		panelReceta.setVisible(false);
 		
-		nombre_receta.setFont(new Font("Tahoma", Font.BOLD, 16));
+		nombre_receta = VentanaPrincipal.parametrosJTextField(175, 30, 450, 40);
+		nombre_receta.setFont(new Font("Manche Condensed",Font.BOLD,(int)(20*VentanaPrincipal.getCordenadaY())));
+		nombre_receta.setBackground(VentanaPrincipal.getAzulClaro());
+		nombre_receta.setText("Nombre de la receta");
 		nombre_receta.setHorizontalAlignment(SwingConstants.CENTER);
-		nombre_receta.setBounds(89, 0, 424, 35);
 		panelReceta.add(nombre_receta);
 		
-		
-		texto_elaboracion.setBounds(331, 51, 217, 268);
-		panelReceta.add(texto_elaboracion);
-		
-		lbl_ingredientes.setBounds(89, 35, 61, 14);
-		panelReceta.add(lbl_ingredientes);
-		
-		lbl_elaboracion.setBounds(409, 35, 61, 14);
-		panelReceta.add(lbl_elaboracion);
-		
-		btn_nuevo_ingrediente.setBounds(10, 341, 123, 23);
-		panelReceta.add(btn_nuevo_ingrediente);
-
-		btn_modificar_cantidad.setBounds(159, 341, 123, 23);
-		panelReceta.add(btn_modificar_cantidad);
-
-		btn_borrar_ingrediente.setBounds(308, 341, 123, 23);
-		panelReceta.add(btn_borrar_ingrediente);
-
-		btn_guardar.setBounds(457, 341, 91, 39);
-		panelReceta.add(btn_guardar);
-
-		btn_volver.setBounds(473, 7, 89, 23);
+		btn_volver = VentanaPrincipal.parametrosJButton("Volver", 710, 20, 70, 20);
 		panelReceta.add(btn_volver);
 		
+				
+		lbl_ingredientes = VentanaPrincipal.parametrosJlabel("Ingredientes",50, 70, 300, 40);
+		lbl_ingredientes.setFont(new Font("Manche Condensed",Font.BOLD,(int)(15*VentanaPrincipal.getCordenadaY())));
+		lbl_ingredientes.setHorizontalAlignment(SwingConstants.CENTER);
+		lbl_ingredientes.setForeground(Color.ORANGE);
+		panelReceta.add(lbl_ingredientes);
 		
-	    scrollReceta = new JScrollPane(tabla);	
-	    scrollReceta.setBounds(15, 51, 217, 268);
-	    panelReceta.add(scrollReceta);	
-
+		lbl_elaboracion = VentanaPrincipal.parametrosJlabel("Elaboraci\u00F3n",450, 70, 300, 40);
+		lbl_elaboracion.setFont(new Font("Manche Condensed",Font.BOLD,(int)(15*VentanaPrincipal.getCordenadaY())));
+		lbl_elaboracion.setHorizontalAlignment(SwingConstants.CENTER);
+		lbl_elaboracion.setForeground(Color.ORANGE);
+		panelReceta.add(lbl_elaboracion);
+		
+		btn_nuevo_ingrediente = VentanaPrincipal.parametrosJButton("Nuevo ingrediente",50, 520, 120, 20);
+		panelReceta.add(btn_nuevo_ingrediente);
+		
+		btn_modificar_cantidad = VentanaPrincipal.parametrosJButton("Modificar cantidad",200, 520, 120, 20);
+		panelReceta.add(btn_modificar_cantidad);
+		
+		btn_borrar_ingrediente = VentanaPrincipal.parametrosJButton("Borrar ingrediente",350, 520, 120, 20);
+		panelReceta.add(btn_borrar_ingrediente);
+		
+		btn_guardar = VentanaPrincipal.parametrosJButton("Guardar",600, 520, 120, 40);
+		btn_guardar.setBackground(Color.ORANGE);
+		panelReceta.add(btn_guardar);
+		
+		
+		tabla = new JTable();
+		scroll = VentanaPrincipal.parametrosJScrollPane(50, 100, 300, 400);
+		scroll.setViewportView(tabla);
+		panelReceta.add(scroll);
+		
+		texto_elaboracion = new JTextArea();
+		texto_elaboracion.setFont(VentanaPrincipal.getFuente());
+		texto_elaboracion.setBorder(null);
+		texto_elaboracion.setBounds(
+				Math.round(450*VentanaPrincipal.getCordenadaX()), 		//posicion HORIZONTAL
+				Math.round(100*VentanaPrincipal.getCordenadaY()),		//posicion VERTICAL
+				Math.round(300*VentanaPrincipal.getCordenadaX()), 		//tamaño HORIZONTAL
+				Math.round(400*VentanaPrincipal.getCordenadaY())); 		//tamaño VERTICAL
+		panelReceta.add(texto_elaboracion);
+			
+		panelReceta.setVisible(false);
 	}
 	
 

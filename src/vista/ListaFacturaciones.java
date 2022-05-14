@@ -45,31 +45,31 @@ public class ListaFacturaciones extends JPanel {
 	}
 
 	public static void inicializarComponentes() {
-		panelListaFacturaciones = new JPanel();
-		btn_Volver = new JButton("Volver");
-		btn_Ver = new JButton("Ver");
-		btn_Calcular_Ganancias = new JButton("Calcular Ganancias");
-		tabla = new JTable();
 		
-		panelListaFacturaciones.setBorder(new EmptyBorder(5, 5, 5, 5));
-		panelListaFacturaciones.setBounds(posicionPanel_x, posicionPanel_y, ancho, alto);
-		panelListaFacturaciones.setLayout(null);
+		panelListaFacturaciones = VentanaPrincipal.parametrosPanel(800,600);
+		
+		btn_Volver = VentanaPrincipal.parametrosJButton("Volver", 710, 20, 70, 20);
+		panelListaFacturaciones.add(btn_Volver);
+				
+		
+		
+		
+		btn_Ver = VentanaPrincipal.parametrosJButton("Ver",200, 550, 120, 20);
+		panelListaFacturaciones.add(btn_Ver);
+		
+		btn_Calcular_Ganancias = VentanaPrincipal.parametrosJButton("Calcular Ganancias",480, 550, 120, 20);
+		panelListaFacturaciones.add(btn_Calcular_Ganancias);
+				
+		
+		
+		tabla = new JTable();
+		scroll = VentanaPrincipal.parametrosJScrollPane(50, 100, 700, 400);
+		scroll.setViewportView(tabla);	    
+		panelListaFacturaciones.add(scroll);
+	    
 		panelListaFacturaciones.setVisible(false);
 		
 		
-		btn_Volver.setBounds(335, 14, 89, 23);
-		panelListaFacturaciones.add(btn_Volver);
-		
-		btn_Ver.setBounds(47, 201, 89, 23);
-		panelListaFacturaciones.add(btn_Ver);
-		
-		btn_Calcular_Ganancias.setBounds(245, 201, 123, 23);
-		panelListaFacturaciones.add(btn_Calcular_Ganancias);
-
-	    scroll = new JScrollPane(tabla);
-	    scroll.setViewportView(tabla);	
-	    scroll.setBounds(47, 48, 343, 134);
-	    panelListaFacturaciones.add(scroll);
 	}
 
 	public void establecerManejador() {			

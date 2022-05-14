@@ -436,6 +436,16 @@ public class VentanaPrincipal extends JFrame {
 	public static void setAzulClaro(Color azulClaro) {
 		VentanaPrincipal.azulClaro = azulClaro;
 	}
+
+
+	public static Font getFuente() {
+		return fuente;
+	}
+
+
+	public static void setFuente(Font fuente) {
+		VentanaPrincipal.fuente = fuente;
+	}
 	
 
 }

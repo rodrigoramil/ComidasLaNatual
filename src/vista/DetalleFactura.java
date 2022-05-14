@@ -6,10 +6,13 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JButton;
+
+import java.awt.Color;
 import java.awt.Font;
 import java.util.ArrayList;
 
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
 import controlador.ControladorDetalleFactura;
@@ -52,15 +55,68 @@ public class DetalleFactura extends JPanel {
 
 	public void inicializarComponentes() {
 		
-		panelDetalleFactura = new JPanel();
-		lbl_Num_Mesa = new JLabel("Mesa 1");
-		btn_Volver = new JButton("Volver");
-		lbl_Detalle_Factura = new JLabel("Facturada el dia 05/05/2022 a las 14:08 h por pepe");	
-		btn_Imprimir = new JButton("Imprimir");	
-		lbl_Total = new JLabel("Total:");		
-		lbl_Cantidad_Total = new JLabel("0,00");		
-		lbl_IVA = new JLabel("Total + IVA(21%):");	
-		lbl_Cantidad_Total_IVA = new JLabel("0,00");
+		panelDetalleFactura = VentanaPrincipal.parametrosPanel(800,600);
+		
+		
+		lbl_Num_Mesa = VentanaPrincipal.parametrosJlabel("Mesa 1",50, 15, 300, 40);
+		lbl_Num_Mesa.setFont(new Font("Manche Condensed",Font.BOLD,(int)(15*VentanaPrincipal.getCordenadaY())));
+		lbl_Num_Mesa.setForeground(Color.orange);
+		panelDetalleFactura.add(lbl_Num_Mesa);
+				
+		lbl_Detalle_Factura = VentanaPrincipal.parametrosJlabel("Facturada el dia 05/05/2022 a las 14:08 h por pepe",50, 60, 300, 40);
+		lbl_Detalle_Factura.setForeground(Color.black);
+		panelDetalleFactura.add(lbl_Detalle_Factura);
+		
+		btn_Volver = VentanaPrincipal.parametrosJButton("Volver", 710, 20, 70, 20);
+		panelDetalleFactura.add(btn_Volver);
+		
+		btn_Imprimir = VentanaPrincipal.parametrosJButton("Imprimir",50, 520, 120, 20);
+		panelDetalleFactura.add(btn_Imprimir);
+		
+		
+		
+		
+		lbl_Total = VentanaPrincipal.parametrosJlabel("Total:",500, 520, 120, 20);
+		lbl_Total.setHorizontalAlignment(SwingConstants.RIGHT);
+		panelDetalleFactura.add(lbl_Total);
+		
+		lbl_IVA = VentanaPrincipal.parametrosJlabel("Total + IVA(21%):",500, 540, 120, 20);
+		lbl_IVA.setHorizontalAlignment(SwingConstants.RIGHT);
+		panelDetalleFactura.add(lbl_IVA);
+		
+		
+		lbl_Cantidad_Total = VentanaPrincipal.parametrosJlabel("0,00 €",630,520, 120, 20);
+		lbl_Cantidad_Total.setHorizontalAlignment(SwingConstants.CENTER);
+		panelDetalleFactura.add(lbl_Cantidad_Total);
+		
+		lbl_Cantidad_Total_IVA = VentanaPrincipal.parametrosJlabel("0,00 €",630, 540, 120, 20);
+		lbl_Cantidad_Total_IVA.setHorizontalAlignment(SwingConstants.CENTER);
+		panelDetalleFactura.add(lbl_Cantidad_Total_IVA);
+
+		
+		tabla = new JTable();
+	    scroll = VentanaPrincipal.parametrosJScrollPane(50, 100, 700, 400);
+	    scroll.setViewportView(tabla);
+	    panelDetalleFactura.add(scroll);	
+		
+	    panelDetalleFactura.setVisible(false);
+		
+		
+		
+		
+		
+		
+		
+		/*
+					panelDetalleFactura = new JPanel();
+					lbl_Num_Mesa = new JLabel("Mesa 1");
+					btn_Volver = new JButton("Volver");
+					lbl_Detalle_Factura = new JLabel("Facturada el dia 05/05/2022 a las 14:08 h por pepe");	
+					btn_Imprimir = new JButton("Imprimir");	
+					lbl_Total = new JLabel("Total:");		
+					lbl_Cantidad_Total = new JLabel("0,00");		
+					lbl_IVA = new JLabel("Total + IVA(21%):");	
+				lbl_Cantidad_Total_IVA = new JLabel("0,00");
 		tabla = new JTable();
 		
 		panelDetalleFactura.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -97,7 +153,7 @@ public class DetalleFactura extends JPanel {
 	    scroll.setViewportView(tabla);
 	    scroll.setBounds(41, 81, 362, 120);
 	    panelDetalleFactura.add(scroll);	
-        
+        */
 	}
 
 	

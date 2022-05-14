@@ -61,54 +61,41 @@ public class Recetario extends JPanel {
 	
 	public void inicializarComponentes() {
 		
-		panelRecetario= new JPanel();
-		caja_nombre_receta = new JTextField();
-		btn_listadoRecetas = new JButton("Lista de todas las recetas");
-		btn_buscar = new JButton("Buscar");
-		btn_volver = new JButton("Volver");
-		btn_ver_recetas = new JButton("Ver");
-		btn_nueva_receta = new JButton("Nuevo");
-		btn_modificar_receta = new JButton("Modificar");
-		btn_cambiar_estado = new JButton("Cambiar Estado");
-		tabla = new JTable();
-		scroll = new JScrollPane(tabla);
-	
-		panelRecetario.setBorder(new EmptyBorder(5, 5, 5, 5));
-		panelRecetario.setBounds(posicionPanel_x, posicionPanel_y, ancho, alto);
-		panelRecetario.setLayout(null);
-		panelRecetario.setVisible(false);
+		panelRecetario = VentanaPrincipal.parametrosPanel(800,600);
 		
-		caja_nombre_receta.setBounds(10, 45, 169, 20);
-		panelRecetario.add(caja_nombre_receta);
-		caja_nombre_receta.setColumns(10);
 		
-		btn_listadoRecetas.setBounds(10, 11, 156, 23);
+		btn_listadoRecetas = VentanaPrincipal.parametrosJButton("Lista de todas las recetas",50, 30, 150, 20);
 		panelRecetario.add(btn_listadoRecetas);
 		
-	
-		btn_buscar.setBounds(189, 44, 65, 23);
+		btn_volver = VentanaPrincipal.parametrosJButton("Volver", 710, 20, 70, 20);
+		panelRecetario.add(btn_volver);
+		
+		
+		caja_nombre_receta = VentanaPrincipal.parametrosJTextField(50, 65, 287, 20);
+		panelRecetario.add(caja_nombre_receta);
+		
+		btn_buscar = VentanaPrincipal.parametrosJButton("Buscar",350, 65, 65, 20);
 		panelRecetario.add(btn_buscar);
 		
-		btn_volver.setBounds(359, 11, 65, 23);
-		panelRecetario.add(btn_volver);
-				
-		btn_ver_recetas.setBounds(10, 227, 57, 23);
+		btn_ver_recetas = VentanaPrincipal.parametrosJButton("Ver",50, 520, 120, 20);
 		panelRecetario.add(btn_ver_recetas);
 		
-		btn_nueva_receta.setBounds(77, 227, 65, 23);
+		btn_nueva_receta = VentanaPrincipal.parametrosJButton("Nuevo",200, 520, 120, 20);
 		panelRecetario.add(btn_nueva_receta);
 		
-		btn_modificar_receta.setBounds(154, 227, 75, 23);
+		btn_modificar_receta = VentanaPrincipal.parametrosJButton("Modificar",350, 520, 120, 20);
 		panelRecetario.add(btn_modificar_receta);
 		
-		btn_cambiar_estado.setBounds(287, 227, 107, 23);
+		btn_cambiar_estado = VentanaPrincipal.parametrosJButton("Cambiar Estado",630, 520, 120, 20);
 		panelRecetario.add(btn_cambiar_estado);
-	    
+		
+		tabla = new JTable();
+		scroll = VentanaPrincipal.parametrosJScrollPane(50, 100, 700, 400);
 	    scroll.setViewportView(tabla);
-	    scroll.setBounds(10, 76, 384, 130);
 	    panelRecetario.add(scroll);
 	    
-	    
+		
+	    panelRecetario.setVisible(false);    
 	    
 	}
 	
