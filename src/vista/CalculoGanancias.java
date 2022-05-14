@@ -17,7 +17,7 @@ import javax.swing.table.DefaultTableModel;
 
 import controlador.ControladorCalculoGanancias;
 import modelo.BbddVentas;
-import modelo.ModeloReceta;
+import modelo.ModeloPRUEBA;
 
 public class CalculoGanancias extends JPanel {
 
@@ -37,7 +37,7 @@ public class CalculoGanancias extends JPanel {
 	private static int alto = 600;
 	private static int posicionPanel_x = 100;
 	private static int posicionPanel_y = 50;
-	private static ArrayList<ModeloReceta> arrayGanancias;
+	private static ArrayList<ModeloPRUEBA> arrayGanancias;
 
     
 	public CalculoGanancias() {
@@ -110,7 +110,7 @@ public class CalculoGanancias extends JPanel {
 	}
 
 	public static void listarGanancias () {
-		arrayGanancias = new ArrayList<ModeloReceta>();			// <-- modificar el tipo de array al modelo objeto que corresponda
+		arrayGanancias = new ArrayList<ModeloPRUEBA>();			// <-- modificar el tipo de array al modelo objeto que corresponda
         BbddVentas.listarClientes();							// <-- modificar el método para que llame a la sentencia SQL que corresponda y y cargue los datos
         arrayGanancias = BbddVentas.getArrayRecetas();			// <-- crear y modificar el metodo GET que trae los datos del array que corresponda
         DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();

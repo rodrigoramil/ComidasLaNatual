@@ -15,7 +15,8 @@ import javax.swing.table.DefaultTableModel;
 
 import controlador.ControladorFacturar;
 import modelo.BbddVentas;
-import modelo.ModeloReceta;
+import modelo.ModeloPRUEBA;
+
 
 public class Facturar extends JPanel {
 
@@ -46,7 +47,7 @@ public class Facturar extends JPanel {
 	private static JTable tabla;
     private static JScrollPane scroll;
 
-	private static ArrayList<ModeloReceta> arrayFacturas;
+	private static ArrayList<ModeloPRUEBA> arrayFacturas;
 
     
 	public Facturar() {
@@ -138,7 +139,7 @@ public class Facturar extends JPanel {
 	}
 	
 	public static void factura () {
-		arrayFacturas = new ArrayList<ModeloReceta>();			// <-- modificar el tipo de array al modelo objeto que corresponda
+		arrayFacturas = new ArrayList<ModeloPRUEBA>();			// <-- modificar el tipo de array al modelo objeto que corresponda
         BbddVentas.listarClientes();							// <-- modificar el método para que llame a la sentencia SQL que corresponda y y cargue los datos
         arrayFacturas = BbddVentas.getArrayRecetas();			// <-- crear y modificar el metodo GET que trae los datos del array que corresponda
         DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();

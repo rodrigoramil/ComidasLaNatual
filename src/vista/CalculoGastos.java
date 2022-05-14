@@ -8,13 +8,10 @@ import javax.swing.JList;
 import javax.swing.JTextField;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-
 import controlador.ControladorCalculoGastos;
 import modelo.BbddVentas;
-import modelo.ModeloReceta;
-
+import modelo.ModeloPRUEBA;
 import java.util.ArrayList;
-
 import javax.swing.JButton;
 
 public class CalculoGastos extends JPanel {
@@ -42,7 +39,7 @@ public class CalculoGastos extends JPanel {
 	private static int posicionPanel_x = 100;
 	private static int posicionPanel_y = 50;
 
-	private static ArrayList<ModeloReceta> arrayGastos;
+	private static ArrayList<ModeloPRUEBA> arrayGastos;
 
 
     
@@ -115,7 +112,7 @@ public class CalculoGastos extends JPanel {
 
 	
 	public static void listarGastos () {
-		arrayGastos = new ArrayList<ModeloReceta>();			// <-- modificar el tipo de array al modelo objeto que corresponda
+		arrayGastos = new ArrayList<ModeloPRUEBA>();			// <-- modificar el tipo de array al modelo objeto que corresponda
         BbddVentas.listarClientes();							// <-- modificar el método para que llame a la sentencia SQL que corresponda y y cargue los datos
         arrayGastos = BbddVentas.getArrayRecetas();				// <-- crear y modificar el metodo GET que trae los datos del array que corresponda
         DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();

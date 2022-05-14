@@ -4,16 +4,14 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTable;
-
 import java.util.ArrayList;
-
 import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.table.DefaultTableModel;
-
 import controlador.ControladorListaFacturaciones;
 import modelo.BbddVentas;
-import modelo.ModeloReceta;
+import modelo.ModeloPRUEBA;
+
 
 public class ListaFacturaciones extends JPanel {
 
@@ -35,7 +33,7 @@ public class ListaFacturaciones extends JPanel {
 	private static int posicionPanel_x = 100;
 	private static int posicionPanel_y = 50;
 
-	private static ArrayList<ModeloReceta> arrayListaFacturaciones;
+	private static ArrayList<ModeloPRUEBA> arrayListaFacturaciones;
 
 	public ListaFacturaciones() {
 		super();
@@ -83,7 +81,7 @@ public class ListaFacturaciones extends JPanel {
 	}
 	
 	public static void listarFacturaciones () {
-		arrayListaFacturaciones = new ArrayList<ModeloReceta>();			// <-- modificar el tipo de array al modelo objeto que corresponda
+		arrayListaFacturaciones = new ArrayList<ModeloPRUEBA>();			// <-- modificar el tipo de array al modelo objeto que corresponda
         BbddVentas.listarClientes();							// <-- modificar el método para que llame a la sentencia SQL que corresponda y y cargue los datos
         arrayListaFacturaciones = BbddVentas.getArrayRecetas();			// <-- crear y modificar el metodo GET que trae los datos del array que corresponda
         DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();

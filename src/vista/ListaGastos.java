@@ -10,7 +10,8 @@ import javax.swing.table.DefaultTableModel;
 
 import controlador.ControladorListaGastos;
 import modelo.BbddVentas;
-import modelo.ModeloReceta;
+import modelo.ModeloPRUEBA;
+
 
 public class ListaGastos extends JPanel {
 
@@ -32,7 +33,7 @@ public class ListaGastos extends JPanel {
 	private static JTable tabla;
     private static JScrollPane scroll;
 
-	private static ArrayList<ModeloReceta> arrayListaGastos;
+	private static ArrayList<ModeloPRUEBA> arrayListaGastos;
 
 	public ListaGastos() {
 		super();
@@ -81,7 +82,7 @@ public class ListaGastos extends JPanel {
 	}
 
 	public static void listarGastos () {
-		arrayListaGastos = new ArrayList<ModeloReceta>();			// <-- modificar el tipo de array al modelo objeto que corresponda
+		arrayListaGastos = new ArrayList<ModeloPRUEBA>();			// <-- modificar el tipo de array al modelo objeto que corresponda
 
   //      BbddVentas.listarClientes();								// <-- modificar el método para que llame a la sentencia SQL que corresponda y y cargue los datos
 

@@ -12,13 +12,13 @@ public class BbddVentas {
 	private static Conexion conexion = null;
 	private static PreparedStatement sentencia = null;
 	private static ArrayList<ModeloCliente> arrayClientes = null;
-	private static ArrayList<ModeloReceta> arrayRecetas=null; // <---- BORRAR
+	private static ArrayList<ModeloPRUEBA> arrayRecetas=null; // <---- BORRAR
 
 	public static void listarClientes() {
 		conexion = new Conexion();
 		connection = conexion.obtenerConexion();
 		arrayClientes = new ArrayList<ModeloCliente>();
-		arrayRecetas = new ArrayList<ModeloReceta>();  // <---- BORRAR
+		arrayRecetas = new ArrayList<ModeloPRUEBA>();  // <---- BORRAR
 		try {
 			sentencia = connection.prepareStatement("SELECT * FROM cliente ");
 			ResultSet rs = sentencia.executeQuery();
@@ -32,7 +32,7 @@ public class BbddVentas {
 				arrayClientes.add(cliente);
 				// <---- BORRAR ----->
 				
-				ModeloReceta receta = new ModeloReceta(
+				ModeloPRUEBA receta = new ModeloPRUEBA(
 						rs.getString("NombreCliente"), 
 						rs.getString("Telefono"));
 				arrayRecetas.add(receta);
@@ -132,7 +132,7 @@ public class BbddVentas {
 	
 	
 
-	public static ArrayList<ModeloReceta> getArrayRecetas() {
+	public static ArrayList<ModeloPRUEBA> getArrayRecetas() {
 		return arrayRecetas;
 	}
 	

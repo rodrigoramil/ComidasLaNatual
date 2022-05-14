@@ -10,7 +10,8 @@ import javax.swing.JList;
 import javax.swing.JButton;
 import controlador.ControladorPedido;
 import modelo.BbddVentas;
-import modelo.ModeloReceta;
+import modelo.ModeloPRUEBA;
+
 
 import java.awt.Color;
 import java.util.ArrayList;
@@ -40,7 +41,7 @@ public class Pedido extends JPanel {
 	private static JTable tabla;
     private static JScrollPane scroll;
 
-	private static ArrayList<ModeloReceta> arrayPedidos;
+	private static ArrayList<ModeloPRUEBA> arrayPedidos;
     
     
     public Pedido() {
@@ -113,7 +114,7 @@ public class Pedido extends JPanel {
 	}
 
 	public static void pedidos () {
-		arrayPedidos = new ArrayList<ModeloReceta>();
+		arrayPedidos = new ArrayList<ModeloPRUEBA>();
         BbddVentas.listarClientes();
         arrayPedidos = BbddVentas.getArrayRecetas();
         DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();

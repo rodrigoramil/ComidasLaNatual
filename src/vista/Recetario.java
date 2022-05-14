@@ -1,7 +1,6 @@
 package vista;
 
 import java.util.ArrayList;
-
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -9,10 +8,8 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
-
 import controlador.ControladorRecetario;
 import modelo.BbddRecetario;
-import modelo.ModeloReceta;
 import modelo.ModeloRecetario;
 
 
@@ -142,7 +139,7 @@ public class Recetario extends JPanel {
         Object filaDato[] = new Object[2];     
         for (int i = 0; i < arrayRecetas.size(); i++) {
         	filaDato[0] = arrayRecetas.get(i).getNombreReceta();
-        	filaDato[1] = arrayRecetas.get(i).getIdDisponibilidad();  
+        	filaDato[1] = arrayRecetas.get(i).getEstado();  
         	modelo.addRow(filaDato);
     	}
         tabla.setModel(modelo);

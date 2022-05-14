@@ -3,20 +3,15 @@ package vista;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
-
 import java.util.ArrayList;
-
 import javax.swing.JButton;
-import javax.swing.JList;
 import javax.swing.JTextField;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-
 import controlador.ControladorAlmacen;
-import modelo.BbddRecetario;
-import modelo.BbddVentas;
+import modelo.BbddAlmacen;
 import modelo.ModeloAlmacen;
-import modelo.ModeloReceta;
+
 
 public class Almacen extends JPanel {
 
@@ -118,8 +113,8 @@ public class Almacen extends JPanel {
 	
 	public static void listarProductos () {
 		arrayAlmacen = new ArrayList<ModeloAlmacen>();
-        BbddRecetario.listarRecetas();
-        arrayAlmacen = BbddRecetario.getarrayAlmacen();	
+        BbddAlmacen.listarProductosAlmacen();
+        arrayAlmacen = BbddAlmacen.getArrayAlmacen();	
         DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
         modelo.addColumn("PRODUCTOS");
         modelo.addColumn("ACTUAL");
@@ -129,7 +124,7 @@ public class Almacen extends JPanel {
         Object filaDato[] = new Object[4];     
         for (int i = 0; i < arrayAlmacen.size(); i++) {
         	filaDato[0] = arrayAlmacen.get(i).getNombreProducto();
-        	filaDato[1] = arrayAlmacen.get(i).getCantidad();
+        	filaDato[1] = arrayAlmacen.get(i).getCantidadActual();
         	filaDato[2] = arrayAlmacen.get(i).getCantidadMinima();
         	filaDato[3] = arrayAlmacen.get(i).getCantidadMaxima();
         	
@@ -140,14 +135,11 @@ public class Almacen extends JPanel {
     }
 	
 
-	 public static int productoSeleccionado() throws NullPointerException {			// <-- modificar el nombre del metodo
+	 public static int indiceSeleccionado() throws NullPointerException {			// <-- modificar el nombre del metodo
 		 int indiceSeleccionado = tabla.getSelectedRow();
 		 return indiceSeleccionado;	
 	 }
-	
-	//*******	
-	
-	
+
 	
 	
 	

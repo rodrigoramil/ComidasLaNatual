@@ -1,44 +1,46 @@
 package modelo;
 
-public class ModeloReceta {
+import java.io.Serializable;
+
+public class ModeloReceta  implements Serializable {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	String receta;
-	String estado;
+	String ingrediente;
+	float cantidad;
 
-	
-	public ModeloReceta(String receta, String estado) {
+	public ModeloReceta(String ingrediente, float cantidad) {
 		super();
-		this.receta = receta;
-		this.estado = estado;
-	
+		this.ingrediente = ingrediente;
+		this.cantidad = cantidad;
 	}
-
+	
 	public ModeloReceta() {
 		super();
 	}
 
-	public String getReceta() {
-		return receta;
+	public String getIngrediente() {
+		return ingrediente;
 	}
 
-	public void setReceta(String receta) {
-		this.receta = receta;
+	public void setIngrediente(String ingrediente) {
+		this.ingrediente = ingrediente;
 	}
 
-	public String getEstado() {
-		return estado;
+	public float getCantidad() {
+		return cantidad;
 	}
 
-	public void setEstado(String estado) {
-		this.estado = estado;
+	public void setCantidad(float cantidad) {
+		this.cantidad = cantidad;
 	}
 
 	@Override
 	public String toString() {
-		return "ModeloReceta [receta=" + receta + ", estado=" + estado + "]";
+		return "ModeloReceta [ingrediente=" + ingrediente + ", cantidad=" + cantidad + "]";
 	}
-
+	
+	
 }
+

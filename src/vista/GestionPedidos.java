@@ -44,17 +44,16 @@ public class GestionPedidos extends JPanel {
 	private static JButton btn_Editar_Cliente;
 	private static JButton btn_Ver_Pedido;
 	private static JButton btn_volver;
-
+	private static JList listaCliente;
+    private static JScrollPane scrollCliente;
+    private static ArrayList<ModeloCliente> array_clientes;
+    private static DefaultListModel modeloListaCliente;
+	
 	private static int ancho = 800;
 	private static int alto = 600;
 	private static int posicionPanel_x = 100;
 	private static int posicionPanel_y = 50;
 
-	private static JList listaCliente;
-    private static JScrollPane scrollCliente;
-    
-    private static ArrayList<ModeloCliente> array_clientes;
-    private static DefaultListModel modeloListaCliente;
     
 
 	public GestionPedidos() {
