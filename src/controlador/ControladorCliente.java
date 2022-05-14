@@ -3,7 +3,7 @@ package controlador;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import modelo.BbddVentas;
+import modelo_bbdd.BbddVentas;
 import vista.Cliente;
 import vista.GestionPedidos;
 import vista.VentanaPrincipal;

@@ -5,8 +5,8 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JOptionPane;
 
-import modelo.BbddLogin;
-import modelo.BbddVentas;
+import modelo_bbdd.BbddLogin;
+import modelo_bbdd.BbddVentas;
 import vista.Cliente;
 import vista.GestionPedidos;
 import vista.GestionUsuarios;

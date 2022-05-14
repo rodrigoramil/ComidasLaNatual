@@ -1,10 +1,14 @@
 package modelo;
 
-public class ModeloPRUEBA {
+import java.io.Serializable;
+
+public class ModeloPRUEBA  implements Serializable {
+
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1993405083088320807L;
+	
 	String receta;
 	String estado;
 

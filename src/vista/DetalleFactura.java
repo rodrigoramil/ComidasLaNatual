@@ -13,8 +13,8 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import controlador.ControladorDetalleFactura;
-import modelo.BbddVentas;
 import modelo.ModeloPRUEBA;
+import modelo_bbdd.BbddVentas;
 
 public class DetalleFactura extends JPanel {
 

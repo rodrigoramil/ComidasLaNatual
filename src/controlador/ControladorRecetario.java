@@ -7,7 +7,7 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JOptionPane;
 
-import modelo.BbddReceta;
+import modelo_bbdd.BbddReceta;
 import vista.Recetario;
 import vista.VentanaPrincipal;
 

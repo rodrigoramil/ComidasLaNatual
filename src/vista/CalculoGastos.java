@@ -9,8 +9,9 @@ import javax.swing.JTextField;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import controlador.ControladorCalculoGastos;
-import modelo.BbddVentas;
 import modelo.ModeloPRUEBA;
+import modelo_bbdd.BbddVentas;
+
 import java.util.ArrayList;
 import javax.swing.JButton;
 

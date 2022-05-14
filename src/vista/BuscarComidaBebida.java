@@ -9,8 +9,8 @@ import javax.swing.JTextField;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import controlador.ControladorBuscarComidaBebida;
-import modelo.BbddVentas;
 import modelo.ModeloPRUEBA;
+import modelo_bbdd.BbddVentas;
 
 
 public class BuscarComidaBebida extends JPanel {

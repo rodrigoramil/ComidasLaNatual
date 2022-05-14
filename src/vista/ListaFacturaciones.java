@@ -9,8 +9,8 @@ import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.table.DefaultTableModel;
 import controlador.ControladorListaFacturaciones;
-import modelo.BbddVentas;
 import modelo.ModeloPRUEBA;
+import modelo_bbdd.BbddVentas;
 
 
 public class ListaFacturaciones extends JPanel {

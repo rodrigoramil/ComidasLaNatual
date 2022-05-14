@@ -8,9 +8,10 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import controlador.ControladorGestionUsuarios;
-import modelo.BbddLogin;
-import modelo.BbddVentas;
 import modelo.ModeloUsuario;
+import modelo_bbdd.BbddLogin;
+import modelo_bbdd.BbddVentas;
+
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import java.awt.Font;

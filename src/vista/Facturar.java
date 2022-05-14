@@ -14,8 +14,8 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import controlador.ControladorFacturar;
-import modelo.BbddVentas;
 import modelo.ModeloPRUEBA;
+import modelo_bbdd.BbddVentas;
 
 
 public class Facturar extends JPanel {

@@ -13,8 +13,8 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.table.DefaultTableModel;
 import controlador.ControladorReceta;
-import modelo.BbddReceta;
 import modelo.ModeloReceta;
+import modelo_bbdd.BbddReceta;
 
 public class Receta extends JPanel {
 

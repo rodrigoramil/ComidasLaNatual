@@ -1,4 +1,4 @@
-package modelo;
+package modelo_bbdd;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

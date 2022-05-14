@@ -6,8 +6,9 @@ import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import controlador.ControladorProductosAlmacen;
-import modelo.BbddVentas;
 import modelo.ModeloPRUEBA;
+import modelo_bbdd.BbddVentas;
+
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.util.ArrayList;

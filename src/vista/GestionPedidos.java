@@ -20,8 +20,8 @@ import javax.swing.JTable;
 import javax.swing.UIManager;
 
 import controlador.ControladorGestionPedidos;
-import modelo.BbddVentas;
 import modelo.ModeloCliente;
+import modelo_bbdd.BbddVentas;
 
 
 

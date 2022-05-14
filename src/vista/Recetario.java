@@ -9,8 +9,8 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import controlador.ControladorRecetario;
-import modelo.BbddRecetario;
 import modelo.ModeloRecetario;
+import modelo_bbdd.BbddRecetario;
 
 
 public class Recetario extends JPanel {

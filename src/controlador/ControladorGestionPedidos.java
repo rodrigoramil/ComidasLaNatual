@@ -5,7 +5,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.JOptionPane;
-import modelo.BbddVentas;
+
+import modelo_bbdd.BbddVentas;
 import vista.Cliente;
 import vista.GestionPedidos;
 import vista.Pedido;
@@ -47,9 +48,9 @@ public class ControladorGestionPedidos implements ActionListener, MouseListener 
 			try {
 				for (int i = 0; i < BbddVentas.getArrayClientes().size(); i++) {
 					clienteBBDD = BbddVentas.getArrayClientes().get(i).getId()-9;					
-					System.out.println("clienteSelecionado: "+clienteSelecionado+" ---- clienteBBDD: "+clienteBBDD);
+//					System.out.println("clienteSelecionado: "+clienteSelecionado+" ---- clienteBBDD: "+clienteBBDD);
 					if (clienteSelecionado==clienteBBDD) {	
-						System.out.println("clienteSelecionado -> "+clienteSelecionado+" clienteBBDD -> "+clienteBBDD); // <-- BORRAR
+//						System.out.println("clienteSelecionado -> "+clienteSelecionado+" clienteBBDD -> "+clienteBBDD); // <-- BORRAR
 						Cliente.getTfd_nombre().setText(BbddVentas.getArrayClientes().get(i).getNombre());
 						Cliente.getTfd_telefono().setText(BbddVentas.getArrayClientes().get(i).getTelefono());
 					}

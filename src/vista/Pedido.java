@@ -9,9 +9,8 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JButton;
 import controlador.ControladorPedido;
-import modelo.BbddVentas;
 import modelo.ModeloPRUEBA;
-
+import modelo_bbdd.BbddVentas;
 
 import java.awt.Color;
 import java.util.ArrayList;

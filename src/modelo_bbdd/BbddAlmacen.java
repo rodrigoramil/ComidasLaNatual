@@ -1,4 +1,4 @@
-package modelo;
+package modelo_bbdd;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -6,19 +6,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import modelo.ModeloAlmacen;
+
 public class BbddAlmacen {
 	
 	private static Connection connection = null;
 	private static Conexion conexion = null;
 	private static PreparedStatement sentenciaRecetas = null;
 	private static ArrayList<ModeloAlmacen> arrayAlmacen = null;
-
-	String nombreProducto;
-	float cantidadActual;
-	float cantidadMinima;
-	float cantidadMaxima;
-	
-	
 	
 	public static void listarProductosAlmacen() {
 		conexion = new Conexion();
@@ -29,8 +24,8 @@ public class BbddAlmacen {
 			ResultSet rs = sentenciaRecetas.executeQuery();			
 
 			while (rs.next()) {
-				ModeloAlmacen recetas = new ModeloAlmacen(rs.getString("NombreProducto"), rs.getFloat("Cantidad"), rs.getFloat("CantidadMinima"), rs.getFloat("CantidadMaxima"));
-				arrayAlmacen.add(recetas);
+				ModeloAlmacen modelo = new ModeloAlmacen(rs.getString("NombreProducto"), rs.getFloat("Cantidad"), rs.getFloat("CantidadMinima"), rs.getFloat("CantidadMaxima"));
+				arrayAlmacen.add(modelo);
 			}
 			
 		} catch (SQLException e) {

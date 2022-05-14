@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import modelo.BbddLogin;
+import modelo_bbdd.BbddLogin;
 import vista.Login;
 import vista.MenuPrincipal;
 import vista.VentanaPrincipal;

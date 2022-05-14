@@ -9,8 +9,8 @@ import javax.swing.JTextField;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import controlador.ControladorAlmacen;
-import modelo.BbddAlmacen;
 import modelo.ModeloAlmacen;
+import modelo_bbdd.BbddAlmacen;
 
 
 public class Almacen extends JPanel {
@@ -135,7 +135,7 @@ public class Almacen extends JPanel {
     }
 	
 
-	 public static int indiceSeleccionado() throws NullPointerException {			// <-- modificar el nombre del metodo
+	 public static int indiceSeleccionado() throws NullPointerException {
 		 int indiceSeleccionado = tabla.getSelectedRow();
 		 return indiceSeleccionado;	
 	 }
