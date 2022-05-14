@@ -7,8 +7,9 @@ public class ModeloReceta  implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	String ingrediente;
-	float cantidad;
+	private String ingrediente;
+	private float cantidad;
+	private String elaboracion; // <-- No extraida en sentencia SQL de la BBDD
 
 	public ModeloReceta(String ingrediente, float cantidad) {
 		super();

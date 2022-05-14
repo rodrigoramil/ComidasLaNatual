@@ -7,9 +7,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Base64;
 import javax.swing.JOptionPane;
-
 import modelo.ModeloUsuario;
 import vista.VentanaPrincipal;
+
 public class BbddLogin {
 	private static Connection connection = null;
 	private static Conexion conexion = null;
@@ -25,7 +25,7 @@ public class BbddLogin {
 			String passcifrado =Base64.getEncoder().encodeToString(entrada_contrasena.getBytes());
 			sentencia = connection.prepareStatement("SELECT NombreUsuario, Contrasena, Rol FROM Usuarios WHERE NombreUsuario= ? AND Contrasena = ?");
 			sentencia.setNString(1, entrada_usuario);
-			sentencia.setNString(2, passcifrado); // <-- PASS YA CIFRADA
+			sentencia.setNString(2, passcifrado); 		// <-- PASS YA CIFRADA
 			ResultSet rs = sentencia.executeQuery();			
 			while (rs.next()) {
 				if (rs.getString("Rol").equals("Administrador")) {estado = "Administrador";} 

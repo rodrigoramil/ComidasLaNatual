@@ -14,13 +14,15 @@ import vista.Usuario;
 import vista.VentanaPrincipal;
 
 public class ControladorUsuario implements ActionListener {
-
+	
 	private Usuario panelUsuario;
 	private String usuarioVentas;
 	private String usuarioCocina;
 	private String usuarioAdmin;
-	private boolean nuevoUsuario = false;
-
+	private boolean nuevoUsuario;
+	
+	
+	
 	public ControladorUsuario(Usuario panelUsuario) {
 		this.panelUsuario = panelUsuario;
 	}
@@ -30,28 +32,10 @@ public class ControladorUsuario implements ActionListener {
 		if (e.getSource() == Usuario.getBtn_volver()) {
 			VentanaPrincipal.getPanelGestionUsuarios().setVisible(true);
 			VentanaPrincipal.getPanelUsuario().setVisible(false);
-			nuevoUsuario  = false;
-			
-			try {
-				for (int i = 0; i < BbddLogin.getArrayUsuarios().size(); i++) {
-					String usuarioSelecionado = GestionUsuarios.usuarioSeleccionado();
-					String usuarioBBDD = BbddLogin.getArrayUsuarios().get(i).getNombreUsuario();					
-					
-					if (usuarioSelecionado.equals(usuarioBBDD)) {	
-						System.out.println("usuarioSelecionado -> "+usuarioSelecionado+" usuarioBBDD -> "+usuarioBBDD); // <-- BORRAR
-						Usuario.getCaja_nombre().setText(BbddLogin.getArrayUsuarios().get(i).getNombreUsuario());
-						Usuario.getRdbtn_admin().setSelected(true);
-					}
-				}											
-			} catch (NullPointerException errorSelectorVacio) {				
-				JOptionPane.showMessageDialog(panelUsuario, "Selecciona cliente a editar");
-			}	
-			
-			
-			
-			
-			
+			GestionUsuarios.getTabla().clearSelection();
+			ControladorGestionUsuarios.setNuevoUsuario(false);
 		}
+		
 		
 		if (e.getSource() == Usuario.getBtn_Aceptar()) {
 			VentanaPrincipal.getPanelGestionUsuarios().setVisible(true);
@@ -59,19 +43,32 @@ public class ControladorUsuario implements ActionListener {
 			Usuario.getCaja_nombre().setText("");
 			Usuario.getCaja_pass_1().setText("");
 			Usuario.getCaja_pass_2().setText("");
-			GestionUsuarios.getTabla().clearSelection();			
-			nuevoUsuario  = true;
+					
+			nuevoUsuario = ControladorGestionUsuarios.isNuevoUsuario();
 			
-			if (Usuario.getRdbtn_ventas().isSelected()) {
-				usuarioVentas="Ventas";
-			}
-			if (Usuario.getRdbtn_Cocina().isSelected()) {
-				usuarioCocina="Cocina";
-			}
-			if (Usuario.getRdbtn_admin().isSelected()) {
-				usuarioAdmin="Administrador";
+			System.out.println("nuevoUsuario: "+nuevoUsuario);
+			
+			if (nuevoUsuario) {
+				/* Falta implementar el método en la clase Login que realice una sentencia SQL con un INSERT INTO */
+				
+				
+			} else {
+				/* Falta implementar el método en la clase Login que realice una sentencia SQL con un UPDATE */
+				
+				
 			}
 			
+			
+			
+			
+			
+			
+			
+			
+
+			
+			GestionUsuarios.getTabla().clearSelection();	
+			ControladorGestionUsuarios.setNuevoUsuario(false);
 		}
 
 	}
@@ -88,10 +85,6 @@ public class ControladorUsuario implements ActionListener {
 		return usuarioAdmin;
 	}
 
-	public boolean getNuevoUsuario() {
-		return nuevoUsuario;
-	}
-	
 	
 	
 	
