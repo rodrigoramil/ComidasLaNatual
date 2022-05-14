@@ -1,7 +1,10 @@
 package vista;
 
 import java.awt.*;
+import java.sql.SQLException;
+
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 
 
 public class VentanaPrincipal extends JFrame {
@@ -46,6 +49,7 @@ public class VentanaPrincipal extends JFrame {
 	private static Color azulNormal;
 	private static Color azulClaro;
 	private static Font fuente;
+	private static LineBorder bordeOscuro;
 
 	/**
 	 * Creamos la ventana principal que contendrá todos los paneles
@@ -53,10 +57,6 @@ public class VentanaPrincipal extends JFrame {
 	public VentanaPrincipal() {
 		
 		calculoResolucion();
-		azulOscuro = new Color(12,75,115);
-		azulNormal = new Color(52,131,179);
-		azulClaro = new Color(192,227,247);
-		fuente = new Font("Manche Condensed",Font.BOLD,(int)(12*VentanaPrincipal.getCordenadaY()));
 		setResizable(false); // fija el tamaño de la ventana
 		setTitle("Comidas La Natural");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -64,8 +64,22 @@ public class VentanaPrincipal extends JFrame {
 		setExtendedState(MAXIMIZED_BOTH); //PANTALLA COMPLETA
 		setLocationRelativeTo(null); // ventana en el centro de la pantalla
 //		setIconImage(Toolkit.getDefaultToolkit().getImage("img/imagenicono.jpg"));		
-		setVisible(true);				
-		inicializarPaneles();
+		setVisible(true);
+		
+		try {
+			
+			inicializarPaneles();
+			
+		} 
+		catch (NullPointerException e) {
+			JOptionPane.showMessageDialog(VentanaPrincipal.getPanelLogin(), "No se ha podido establecer la conexión con la Base de Datos");
+			e.printStackTrace();
+		} 
+		catch (Exception e1) {
+			JOptionPane.showMessageDialog(VentanaPrincipal.getPanelLogin(), "Error");
+			e1.printStackTrace();
+		}
+		
 
 	}
 	
@@ -74,6 +88,12 @@ public class VentanaPrincipal extends JFrame {
 	 * Inicializamos los objetos paneles
 	 */
 	private void inicializarPaneles() {	
+		
+		azulOscuro = new Color(12,75,115);
+		azulNormal = new Color(52,131,179);
+		azulClaro = new Color(192,227,247);		
+		bordeOscuro = new LineBorder(azulOscuro,2);		
+		fuente = new Font("Manche Condensed",Font.BOLD,(int)(12*VentanaPrincipal.getCordenadaY()));		
 		
 		panelContenedor = new JPanel();
 		panelContenedor.setBounds(0, 0, resolucionX,resolucionY);
@@ -198,7 +218,8 @@ public class VentanaPrincipal extends JFrame {
 	protected static JPanel parametrosPanel(int tamañoX,int tamañoY) {
 		JPanel panelGenerico = new JPanel();
 		panelGenerico.setBackground(VentanaPrincipal.getAzulNormal());									//color panel
-		panelGenerico.setLayout(null);
+		panelGenerico.setLayout(null);		
+		panelGenerico.setBorder(bordeOscuro);
 		
 		//calculamos inicialmente el tamaño del panel para saber su posicion central
 				int xPanel = Math.round(tamañoX*VentanaPrincipal.getCordenadaX());				//utilizamos la resolucion base 800 pixeles horizontales como medida
@@ -206,7 +227,7 @@ public class VentanaPrincipal extends JFrame {
 				int x = (VentanaPrincipal.getResolucionX()-xPanel)/2;
 				int y = (VentanaPrincipal.getResolucionY()-yPanel)/2;
 				
-		
+			
 				panelGenerico.setBounds(
 										x,													//posicion HORIZONTAL
 										y, 													//posicion VERTICAL
@@ -240,10 +261,13 @@ public class VentanaPrincipal extends JFrame {
 		return jtextFieldgenerico;
 	}
 	protected static JButton parametrosJButton(String nombre,int posicionX,int posicionY,int tamañoX,int tamañoY) {
+		
+		
 		JButton jbuttongenerico = new JButton(nombre);
+		jbuttongenerico.setBorder(bordeOscuro);
 		jbuttongenerico.setBackground(azulClaro);
 		jbuttongenerico.setFont(fuente);
-		jbuttongenerico.setBorder(null);
+//		jbuttongenerico.setBorder(null);
 		jbuttongenerico.setBounds(
 								Math.round(posicionX*VentanaPrincipal.getCordenadaX()), 		//posicion HORIZONTAL
 								Math.round(posicionY*VentanaPrincipal.getCordenadaY()),		//posicion VERTICAL

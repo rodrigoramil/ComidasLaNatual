@@ -83,8 +83,8 @@ public class Login extends JPanel {
 	
 	public void establecerManejador() {			
 			ControladorLogin controlador = new ControladorLogin(this);	
-			btn_Aceptar.addActionListener(controlador);
-			btn_Borrar.addActionListener(controlador);
+			btn_Aceptar.addMouseListener(controlador);
+			btn_Borrar.addMouseListener(controlador);
 		
 	}
 
