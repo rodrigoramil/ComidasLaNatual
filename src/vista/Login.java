@@ -32,116 +32,54 @@ public class Login extends JPanel {
 	public Login() {
 		super();		
 		inicializarComponentes();
+		establecerManejador();
 	}
 
 	public void inicializarComponentes() {
 
 		//inicializamos PANEL
-		panelLogin = new JPanel();
+		panelLogin = VentanaPrincipal.parametrosPanel(300,300);
+		
+		
 		
 		//inicializamos USUARIO
-		lbl_Usuario = new JLabel("USUARIO");
-		jtf_Entrada_Nombre = new JTextField();
+		lbl_Usuario = VentanaPrincipal.parametrosJlabel("USUARIO",15, 83, 90,14);
+		lbl_Usuario.setHorizontalAlignment(SwingConstants.RIGHT);
+		panelLogin.add(lbl_Usuario); 												//añadimos al panel
+		
+		
+		jtf_Entrada_Nombre = VentanaPrincipal.parametrosJTextField(115, 80, 160, 20);
+		panelLogin.add(jtf_Entrada_Nombre);												//añadimos al panel
 		
 		//inicializamos CONTRASEÑA
-		lbl_Contraseña = new JLabel("CONTRASE\u00d1A");
-		jtf_Entrada_Contrasena = new JPasswordField();
-		
-		//inicializamos ACEPTAR BORRAR
-		btn_Aceptar = new JButton("Aceptar");
-		btn_Borrar = new JButton("Borrar");
-		
-		//eventos y visible
-		establecerManejador();
-		panelLogin.setVisible(true);
-		
-		//situacion PANEL
-		panelLogin.setBackground(new Color(52,131,179));
-		
-		//calculamos inicialmente el tamaño del panel para saber su posicion central
-		int xPanelLogin = Math.round(300*VentanaPrincipal.getCordenadaX());				//utilizamos la resolucion base 800 pixeles horizontales como medida
-		int yPanelLogin = Math.round(300*VentanaPrincipal.getCordenadaY());				//utilizamos la resolucion base 600 pixeles verticales como medida
-		int x = (VentanaPrincipal.getResolucionX()-xPanelLogin)/2;
-		int y = (VentanaPrincipal.getResolucionY()-yPanelLogin)/2;
-		
-		panelLogin.setBounds(
-								x,														//posicion HORIZONTAL
-								y, 														//posicion VERTICAL
-								xPanelLogin,											//tamaño HORIZONTA
-								yPanelLogin);											//tamaño VERTICAL
-
-		panelLogin.setLayout(null);
-		
-		//situacion USUARIO
-		panelLogin.add(lbl_Usuario); 												//añadimos al panel
-		lbl_Usuario.setFont(new Font("Manche Condensed",Font.BOLD,(int)(10*VentanaPrincipal.getCordenadaY())));
-		lbl_Usuario.setHorizontalAlignment(SwingConstants.RIGHT);
-		lbl_Usuario.setForeground(new Color(192,227,247));
-		lbl_Usuario.setBounds(
-								Math.round(20*VentanaPrincipal.getCordenadaX()), 		//posicion HORIZONTAL
-								Math.round(83*VentanaPrincipal.getCordenadaY()),		//posicion VERTICAL
-								Math.round(80*VentanaPrincipal.getCordenadaX()), 		//tamaño HORIZONTAL
-								Math.round(14*VentanaPrincipal.getCordenadaY())); 		//tamaño VERTICAL
-		
-		panelLogin.add(jtf_Entrada_Nombre);											//añadimos al panel
-		jtf_Entrada_Nombre.setFont(new Font("Manche Condensed",Font.BOLD,(int)(10*VentanaPrincipal.getCordenadaY())));
-		jtf_Entrada_Nombre.setHorizontalAlignment(SwingConstants.CENTER);
-		jtf_Entrada_Nombre.setBorder(null);
-		jtf_Entrada_Nombre.setBounds(
-								Math.round(110*VentanaPrincipal.getCordenadaX()), 		//posicion HORIZONTAL
-								Math.round(80*VentanaPrincipal.getCordenadaY()),		//posicion VERTICAL 
-								Math.round(160*VentanaPrincipal.getCordenadaX()),  		//tamaño HORIZONTAL
-								Math.round(20*VentanaPrincipal.getCordenadaY())); 		//tamaño VERTICAL
-		
-		
-		//situacion CONTRASEÑA
-		panelLogin.add(lbl_Contraseña);												//añadimos al panel
-		lbl_Contraseña.setFont(new Font("Manche Condensed",Font.BOLD,(int)(10*VentanaPrincipal.getCordenadaY())));
+		lbl_Contraseña = VentanaPrincipal.parametrosJlabel("CONTRASE\u00d1A",15, 125, 90,14);
 		lbl_Contraseña.setHorizontalAlignment(SwingConstants.RIGHT);
-		lbl_Contraseña.setForeground(new Color(192,227,247));
-		lbl_Contraseña.setBounds(
-								Math.round(20*VentanaPrincipal.getCordenadaX()), 		//posicion HORIZONTAL
-								Math.round(125*VentanaPrincipal.getCordenadaY()),		//posicion VERTICAL 
-								Math.round(80*VentanaPrincipal.getCordenadaX()),  		//tamaño HORIZONTAL
-								Math.round(14*VentanaPrincipal.getCordenadaY())); 		//tamaño VERTICAL
+		panelLogin.add(lbl_Contraseña);													//añadimos al panel
 		
-		panelLogin.add(jtf_Entrada_Contrasena);										//añadimos al panel
-		jtf_Entrada_Contrasena.setFont(new Font("Manche Condensed",Font.BOLD,(int)(10*VentanaPrincipal.getCordenadaY())));
+		jtf_Entrada_Contrasena = new JPasswordField();
+		jtf_Entrada_Contrasena.setFont(new Font("Manche Condensed",Font.BOLD,(int)(12*VentanaPrincipal.getCordenadaY())));
 		jtf_Entrada_Contrasena.setHorizontalAlignment(SwingConstants.CENTER);
 		jtf_Entrada_Contrasena.setBorder(null);
 		jtf_Entrada_Contrasena.setBounds(
-								Math.round(110*VentanaPrincipal.getCordenadaX()), 		//posicion HORIZONTAL
+								Math.round(115*VentanaPrincipal.getCordenadaX()), 		//posicion HORIZONTAL
 								Math.round(120*VentanaPrincipal.getCordenadaY()),		//posicion VERTICAL 
 								Math.round(160*VentanaPrincipal.getCordenadaX()),  		//tamaño HORIZONTAL
 								Math.round(20*VentanaPrincipal.getCordenadaY())); 		//tamaño VERTICAL
+		panelLogin.add(jtf_Entrada_Contrasena);											//añadimos al panel
 		
 
-		
-		
 		//localizacion ACEPTAR BORRAR
-		panelLogin.add(btn_Aceptar);												//añadimos al panel
-		btn_Aceptar.setBackground(new Color(192,227,247));
-		btn_Aceptar.setFont(new Font("Manche Condensed",Font.BOLD,(int)(12*VentanaPrincipal.getCordenadaY())));
-		btn_Aceptar.setBorder(null);
-		btn_Aceptar.setBounds(
-								Math.round(40*VentanaPrincipal.getCordenadaX()), 		//posicion HORIZONTAL
-								Math.round(200*VentanaPrincipal.getCordenadaY()),		//posicion VERTICAL 
-								Math.round(90*VentanaPrincipal.getCordenadaX()),  		//tamaño HORIZONTAL
-								Math.round(23*VentanaPrincipal.getCordenadaY())); 		//tamaño VERTICAL
+		btn_Aceptar = VentanaPrincipal.parametrosJButton("Aceptar",40,200,90,23);
+		panelLogin.add(btn_Aceptar);													//añadimos al panel
 		
-		panelLogin.add(btn_Borrar);													//añadimos al panel
-		btn_Borrar.setBackground(new Color(192,227,247));
-		btn_Borrar.setFont(new Font("Manche Condensed",Font.BOLD,(int)(12*VentanaPrincipal.getCordenadaY())));
-		btn_Borrar.setBorder(null);
-		btn_Borrar.setBounds(
-								Math.round(170*VentanaPrincipal.getCordenadaX()),  		//posicion HORIZONTAL
-								Math.round(200*VentanaPrincipal.getCordenadaY()), 		//posicion VERTICAL 
-								Math.round(90*VentanaPrincipal.getCordenadaX()),  		//tamaño HORIZONTAL
-								Math.round(23*VentanaPrincipal.getCordenadaY())); 		//tamaño VERTICAL
 		
-
-		establecerManejador();
+		btn_Borrar = VentanaPrincipal.parametrosJButton("Borrar", 170, 200, 90, 23);
+		panelLogin.add(btn_Borrar);														//añadimos al panel
+		
+		
+		panelLogin.setVisible(true);
 	}
+	
 	
 	public void establecerManejador() {			
 			ControladorLogin controlador = new ControladorLogin(this);	

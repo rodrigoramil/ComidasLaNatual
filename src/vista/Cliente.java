@@ -11,6 +11,7 @@ import controlador.ControladorCliente;
 
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.JButton;
 
 public class Cliente extends JPanel {
@@ -36,40 +37,32 @@ public class Cliente extends JPanel {
 
 	public void inicializarComponentes() {
 		
-		panelcliente = new JPanel();
-		lbl_nombre = new JLabel("Nombre");
-		lbl_telefono = new JLabel("Telefono");
-		btn_Aceptar = new JButton("Aceptar");
-		btn_volver = new JButton("Volver");
-		tfd_nombre = new JTextField();
-		tfd_telefono = new JTextField();
-
+		panelcliente = VentanaPrincipal.parametrosPanel(400, 400);
 		
-		panelcliente.setBorder(new EmptyBorder(5, 5, 5, 5));
-		panelcliente.setBounds(posicionPanel_x, posicionPanel_y, ancho, alto);
-		panelcliente.setLayout(null);
-		panelcliente.setVisible(false);
+		//inicializamos NOMBRE
+		lbl_nombre = VentanaPrincipal.parametrosJlabel("Nombre",15, 100, 90,30);
+		lbl_nombre.setHorizontalAlignment(SwingConstants.RIGHT);
+		panelcliente.add(lbl_nombre); 												//añadimos al panel
 		
-		lbl_nombre.setBounds(59, 51, 46, 14);
-		panelcliente.add(lbl_nombre);
+		tfd_nombre = VentanaPrincipal.parametrosJTextField(120, 100, 250, 30);
+		panelcliente.add(tfd_nombre);												//añadimos al panel
 		
-		lbl_telefono.setBounds(59, 89, 46, 14);
+		//inicializamos TELEFONO
+		lbl_telefono = VentanaPrincipal.parametrosJlabel("Telefono",15, 200, 90,30);
+		lbl_telefono.setHorizontalAlignment(SwingConstants.RIGHT);
 		panelcliente.add(lbl_telefono);
-
-		tfd_nombre.setBounds(115, 48, 229, 20);
-		panelcliente.add(tfd_nombre);
-		tfd_nombre.setColumns(10);
 		
-		tfd_telefono.setToolTipText("");
-		tfd_telefono.setColumns(10);
-		tfd_telefono.setBounds(115, 86, 229, 20);
-		panelcliente.add(tfd_telefono);
-
-		btn_Aceptar.setBounds(166, 127, 89, 23);
+		tfd_telefono = VentanaPrincipal.parametrosJTextField(120,200,250,30);
+		panelcliente.add(tfd_telefono);												//añadimos al panel
+		
+		btn_Aceptar = VentanaPrincipal.parametrosJButton("Aceptar",140,300,120, 40);
 		panelcliente.add(btn_Aceptar);
-
-		btn_volver.setBounds(361, 11, 63, 23);
+		btn_volver = VentanaPrincipal.parametrosJButton("Volver", 310, 20, 70, 20);
 		panelcliente.add(btn_volver);
+
+		panelcliente.setVisible(false);
+
+		
 
 	}
 

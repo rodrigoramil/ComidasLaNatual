@@ -1,10 +1,7 @@
 package vista;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Toolkit;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import java.awt.*;
+import javax.swing.*;
 
 
 public class VentanaPrincipal extends JFrame {
@@ -45,17 +42,24 @@ public class VentanaPrincipal extends JFrame {
 	private static int resolucionY;
 	private static float cordenadaX;
 	private static float cordenadaY;
+	private static Color azulOscuro;
+	private static Color azulNormal;
+	private static Color azulClaro;
+	private static Font fuente;
 
 	/**
 	 * Creamos la ventana principal que contendrá todos los paneles
 	 */
 	public VentanaPrincipal() {
 		
-
+		calculoResolucion();
+		azulOscuro = new Color(12,75,115);
+		azulNormal = new Color(52,131,179);
+		azulClaro = new Color(192,227,247);
+		fuente = new Font("Manche Condensed",Font.BOLD,(int)(12*VentanaPrincipal.getCordenadaY()));
 		setResizable(false); // fija el tamaño de la ventana
 		setTitle("Comidas La Natural");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		calculoResolucion();
 		setSize(resolucionX, resolucionY);
 		setExtendedState(MAXIMIZED_BOTH); //PANTALLA COMPLETA
 		setLocationRelativeTo(null); // ventana en el centro de la pantalla
@@ -73,7 +77,7 @@ public class VentanaPrincipal extends JFrame {
 		
 		panelContenedor = new JPanel();
 		panelContenedor.setBounds(0, 0, resolucionX,resolucionY);
-		panelContenedor.setBackground(new Color(12,75,115));
+		panelContenedor.setBackground(VentanaPrincipal.getAzulOscuro());
 		panelContenedor.setLayout(null);
 		setContentPane(panelContenedor);
 		
@@ -181,7 +185,7 @@ public class VentanaPrincipal extends JFrame {
 
 	}
 
-public void calculoResolucion() {
+	private void calculoResolucion() {
 		
 		Dimension resolucion = Toolkit.getDefaultToolkit().getScreenSize(); //OBTENEMOS LA RESOLUCIÓN DE LA PANTALLA
 		resolucionX = (int)resolucion.width;
@@ -190,6 +194,74 @@ public void calculoResolucion() {
 		cordenadaY = ((float)resolucionY/resolucionBaseY);
 		System.out.println(resolucionX+" "+cordenadaX);
 		
+	}
+	protected static JPanel parametrosPanel(int tamañoX,int tamañoY) {
+		JPanel panelGenerico = new JPanel();
+		panelGenerico.setBackground(VentanaPrincipal.getAzulNormal());									//color panel
+		panelGenerico.setLayout(null);
+		
+		//calculamos inicialmente el tamaño del panel para saber su posicion central
+				int xPanel = Math.round(tamañoX*VentanaPrincipal.getCordenadaX());				//utilizamos la resolucion base 800 pixeles horizontales como medida
+				int yPanel = Math.round(tamañoY*VentanaPrincipal.getCordenadaY());				//utilizamos la resolucion base 600 pixeles verticales como medida
+				int x = (VentanaPrincipal.getResolucionX()-xPanel)/2;
+				int y = (VentanaPrincipal.getResolucionY()-yPanel)/2;
+				
+		
+				panelGenerico.setBounds(
+										x,													//posicion HORIZONTAL
+										y, 													//posicion VERTICAL
+										xPanel,												//tamaño HORIZONTA
+										yPanel);											//tamaño VERTICAL
+		return panelGenerico;
+	}
+	
+	protected static JLabel parametrosJlabel(String nombre,int posicionX,int posicionY,int tamañoX,int tamañoY) {
+		JLabel jlabelgenerico = new JLabel(nombre);
+		jlabelgenerico.setFont(fuente);		
+		jlabelgenerico.setForeground(azulClaro);
+		jlabelgenerico.setBounds(
+								Math.round(posicionX*VentanaPrincipal.getCordenadaX()), 		//posicion HORIZONTAL
+								Math.round(posicionY*VentanaPrincipal.getCordenadaY()),		//posicion VERTICAL
+								Math.round(tamañoX*VentanaPrincipal.getCordenadaX()), 		//tamaño HORIZONTAL
+								Math.round(tamañoY*VentanaPrincipal.getCordenadaY())); 		//tamaño VERTICAL
+		return jlabelgenerico;
+	}
+	
+	//JTextField()
+	protected static JTextField parametrosJTextField(int posicionX,int posicionY,int tamañoX,int tamañoY) {
+		JTextField jtextFieldgenerico = new JTextField();
+		jtextFieldgenerico.setFont(fuente);
+		jtextFieldgenerico.setBorder(null);
+		jtextFieldgenerico.setBounds(
+								Math.round(posicionX*VentanaPrincipal.getCordenadaX()), 		//posicion HORIZONTAL
+								Math.round(posicionY*VentanaPrincipal.getCordenadaY()),		//posicion VERTICAL
+								Math.round(tamañoX*VentanaPrincipal.getCordenadaX()), 		//tamaño HORIZONTAL
+								Math.round(tamañoY*VentanaPrincipal.getCordenadaY())); 		//tamaño VERTICAL
+		return jtextFieldgenerico;
+	}
+	protected static JButton parametrosJButton(String nombre,int posicionX,int posicionY,int tamañoX,int tamañoY) {
+		JButton jbuttongenerico = new JButton(nombre);
+		jbuttongenerico.setBackground(azulClaro);
+		jbuttongenerico.setFont(fuente);
+		jbuttongenerico.setBorder(null);
+		jbuttongenerico.setBounds(
+								Math.round(posicionX*VentanaPrincipal.getCordenadaX()), 		//posicion HORIZONTAL
+								Math.round(posicionY*VentanaPrincipal.getCordenadaY()),		//posicion VERTICAL
+								Math.round(tamañoX*VentanaPrincipal.getCordenadaX()), 		//tamaño HORIZONTAL
+								Math.round(tamañoY*VentanaPrincipal.getCordenadaY())); 		//tamaño VERTICAL
+		return jbuttongenerico;
+	}
+	protected static JScrollPane parametrosJScrollPane(int posicionX,int posicionY,int tamañoX,int tamañoY) {
+		JScrollPane jscrollPanegenerico = new JScrollPane();
+		jscrollPanegenerico.setBackground(azulOscuro);
+		jscrollPanegenerico.setFont(fuente);
+		jscrollPanegenerico.setBorder(null);
+		jscrollPanegenerico.setBounds(
+								Math.round(posicionX*VentanaPrincipal.getCordenadaX()), 		//posicion HORIZONTAL
+								Math.round(posicionY*VentanaPrincipal.getCordenadaY()),		//posicion VERTICAL
+								Math.round(tamañoX*VentanaPrincipal.getCordenadaX()), 		//tamaño HORIZONTAL
+								Math.round(tamañoY*VentanaPrincipal.getCordenadaY())); 		//tamaño VERTICAL
+		return jscrollPanegenerico;
 	}
 	/**
 	 * Get y Set
@@ -333,6 +405,36 @@ public void calculoResolucion() {
 
 	public static float getCordenadaY() {
 		return cordenadaY;
+	}
+
+
+	public static Color getAzulOscuro() {
+		return azulOscuro;
+	}
+
+
+	public static void setAzulOscuro(Color azulOscuro) {
+		VentanaPrincipal.azulOscuro = azulOscuro;
+	}
+
+
+	public static Color getAzulNormal() {
+		return azulNormal;
+	}
+
+
+	public static void setAzulNormal(Color azulNormal) {
+		VentanaPrincipal.azulNormal = azulNormal;
+	}
+
+
+	public static Color getAzulClaro() {
+		return azulClaro;
+	}
+
+
+	public static void setAzulClaro(Color azulClaro) {
+		VentanaPrincipal.azulClaro = azulClaro;
 	}
 	
 

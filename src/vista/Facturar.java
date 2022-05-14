@@ -6,11 +6,14 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JButton;
+
+import java.awt.Color;
 import java.awt.Font;
 import java.util.ArrayList;
 
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
 import controlador.ControladorFacturar;
@@ -59,68 +62,64 @@ public class Facturar extends JPanel {
 
 	public void inicializarComponentes() {
 		
-		panelFacturar = new JPanel();
-		lbl_mesa = new JLabel("Mesa 0");
-		btn_volver = new JButton("Volver");
-		tabla = new JTable();		
-		btn_pagado = new JButton("Pagado");
-		btn_pago_tarjeta = new JButton("Pago con tarjeta");
-		caja_abonado = new JTextField();
-		lbl_total = new JLabel("Total");
-		lbl_IVA = new JLabel("Total + IVA(21%):");
-		lbl_abonado = new JLabel("Abonono");
-		lbl_devolver = new JLabel("A devolver:");
-		lbl_valor_total = new JLabel("0,00");
-		lbl_valor_IVA = new JLabel("0,00");		
-		lbl_valor_devolver = new JLabel("0,00");
+		panelFacturar = VentanaPrincipal.parametrosPanel(800,600);
 		
-		panelFacturar.setBorder(new EmptyBorder(5, 5, 5, 5));
-		panelFacturar.setBounds(posicionPanel_x, posicionPanel_y, ancho, alto);
-		panelFacturar.setLayout(null);
-		panelFacturar.setVisible(false);
 		
-		lbl_mesa.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lbl_mesa.setBounds(25, 35, 63, 14);
+		lbl_mesa = VentanaPrincipal.parametrosJlabel("Mesa 1",50, 15, 300, 40);
+		lbl_mesa.setFont(new Font("Manche Condensed",Font.BOLD,(int)(15*VentanaPrincipal.getCordenadaY())));
+		lbl_mesa.setForeground(Color.orange);
 		panelFacturar.add(lbl_mesa);
-
-		btn_volver.setBounds(335, 11, 89, 23);
+		
+		btn_volver = VentanaPrincipal.parametrosJButton("Volver", 710, 20, 70, 20);
 		panelFacturar.add(btn_volver);
-
-		btn_pagado.setBounds(25, 278, 89, 23);
-		panelFacturar.add(btn_pagado);
-
-		btn_pago_tarjeta.setBounds(25, 245, 113, 23);
+		
+		btn_pago_tarjeta = VentanaPrincipal.parametrosJButton("Pago con tarjeta",50, 460, 120, 20);
 		panelFacturar.add(btn_pago_tarjeta);
-
-		lbl_total.setBounds(324, 245, 31, 14);
+		
+		btn_pagado = VentanaPrincipal.parametrosJButton("Pagado",50, 500, 120, 40);
+		panelFacturar.add(btn_pagado);
+		
+		
+		lbl_total = VentanaPrincipal.parametrosJlabel("Total",500, 460, 120, 20);
+		lbl_total.setHorizontalAlignment(SwingConstants.RIGHT);
 		panelFacturar.add(lbl_total);
-
-		lbl_IVA.setBounds(261, 270, 98, 14);
+		
+		lbl_IVA = VentanaPrincipal.parametrosJlabel("Total + IVA(21%):",500, 490, 120, 20);
+		lbl_IVA.setHorizontalAlignment(SwingConstants.RIGHT);
 		panelFacturar.add(lbl_IVA);
-
-		lbl_abonado.setBounds(309, 295, 46, 14);
+		
+		lbl_abonado = VentanaPrincipal.parametrosJlabel("Abonono",500, 520, 120, 20);
+		lbl_abonado.setHorizontalAlignment(SwingConstants.RIGHT);
 		panelFacturar.add(lbl_abonado);
-
-		lbl_devolver.setBounds(294, 320, 56, 14);
+		
+		lbl_devolver = VentanaPrincipal.parametrosJlabel("A devolver:",500, 550, 120, 20);
+		lbl_devolver.setHorizontalAlignment(SwingConstants.RIGHT);
 		panelFacturar.add(lbl_devolver);
-
-		lbl_valor_total.setBounds(365, 245, 46, 14);
+		
+		lbl_valor_total = VentanaPrincipal.parametrosJlabel("0,00 €",630, 460, 120, 20);
+		lbl_valor_total.setHorizontalAlignment(SwingConstants.CENTER);
 		panelFacturar.add(lbl_valor_total);
-
-		lbl_valor_IVA.setBounds(365, 270, 46, 14);
+		
+		lbl_valor_IVA = VentanaPrincipal.parametrosJlabel("0,00 €",630, 490, 120, 20);
+		lbl_valor_IVA.setHorizontalAlignment(SwingConstants.CENTER);
 		panelFacturar.add(lbl_valor_IVA);
 
-		caja_abonado.setBounds(365, 295, 46, 14);
+		caja_abonado = VentanaPrincipal.parametrosJTextField(630, 520, 120, 20);
+		caja_abonado.setText("0,00 €");
+		caja_abonado.setBackground(VentanaPrincipal.getAzulClaro());
+		caja_abonado.setHorizontalAlignment(SwingConstants.CENTER);
 		panelFacturar.add(caja_abonado);
-
-		lbl_valor_devolver.setBounds(360, 320, 46, 14);
+		
+		lbl_valor_devolver = VentanaPrincipal.parametrosJlabel("0,00 €",630, 550, 120, 20);
+		lbl_valor_devolver.setHorizontalAlignment(SwingConstants.CENTER);
 		panelFacturar.add(lbl_valor_devolver);
-
-	    scroll = new JScrollPane(tabla);
+		
+		tabla = new JTable();
+	    scroll = VentanaPrincipal.parametrosJScrollPane(50, 50, 700, 400);
 	    scroll.setViewportView(tabla);
-	    scroll.setBounds(25, 63, 399, 171);
 	    panelFacturar.add(scroll);	
 		
+	    panelFacturar.setVisible(false);
 	}
 	
 	public void establecerManejador() {			

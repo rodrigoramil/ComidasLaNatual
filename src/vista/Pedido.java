@@ -13,6 +13,7 @@ import modelo.BbddVentas;
 import modelo.ModeloReceta;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.util.ArrayList;
 
 public class Pedido extends JPanel {
@@ -52,48 +53,40 @@ public class Pedido extends JPanel {
 
 	public void inicializarComponentes() {
 		
-		panelPedido = new JPanel();
-		lbl_Num_Mesa = new JLabel("Mesa 1");
-		btn_Guardar = new JButton("Guardar");
-		btn_Volver = new JButton("Volver");
-		btn_Modificar = new JButton("Modificar cantidad");
-		btn_Nuevo = new JButton("Nuevo");
-		btn_Eliminar = new JButton("Eliminar");
-		btn_Facturar = new JButton("Facturar");	
-		tabla = new JTable();
+		panelPedido = VentanaPrincipal.parametrosPanel(800,600);
 		
-		panelPedido.setBorder(new EmptyBorder(5, 5, 5, 5));
-		panelPedido.setBounds(posicionPanel_x, posicionPanel_y, ancho, alto);
-		panelPedido.setLayout(null);
-		panelPedido.setVisible(false);
-		
-		lbl_Num_Mesa.setBounds(26, 35, 46, 14);
+		lbl_Num_Mesa = VentanaPrincipal.parametrosJlabel("Mesa 1",150, 30, 300, 40);
+		lbl_Num_Mesa.setFont(new Font("Manche Condensed",Font.BOLD,(int)(15*VentanaPrincipal.getCordenadaY())));
+		lbl_Num_Mesa.setForeground(Color.orange);
 		panelPedido.add(lbl_Num_Mesa);
-
-		btn_Guardar.setBounds(220, 23, 89, 31);
+		
+		btn_Guardar = VentanaPrincipal.parametrosJButton("Guardar",550, 40, 120,30);
 		panelPedido.add(btn_Guardar);
-
-		btn_Volver.setBounds(335, 11, 89, 23);
+		
+		
+		btn_Volver = VentanaPrincipal.parametrosJButton("Volver", 710, 20, 70, 20);
 		panelPedido.add(btn_Volver);
-	
-		btn_Modificar.setBounds(99, 213, 119, 23);
-		panelPedido.add(btn_Modificar);
-
-		btn_Nuevo.setBounds(26, 213, 63, 23);
+		
+		btn_Nuevo = VentanaPrincipal.parametrosJButton("Nuevo",50, 520, 120, 20);
 		panelPedido.add(btn_Nuevo);
-
-		btn_Eliminar.setBounds(228, 213, 89, 23);
+		
+		btn_Modificar = VentanaPrincipal.parametrosJButton("Modificar cantidad",200, 520, 120, 20);
+		panelPedido.add(btn_Modificar);
+				
+		
+		btn_Eliminar = VentanaPrincipal.parametrosJButton("Eliminar",350, 520, 120, 20);
 		panelPedido.add(btn_Eliminar);
-
+		
+		btn_Facturar = VentanaPrincipal.parametrosJButton("Facturar",600, 550, 120, 20);
 		btn_Facturar.setBackground(Color.ORANGE);
-		btn_Facturar.setBounds(335, 227, 89, 23);
 		panelPedido.add(btn_Facturar);
-
-		scroll = new JScrollPane(tabla);
-//	    scrollPedidos = new JScrollPane(listaPedidos);	
-		scroll.setBounds(26, 74, 398, 112);
-//	    scrollPedidos.setViewportView(listaPedidos);
-	    panelPedido.add(scroll);	
+		
+		tabla = new JTable();
+		scroll = VentanaPrincipal.parametrosJScrollPane(50, 100, 700, 400);
+		scroll.setViewportView(tabla);	    
+	    panelPedido.add(scroll);
+	    
+	    panelPedido.setVisible(false);
   
 	}
 	

@@ -2,10 +2,9 @@
 package vista;
 
 
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
+import javax.swing.*;
 import controlador.ControladorMenuPrincipal;
-import javax.swing.JButton;
+import java.awt.*;
 
 
 public class MenuPrincipal extends JPanel {
@@ -20,10 +19,6 @@ public class MenuPrincipal extends JPanel {
 	private static JButton btn_Gestion_Usuario;
 	private static JButton btn_Cerrar_Sesion;
 	
-	private int ancho = 800;
-	private int alto = 600;
-	private int posicionPanel_x = 100;
-	private int posicionPanel_y = 50;
 
 	public MenuPrincipal() {
 		super();
@@ -34,40 +29,52 @@ public class MenuPrincipal extends JPanel {
 	
 	public void inicializarComponentes() {
 		
-		panelMenuPrincipal = new JPanel();		
-		panelMenuPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
-		panelMenuPrincipal.setBounds(posicionPanel_x, posicionPanel_y, ancho, alto);
+		//inicializamos PANEL
+		panelMenuPrincipal = new JPanel();
 		panelMenuPrincipal.setLayout(null);
+		int tamañoX = Math.round(800*VentanaPrincipal.getCordenadaX());
+		int tamañoY = Math.round(800*VentanaPrincipal.getCordenadaY());
+		panelMenuPrincipal.setBounds(
+								0,														//posicion HORIZONTAL
+								0, 														//posicion VERTICAL
+								tamañoX,												//tamaño HORIZONTA
+								tamañoY);												//tamaño VERTICAL
+		
+		panelMenuPrincipal.setOpaque(false);
 		panelMenuPrincipal.setVisible(false);
 		
-		btn_Contabilidad = new JButton("Contabilidad");	
-		btn_Contabilidad.setEnabled(true);
-		btn_Contabilidad.setBounds(337, 148, 91, 23);
-		panelMenuPrincipal.add(btn_Contabilidad);
-		
-		btn_Ventas = new JButton("Ventas");
-		btn_Ventas.setBounds(16, 148, 91, 23);
+		//inicializamos VENTAS
+		btn_Ventas = VentanaPrincipal.parametrosJButton("Ventas",380,50,200,50);
 		panelMenuPrincipal.add(btn_Ventas);
 		
-		btn_Recetario = new JButton("Recetario");
-		btn_Recetario.setEnabled(true);
-		btn_Recetario.setBounds(123, 148, 91, 23);
+		//inicializamos RECETARIO
+		btn_Recetario = VentanaPrincipal.parametrosJButton("Recetario",355,150,200,50);
 		panelMenuPrincipal.add(btn_Recetario);
 		
-		btn_Almacen = new JButton("Almac\u00E9n");	
-		btn_Almacen.setEnabled(true);
-		btn_Almacen.setBounds(230, 148, 91, 23);
+		
+		//inicializamos ALMACEN
+		btn_Almacen = VentanaPrincipal.parametrosJButton("Almac\u00E9n",330,250,200,50);
 		panelMenuPrincipal.add(btn_Almacen);
 		
-		btn_Gestion_Usuario = new JButton("Gesti\u00F3n de usuarios");	
-		btn_Gestion_Usuario.setEnabled(true);
-		btn_Gestion_Usuario.setBounds(444, 148, 136, 23);
+		
+		//inicializamos CONTABILIDAD
+		btn_Contabilidad = VentanaPrincipal.parametrosJButton("Contabilidad",305,350,200,50);
+		panelMenuPrincipal.add(btn_Contabilidad);
+		
+		//inicializamos GESTION DE USUARIO
+		btn_Gestion_Usuario = VentanaPrincipal.parametrosJButton("Gesti\u00F3n de usuarios",280,450,200,50);
 		panelMenuPrincipal.add(btn_Gestion_Usuario);
 		
-		btn_Cerrar_Sesion = new JButton("Cerrar Sesi\u00F3n");
-		btn_Cerrar_Sesion.setBounds(230, 255, 97, 23);
-		panelMenuPrincipal.add(btn_Cerrar_Sesion);		
 		
+		//inicializamos CERRAR SESION
+		btn_Cerrar_Sesion = VentanaPrincipal.parametrosJButton("Cerrar Sesi\u00F3n",640,550,150,30);
+		btn_Cerrar_Sesion.setEnabled(true);
+		btn_Cerrar_Sesion.setBackground(new Color(50,100,255));
+		btn_Cerrar_Sesion.setForeground(new Color(192,227,247));
+		panelMenuPrincipal.add(btn_Cerrar_Sesion);
+		
+		Imagen imagen = new Imagen(tamañoX,tamañoY);
+		panelMenuPrincipal.add(imagen);
 	}
 	
 
@@ -81,8 +88,7 @@ public class MenuPrincipal extends JPanel {
 		btn_Cerrar_Sesion.addActionListener(controlador);
 	
 	}
-
-
+	
 
 	public static JPanel getPanelMenuPrincipal() {
 		return panelMenuPrincipal;

@@ -54,54 +54,41 @@ public class BuscarComidaBebida extends JPanel {
 
 	public void inicializarComponentes() {
 		
-		panelBuscarComidaBebida = new JPanel();
-		btn_comidas_disponibles = new JButton("Comidas Disponibles");
-		btn_bebidas_disponibles = new JButton("Bebidas Disponibles");
-		btn_listar_todo = new JButton("Listar todo");
-		btn_volver = new JButton("Volver");
-		btn_buscar = new JButton("Buscar");
-		caja_buscar = new JTextField();
-		btn_anadir = new JButton("A\u00F1adir");
-		btn_ver_receta = new JButton("Ver receta");
-		tabla = new JTable();
+		panelBuscarComidaBebida = VentanaPrincipal.parametrosPanel(800,600);
 		
-		panelBuscarComidaBebida.setBorder(new EmptyBorder(5, 5, 5, 5));
-		panelBuscarComidaBebida.setBounds(posicionPanel_x, posicionPanel_y, ancho, alto);
-		panelBuscarComidaBebida.setLayout(null);
-		panelBuscarComidaBebida.setVisible(false);
 		
-		btn_comidas_disponibles.setBounds(28, 21, 145, 23);
+		
+		btn_comidas_disponibles = VentanaPrincipal.parametrosJButton("Comidas Disponibles",50, 30, 150, 20);
 		panelBuscarComidaBebida.add(btn_comidas_disponibles);
 
-		btn_bebidas_disponibles.setBounds(183, 21, 131, 23);
+		btn_bebidas_disponibles = VentanaPrincipal.parametrosJButton("Bebidas Disponibles",220, 30, 150, 20);
 		panelBuscarComidaBebida.add(btn_bebidas_disponibles);
-
-		btn_listar_todo.setBounds(324, 21, 89, 23);
-		panelBuscarComidaBebida.add(btn_listar_todo);
-
-		btn_volver.setBounds(514, 21, 89, 23);
-		panelBuscarComidaBebida.add(btn_volver);
-
-		btn_buscar.setBounds(337, 55, 65, 23);
-		panelBuscarComidaBebida.add(btn_buscar);
-
-		caja_buscar.setBounds(28, 55, 287, 20);
-		panelBuscarComidaBebida.add(caja_buscar);
-		caja_buscar.setColumns(10);
 		
-		btn_anadir.setBounds(28, 222, 89, 23);
+		btn_listar_todo = VentanaPrincipal.parametrosJButton("Listar todo",390, 30, 89, 20);
+		panelBuscarComidaBebida.add(btn_listar_todo);
+		
+		
+		btn_volver = VentanaPrincipal.parametrosJButton("Volver", 710, 20, 70, 20);
+		panelBuscarComidaBebida.add(btn_volver);
+		
+		caja_buscar = VentanaPrincipal.parametrosJTextField(50, 65, 287, 20);
+		panelBuscarComidaBebida.add(caja_buscar);
+		
+		btn_buscar = VentanaPrincipal.parametrosJButton("Buscar",350, 65, 65, 20);
+		panelBuscarComidaBebida.add(btn_buscar);
+		
+		btn_anadir = VentanaPrincipal.parametrosJButton("A\u00F1adir",50, 520, 120, 20);
 		panelBuscarComidaBebida.add(btn_anadir);
-
-		btn_ver_receta.setBounds(461, 222, 89, 23);
+		
+		btn_ver_receta = VentanaPrincipal.parametrosJButton("Ver receta",600, 550, 120, 20);
 		panelBuscarComidaBebida.add(btn_ver_receta);
-
-	    
-		scroll = new JScrollPane(tabla);	
-
-	    scroll.setBounds(38, 89, 531, 122);
+		
+		tabla = new JTable();
+		scroll = VentanaPrincipal.parametrosJScrollPane(50, 100, 700, 400);
 	    scroll.setViewportView(tabla);
 		panelBuscarComidaBebida.add(scroll);
-
+		
+		panelBuscarComidaBebida.setVisible(false);
 	}
 	
 	public void establecerManejador() {			
