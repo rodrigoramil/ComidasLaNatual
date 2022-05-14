@@ -5,6 +5,11 @@ import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JList;
+
+
+import java.awt.Color;
+import java.awt.Font;
+
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JTable;
@@ -49,44 +54,39 @@ public class DetalleGasto extends JPanel {
 
 	public void inicializarComponentes() {
 		
-		panelDetalleGasto = new JPanel();
-		lbl_Num_Lista = new JLabel("Lista de la compra N\u00BA 5");
-		lbl_detalle_lista = new JLabel("Realizada el dia 05/05/2022 por Pepe");
-		lbl_Total = new JLabel("Total: 143,1\u20AC");
-		btn_Volver = new JButton("Volver");
-		btn_Guardar = new JButton("Guardar");
-		btn_Imprimir = new JButton("Imprimir");
-		tabla = new JTable();
-
-		panelDetalleGasto.setBorder(new EmptyBorder(5, 5, 5, 5));
-		panelDetalleGasto.setBounds(posicionPanel_x, posicionPanel_y, ancho, alto);
-		panelDetalleGasto.setLayout(null);
-		panelDetalleGasto.setVisible(false);
+		panelDetalleGasto = VentanaPrincipal.parametrosPanel(800,600);
 		
-		lbl_Num_Lista.setBounds(10, 11, 132, 14);
+		lbl_Num_Lista = VentanaPrincipal.parametrosJlabel("Lista de la compra N\u00BA 5",50, 5, 300, 40);
+		lbl_Num_Lista.setFont(new Font("Manche Condensed",Font.BOLD,(int)(20*VentanaPrincipal.getCordenadaY())));
+		lbl_Num_Lista.setForeground(Color.orange);
 		panelDetalleGasto.add(lbl_Num_Lista);
-
-		btn_Volver.setBounds(335, 7, 89, 23);
-		panelDetalleGasto.add(btn_Volver);
-
-		lbl_detalle_lista.setBounds(10, 36, 325, 14);
+		
+		lbl_detalle_lista = VentanaPrincipal.parametrosJlabel("Realizada el dia 05/05/2022 por Pepe",50, 60, 300, 40);
+		lbl_detalle_lista.setForeground(Color.black);
 		panelDetalleGasto.add(lbl_detalle_lista);
-
-		lbl_Total.setBounds(175, 202, 110, 14);
+		
+		btn_Volver = VentanaPrincipal.parametrosJButton("Volver", 710, 20, 70, 20);
+		panelDetalleGasto.add(btn_Volver);
+		
+		lbl_Total = VentanaPrincipal.parametrosJlabel("Total: 143,1\u20AC",350, 500, 300, 40);
+		lbl_Total.setFont(new Font("Manche Condensed",Font.BOLD,(int)(15*VentanaPrincipal.getCordenadaY())));
 		panelDetalleGasto.add(lbl_Total);
-
-		btn_Guardar.setBounds(119, 227, 89, 23);
+		
+		btn_Guardar = VentanaPrincipal.parametrosJButton("Guardar",200, 550, 120, 20);
 		panelDetalleGasto.add(btn_Guardar);
-
-		btn_Imprimir.setBounds(224, 227, 89, 23);
+		
+		btn_Imprimir = VentanaPrincipal.parametrosJButton("Imprimir",480, 550, 120, 20);
 		panelDetalleGasto.add(btn_Imprimir);
+				
 		
 		
-	    scroll = new JScrollPane(tabla);
-	    scroll.setViewportView(tabla);	
-	    scroll.setBounds(10, 76, 414, 123);
-	    panelDetalleGasto.add(scroll);	
-
+		tabla = new JTable();
+		scroll = VentanaPrincipal.parametrosJScrollPane(50, 100, 700, 400);
+		scroll.setViewportView(tabla);	    
+		panelDetalleGasto.add(scroll);
+	    
+		panelDetalleGasto.setVisible(false);
+	
 	}
 	
 	public void establecerManejador() {			

@@ -1,7 +1,6 @@
 package vista;
 
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import controlador.ControladorContabilidad;
 import javax.swing.JButton;
 
@@ -16,10 +15,6 @@ public class Contabilidad extends JPanel {
 	private static JButton btn_Gastos;
 	private static JButton btn_volver;
 	private static JButton btn_Facturacion;
-	private static int ancho = 800;
-	private static int alto = 600;
-	private static int posicionPanel_x = 100;
-	private static int posicionPanel_y = 50;
 
 	public Contabilidad() {
 		super();
@@ -31,24 +26,21 @@ public class Contabilidad extends JPanel {
 	
 	public void inicializarComponentes() {
 		
-		panelContabilidad = new JPanel();	
-		btn_Gastos = new JButton("Gastos");
-		btn_volver = new JButton("Volver");
-		btn_Facturacion = new JButton("Facturacion");
+		panelContabilidad = VentanaPrincipal.parametrosPanel(400, 400);
 		
-		panelContabilidad.setBorder(new EmptyBorder(5, 5, 5, 5));
-		panelContabilidad.setBounds(posicionPanel_x, posicionPanel_y, ancho, alto);
-		panelContabilidad.setLayout(null);
-		panelContabilidad.setVisible(false);
-		
-		btn_Gastos.setBounds(134, 78, 163, 43);
-		panelContabilidad.add(btn_Gastos);
-		
-		btn_volver.setBounds(335, 23, 89, 23);
+		btn_volver = VentanaPrincipal.parametrosJButton("Volver", 310, 20, 70, 20);
 		panelContabilidad.add(btn_volver);
 		
-		btn_Facturacion.setBounds(134, 133, 163, 43);
-		panelContabilidad.add(btn_Facturacion);		
+		btn_Gastos = VentanaPrincipal.parametrosJButton("Gastos",140,120,120, 40);
+		panelContabilidad.add(btn_Gastos);											
+		
+		btn_Facturacion = VentanaPrincipal.parametrosJButton("Facturacion",140,220,120, 40);
+		panelContabilidad.add(btn_Facturacion);
+		
+	
+
+		panelContabilidad.setVisible(false);
+
 
 	}
 

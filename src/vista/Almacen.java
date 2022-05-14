@@ -3,10 +3,17 @@ package vista;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
+
+
+import java.awt.Color;
+import java.awt.Font;
+
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.table.DefaultTableModel;
 import controlador.ControladorAlmacen;
 import modelo.ModeloAlmacen;
@@ -44,52 +51,44 @@ public class Almacen extends JPanel {
 
 	public void inicializarComponentes() {
 		
-		panelAlmacen = new JPanel();	
-		btn_todos_los_Productos = new JButton("Todos los productos");
-		textField = new JTextField();
-		btn_Buscar = new JButton("Buscar");
-		btn_Volver = new JButton("Volver");
-		btn_Realizar_Lista_Compra = new JButton("Realizar lista de la compra");
-		btn_Ver_Listas_Compras = new JButton("Ver listas de la compra");
-		btn_Modificar = new JButton("Modificar");
-		btn_Nuevo = new JButton("Nuevo");
-		tabla = new JTable();
+		panelAlmacen = VentanaPrincipal.parametrosPanel(800,600);
 		
-		panelAlmacen.setBorder(new EmptyBorder(5, 5, 5, 5));
-		panelAlmacen.setBounds(posicionPanel_x, posicionPanel_y, ancho, alto);
-		panelAlmacen.setLayout(null);
-		panelAlmacen.setVisible(false);
-
-		btn_todos_los_Productos.setBounds(10, 11, 142, 23);
+		
+		btn_todos_los_Productos = VentanaPrincipal.parametrosJButton("Todos los productos",50, 30, 150, 20);
 		panelAlmacen.add(btn_todos_los_Productos);
 		
-		textField.setBounds(10, 45, 177, 20);
-		panelAlmacen.add(textField);
-		textField.setColumns(10);
-		
-		btn_Buscar.setBounds(193, 44, 89, 23);
-		panelAlmacen.add(btn_Buscar);
-		
-		btn_Volver.setBounds(378, 11, 69, 23);
+		btn_Volver = VentanaPrincipal.parametrosJButton("Volver", 710, 20, 70, 20);
 		panelAlmacen.add(btn_Volver);
 		
-		btn_Realizar_Lista_Compra.setBounds(10, 236, 157, 23);
+		
+		textField = VentanaPrincipal.parametrosJTextField(50, 65, 287, 20);
+		panelAlmacen.add(textField);
+		
+		btn_Buscar = VentanaPrincipal.parametrosJButton("Buscar",350, 65, 65, 20);
+		panelAlmacen.add(btn_Buscar);
+		
+		btn_Realizar_Lista_Compra = VentanaPrincipal.parametrosJButton("Realizar lista de la compra",50, 520, 240, 20);
 		panelAlmacen.add(btn_Realizar_Lista_Compra);
 		
-		btn_Ver_Listas_Compras.setBounds(178, 236, 142, 23);
+		btn_Ver_Listas_Compras = VentanaPrincipal.parametrosJButton("Ver listas de la compra",320, 520, 240, 20);
 		panelAlmacen.add(btn_Ver_Listas_Compras);
 		
-		btn_Modificar.setBounds(368, 228, 79, 23);
+		btn_Modificar = VentanaPrincipal.parametrosJButton("Modificar",630, 520, 120, 20);
 		panelAlmacen.add(btn_Modificar);
 		
-		btn_Nuevo.setBounds(368, 263, 79, 23);
+		btn_Nuevo = VentanaPrincipal.parametrosJButton("Nuevo",630, 560, 120, 20);
 		panelAlmacen.add(btn_Nuevo);
-
-	    scroll = new JScrollPane(tabla);
+		
+		tabla = new JTable();
+		scroll = VentanaPrincipal.parametrosJScrollPane(50, 100, 700, 400);
 	    scroll.setViewportView(tabla);
-	    scroll.setBounds(10, 76, 437, 141);
-	    panelAlmacen.add(scroll);	
-				
+	    panelAlmacen.add(scroll);
+	    
+		
+	    panelAlmacen.setVisible(false);
+		
+		
+		
 	}
 	
 	public void establecerManejador() {	
