@@ -1,7 +1,6 @@
 
 package vista;
 
-
 import javax.swing.*;
 import controlador.ControladorMenuPrincipal;
 import java.awt.*;
@@ -74,8 +73,8 @@ public class MenuPrincipal extends JPanel {
 		btn_Cerrar_Sesion.setForeground(azulLetrasBotonCerrar);
 		panelMenuPrincipal.add(btn_Cerrar_Sesion);
 		
-		Imagen imagen = new Imagen(tamañoX,tamañoY);
-		panelMenuPrincipal.add(imagen);
+		FondoMenuPrincipal imgFondo = new FondoMenuPrincipal(tamañoX,tamañoY);
+		panelMenuPrincipal.add(imgFondo);
 	}
 	
 
@@ -97,6 +96,9 @@ public class MenuPrincipal extends JPanel {
 	}
 	
 
+	
+	
+	
 	public static JPanel getPanelMenuPrincipal() {
 		return panelMenuPrincipal;
 	}

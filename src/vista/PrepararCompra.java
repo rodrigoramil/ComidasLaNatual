@@ -34,11 +34,6 @@ public class PrepararCompra extends JPanel {
 	private static JButton btn_volver;
 	private static JButton btn_Guardar;
 	private static JButton btn_Imprimir;
-	
-	private static int ancho = 800;
-	private static int alto = 600;
-	private static int posicionPanel_x = 100;
-	private static int posicionPanel_y = 50;
 	private static JTable tabla;
     private static JScrollPane scroll;
 
@@ -75,20 +70,15 @@ public class PrepararCompra extends JPanel {
 		
 		
 		tabla = new JTable();
-		scroll = VentanaPrincipal.parametrosJScrollPane(50, 100, 700, 400);
-		scroll.setViewportView(tabla);	    
+		scroll = VentanaPrincipal.parametrosJScrollPane(50, 100, 700, 400);    
 		panelPrepararCompra.add(scroll);
-	    
-		panelPrepararCompra.setVisible(false);
-	    
-	    
+	    panelPrepararCompra.setVisible(false);
 	}
 	
 	
 	public void establecerManejador() {			
 		ControladorPrepararCompra controlador = new ControladorPrepararCompra(this);
 		
-		tabla.addMouseListener(controlador);
 		btn_volver.addActionListener(controlador);
 		btn_Guardar.addActionListener(controlador);
 		btn_Imprimir.addActionListener(controlador);
@@ -100,6 +90,8 @@ public class PrepararCompra extends JPanel {
 		arrayPrepararCompra = new ArrayList<ModeloPrepararCompra>();
         BbddPrepararCompra.listarPrepararCompra();
         arrayPrepararCompra = BbddPrepararCompra.getArrayPrepararCompra();
+		tabla = new JTable();
+		scroll.setViewportView(tabla);
         DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
         modelo.addColumn("PRODUCTOS");
         modelo.addColumn("CANTIDAD A COMPRAR");

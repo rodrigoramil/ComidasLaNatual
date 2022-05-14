@@ -3,18 +3,12 @@ package vista;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import controlador.ControladorGestionUsuarios;
 import modelo.ModeloUsuario;
 import modelo_bbdd.BbddLogin;
-import modelo_bbdd.BbddVentas;
-
-import javax.swing.DefaultListModel;
 import javax.swing.JButton;
-
 import java.awt.Color;
 import java.awt.Font;
 import java.util.ArrayList;
@@ -32,12 +26,6 @@ public class GestionUsuarios extends JPanel {
 	private static JButton btn_Modificar;
 	private static JButton btn_eliminar;
 	private static JButton btn_volver;
-
-	private static int ancho = 800;
-	private static int alto = 600;
-	private static int posicionPanel_x = 100;
-	private static int posicionPanel_y = 50;
-	
 	private static JTable tabla;
     private static JScrollPane scroll;
 	private static ArrayList<ModeloUsuario> arrayUsuarios;    
@@ -63,7 +51,6 @@ public class GestionUsuarios extends JPanel {
 		lbl_lista_usuarios.setForeground(Color.orange);
 		panelGestionUsuarios.add(lbl_lista_usuarios);
 		
-		
 		btn_nuevo = VentanaPrincipal.parametrosJButton("Nuevo",170, 520, 120, 20);
 		panelGestionUsuarios.add(btn_nuevo);
 		
@@ -74,8 +61,7 @@ public class GestionUsuarios extends JPanel {
 		panelGestionUsuarios.add(btn_eliminar);
 		
 		tabla = new JTable();
-		scroll = VentanaPrincipal.parametrosJScrollPane(50, 100, 700, 400);
-		scroll.setViewportView(tabla);	    
+		scroll = VentanaPrincipal.parametrosJScrollPane(50, 100, 700, 400);    
 		panelGestionUsuarios.add(scroll);
 	    
 		panelGestionUsuarios.setVisible(false);
@@ -87,28 +73,27 @@ public class GestionUsuarios extends JPanel {
 		
 		ControladorGestionUsuarios controlador = new ControladorGestionUsuarios(this);
 		
-		tabla.addMouseListener(controlador);
 		btn_Modificar.addActionListener(controlador);
 		btn_nuevo.addActionListener(controlador);
 		btn_eliminar.addActionListener(controlador);
 		btn_volver.addActionListener(controlador);
-
-		
 	}
 	
 	public static void listarUsuarios () {
 		tabla.removeAll();
-		arrayUsuarios = new ArrayList<ModeloUsuario>();			// <-- modificar el tipo de array al modelo objeto que corresponda
-        BbddLogin.listarUsuarios();								// <-- modificar el método para que llame a la sentencia SQL que corresponda y y cargue los datos
-        arrayUsuarios = BbddLogin.getArrayUsuarios();			// <-- crear y modificar el metodo GET que trae los datos del array que corresponda
+		arrayUsuarios = new ArrayList<ModeloUsuario>();
+        BbddLogin.listarUsuarios();
+        arrayUsuarios = BbddLogin.getArrayUsuarios();
+		tabla = new JTable();
+		scroll.setViewportView(tabla);
         DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
         modelo.addColumn("USUARIO");
         modelo.addColumn("ROL");
         
         Object filaDato[] = new Object[2];
         for (int i = 0; i < arrayUsuarios.size(); i++) {
-        	filaDato[0] = arrayUsuarios.get(i).getNombreUsuario();		// <-- llamar el dato que corresponda del objeto modelo
-        	filaDato[1] = arrayUsuarios.get(i).getRol();  				// <-- llamar el dato que corresponda del objeto modelo
+        	filaDato[0] = arrayUsuarios.get(i).getNombreUsuario();
+        	filaDato[1] = arrayUsuarios.get(i).getRol();
         	modelo.addRow(filaDato);
     	}
         tabla.setModel(modelo);
@@ -126,8 +111,6 @@ public class GestionUsuarios extends JPanel {
 			}
 		}
 		return usuarioSelecionado;
-
-			
 	 }
 	 
 	public static JPanel getPanelGestionUsuarios() {

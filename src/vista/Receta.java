@@ -2,10 +2,8 @@ package vista;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
-
 import java.awt.Color;
 import java.awt.Font;
 import java.util.ArrayList;
@@ -36,14 +34,7 @@ public class Receta extends JPanel {
 	private static JButton btn_volver;
 	private static JTextField nombre_receta;
 	private static JTable tabla;
-
     private static JScrollPane scroll;
-
-	private static int ancho = 800;
-	private static int alto = 600;
-	private static int posicionPanel_x = 100;
-	private static int posicionPanel_y = 50;
-
 	private static ArrayList<ModeloReceta> arrayIngredientes;
 
 
@@ -99,7 +90,6 @@ public class Receta extends JPanel {
 		
 		tabla = new JTable();
 		scroll = VentanaPrincipal.parametrosJScrollPane(50, 100, 300, 400);
-		scroll.setViewportView(tabla);
 		panelReceta.add(scroll);
 		
 		texto_elaboracion = new JTextArea();
@@ -117,8 +107,7 @@ public class Receta extends JPanel {
 	
 
 	private void establecerManejador() {
-		ControladorReceta controlador = new ControladorReceta(this);
-		
+		ControladorReceta controlador = new ControladorReceta(this);		
 		texto_elaboracion.addMouseListener(controlador);
 		btn_nuevo_ingrediente.addActionListener(controlador);
 		btn_modificar_cantidad.addActionListener(controlador);
@@ -126,7 +115,6 @@ public class Receta extends JPanel {
 		btn_guardar.addActionListener(controlador);
 		btn_volver.addActionListener(controlador);
 		nombre_receta.addActionListener(controlador);
-		tabla.addMouseListener(controlador);
 	}
 	
 	
@@ -135,18 +123,29 @@ public class Receta extends JPanel {
 		arrayIngredientes = new ArrayList<ModeloReceta>();
 		BbddReceta.listarRecetas();
 		arrayIngredientes = BbddReceta.getArrayVentanaReceta();
+		tabla = new JTable();
+		scroll.setViewportView(tabla);
+		nombre_receta.setText(BbddReceta.getNombreRecetaSeleccionada());
         DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
         modelo.addColumn("NOMBRE");
         modelo.addColumn("CANTIDAD");
         
-        Object filaDato[] = new Object[2];     
+        Object filaDato[] = new Object[2];   
+        if (arrayIngredientes.size()<=0) {
+        	texto_elaboracion.setText("");
+        }
         for (int i = 0; i < arrayIngredientes.size(); i++) {
         	filaDato[0] = arrayIngredientes.get(i).getIngrediente();
         	filaDato[1] = arrayIngredientes.get(i).getCantidad();  
         	modelo.addRow(filaDato);
-    	}
+        	System.out.println("arrayIngredientes - "+arrayIngredientes.size());
+        	texto_elaboracion.setText(arrayIngredientes.get(i).getElaboracion());
+		}
+    	        	
+	
         tabla.setModel(modelo);
         modelo.fireTableDataChanged();
+        
     }
 
 

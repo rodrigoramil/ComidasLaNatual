@@ -70,9 +70,7 @@ private static ArrayList<ModeloPRUEBA> arrayProductos;
 		
 		tabla = new JTable();
 		scroll = VentanaPrincipal.parametrosJScrollPane(50, 100, 700, 400);
-	    scroll.setViewportView(tabla);
 	    panelProductosAlmacen.add(scroll);
-	    
 	    panelProductosAlmacen.setVisible(false);
 		
 	}
@@ -85,24 +83,26 @@ private static ArrayList<ModeloPRUEBA> arrayProductos;
 		btn_todos_productos.addActionListener(controlador);
 		btn_buscar.addActionListener(controlador);
 		btn_volver.addActionListener(controlador);
-		tabla.addMouseListener(controlador);
+//		tabla.addMouseListener(controlador);
 			
 		
 	}
 
 	
 	public static void listarProductos () {
-		arrayProductos = new ArrayList<ModeloPRUEBA>();			// <-- modificar el tipo de array al modelo objeto que corresponda
-        BbddVentas.listarClientes();							// <-- modificar el método para que llame a la sentencia SQL que corresponda y y cargue los datos
-        arrayProductos = BbddVentas.getArrayRecetas();			// <-- crear y modificar el metodo GET que trae los datos del array que corresponda
+		arrayProductos = new ArrayList<ModeloPRUEBA>();
+        BbddVentas.listarClientes();					
+        arrayProductos = BbddVentas.getArrayRecetas();
+		tabla = new JTable();
+		scroll.setViewportView(tabla);
         DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
         modelo.addColumn("PRODUCTOS");
         modelo.addColumn("STOCK ACTUAL");
         
         Object filaDato[] = new Object[2];     
         for (int i = 0; i < arrayProductos.size(); i++) {
-        	filaDato[0] = arrayProductos.get(i).getReceta();	// <-- llamar el dato que corresponda del objeto modelo
-        	filaDato[1] = arrayProductos.get(i).getEstado();  	// <-- llamar el dato que corresponda del objeto modelo
+        	filaDato[0] = arrayProductos.get(i).getReceta();
+        	filaDato[1] = arrayProductos.get(i).getEstado();
         	modelo.addRow(filaDato);
     	}
         tabla.setModel(modelo);

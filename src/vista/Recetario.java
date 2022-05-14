@@ -81,10 +81,7 @@ public class Recetario extends JPanel {
 		
 		tabla = new JTable();
 		scroll = VentanaPrincipal.parametrosJScrollPane(50, 100, 700, 400);
-	    scroll.setViewportView(tabla);
 	    panelRecetario.add(scroll);
-	    
-		
 	    panelRecetario.setVisible(false);    
 	    
 	}
@@ -100,7 +97,7 @@ public class Recetario extends JPanel {
 		btn_listadoRecetas.addActionListener(controlador);
 		btn_buscar.addActionListener(controlador);
 		btn_volver.addActionListener(controlador);
-		tabla.addMouseListener(controlador);
+//		tabla.addMouseListener(controlador);
 	}
 		
 	
@@ -108,6 +105,8 @@ public class Recetario extends JPanel {
 		arrayRecetas = new ArrayList<ModeloRecetario>();
 		BbddRecetario.listarRecetas();
         arrayRecetas = BbddRecetario.getarrayRecetario();
+		tabla = new JTable();
+		scroll.setViewportView(tabla);
         DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
         modelo.addColumn("NOMBRE RECETA");
         modelo.addColumn("ESTADO");
@@ -123,7 +122,7 @@ public class Recetario extends JPanel {
     }
 	
 
-	 public static int recetaSeleccionado() throws NullPointerException {
+	 public static int recetaSeleccionada() throws NullPointerException {
 		 int indiceSeleccionado = tabla.getSelectedRow();
 		 return indiceSeleccionado;	
 	 }
@@ -200,6 +199,10 @@ public class Recetario extends JPanel {
 
 	public static void setBtn_volver(JButton btn_volver) {
 		Recetario.btn_volver = btn_volver;
+	}
+
+	public static ArrayList<ModeloRecetario> getArrayRecetas() {
+		return arrayRecetas;
 	}
 
 }
