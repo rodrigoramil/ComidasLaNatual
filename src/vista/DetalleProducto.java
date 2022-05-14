@@ -7,8 +7,10 @@ import controlador.ControladorDetalleProducto;
 
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import java.awt.Choice;
+import java.awt.Font;
 
 
 public class DetalleProducto extends JPanel {
@@ -31,11 +33,6 @@ public class DetalleProducto extends JPanel {
 	
 	private static JButton btn_volver;
 	private static JButton btn_Aceptar;
-	
-	private static int ancho = 800;
-	private static int alto = 600;
-	private static int posicionPanel_x = 100;
-	private static int posicionPanel_y = 50;
 
 
 	public DetalleProducto() {
@@ -47,74 +44,79 @@ public class DetalleProducto extends JPanel {
 
 	public void inicializarComponentes() {
 		
-		panelDetalleProducto = new JPanel();
-		lbl_Nombre = new JLabel("Nombre");		
-		tfd_Nombre = new JTextField();
-		btn_volver = new JButton("Volver");
-		lbl_tipo = new JLabel("Tipo");
-		tfd_Actual = new JTextField();
-		lbl_Actual = new JLabel("Actual");		
-		tfd_Minimo = new JTextField();
-		lbl_Minimo = new JLabel("M\u00EDnimo");
-		lbl_Maximo = new JLabel("M\u00E1ximo");
-		tfd_Maximo = new JTextField();
-		btn_Aceptar = new JButton("Aceptar");
-		lbl_UnidadMedida = new JLabel("Unidad de medida");
-		tipo = new Choice();
-		unidadMedida = new Choice();
 		
+		panelDetalleProducto = VentanaPrincipal.parametrosPanel(400, 400);
 		
-		panelDetalleProducto.setBorder(new EmptyBorder(5, 5, 5, 5));
-		panelDetalleProducto.setBounds(posicionPanel_x, posicionPanel_y, ancho, alto);
-		panelDetalleProducto.setLayout(null);
-		panelDetalleProducto.setVisible(false);
-
-		lbl_Nombre.setBounds(10, 42, 51, 14);
-		panelDetalleProducto.add(lbl_Nombre);
-		
-		tfd_Nombre.setBounds(71, 42, 284, 20);
-		panelDetalleProducto.add(tfd_Nombre);
-		tfd_Nombre.setColumns(10);
-		
-		btn_volver.setBounds(335, 11, 89, 23);
+		btn_volver = VentanaPrincipal.parametrosJButton("Volver", 310, 20, 70, 20);
 		panelDetalleProducto.add(btn_volver);
 		
-		lbl_tipo.setBounds(10, 81, 46, 14);
+		
+		//NOMBRE
+		lbl_Nombre = VentanaPrincipal.parametrosJlabel("Nombre",5, 60, 45,20);
+		lbl_Nombre.setHorizontalAlignment(SwingConstants.RIGHT);
+		panelDetalleProducto.add(lbl_Nombre); 												
+		
+		tfd_Nombre = VentanaPrincipal.parametrosJTextField(70, 60, 325,20);
+		panelDetalleProducto.add(tfd_Nombre);												
+		
+		//TIPO
+		lbl_tipo = VentanaPrincipal.parametrosJlabel("Tipo",5, 120, 45,20);
+		lbl_tipo.setHorizontalAlignment(SwingConstants.RIGHT);
 		panelDetalleProducto.add(lbl_tipo);
 		
-		tfd_Actual.setBounds(71, 127, 72, 20);
-		panelDetalleProducto.add(tfd_Actual);
-		tfd_Actual.setColumns(10);
-		
-		lbl_Actual.setBounds(10, 127, 35, 14);
-		panelDetalleProducto.add(lbl_Actual);
-
-		tfd_Minimo.setBounds(71, 167, 62, 20);
-		panelDetalleProducto.add(tfd_Minimo);
-		tfd_Minimo.setColumns(10);
-
-		lbl_Minimo.setBounds(10, 165, 62, 22);
-		panelDetalleProducto.add(lbl_Minimo);
-
-		lbl_Maximo.setBounds(182, 167, 62, 22);
-		panelDetalleProducto.add(lbl_Maximo);
-
-		tfd_Maximo.setBounds(248, 167, 86, 20);
-		panelDetalleProducto.add(tfd_Maximo);
-		tfd_Maximo.setColumns(10);
-
-		btn_Aceptar.setBounds(157, 212, 100, 22);
-		panelDetalleProducto.add(btn_Aceptar);
-		
-		lbl_UnidadMedida.setBounds(200, 81, 120, 14);
-		panelDetalleProducto.add(lbl_UnidadMedida);		
-
-		unidadMedida.setBounds(330, 80, 72, 20);
-		panelDetalleProducto.add(unidadMedida);		
-
-		tipo.setBounds(71, 80, 72, 20);
+		tipo = new Choice();
+		tipo.setBounds(
+				Math.round(70*VentanaPrincipal.getCordenadaX()), 		//posicion HORIZONTAL
+				Math.round(120*VentanaPrincipal.getCordenadaY()),		//posicion VERTICAL
+				Math.round(100*VentanaPrincipal.getCordenadaX()), 		//tamaño HORIZONTAL
+				Math.round(20*VentanaPrincipal.getCordenadaY())); 		//tamaño VERTICAL
+		tipo.setFont(new Font("Manche Condensed",Font.BOLD,(int)(15*VentanaPrincipal.getCordenadaY())));
 		panelDetalleProducto.add(tipo);
 		
+		
+		//ACTUAL
+		lbl_Actual = VentanaPrincipal.parametrosJlabel("Actual",5, 180, 45,20);
+		lbl_Actual.setHorizontalAlignment(SwingConstants.RIGHT);
+		panelDetalleProducto.add(lbl_Actual); 												
+		
+		tfd_Actual = VentanaPrincipal.parametrosJTextField(70, 180, 70, 20);
+		panelDetalleProducto.add(tfd_Actual);
+		
+		//MINIMO
+		lbl_Minimo = VentanaPrincipal.parametrosJlabel("M\u00EDnimo",5, 240, 45,20);
+		lbl_Minimo.setHorizontalAlignment(SwingConstants.RIGHT);
+		panelDetalleProducto.add(lbl_Minimo);
+		
+		tfd_Minimo = VentanaPrincipal.parametrosJTextField(70, 240, 70, 20);
+		panelDetalleProducto.add(tfd_Minimo);
+		
+		//UNIDAD DE MEDIDA
+		lbl_UnidadMedida = VentanaPrincipal.parametrosJlabel("U. medida",200, 120, 70,20);
+		panelDetalleProducto.add(lbl_UnidadMedida);
+		
+		unidadMedida = new Choice();
+		unidadMedida.setBounds(
+				Math.round(275*VentanaPrincipal.getCordenadaX()), 		//posicion HORIZONTAL
+				Math.round(120*VentanaPrincipal.getCordenadaY()),		//posicion VERTICAL
+				Math.round(100*VentanaPrincipal.getCordenadaX()), 		//tamaño HORIZONTAL
+				Math.round(20*VentanaPrincipal.getCordenadaY())); 		//tamaño VERTICAL
+		unidadMedida.setFont(new Font("Manche Condensed",Font.BOLD,(int)(15*VentanaPrincipal.getCordenadaY())));
+		panelDetalleProducto.add(unidadMedida);
+		
+		//MAXIMO
+		lbl_Maximo = VentanaPrincipal.parametrosJlabel("M\u00E1ximo",200, 240, 70,20);
+		panelDetalleProducto.add(lbl_Maximo);
+		
+		tfd_Maximo = VentanaPrincipal.parametrosJTextField(275, 240, 70, 20);
+		panelDetalleProducto.add(tfd_Maximo);
+		
+		//ACEPTAR
+		btn_Aceptar = VentanaPrincipal.parametrosJButton("Aceptar",140,300,120,40);
+		panelDetalleProducto.add(btn_Aceptar);
+
+		panelDetalleProducto.setVisible(false);
+		
+			
 	}
 	
 	
