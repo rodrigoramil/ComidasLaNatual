@@ -60,7 +60,11 @@ public class DetalleProducto extends JPanel {
 				Math.round(20*VentanaPrincipal.getCordenadaY())); 		//tamaño VERTICAL
 		tipo.setFont(new Font("Manche Condensed",Font.BOLD,(int)(15*VentanaPrincipal.getCordenadaY())));
 		panelDetalleProducto.add(tipo);
-
+		tipo.select("");
+		tipo.add("Comida");
+		tipo.add("Bebida");
+		
+		
 		lbl_Actual = VentanaPrincipal.parametrosJlabel("Actual",5, 180, 45,20);
 		lbl_Actual.setHorizontalAlignment(SwingConstants.RIGHT);
 		panelDetalleProducto.add(lbl_Actual); 												
@@ -86,6 +90,10 @@ public class DetalleProducto extends JPanel {
 				Math.round(20*VentanaPrincipal.getCordenadaY())); 		//tamaño VERTICAL
 		unidadMedida.setFont(new Font("Manche Condensed",Font.BOLD,(int)(15*VentanaPrincipal.getCordenadaY())));
 		panelDetalleProducto.add(unidadMedida);
+		unidadMedida.select("");
+		unidadMedida.add("Kg");
+		unidadMedida.add("L");
+		unidadMedida.add("Ud");
 
 		lbl_Maximo = VentanaPrincipal.parametrosJlabel("M\u00E1ximo",200, 240, 70,20);
 		panelDetalleProducto.add(lbl_Maximo);
@@ -133,6 +141,28 @@ public class DetalleProducto extends JPanel {
 		DetalleProducto.btn_Aceptar = btn_Aceptar;
 	}
 
-	
+	public static JTextField getTfd_Nombre() {
+		return tfd_Nombre;
+	}
+
+	public static JTextField getTfd_Actual() {
+		return tfd_Actual;
+	}
+
+	public static JTextField getTfd_Minimo() {
+		return tfd_Minimo;
+	}
+
+	public static JTextField getTfd_Maximo() {
+		return tfd_Maximo;
+	}
+
+	public static Choice getTipo() {
+		return tipo;
+	}
+
+	public static Choice getUnidadMedida() {
+		return unidadMedida;
+	}
 	
 }
