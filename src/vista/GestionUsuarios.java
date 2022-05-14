@@ -14,6 +14,8 @@ import modelo_bbdd.BbddVentas;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+
+import java.awt.Color;
 import java.awt.Font;
 import java.util.ArrayList;
 
@@ -50,39 +52,35 @@ public class GestionUsuarios extends JPanel {
 
 	public void inicializarComponentes() {
 		
-		panelGestionUsuarios = new JPanel();		
-		lbl_lista_usuarios = new JLabel("Lista de Usuarios");			
-		btn_nuevo = new JButton("Nuevo");		
-		btn_Modificar = new JButton("Modificar");		
-		btn_eliminar = new JButton("Eliminar");		
-		btn_volver = new JButton("Volver");
-		tabla = new JTable();
 		
-		panelGestionUsuarios.setBorder(new EmptyBorder(5, 5, 5, 5));
-		panelGestionUsuarios.setBounds(posicionPanel_x, posicionPanel_y, ancho, alto);
-		panelGestionUsuarios.setLayout(null);
-		panelGestionUsuarios.setVisible(false);
+		panelGestionUsuarios = VentanaPrincipal.parametrosPanel(800,600);
 		
-		lbl_lista_usuarios.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lbl_lista_usuarios.setBounds(171, 51, 143, 14);
+		btn_volver = VentanaPrincipal.parametrosJButton("Volver", 710, 20, 70, 20);
+		panelGestionUsuarios.add(btn_volver);
+				
+		lbl_lista_usuarios = VentanaPrincipal.parametrosJlabel("Lista de Usuarios",150, 30, 300, 40);
+		lbl_lista_usuarios.setFont(new Font("Manche Condensed",Font.BOLD,(int)(15*VentanaPrincipal.getCordenadaY())));
+		lbl_lista_usuarios.setForeground(Color.orange);
 		panelGestionUsuarios.add(lbl_lista_usuarios);
-			
-		btn_nuevo.setBounds(33, 221, 89, 23);
+		
+		
+		btn_nuevo = VentanaPrincipal.parametrosJButton("Nuevo",170, 520, 120, 20);
 		panelGestionUsuarios.add(btn_nuevo);
 		
-		btn_Modificar.setBounds(171, 221, 89, 23);
+		btn_Modificar = VentanaPrincipal.parametrosJButton("Modificar",340, 520, 120, 20);
 		panelGestionUsuarios.add(btn_Modificar);
-		
-		btn_eliminar.setBounds(299, 221, 89, 23);
+				
+		btn_eliminar = VentanaPrincipal.parametrosJButton("Eliminar",510, 520, 120, 20);
 		panelGestionUsuarios.add(btn_eliminar);
 		
-		btn_volver.setBounds(335, 11, 89, 23);
-		panelGestionUsuarios.add(btn_volver);
-
-	    scroll = new JScrollPane(tabla);
-	    scroll.setViewportView(tabla);
-	    scroll.setBounds(104, 79, 253, 128);
-        panelGestionUsuarios.add(scroll);	
+		tabla = new JTable();
+		scroll = VentanaPrincipal.parametrosJScrollPane(50, 100, 700, 400);
+		scroll.setViewportView(tabla);	    
+		panelGestionUsuarios.add(scroll);
+	    
+		panelGestionUsuarios.setVisible(false);
+		
+		
 	}
 	
 	private void establecerManejador() {
