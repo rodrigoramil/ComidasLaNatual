@@ -1,5 +1,11 @@
 package vista;
 
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.EventQueue;
+import java.awt.Font;
+
 import java.util.ArrayList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -41,28 +47,25 @@ public class ListasCompra extends JPanel {
 
 	public void inicializarComponentes() {
 
-		panelListasCompra = new JPanel();
-
-		btn_Volver = new JButton("Volver");			
-		btn_Ver = new JButton("Ver");
+		panelListasCompra = VentanaPrincipal.parametrosPanel(800,600);
 		
-		panelListasCompra.setVisible(false);
-		panelListasCompra.setBorder(new EmptyBorder(5, 5, 5, 5));
-		panelListasCompra.setBounds(posicionPanel_x, posicionPanel_y, ancho, alto);
-		panelListasCompra.setLayout(null);
-		tabla = new JTable();
 		
-		btn_Volver.setBounds(335, 11, 89, 23);
+		
+		btn_Volver = VentanaPrincipal.parametrosJButton("Volver", 710, 20, 70, 20);
 		panelListasCompra.add(btn_Volver);
 		
-		btn_Ver.setBounds(159, 197, 89, 23);
+		btn_Ver = VentanaPrincipal.parametrosJButton("Ver",340, 550, 120, 20);
 		panelListasCompra.add(btn_Ver);
-
-	    scroll = new JScrollPane(tabla);
-	    scroll.setViewportView(tabla);		
-	    scroll.setBounds(35, 50, 367, 119);
-	    panelListasCompra.add(scroll);	
-
+				
+		
+		
+		tabla = new JTable();
+		scroll = VentanaPrincipal.parametrosJScrollPane(50, 100, 700, 400);
+		scroll.setViewportView(tabla);	    
+		panelListasCompra.add(scroll);
+	    
+		panelListasCompra.setVisible(false);
+		
 	}
 	
 	public void establecerManejador() {			

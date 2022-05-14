@@ -5,6 +5,10 @@ import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JList;
+
+import java.awt.Color;
+import java.awt.Font;
+
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JTable;
@@ -51,35 +55,33 @@ public class PrepararCompra extends JPanel {
 	
 	public void inicializarComponentes() {
 		
-		panelPrepararCompra = new JPanel();
-		lblNewLabel = new JLabel("Lista de la compra N\u00BAx");
-		btn_volver = new JButton("Volver");
-		btn_Guardar = new JButton("Guardar");
-		btn_Imprimir = new JButton("Imprimir");		
-		panelPrepararCompra.setBorder(new EmptyBorder(5, 5, 5, 5));
-		panelPrepararCompra.setBounds(posicionPanel_x, posicionPanel_y, ancho, alto);
-		panelPrepararCompra.setLayout(null);
-		panelPrepararCompra.setVisible(false);
-		tabla = new JTable();
+		panelPrepararCompra = VentanaPrincipal.parametrosPanel(800,600);
 		
-		lblNewLabel.setBounds(10, 24, 141, 14);
+		lblNewLabel = VentanaPrincipal.parametrosJlabel("Lista de la compra N\u00BAx",150, 30, 300, 40);
+		lblNewLabel.setFont(new Font("Manche Condensed",Font.BOLD,(int)(15*VentanaPrincipal.getCordenadaY())));
+		lblNewLabel.setForeground(Color.orange);
 		panelPrepararCompra.add(lblNewLabel);
 		
-		btn_volver.setBounds(335, 7, 89, 23);
+		
+		btn_volver = VentanaPrincipal.parametrosJButton("Volver", 710, 20, 70, 20);
 		panelPrepararCompra.add(btn_volver);
-				
-		btn_Guardar.setBounds(79, 227, 89, 23);
+		
+		btn_Guardar = VentanaPrincipal.parametrosJButton("Guardar",200, 550, 120, 20);
 		panelPrepararCompra.add(btn_Guardar);
 		
-
-		btn_Imprimir.setBounds(233, 227, 89, 23);
+		btn_Imprimir = VentanaPrincipal.parametrosJButton("Imprimir",480, 550, 120, 20);
 		panelPrepararCompra.add(btn_Imprimir);
+				
 		
-	    scroll = new JScrollPane(tabla);
-	    scroll.setViewportView(tabla);
-	    scroll.setBounds(10, 51, 404, 166);
-	    panelPrepararCompra.add(scroll);
-
+		
+		tabla = new JTable();
+		scroll = VentanaPrincipal.parametrosJScrollPane(50, 100, 700, 400);
+		scroll.setViewportView(tabla);	    
+		panelPrepararCompra.add(scroll);
+	    
+		panelPrepararCompra.setVisible(false);
+	    
+	    
 	}
 	
 	
