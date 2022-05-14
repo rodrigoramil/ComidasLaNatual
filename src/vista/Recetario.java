@@ -1,7 +1,6 @@
 package vista;
 
 import java.util.ArrayList;
-
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -9,11 +8,9 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
-
 import controlador.ControladorRecetario;
-import modelo.BbddRecetario;
-import modelo.ModeloReceta;
 import modelo.ModeloRecetario;
+import modelo_bbdd.BbddRecetario;
 
 
 public class Recetario extends JPanel {
@@ -33,7 +30,6 @@ public class Recetario extends JPanel {
 	private static JButton btn_buscar;
 	private static JButton btn_volver;
 	private static JScrollPane scroll;    
-//    private static ArrayList<ModeloReceta> arrayRecetas;
     private static JTable tabla;
     
 	private int ancho = 800;
@@ -42,17 +38,7 @@ public class Recetario extends JPanel {
 	private int posicionPanel_y = 50;
 
 
-//	private static JList listaRecetas;
-//    private static JScrollPane scroll;
-    
     private static ArrayList<ModeloRecetario> arrayRecetas;
-//    private static DefaultListModel modeloListaReceta;
-    
-    
-	//**************************************************************************************************
-    
-//	private static JTable tabla;
-//    private static DefaultTableModel modelo = null;
 	private static String recetasSeleccionado;
 
 
@@ -142,7 +128,7 @@ public class Recetario extends JPanel {
         Object filaDato[] = new Object[2];     
         for (int i = 0; i < arrayRecetas.size(); i++) {
         	filaDato[0] = arrayRecetas.get(i).getNombreReceta();
-        	filaDato[1] = arrayRecetas.get(i).getIdDisponibilidad();  
+        	filaDato[1] = arrayRecetas.get(i).getEstado();  
         	modelo.addRow(filaDato);
     	}
         tabla.setModel(modelo);

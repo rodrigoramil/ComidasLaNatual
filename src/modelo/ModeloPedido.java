@@ -1,10 +1,14 @@
 package modelo;
 
-public class ModeloPedido {
+import java.io.Serializable;
+
+public class ModeloPedido implements Serializable {
+
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -2144175894579284069L;
+	
 	String comidaBebida;
 	String cantidad;
 	String precio;

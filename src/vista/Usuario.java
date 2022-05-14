@@ -4,6 +4,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import controlador.ControladorUsuario;
 import javax.swing.JLabel;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
@@ -28,6 +29,7 @@ public class Usuario extends JPanel {
 	private static JRadioButton rdbtn_admin;
 	private static JRadioButton rdbtn_Cocina;
 	private static JRadioButton rdbtn_ventas;
+	private static ButtonGroup grupoRol;
 	private static JButton btn_volver;
 	
 	private static int ancho = 800;
@@ -58,7 +60,7 @@ public class Usuario extends JPanel {
 		caja_nombre = new JTextField();
 		caja_pass_1 = new JPasswordField();		
 		caja_pass_2 = new JPasswordField();		
-		
+		grupoRol= new ButtonGroup();
 		
 		panelUsuario.setBorder(new EmptyBorder(5, 5, 5, 5));
 		panelUsuario.setBounds(posicionPanel_x, posicionPanel_y, ancho, alto);
@@ -102,6 +104,10 @@ public class Usuario extends JPanel {
 		
 		btn_volver.setBounds(342, 11, 71, 23);
 		panelUsuario.add(btn_volver);
+		
+		grupoRol.add(rdbtn_ventas);
+		grupoRol.add(rdbtn_Cocina);
+		grupoRol.add(rdbtn_admin);
 		
 	}
 	

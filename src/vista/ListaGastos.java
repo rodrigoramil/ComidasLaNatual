@@ -7,10 +7,11 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JTable;
 import javax.swing.JButton;
 import javax.swing.table.DefaultTableModel;
-
 import controlador.ControladorListaGastos;
-import modelo.BbddVentas;
-import modelo.ModeloReceta;
+import modelo.ModeloListaGastos;
+import modelo_bbdd.BbddListaGastos;
+import modelo_bbdd.BbddVentas;
+
 
 public class ListaGastos extends JPanel {
 
@@ -32,7 +33,7 @@ public class ListaGastos extends JPanel {
 	private static JTable tabla;
     private static JScrollPane scroll;
 
-	private static ArrayList<ModeloReceta> arrayListaGastos;
+	private static ArrayList<ModeloListaGastos> arrayListaGastos;
 
 	public ListaGastos() {
 		super();
@@ -81,13 +82,10 @@ public class ListaGastos extends JPanel {
 	}
 
 	public static void listarGastos () {
-		arrayListaGastos = new ArrayList<ModeloReceta>();			// <-- modificar el tipo de array al modelo objeto que corresponda
 
-  //      BbddVentas.listarClientes();								// <-- modificar el método para que llame a la sentencia SQL que corresponda y y cargue los datos
-
-        BbddVentas.listarClientes();							// <-- modificar el método para que llame a la sentencia SQL que corresponda y y cargue los datos
-
-        arrayListaGastos = BbddVentas.getArrayRecetas();			// <-- crear y modificar el metodo GET que trae los datos del array que corresponda
+		arrayListaGastos = new ArrayList<ModeloListaGastos>();
+		BbddListaGastos.listarListaGastos();					
+		arrayListaGastos = BbddListaGastos.getArrayListaGastos();
         DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
         modelo.addColumn("Nº");
         modelo.addColumn("FECHA");
@@ -97,11 +95,15 @@ public class ListaGastos extends JPanel {
         
         Object filaDato[] = new Object[5];     
         for (int i = 0; i < arrayListaGastos.size(); i++) {
-        	filaDato[0] = arrayListaGastos.get(i).getReceta();		// <-- llamar el dato que corresponda del objeto modelo
-        	filaDato[1] = arrayListaGastos.get(i).getEstado();  	// <-- llamar el dato que corresponda del objeto modelo
-        	filaDato[2] = arrayListaGastos.get(i).getReceta();		// <-- llamar el dato que corresponda del objeto modelo
-        	filaDato[3] = arrayListaGastos.get(i).getEstado();  	// <-- llamar el dato que corresponda del objeto modelo
-        	filaDato[4] = arrayListaGastos.get(i).getReceta();		// <-- llamar el dato que corresponda del objeto modelo
+        	filaDato[0] = arrayListaGastos.get(i).getIdCompraProductos();
+        	filaDato[1] = arrayListaGastos.get(i).getFechaCompra();
+        	if (arrayListaGastos.get(i).isCompraHecha()==true) {
+        		filaDato[2] = "Si";
+        	} else {
+        		filaDato[2] = "No";
+        	}
+        	filaDato[3] = arrayListaGastos.get(i).getGastoCompra();
+        	filaDato[4] = arrayListaGastos.get(i).getNombreUsuario();
         	modelo.addRow(filaDato);
     	}
         tabla.setModel(modelo);
@@ -109,7 +111,7 @@ public class ListaGastos extends JPanel {
     }
 	
 
-	 public static int productoSeleccionado() throws NullPointerException {			// <-- modificar el nombre del metodo
+	 public static int indiceSeleccionado() throws NullPointerException {
 		 int indiceSeleccionado = tabla.getSelectedRow();
 		 return indiceSeleccionado;	
 	 }

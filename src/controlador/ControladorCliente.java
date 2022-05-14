@@ -3,7 +3,7 @@ package controlador;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import modelo.BbddVentas;
+import modelo_bbdd.BbddVentas;
 import vista.Cliente;
 import vista.GestionPedidos;
 import vista.VentanaPrincipal;
@@ -34,19 +34,8 @@ public class ControladorCliente implements ActionListener{
 			String cajaTextoTlf = Cliente.getTfd_telefono().getText();
 			
 			if (nuevoCliente) {				
-				System.out.println("Nuevo Cliente");
-//				System.out.println(BbddVentas.getArrayClientes().toString());
-				
+				System.out.println("Nuevo Cliente");		
 				BbddVentas.insertarCliente(cajaTextoNombre, cajaTextoTlf);
-				
-				
-				
-//********************************************************************************************************	
-				
-				// Hay que hacer un método en la clase BbddVentas que realice una sentencia SQL Insert 
-				//y pasarle las dos variables cajaTextoNombre y cajaTextoTlf
-				
-//********************************************************************************************************				
 				
 				GestionPedidos.creaListaClientes();
 				ControladorGestionPedidos.setNuevoCliente(false);				

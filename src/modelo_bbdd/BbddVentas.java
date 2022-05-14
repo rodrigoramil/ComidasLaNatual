@@ -1,4 +1,4 @@
-package modelo;
+package modelo_bbdd;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -6,37 +6,40 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import modelo.ModeloCliente;
+import modelo.ModeloPRUEBA;
+
 public class BbddVentas {
 
 	private static Connection connection = null;
 	private static Conexion conexion = null;
 	private static PreparedStatement sentencia = null;
 	private static ArrayList<ModeloCliente> arrayClientes = null;
-	private static ArrayList<ModeloReceta> arrayRecetas=null; // <---- BORRAR
+	private static ArrayList<ModeloPRUEBA> arrayRecetas=null; // <---- BORRAR
 
 	public static void listarClientes() {
 		conexion = new Conexion();
 		connection = conexion.obtenerConexion();
 		arrayClientes = new ArrayList<ModeloCliente>();
-		arrayRecetas = new ArrayList<ModeloReceta>();  // <---- BORRAR
+		arrayRecetas = new ArrayList<ModeloPRUEBA>();  // <---- BORRAR
 		try {
-			sentencia = connection.prepareStatement("SELECT * FROM cliente ");
+			sentencia = connection.prepareStatement("Select * from cliente order by IdCliente");
 			ResultSet rs = sentencia.executeQuery();
 
 			while (rs.next()) {
-				// <---- BORRAR ----->
+				
 				ModeloCliente cliente = new ModeloCliente(
 						rs.getInt("IdCliente"), 
 						rs.getString("NombreCliente"),
 						rs.getString("Telefono"));
 				arrayClientes.add(cliente);
-				// <---- BORRAR ----->
 				
-				ModeloReceta receta = new ModeloReceta(
+				// <---- BORRAR ----->
+				ModeloPRUEBA receta = new ModeloPRUEBA(
 						rs.getString("NombreCliente"), 
 						rs.getString("Telefono"));
 				arrayRecetas.add(receta);
-				
+				// <---- BORRAR ----->
 				
 			}
 //			cumpruebaMesas();
@@ -98,7 +101,7 @@ public class BbddVentas {
         
         for (int i = 0; i < 8; i++) {
         	String mesa = "Mesa "+1;
-			if (!arrayClientes.get(i).nombre.equals(mesa)) {
+			if (!arrayClientes.get(i).getNombre().equals(mesa)) {
 				 try {
 					sentencia = connection.prepareStatement("INSERT INTO PERSONAS (NombreCliente, Telefono) VALUES (?, ?)");             
 					sentencia.setString(1, mesa);            
@@ -132,7 +135,7 @@ public class BbddVentas {
 	
 	
 
-	public static ArrayList<ModeloReceta> getArrayRecetas() {
+	public static ArrayList<ModeloPRUEBA> getArrayRecetas() {
 		return arrayRecetas;
 	}
 	

@@ -8,9 +8,10 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import controlador.ControladorGestionUsuarios;
-import modelo.BbddLogin;
-import modelo.BbddVentas;
 import modelo.ModeloUsuario;
+import modelo_bbdd.BbddLogin;
+import modelo_bbdd.BbddVentas;
+
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import java.awt.Font;
@@ -117,9 +118,18 @@ public class GestionUsuarios extends JPanel {
     }
 	
 
-	 public static int productoSeleccionado() throws NullPointerException {
+	 public static String usuarioSeleccionado() throws NullPointerException {
 		 int indiceSeleccionado = tabla.getSelectedRow();
-		 return indiceSeleccionado;	
+		 String usuarioSelecionado = null;
+		 for (int i = 0; i < arrayUsuarios.size(); i++) {
+			if (indiceSeleccionado==i) {
+				usuarioSelecionado = arrayUsuarios.get(i).getNombreUsuario();
+				return usuarioSelecionado;
+			}
+		}
+		return usuarioSelecionado;
+
+			
 	 }
 	 
 	public static JPanel getPanelGestionUsuarios() {
@@ -143,6 +153,11 @@ public class GestionUsuarios extends JPanel {
 
 	public static JButton getBtn_volver() {
 		return btn_volver;
+	}
+
+
+	public static JTable getTabla() {
+		return tabla;
 	}
 	
 	

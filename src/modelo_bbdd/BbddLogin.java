@@ -1,4 +1,4 @@
-package modelo;
+package modelo_bbdd;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Base64;
 import javax.swing.JOptionPane;
 
+import modelo.ModeloUsuario;
 import vista.VentanaPrincipal;
 public class BbddLogin {
 	private static Connection connection = null;
