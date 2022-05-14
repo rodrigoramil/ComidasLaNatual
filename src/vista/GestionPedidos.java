@@ -20,8 +20,8 @@ import javax.swing.JTable;
 import javax.swing.UIManager;
 
 import controlador.ControladorGestionPedidos;
-import modelo.BbddVentas;
 import modelo.ModeloCliente;
+import modelo_bbdd.BbddVentas;
 
 
 
@@ -44,18 +44,10 @@ public class GestionPedidos extends JPanel {
 	private static JButton btn_Editar_Cliente;
 	private static JButton btn_Ver_Pedido;
 	private static JButton btn_volver;
-
-	private static int ancho = 800;
-	private static int alto = 600;
-	private static int posicionPanel_x = 100;
-	private static int posicionPanel_y = 50;
-
 	private static JList listaCliente;
-    private static JScrollPane scroll;
-    
     private static ArrayList<ModeloCliente> array_clientes;
     private static DefaultListModel modeloListaCliente;
-    
+    private static JScrollPane scroll;    
 
 	public GestionPedidos() {
 		super();
@@ -149,12 +141,8 @@ public class GestionPedidos extends JPanel {
 		BbddVentas.listarClientes();
 		array_clientes = BbddVentas.getArrayClientes();
 		modeloListaCliente = new DefaultListModel();
-
 		for (ModeloCliente c : array_clientes) {
-			System.out.println("IdCliente: "+c.getId()); // <-- BORRAR
-			// no añadimos a la lista los primeros ID porque son mesas
 			if (c.getId()>=9) {
-				System.out.println(" NO es MESA ->  "+c.getId()); // <-- BORRAR
 				modeloListaCliente.addElement(c.getNombre());
 			}
 		}	

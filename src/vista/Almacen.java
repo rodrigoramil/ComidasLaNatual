@@ -4,21 +4,21 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
+
 import java.awt.Color;
 import java.awt.Font;
-import java.util.ArrayList;
 
+import java.util.ArrayList;
 import javax.swing.JButton;
-import javax.swing.JList;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.table.DefaultTableModel;
-
 import controlador.ControladorAlmacen;
-import modelo.BbddVentas;
-import modelo.ModeloReceta;
+import modelo.ModeloAlmacen;
+import modelo_bbdd.BbddAlmacen;
+
 
 public class Almacen extends JPanel {
 
@@ -39,7 +39,7 @@ public class Almacen extends JPanel {
 	
 	private static JTable tabla;
     private static JScrollPane scroll;
-	private static ArrayList<ModeloReceta> arrayProductos;
+	private static ArrayList<ModeloAlmacen> arrayAlmacen;
     
 	public Almacen() {
 		
@@ -111,9 +111,9 @@ public class Almacen extends JPanel {
 	//*******
 	
 	public static void listarProductos () {
-		arrayProductos = new ArrayList<ModeloReceta>();			// <-- modificar el tipo de array al modelo objeto que corresponda
-        BbddVentas.listarClientes();							// <-- modificar el método para que llame a la sentencia SQL que corresponda y y cargue los datos
-        arrayProductos = BbddVentas.getArrayRecetas();			// <-- crear y modificar el metodo GET que trae los datos del array que corresponda
+		arrayAlmacen = new ArrayList<ModeloAlmacen>();
+        BbddAlmacen.listarProductosAlmacen();
+        arrayAlmacen = BbddAlmacen.getArrayAlmacen();	
         DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
         modelo.addColumn("PRODUCTOS");
         modelo.addColumn("ACTUAL");
@@ -121,11 +121,11 @@ public class Almacen extends JPanel {
         modelo.addColumn("MAXIMO");
         
         Object filaDato[] = new Object[4];     
-        for (int i = 0; i < arrayProductos.size(); i++) {
-        	filaDato[0] = arrayProductos.get(i).getReceta();	// <-- llamar el dato que corresponda del objeto modelo
-        	filaDato[1] = arrayProductos.get(i).getEstado();  	// <-- llamar el dato que corresponda del objeto modelo
-        	filaDato[2] = arrayProductos.get(i).getReceta();	// <-- llamar el dato que corresponda del objeto modelo
-        	filaDato[3] = arrayProductos.get(i).getEstado();  	// <-- llamar el dato que corresponda del objeto modelo
+        for (int i = 0; i < arrayAlmacen.size(); i++) {
+        	filaDato[0] = arrayAlmacen.get(i).getNombreProducto();
+        	filaDato[1] = arrayAlmacen.get(i).getCantidadActual();
+        	filaDato[2] = arrayAlmacen.get(i).getCantidadMinima();
+        	filaDato[3] = arrayAlmacen.get(i).getCantidadMaxima();
         	
         	modelo.addRow(filaDato);
     	}
@@ -134,14 +134,11 @@ public class Almacen extends JPanel {
     }
 	
 
-	 public static int productoSeleccionado() throws NullPointerException {			// <-- modificar el nombre del metodo
+	 public static int indiceSeleccionado() throws NullPointerException {
 		 int indiceSeleccionado = tabla.getSelectedRow();
 		 return indiceSeleccionado;	
 	 }
-	
-	//*******	
-	
-	
+
 	
 	
 	

@@ -59,10 +59,10 @@ public class CreacionBBDD {
 		stmt.execute("CREATE TABLE IF NOT EXISTS Almacen("
 				+ "IdProducto INT NOT NULL AUTO_INCREMENT, "
 				+ "NombreProducto VARCHAR(45) NOT NULL UNIQUE, "
-				+ "Cantidad REAL NOT NULL, "
-				+ "UnidadMedida ENUM('Kg', 'L', 'Ud') NOT NULL, "
-				+ "CantidadMinima REAL NOT NULL, "
-				+ "CantidadMaxima REAL NOT NULL, "
+				+ "Cantidad FLOAT NOT NULL, "
+				+ "UnidadMedida ENUM('Kg', 'L', 'Ud') NOT NULL, " // <-- esta mal debería de ser una fk de la tabla UnidadMedidaProducto que tampoco existe
+				+ "CantidadMinima FLOAT NOT NULL, "
+				+ "CantidadMaxima FLOAT NOT NULL, "
 				+ "PRIMARY KEY(idProducto)"
 				+ ")ENGINE=INNODB;");
 	}
@@ -73,7 +73,7 @@ public class CreacionBBDD {
 				+ "Tipo VARCHAR(45) NOT NULL, "
 				+ "NombreReceta VARCHAR(45) NOT NULL, "
 				+ "Estado ENUM('Disponible', 'No Disponible') NOT NULL, "
-				+ "PrecioVenta REAL NOT NULL, "
+				+ "PrecioVenta FLOAT NOT NULL, "
 				+ "Elaboracion TEXT NULL, "
 				+ "PRIMARY KEY(IdReceta)"
 				+ ")ENGINE=INNODB;");
@@ -92,7 +92,7 @@ public class CreacionBBDD {
 		stmt.execute("CREATE TABLE IF NOT EXISTS Ganancias("
 				+ "IdPedido INT NOT NULL AUTO_INCREMENT, "
 				+ "FechaPedido DATETIME NOT NULL, "
-				+ "HoraPedido  DATETIME NOT NULL, "
+				+ "HoraPedido  FLOAT NOT NULL, "
 				+ "GananciaPedido REAL NOT NULL, "
 				+ "PRIMARY KEY(IdPedido)"
 				+ ")ENGINE=INNODB;");
@@ -110,9 +110,9 @@ public class CreacionBBDD {
 	public void crearTablaGasto() throws SQLException {
 		stmt.execute("CREATE TABLE IF NOT EXISTS Gasto("
 				+ "IdCompraProductos INT NOT NULL AUTO_INCREMENT, "
-				+ "CompraHecha boolean NOT NULL, "
-				+ "FechaCompra datetime NOT NULL, "
-				+ "GastoCompra real not null, "
+				+ "CompraHecha BOOLEAN NOT NULL, "
+				+ "FechaCompra DATETIME NOT NULL, "
+				+ "GastoCompra FLOAT not null, "
 				+ "PRIMARY KEY(IdCompraProductos)"
 				+ ")ENGINE=INNODB;");
 	}
@@ -120,7 +120,7 @@ public class CreacionBBDD {
 	public void crearTablaTrabajoUsuariosGastos() throws SQLException {
 		stmt.execute("CREATE TABLE IF NOT EXISTS TrabajoUsuariosGastos("
 				+ "NombreUsuario VARCHAR(45) NOT NULL, "
-				+ "IdCompraProductos int NOT NULL, "
+				+ "IdCompraProductos INT NOT NULL, "
 				+ "constraint fkNombreUsuarioGastos foreign key(NombreUsuario) references Usuarios(NombreUsuario), "
 				+ "constraint fkIdCompraProductos foreign key(IdCompraProductos) references Gasto(IdCompraProductos)"
 				+ ")ENGINE=INNODB;");
@@ -158,9 +158,9 @@ public class CreacionBBDD {
 		stmt.execute("CREATE TABLE IF NOT EXISTS CompraProductos("
 				+ "IdCompraProductos INT NOT NULL, "
 				+ "IdProducto INT NOT NULL, "
-				+ "CantidadCompraProducto real not null, "
-				+ "PrecioCompraProducto real not null, "
-				+ "PrecioMedioCompraProducto real not null, "
+				+ "CantidadCompraProducto FLOAT not null, "
+				+ "PrecioCompraProducto FLOAT not null, "
+				+ "PrecioMedioCompraProducto FLOAT not null, "
 				+ "constraint fkIdCompraProductosGastos foreign key(IdCompraProductos) references Gasto(IdCompraProductos), "
 				+ "constraint fkIdProductoAlmacen foreign key(IdProducto)  references Almacen(IdProducto)"
 				+ ")ENGINE=INNODB;");
@@ -170,7 +170,7 @@ public class CreacionBBDD {
 		stmt.execute("CREATE TABLE IF NOT EXISTS Ingredientes("
 				+ "IdReceta INT NOT NULL, "
 				+ "IdProducto INT NOT NULL, "
-				+ "Cantidad real not null, "
+				+ "Cantidad FLOAT not null, "
 				+ "constraint fkIdRecetas foreign key(IdReceta) references Recetas(IdReceta), "
 				+ "constraint fkIdIdProductoAlmacenes foreign key(IdProducto) references Almacen(IdProducto)"
 				+ ") ENGINE=INNODB;");

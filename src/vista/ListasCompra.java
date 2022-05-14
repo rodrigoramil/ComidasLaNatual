@@ -1,23 +1,22 @@
 package vista;
 
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
-import java.util.ArrayList;
 
-import javax.swing.JFrame;
-import javax.swing.JList;
+import java.util.ArrayList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-
 import controlador.ControladorListasCompra;
-import modelo.BbddVentas;
-import modelo.ModeloReceta;
+import modelo.ModeloListasCompra;
+import modelo_bbdd.BbddListasCompra;
+
 
 public class ListasCompra extends JPanel {
 
@@ -29,16 +28,14 @@ public class ListasCompra extends JPanel {
 	private static JPanel panelListasCompra;	
 	private static JButton btn_Volver;
 	private static JButton btn_Ver;	
-    private static JScrollPane scrollListasCompra;
 	private static JTable tabla;
     private static JScrollPane scroll;
-    
 	private static int ancho = 800;
 	private static int alto = 600;
 	private static int posicionPanel_x = 100;
 	private static int posicionPanel_y = 50;
 
-	private static ArrayList<ModeloReceta> arrayListasCompra;
+	private static ArrayList<ModeloListasCompra> arrayListasCompra;
 
 	public ListasCompra() {
 		super();
@@ -82,9 +79,9 @@ public class ListasCompra extends JPanel {
 
 
 	public static void listarCompras () {
-		arrayListasCompra = new ArrayList<ModeloReceta>();			// <-- modificar el tipo de array al modelo objeto que corresponda
-        BbddVentas.listarClientes();							// <-- modificar el método para que llame a la sentencia SQL que corresponda y y cargue los datos
-        arrayListasCompra = BbddVentas.getArrayRecetas();			// <-- crear y modificar el metodo GET que trae los datos del array que corresponda
+		arrayListasCompra = new ArrayList<ModeloListasCompra>();
+        BbddListasCompra.listarListasCompra();	
+        arrayListasCompra = BbddListasCompra.getArrayListasCompra();
         DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
         modelo.addColumn("Nº");
         modelo.addColumn("FECHA");
@@ -92,9 +89,13 @@ public class ListasCompra extends JPanel {
         
         Object filaDato[] = new Object[3];     
         for (int i = 0; i < arrayListasCompra.size(); i++) {
-        	filaDato[0] = arrayListasCompra.get(i).getReceta();	// <-- llamar el dato que corresponda del objeto modelo
-        	filaDato[1] = arrayListasCompra.get(i).getEstado();  	// <-- llamar el dato que corresponda del objeto modelo
-        	filaDato[2] = arrayListasCompra.get(i).getEstado();  	// <-- llamar el dato que corresponda del objeto modelo
+        	filaDato[0] = arrayListasCompra.get(i).getIdCompraProductos();
+        	filaDato[1] = arrayListasCompra.get(i).getFechaCompra();   	
+        	if (arrayListasCompra.get(i).getCompraHecha()==true) {
+        		filaDato[2] = "Si";
+        	} else {
+        		filaDato[2] = "No";
+        	}
         	modelo.addRow(filaDato);
     	}
         tabla.setModel(modelo);
@@ -102,12 +103,10 @@ public class ListasCompra extends JPanel {
     }
 	
 
-	 public static int productoSeleccionado() throws NullPointerException {			// <-- modificar el nombre del metodo
+	 public static int indiceSeleccionado() throws NullPointerException {
 		 int indiceSeleccionado = tabla.getSelectedRow();
 		 return indiceSeleccionado;	
 	 }
-	
-	
 
 	public static JPanel getPanelListasCompra() {
 		return panelListasCompra;

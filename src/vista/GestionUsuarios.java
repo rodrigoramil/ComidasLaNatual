@@ -8,9 +8,10 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import controlador.ControladorGestionUsuarios;
-import modelo.BbddLogin;
-import modelo.BbddVentas;
 import modelo.ModeloUsuario;
+import modelo_bbdd.BbddLogin;
+import modelo_bbdd.BbddVentas;
+
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 
@@ -96,6 +97,7 @@ public class GestionUsuarios extends JPanel {
 	}
 	
 	public static void listarUsuarios () {
+		tabla.removeAll();
 		arrayUsuarios = new ArrayList<ModeloUsuario>();			// <-- modificar el tipo de array al modelo objeto que corresponda
         BbddLogin.listarUsuarios();								// <-- modificar el método para que llame a la sentencia SQL que corresponda y y cargue los datos
         arrayUsuarios = BbddLogin.getArrayUsuarios();			// <-- crear y modificar el metodo GET que trae los datos del array que corresponda
@@ -103,10 +105,10 @@ public class GestionUsuarios extends JPanel {
         modelo.addColumn("USUARIO");
         modelo.addColumn("ROL");
         
-        Object filaDato[] = new Object[2];     
+        Object filaDato[] = new Object[2];
         for (int i = 0; i < arrayUsuarios.size(); i++) {
-        	filaDato[0] = arrayUsuarios.get(i).getNombreUsuario();	// <-- llamar el dato que corresponda del objeto modelo
-        	filaDato[1] = arrayUsuarios.get(i).getRol();  	// <-- llamar el dato que corresponda del objeto modelo
+        	filaDato[0] = arrayUsuarios.get(i).getNombreUsuario();		// <-- llamar el dato que corresponda del objeto modelo
+        	filaDato[1] = arrayUsuarios.get(i).getRol();  				// <-- llamar el dato que corresponda del objeto modelo
         	modelo.addRow(filaDato);
     	}
         tabla.setModel(modelo);
@@ -114,9 +116,18 @@ public class GestionUsuarios extends JPanel {
     }
 	
 
-	 public static int productoSeleccionado() throws NullPointerException {
+	 public static String usuarioSeleccionado() throws NullPointerException {
 		 int indiceSeleccionado = tabla.getSelectedRow();
-		 return indiceSeleccionado;	
+		 String usuarioSelecionado = null;
+		 for (int i = 0; i < arrayUsuarios.size(); i++) {
+			if (indiceSeleccionado==i) {
+				usuarioSelecionado = arrayUsuarios.get(i).getNombreUsuario();
+				return usuarioSelecionado;
+			}
+		}
+		return usuarioSelecionado;
+
+			
 	 }
 	 
 	public static JPanel getPanelGestionUsuarios() {
@@ -140,6 +151,11 @@ public class GestionUsuarios extends JPanel {
 
 	public static JButton getBtn_volver() {
 		return btn_volver;
+	}
+
+
+	public static JTable getTabla() {
+		return tabla;
 	}
 	
 	

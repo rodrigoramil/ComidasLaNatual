@@ -2,7 +2,7 @@ package controlador;
 
 import java.awt.EventQueue;
 
-import modelo.CreacionBBDD;
+import modelo_bbdd.CreacionBBDD;
 import vista.VentanaPrincipal;
 
 public class Main {

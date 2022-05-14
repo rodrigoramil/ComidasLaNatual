@@ -18,8 +18,10 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
 import controlador.ControladorCalculoGanancias;
-import modelo.BbddVentas;
-import modelo.ModeloReceta;
+import modelo.ModeloCalculoGanancias;
+import modelo.ModeloPRUEBA;
+import modelo_bbdd.BbddCalculoGanancias;
+import modelo_bbdd.BbddVentas;
 
 public class CalculoGanancias extends JPanel {
 
@@ -39,7 +41,7 @@ public class CalculoGanancias extends JPanel {
 	private static int alto = 600;
 	private static int posicionPanel_x = 100;
 	private static int posicionPanel_y = 50;
-	private static ArrayList<ModeloReceta> arrayGanancias;
+	private static ArrayList<ModeloCalculoGanancias> arrayGanancias;
 
     
 	public CalculoGanancias() {
@@ -155,9 +157,9 @@ public class CalculoGanancias extends JPanel {
 	}
 
 	public static void listarGanancias () {
-		arrayGanancias = new ArrayList<ModeloReceta>();			// <-- modificar el tipo de array al modelo objeto que corresponda
-        BbddVentas.listarClientes();							// <-- modificar el método para que llame a la sentencia SQL que corresponda y y cargue los datos
-        arrayGanancias = BbddVentas.getArrayRecetas();			// <-- crear y modificar el metodo GET que trae los datos del array que corresponda
+		arrayGanancias = new ArrayList<ModeloCalculoGanancias>();
+        BbddCalculoGanancias.listarCalculoGanancias();
+        arrayGanancias = BbddCalculoGanancias.getArrayCalculoGanancias();
         DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
         modelo.addColumn("Nº");
         modelo.addColumn("FECHA-HORA");
@@ -165,9 +167,9 @@ public class CalculoGanancias extends JPanel {
         
         Object filaDato[] = new Object[3];     
         for (int i = 0; i < arrayGanancias.size(); i++) {
-        	filaDato[0] = arrayGanancias.get(i).getReceta();	// <-- llamar el dato que corresponda del objeto modelo
-        	filaDato[1] = arrayGanancias.get(i).getEstado();  	// <-- llamar el dato que corresponda del objeto modelo
-        	filaDato[2] = arrayGanancias.get(i).getEstado();  	// <-- llamar el dato que corresponda del objeto modelo
+        	filaDato[0] = arrayGanancias.get(i).getIdPedido();
+        	filaDato[1] = arrayGanancias.get(i).getFechaPedido();
+        	filaDato[2] = arrayGanancias.get(i).getGananciaPedido();
         	modelo.addRow(filaDato);
     	}
         tabla.setModel(modelo);
@@ -175,7 +177,7 @@ public class CalculoGanancias extends JPanel {
     }
 	
 
-	 public static int productoSeleccionado() throws NullPointerException {
+	 public static int indiceSeleccionado() throws NullPointerException {
 		 int indiceSeleccionado = tabla.getSelectedRow();
 		 return indiceSeleccionado;	
 	 }

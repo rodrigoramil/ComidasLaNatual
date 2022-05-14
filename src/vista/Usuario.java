@@ -5,8 +5,11 @@ import javax.swing.border.EmptyBorder;
 import controlador.ControladorUsuario;
 import javax.swing.JLabel;
 
+
 import java.awt.Choice;
 import java.awt.Font;
+
+import javax.swing.ButtonGroup;
 
 import javax.swing.JButton;
 import javax.swing.JRadioButton;
@@ -33,6 +36,7 @@ public class Usuario extends JPanel {
 	private static JRadioButton rdbtn_admin;
 	private static JRadioButton rdbtn_Cocina;
 	private static JRadioButton rdbtn_ventas;
+	private static ButtonGroup grupoRol;
 	private static JButton btn_volver;
 	
 	private static int ancho = 800;
@@ -49,7 +53,7 @@ public class Usuario extends JPanel {
 	}
 
 	public void inicializarComponentes() {
-		
+
 		panelUsuario = VentanaPrincipal.parametrosPanel(400, 400);
 		
 		btn_volver = VentanaPrincipal.parametrosJButton("Volver", 310, 20, 70, 20);
@@ -145,6 +149,7 @@ public class Usuario extends JPanel {
 
 		panelUsuario.setVisible(false);
 				
+
 	}
 	
 	private void establecerManejador() {

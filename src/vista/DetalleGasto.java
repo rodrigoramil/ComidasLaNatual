@@ -1,23 +1,23 @@
 package vista;
 
-
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JList;
 
+
 import java.awt.Color;
 import java.awt.Font;
-import java.util.ArrayList;
 
+import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-
 import controlador.ControladorDetalleGasto;
-import modelo.BbddVentas;
-import modelo.ModeloReceta;
+import modelo.ModeloPRUEBA;
+import modelo_bbdd.BbddVentas;
+
 
 public class DetalleGasto extends JPanel {
 
@@ -41,7 +41,7 @@ public class DetalleGasto extends JPanel {
 	private static int posicionPanel_x = 100;
 	private static int posicionPanel_y = 50;
 
-	private static ArrayList<ModeloReceta> arrayDetalleGasto;
+	private static ArrayList<ModeloPRUEBA> arrayDetalleGasto;
 	
 
     
@@ -104,7 +104,7 @@ public class DetalleGasto extends JPanel {
 
 
 	public static void listarDetalleGasto () {
-		arrayDetalleGasto = new ArrayList<ModeloReceta>();			// <-- modificar el tipo de array al modelo objeto que corresponda
+		arrayDetalleGasto = new ArrayList<ModeloPRUEBA>();			// <-- modificar el tipo de array al modelo objeto que corresponda
         BbddVentas.listarClientes();								// <-- modificar el método para que llame a la sentencia SQL que corresponda y y cargue los datos
         arrayDetalleGasto = BbddVentas.getArrayRecetas();			// <-- crear y modificar el metodo GET que trae los datos del array que corresponda
         DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();

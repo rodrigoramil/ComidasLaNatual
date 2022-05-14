@@ -8,15 +8,17 @@ import javax.swing.JList;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.util.ArrayList;
 
+import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-
 import controlador.ControladorPrepararCompra;
-import modelo.BbddVentas;
-import modelo.ModeloReceta;
+import modelo.ModeloPRUEBA;
+import modelo.ModeloPrepararCompra;
+import modelo_bbdd.BbddAlmacen;
+import modelo_bbdd.BbddPrepararCompra;
+import modelo_bbdd.BbddVentas;
 
 
 public class PrepararCompra extends JPanel {
@@ -40,7 +42,7 @@ public class PrepararCompra extends JPanel {
 	private static JTable tabla;
     private static JScrollPane scroll;
 
-	private static ArrayList<ModeloReceta> arrayProductos;
+	private static ArrayList<ModeloPrepararCompra> arrayPrepararCompra;
 
 
 	public PrepararCompra() {
@@ -95,17 +97,17 @@ public class PrepararCompra extends JPanel {
 	}
 
 	public static void listarProductos () {
-		arrayProductos = new ArrayList<ModeloReceta>();			// <-- modificar el tipo de array al modelo objeto que corresponda
-        BbddVentas.listarClientes();							// <-- modificar el método para que llame a la sentencia SQL que corresponda y y cargue los datos
-        arrayProductos = BbddVentas.getArrayRecetas();			// <-- crear y modificar el metodo GET que trae los datos del array que corresponda
+		arrayPrepararCompra = new ArrayList<ModeloPrepararCompra>();
+        BbddPrepararCompra.listarPrepararCompra();
+        arrayPrepararCompra = BbddPrepararCompra.getArrayPrepararCompra();
         DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
         modelo.addColumn("PRODUCTOS");
         modelo.addColumn("CANTIDAD A COMPRAR");
         
         Object filaDato[] = new Object[2];     
-        for (int i = 0; i < arrayProductos.size(); i++) {
-        	filaDato[0] = arrayProductos.get(i).getReceta();	// <-- llamar el dato que corresponda del objeto modelo
-        	filaDato[1] = arrayProductos.get(i).getEstado();  	// <-- llamar el dato que corresponda del objeto modelo
+        for (int i = 0; i < arrayPrepararCompra.size(); i++) {
+        	filaDato[0] = arrayPrepararCompra.get(i).getProducto();
+        	filaDato[1] = arrayPrepararCompra.get(i).getCantidadCompra();
         	modelo.addRow(filaDato);
     	}
         tabla.setModel(modelo);
@@ -113,12 +115,10 @@ public class PrepararCompra extends JPanel {
     }
 	
 
-	 public static int productoSeleccionado() throws NullPointerException {			// <-- modificar el nombre del metodo
+	 public static int indiceSeleccionado() throws NullPointerException {
 		 int indiceSeleccionado = tabla.getSelectedRow();
 		 return indiceSeleccionado;	
 	 }
-	
-	
 	
 	
 	public static JPanel getPanelPrepararCompra() {
