@@ -172,11 +172,13 @@ public class GestionPedidos extends JPanel {
 		modeloListaCliente = new DefaultListModel();
 
 		for (ModeloCliente c : array_clientes) {
-			System.out.println("IdCliente: "+c.getId()); // <-- BORRAR
+//			System.out.println("Cliente: "+c.getNombre()); // <-- BORRAR
 			// no añadimos a la lista los primeros ID porque son mesas
 			if (c.getId()>=9) {
-				System.out.println(" NO es MESA ->  "+c.getId()); // <-- BORRAR
+//				System.out.println(" NO es MESA ->  "+c.getNombre()); // <-- BORRAR
 				modeloListaCliente.addElement(c.getNombre());
+//				modeloListaCliente.addElement(c.getId());
+				
 			}
 		}	
 

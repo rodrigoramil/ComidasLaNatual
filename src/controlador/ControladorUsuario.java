@@ -18,8 +18,15 @@ public class ControladorUsuario implements ActionListener {
 		if (e.getSource() == Usuario.getBtn_volver()) {
 			VentanaPrincipal.getPanelGestionUsuarios().setVisible(true);
 			VentanaPrincipal.getPanelUsuario().setVisible(false);
+			
+			
 		}
 		
+		if (e.getSource() == Usuario.getBtn_Aceptar()) {
+			VentanaPrincipal.getPanelGestionUsuarios().setVisible(true);
+			VentanaPrincipal.getPanelUsuario().setVisible(false);
+			
+		}
 	}
 
 }

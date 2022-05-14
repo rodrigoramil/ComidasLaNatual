@@ -1,29 +1,19 @@
 package vista;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-import java.awt.Window;
-import javax.swing.JFrame;
-import javax.swing.JList;
+import java.util.ArrayList;
+
+import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JTextField;
-import javax.swing.DefaultListModel;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.awt.event.ActionEvent;
-import javax.swing.JMenuBar;
-import javax.swing.JComboBox;
 import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+
 import controlador.ControladorRecetario;
-import modelo.BbddVentas;
-import modelo.ModeloCliente;
+import modelo.BbddRecetario;
 import modelo.ModeloReceta;
+import modelo.ModeloRecetario;
 
 
 public class Recetario extends JPanel {
@@ -43,13 +33,27 @@ public class Recetario extends JPanel {
 	private static JButton btn_buscar;
 	private static JButton btn_volver;
 	private static JScrollPane scroll;    
-    private static ArrayList<ModeloReceta> arrayRecetas;
+//    private static ArrayList<ModeloReceta> arrayRecetas;
     private static JTable tabla;
     
 	private int ancho = 800;
 	private int alto = 600;
 	private int posicionPanel_x = 100;
 	private int posicionPanel_y = 50;
+
+
+//	private static JList listaRecetas;
+//    private static JScrollPane scroll;
+    
+    private static ArrayList<ModeloRecetario> arrayRecetas;
+//    private static DefaultListModel modeloListaReceta;
+    
+    
+	//**************************************************************************************************
+    
+//	private static JTable tabla;
+//    private static DefaultTableModel modelo = null;
+	private static String recetasSeleccionado;
 
 
 	public Recetario() {
@@ -128,17 +132,17 @@ public class Recetario extends JPanel {
 		
 	
 	public static void listarRecetas () {
-		arrayRecetas = new ArrayList<ModeloReceta>();
-        BbddVentas.listarClientes();
-        arrayRecetas = BbddVentas.getArrayRecetas();
+		arrayRecetas = new ArrayList<ModeloRecetario>();
+		BbddRecetario.listarRecetas();
+        arrayRecetas = BbddRecetario.getarrayRecetario();
         DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
-        modelo.addColumn("NOMBRE RRECETA");
+        modelo.addColumn("NOMBRE RECETA");
         modelo.addColumn("ESTADO");
         
         Object filaDato[] = new Object[2];     
         for (int i = 0; i < arrayRecetas.size(); i++) {
-        	filaDato[0] = arrayRecetas.get(i).getReceta();
-        	filaDato[1] = arrayRecetas.get(i).getEstado();  
+        	filaDato[0] = arrayRecetas.get(i).getNombreReceta();
+        	filaDato[1] = arrayRecetas.get(i).getIdDisponibilidad();  
         	modelo.addRow(filaDato);
     	}
         tabla.setModel(modelo);
