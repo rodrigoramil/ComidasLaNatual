@@ -1,32 +1,25 @@
 package vista;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
-
 import controlador.ControladorProductosAlmacen;
-import controlador.ControladorRecetario;
-import modelo.BbddVentas;
-import modelo.ModeloReceta;
+import modelo.ModeloPRUEBA;
+import modelo_bbdd.BbddVentas;
 
-import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JTextField;
-import javax.swing.ListSelectionModel;
 import javax.swing.JButton;
-import java.awt.Choice;
-import java.awt.Label;
 import java.util.ArrayList;
-import java.awt.Button;
 
 public class ProductosAlmacen extends JPanel {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6093653375171255892L;
+	
 	private static JPanel panelProductosAlmacen;
 	private static JTextField caja_nombre_producto;	
 	private static JButton btn_add_receta;;
@@ -42,7 +35,7 @@ public class ProductosAlmacen extends JPanel {
 	private static int posicionPanel_y = 50;
 
 
-private static ArrayList<ModeloReceta> arrayProductos;
+private static ArrayList<ModeloPRUEBA> arrayProductos;
     
 	public ProductosAlmacen() {
 		super();
@@ -111,8 +104,8 @@ private static ArrayList<ModeloReceta> arrayProductos;
 
 	
 	public static void listarProductos () {
-		arrayProductos = new ArrayList<ModeloReceta>();			// <-- modificar el tipo de array al modelo objeto que corresponda
-        BbddVentas.listarRecetas();							// <-- modificar el método para que llame a la sentencia SQL que corresponda y y cargue los datos
+		arrayProductos = new ArrayList<ModeloPRUEBA>();			// <-- modificar el tipo de array al modelo objeto que corresponda
+        BbddVentas.listarClientes();							// <-- modificar el método para que llame a la sentencia SQL que corresponda y y cargue los datos
         arrayProductos = BbddVentas.getArrayRecetas();			// <-- crear y modificar el metodo GET que trae los datos del array que corresponda
         DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
         modelo.addColumn("PRODUCTOS");

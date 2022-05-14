@@ -15,7 +15,6 @@ public class ModeloUsuario implements Serializable{
 		super();
 		this.nombreUsuario = nombreUsuario;
 		this.rol = rol;
-
 	}
 
 	public ModeloUsuario() {

@@ -4,10 +4,12 @@ package modelo;
 import java.io.Serializable;
 
 public class ModeloCliente implements Serializable{
+
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -3971849102945419286L;
+	
 	int id;
 	String nombre;
 	String telefono;

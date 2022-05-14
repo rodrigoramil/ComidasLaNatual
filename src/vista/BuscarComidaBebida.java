@@ -3,18 +3,15 @@ package vista;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
-
 import java.util.ArrayList;
-
 import javax.swing.JButton;
-import javax.swing.JList;
 import javax.swing.JTextField;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-
 import controlador.ControladorBuscarComidaBebida;
-import modelo.BbddVentas;
-import modelo.ModeloReceta;
+import modelo.ModeloPRUEBA;
+import modelo_bbdd.BbddVentas;
+
 
 public class BuscarComidaBebida extends JPanel {
 
@@ -41,7 +38,7 @@ public class BuscarComidaBebida extends JPanel {
 	private static JTable tabla;
     private static JScrollPane scroll;
 
-	private static ArrayList<ModeloReceta> arrayComidaBebida;
+	private static ArrayList<ModeloPRUEBA> arrayComidaBebida;
 
     
 	public BuscarComidaBebida() {
@@ -107,8 +104,8 @@ public class BuscarComidaBebida extends JPanel {
 	}
 
 	public static void pedidos () {
-		arrayComidaBebida = new ArrayList<ModeloReceta>(); 		// <-- modificar el tipo de array al modelo objeto que corresponda
-        BbddVentas.listarRecetas();							// <-- modificar el método para que llame a la sentencia SQL que corresponda y y cargue los datos
+		arrayComidaBebida = new ArrayList<ModeloPRUEBA>(); 		// <-- modificar el tipo de array al modelo objeto que corresponda
+        BbddVentas.listarClientes();							// <-- modificar el método para que llame a la sentencia SQL que corresponda y y cargue los datos
         arrayComidaBebida = BbddVentas.getArrayRecetas();		// <-- crear y modificar el metodo GET que trae los datos del array que corresponda
         DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
         modelo.addColumn("COMIDA/BEBIDA");

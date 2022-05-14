@@ -3,7 +3,7 @@ package controlador;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import modelo.BbddVentas;
+import modelo_bbdd.BbddVentas;
 import vista.VentanaPrincipal;
 import vista.Almacen;
 import vista.BuscarComidaBebida;
@@ -40,6 +40,7 @@ public class ControladorMenuPrincipal implements ActionListener {
 			VentanaPrincipal.getPanelMenuPrincipal().setVisible(false);
 			VentanaPrincipal.getPanelGestionPedidos().setVisible(true);
 			GestionPedidos.getBtn_Editar_Cliente().setEnabled(false);
+			GestionPedidos.getBtn_Ver_Pedido().setEnabled(false);
 
 		}
 		

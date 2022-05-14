@@ -1,35 +1,29 @@
 package vista;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 import java.util.ArrayList;
-
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.JTextPane;
 import javax.swing.JButton;
-import javax.swing.border.LineBorder;
-import java.awt.Color;
 import javax.swing.table.DefaultTableModel;
-
 import controlador.ControladorReceta;
-import modelo.BbddVentas;
 import modelo.ModeloReceta;
+import modelo_bbdd.BbddReceta;
 
 public class Receta extends JPanel {
 
-	private static JPanel panelReceta;
-	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8189623319602485236L;
+
+	private static JPanel panelReceta;	
 	private static JTextArea texto_elaboracion;
 	private static JLabel lbl_ingredientes;
 	private static JLabel lbl_elaboracion;
@@ -41,7 +35,6 @@ public class Receta extends JPanel {
 	private static JTextField nombre_receta;
 	private static JTable tabla;
     private static JScrollPane scrollReceta;
-    
 	private static int ancho = 800;
 	private static int alto = 600;
 	private static int posicionPanel_x = 100;
@@ -55,7 +48,7 @@ public class Receta extends JPanel {
 		super();
 		inicializarComponentes();
 		establecerManejador();		
-		listarIngredientes();
+		listarRecetas();
 	}
 
 	public void inicializarComponentes() {
@@ -127,30 +120,28 @@ public class Receta extends JPanel {
 		btn_volver.addActionListener(controlador);
 		nombre_receta.addActionListener(controlador);
 		tabla.addMouseListener(controlador);
-		
-		
 	}
 	
 	
-	public static void listarIngredientes () {
+	
+	public static void listarRecetas () {
 		arrayIngredientes = new ArrayList<ModeloReceta>();
-        BbddVentas.listarRecetas();
-        arrayIngredientes = BbddVentas.getArrayRecetas();
-        
+		BbddReceta.listarRecetas();
+		arrayIngredientes = BbddReceta.getArrayVentanaReceta();
         DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
         modelo.addColumn("NOMBRE");
         modelo.addColumn("CANTIDAD");
         
         Object filaDato[] = new Object[2];     
         for (int i = 0; i < arrayIngredientes.size(); i++) {
-        	filaDato[0] = arrayIngredientes.get(i).getReceta();
-        	filaDato[1] = arrayIngredientes.get(i).getEstado();  
+        	filaDato[0] = arrayIngredientes.get(i).getIngrediente();
+        	filaDato[1] = arrayIngredientes.get(i).getCantidad();  
         	modelo.addRow(filaDato);
     	}
         tabla.setModel(modelo);
         modelo.fireTableDataChanged();
     }
-	
+
 
 	 public static int recetaSeleccionado() throws NullPointerException {
 		 int indiceSeleccionado = tabla.getSelectedRow();
