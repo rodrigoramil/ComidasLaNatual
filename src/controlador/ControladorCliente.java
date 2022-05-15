@@ -35,7 +35,7 @@ public class ControladorCliente implements ActionListener{
 			String cajaTextoTlf = Cliente.getTfd_telefono().getText();
 			
 			if (nuevoCliente) {				
-				System.out.println("Nuevo Cliente");		
+				System.out.println("Nuevo Cliente");
 				try {
 					BbddVentas.insertarCliente(cajaTextoNombre, cajaTextoTlf);
 				} catch (SQLException e1) {

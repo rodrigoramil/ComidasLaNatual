@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import modelo.ModeloCliente;
 import modelo.ModeloPRUEBA;
+import vista.Cliente;
 
 public class BbddVentas {
 
@@ -48,7 +49,6 @@ public class BbddVentas {
 		System.out.println("esta entrando por en editar");
         conexion = new Conexion();
         connection = conexion.obtenerConexion();
- 
         try {
         	
 			sentencia= connection.prepareStatement("update Cliente set NombreCliente = ?, Telefono = ?  where IdCliente = ?");
@@ -56,7 +56,7 @@ public class BbddVentas {
             sentencia.setString(2, telefono);
             sentencia.setInt(3, id);
             sentencia.executeUpdate();
-//            
+//          
             listarClientes();            
 //
         } catch (SQLException e) {
@@ -76,34 +76,6 @@ public class BbddVentas {
 		sentencia.setInt(2, Integer.parseInt(telefono));
 		sentencia.executeUpdate();
 	}
-
-	
-	
-	public void cumpruebaMesas() throws SQLException  {
-		conexion = new Conexion();
-        connection = conexion.obtenerConexion();
-        
-        
-        for (int i = 0; i < 8; i++) {
-        	String mesa = "Mesa "+1;
-			if (!arrayClientes.get(i).getNombre().equals(mesa)) {
-				 try {
-					sentencia = connection.prepareStatement("INSERT INTO PERSONAS (NombreCliente, Telefono) VALUES (?, ?)");             
-					sentencia.setString(1, mesa);            
-					sentencia.executeQuery();
-				
-				
-				} catch (SQLException e) {
-					System.out.println("Error en gestionPedidosClientes SentenciasSQL");
-					System.out.println(e.getMessage());
-				}
-			}
-		}
-
-   }
-		
-		
-		
 
 
 	public static ArrayList<ModeloPRUEBA> getArrayRecetas() {
