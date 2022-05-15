@@ -4,9 +4,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 
+import modelo.ModeloComidaBebida;
+import modelo_bbdd.BbddComidaBebida;
 import vista.BuscarComidaBebida;
 import vista.Receta;
 import vista.VentanaPrincipal;
@@ -15,10 +19,17 @@ public class ControladorBuscarComidaBebida implements ActionListener, MouseListe
 
 	private BuscarComidaBebida panelBuscarComidaBebida;
 	private int cantidad;
+	private ArrayList<String> arrayBebida;
+	private static int indiceSeleccionado;
+	private static boolean buscar = false;
+	private static boolean comida = false;
+	private static boolean bebida = false;
 	private static boolean desdeVentas;
+
 	
 	public ControladorBuscarComidaBebida(BuscarComidaBebida panelBuscarComidaBebida) {
 		this.panelBuscarComidaBebida = panelBuscarComidaBebida;
+	
 	}	
 	
 	@Override
@@ -35,6 +46,14 @@ public class ControladorBuscarComidaBebida implements ActionListener, MouseListe
 				if (!respuesta.equals("")) {
 					try {	
 						cantidad = Integer.parseInt(respuesta);
+						
+						
+						
+						
+						
+						
+						
+						
 					} catch (NumberFormatException e2) {
 						cantidad=1;
 						JOptionPane.showMessageDialog(panelBuscarComidaBebida, "No ha introducido un número, por defecto se a añadido uno");
@@ -44,31 +63,33 @@ public class ControladorBuscarComidaBebida implements ActionListener, MouseListe
 					cantidad=1;
 				}
 			}
-			System.out.println("cantidad añadida --> "+cantidad);
+//			System.out.println("cantidad añadida --> "+cantidad);
 			
-			
-			
-			
-			
+
 			
 			VentanaPrincipal.getPanelBuscarComidaBebida().setVisible(false);
 			VentanaPrincipal.getPanelPedido().setVisible(true);
 		}
 		
 		if (e.getSource() == BuscarComidaBebida.getBtn_bebidas_disponibles()) {
-			
+			bebida = true;
+			BuscarComidaBebida.pedidos();			
 		}
 		
 		if (e.getSource() == BuscarComidaBebida.getBtn_comidas_disponibles()) {
-			
+			comida = true;
+			BuscarComidaBebida.pedidos();
 		}
 		
 		if (e.getSource() == BuscarComidaBebida.getBtn_listar_todo()) {
-			
+			BuscarComidaBebida.pedidos();
 		}
 	
 		if (e.getSource() == BuscarComidaBebida.getBtn_buscar()) {
+			buscar = true;
 			
+			
+			BuscarComidaBebida.pedidos();
 		}
 	
 		if (e.getSource() == BuscarComidaBebida.getBtn_ver_receta()) {
@@ -92,7 +113,9 @@ public class ControladorBuscarComidaBebida implements ActionListener, MouseListe
 	@Override
 	public void mousePressed(MouseEvent e) { // Al pulsar raton
 
-		
+		 indiceSeleccionado = BuscarComidaBebida.getTabla().getSelectedRow();
+		 System.out.println("indiceSeleccionado -> "+indiceSeleccionado);
+
 	}
 
 	@Override
@@ -122,9 +145,37 @@ public class ControladorBuscarComidaBebida implements ActionListener, MouseListe
 	public static void setDesdeVentas(boolean desdeVentas) {
 		ControladorBuscarComidaBebida.desdeVentas = desdeVentas;
 	}
-		
-	
-	
-	
-	
+
+	public ArrayList<String> getArrayBebida() {
+		return arrayBebida;
+	}
+
+	public static boolean isBebida() {
+		return bebida;
+	}
+
+	public static void setBebida(boolean bebida) {
+		ControladorBuscarComidaBebida.bebida = bebida;
+	}
+
+	public static boolean isComida() {
+		return comida;
+	}
+
+	public static void setComida(boolean comida) {
+		ControladorBuscarComidaBebida.comida = comida;
+	}
+
+	public static boolean isBuscar() {
+		return buscar;
+	}
+
+	public static void setBuscar(boolean buscar) {
+		ControladorBuscarComidaBebida.buscar = buscar;
+	}
+
+	public static int getIndiceSeleccionado() {
+		return indiceSeleccionado;
+	}
+
 }

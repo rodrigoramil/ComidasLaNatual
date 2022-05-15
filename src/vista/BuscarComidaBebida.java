@@ -2,6 +2,8 @@ package vista;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+
+import java.text.Normalizer;
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JTextField;
@@ -35,11 +37,13 @@ public class BuscarComidaBebida extends JPanel {
 
 	private static ArrayList<ModeloComidaBebida> arrayComidaBebida;
 
+	private static BuscarComidaBebida buscarComidaBebida;
+
     
 	public BuscarComidaBebida() {
 
 		inicializarComponentes();
-		establecerManejador();		
+		establecerManejador();
 		pedidos();
 	}
 
@@ -79,9 +83,8 @@ public class BuscarComidaBebida extends JPanel {
 		panelBuscarComidaBebida.setVisible(false);
 	}
 	
-	public void establecerManejador() {			
-		ControladorBuscarComidaBebida controlador = new ControladorBuscarComidaBebida(this);
-		
+	public static void establecerManejador() {			
+		ControladorBuscarComidaBebida controlador = new ControladorBuscarComidaBebida(buscarComidaBebida);		
 		btn_comidas_disponibles.addActionListener(controlador);
 		btn_bebidas_disponibles.addActionListener(controlador);
 		btn_listar_todo.addActionListener(controlador);
@@ -89,15 +92,17 @@ public class BuscarComidaBebida extends JPanel {
 		btn_buscar.addActionListener(controlador);
 		btn_anadir.addActionListener(controlador);
 		btn_ver_receta.addActionListener(controlador);
-		
+		tabla.addMouseListener(controlador);
 	
 	}
 
 	public static void pedidos () {
-		arrayComidaBebida = new ArrayList<ModeloComidaBebida>();
-        BbddComidaBebida.listarComidaBebida();						
-        arrayComidaBebida = BbddComidaBebida.getArrayComidaBebida();	
-        tabla = new JTable();
+		arrayComidaBebida = new ArrayList<ModeloComidaBebida>();   
+		BbddComidaBebida.listarComidaBebida();
+        arrayComidaBebida = BbddComidaBebida.getArrayComidaBebida();
+        
+        scroll.remove(tabla);
+        tabla = new JTable();        
 		scroll.setViewportView(tabla);
         DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
         modelo.addColumn("COMIDA/BEBIDA");
@@ -106,22 +111,71 @@ public class BuscarComidaBebida extends JPanel {
         
         Object filaDato[] = new Object[3];     
         for (int i = 0; i < arrayComidaBebida.size(); i++) {
-        	filaDato[0] = arrayComidaBebida.get(i).getNombreReceta();
-        	filaDato[1] = arrayComidaBebida.get(i).getPrecioVenta();
-        	filaDato[2] = arrayComidaBebida.get(i).getEstado();
-        	modelo.addRow(filaDato);
-    	}
+        	
+        	if (ControladorBuscarComidaBebida.isBebida()) {        		
+				if (arrayComidaBebida.get(i).getTipo().equals("Bebida")) {
+					filaDato[0] = arrayComidaBebida.get(i).getNombreReceta();
+					filaDato[1] = arrayComidaBebida.get(i).getPrecioVenta();
+					filaDato[2] = arrayComidaBebida.get(i).getEstado();
+					modelo.addRow(filaDato);
+				}    
+        		
+			} else if (ControladorBuscarComidaBebida.isComida()) {				
+				if (ControladorBuscarComidaBebida.isComida()) {
+					
+					if (arrayComidaBebida.get(i).getTipo().equals("Comida")) {
+						filaDato[0] = arrayComidaBebida.get(i).getNombreReceta();
+						filaDato[1] = arrayComidaBebida.get(i).getPrecioVenta();
+						filaDato[2] = arrayComidaBebida.get(i).getEstado();
+						modelo.addRow(filaDato);
+					}
+				}			
+				
+			} else if (ControladorBuscarComidaBebida.isBuscar()) {
+					
+				if (compruebaMayusculasTildes (caja_buscar.getText()).contains(
+						compruebaMayusculasTildes (arrayComidaBebida.get(i).getNombreReceta()))) {	
+					filaDato[0] = arrayComidaBebida.get(i).getNombreReceta();
+					filaDato[1] = arrayComidaBebida.get(i).getPrecioVenta();
+					filaDato[2] = arrayComidaBebida.get(i).getEstado();
+					modelo.addRow(filaDato);					
+				}	
+
+			}			
+			else {
+				filaDato[0] = arrayComidaBebida.get(i).getNombreReceta();
+				filaDato[1] = arrayComidaBebida.get(i).getPrecioVenta();
+				filaDato[2] = arrayComidaBebida.get(i).getEstado();
+				modelo.addRow(filaDato);
+			}
+        	
+		}
+        ControladorBuscarComidaBebida.setBuscar(false);
+    	ControladorBuscarComidaBebida.setComida(false);
+    	ControladorBuscarComidaBebida.setBebida(false);
         tabla.setModel(modelo);
         modelo.fireTableDataChanged();
         tabla = VentanaPrincipal.formatoTabla(tabla);
+        establecerManejador();
     }
 
-	 public static int productoSeleccionado() throws NullPointerException {
-		 int indiceSeleccionado = tabla.getSelectedRow();
-		 return indiceSeleccionado;	
-	 }
+	
+	// Metodo que pasa las letras a minusculas y llama al metodo que elimina Tildes
+	public static String compruebaMayusculasTildes (String palabra) {
+		String datoLimpio = borrarTilde(palabra);
+		datoLimpio=datoLimpio.toLowerCase();
+		return datoLimpio;		
+	}
 
+	// Metodo para eliminar las tildes
+    public static String borrarTilde(String texto) {    	
+        texto = Normalizer.normalize(texto, Normalizer.Form.NFD);
+        texto = texto.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");        
+        return texto;
+    } 
+	
 
+	
 	public static JPanel getPanelBuscarComidaBebida() {
 		return panelBuscarComidaBebida;
 	}
@@ -161,5 +215,11 @@ public class BuscarComidaBebida extends JPanel {
 		return btn_ver_receta;
 	}
 
+
+	public static JTable getTabla() {
+		return tabla;
+	}
+
+	
 	
 }

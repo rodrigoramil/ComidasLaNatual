@@ -20,11 +20,11 @@ public class BbddComidaBebida {
 		connection = conexion.obtenerConexion();		
 		arrayComidaBebida = new ArrayList<ModeloComidaBebida>();		
 		try {
-			sentenciaAlmacen = connection.prepareStatement("Select R.NombreReceta, R.PrecioVenta, D.Estado from recetas R, disponibilidadreceta D where D.IdDisponibilidad = R.IdDisponibilidad order by Estado");
+			sentenciaAlmacen = connection.prepareStatement("Select R.NombreReceta, R.PrecioVenta, D.Estado, T.Tipo from recetas R, disponibilidadreceta D, tipoproducto T where D.IdDisponibilidad = R.IdDisponibilidad and R.IdTipo = T.IdTipo order by Estado");
 			ResultSet rs = sentenciaAlmacen.executeQuery();			
 
 			while (rs.next()) {
-				ModeloComidaBebida modelo = new ModeloComidaBebida(rs.getString("NombreReceta"), rs.getFloat("PrecioVenta"), rs.getString("Estado"));
+				ModeloComidaBebida modelo = new ModeloComidaBebida(rs.getString("NombreReceta"), rs.getFloat("PrecioVenta"), rs.getString("Estado"), rs.getString("Tipo"));
 				arrayComidaBebida.add(modelo);
 			}
 			
