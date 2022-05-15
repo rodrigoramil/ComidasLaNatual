@@ -47,6 +47,7 @@ public class ControladorMenuPrincipal implements  ActionListener, MouseListener 
 		}
 		
 		if (e.getSource() == panelMenuPrincipal.getBtn_Recetario()) {
+			
 			VentanaPrincipal.getPanelMenuPrincipal().setVisible(false);
 			VentanaPrincipal.getPanelRecetario().setVisible(true);
 		

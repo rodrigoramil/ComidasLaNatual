@@ -34,11 +34,11 @@ public class ModeloAlmacen implements Serializable {
 		this.tipo = tipo;
 	}
 	/**
+	 * @param f 
+	 * @param string 
 	 * 
 	 */
-	public ModeloAlmacen() {
-		super();
-	}
+	
 	public String getNombreProducto() {
 		return nombreProducto;
 	}
