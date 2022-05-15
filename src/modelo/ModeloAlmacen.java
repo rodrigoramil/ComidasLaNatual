@@ -38,7 +38,14 @@ public class ModeloAlmacen implements Serializable {
 	 */
 	public ModeloAlmacen() {
 		super();
+
 	}
+	/**
+	 * @param f 
+	 * @param string 
+	 * 
+	 */
+	
 	public String getNombreProducto() {
 		return nombreProducto;
 	}

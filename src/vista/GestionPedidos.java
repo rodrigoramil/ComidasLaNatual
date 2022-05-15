@@ -142,9 +142,8 @@ public class GestionPedidos extends JPanel {
 		array_clientes = BbddVentas.getArrayClientes();
 		modeloListaCliente = new DefaultListModel();
 		for (ModeloCliente c : array_clientes) {
-			if (c.getId()>=9) {
-				modeloListaCliente.addElement(c.getNombre());
-			}
+			modeloListaCliente.addElement(c.getNombre());
+		
 		}	
 
 		listaCliente.setModel(modeloListaCliente);

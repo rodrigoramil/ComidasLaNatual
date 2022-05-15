@@ -47,7 +47,7 @@ clienteSelecionado = GestionPedidos.clienteSeleccionado();
 				
 			try {
 				for (int i = 0; i < BbddVentas.getArrayClientes().size(); i++) {
-					clienteBBDD = BbddVentas.getArrayClientes().get(i).getId()-9;					
+					clienteBBDD = BbddVentas.getArrayClientes().get(i).getId()-8;					
 //					System.out.println("clienteSelecionado: "+clienteSelecionado+" ---- clienteBBDD: "+clienteBBDD);
 					if (clienteSelecionado==clienteBBDD) {	
 //						System.out.println("clienteSelecionado -> "+clienteSelecionado+" clienteBBDD -> "+clienteBBDD); // <-- BORRAR
