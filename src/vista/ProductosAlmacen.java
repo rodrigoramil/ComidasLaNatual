@@ -7,6 +7,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import controlador.ControladorProductosAlmacen;
 import modelo.ModeloPRUEBA;
+import modelo.ModeloProductosAlmacen;
+import modelo_bbdd.BbddProductosAlmacen;
 import modelo_bbdd.BbddVentas;
 
 import javax.swing.JTextField;
@@ -29,7 +31,7 @@ public class ProductosAlmacen extends JPanel {
 	private static JTable tabla;
     private static JScrollPane scroll;
 
-private static ArrayList<ModeloPRUEBA> arrayProductos;
+private static ArrayList<ModeloProductosAlmacen> arrayProductos;
     
 	public ProductosAlmacen() {
 		super();
@@ -84,9 +86,9 @@ private static ArrayList<ModeloPRUEBA> arrayProductos;
 
 	
 	public static void listarProductos () {
-		arrayProductos = new ArrayList<ModeloPRUEBA>();
-        BbddVentas.listarClientes();					
-        arrayProductos = BbddVentas.getArrayRecetas();
+		arrayProductos = new ArrayList<ModeloProductosAlmacen>();
+        BbddProductosAlmacen.listarProductosAlmacen();					
+        arrayProductos = BbddProductosAlmacen.getArrayAlmacen();
 		tabla = new JTable();
 		scroll.setViewportView(tabla);
         DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
@@ -95,13 +97,33 @@ private static ArrayList<ModeloPRUEBA> arrayProductos;
         
         Object filaDato[] = new Object[2];     
         for (int i = 0; i < arrayProductos.size(); i++) {
-        	filaDato[0] = arrayProductos.get(i).getReceta();
-        	filaDato[1] = arrayProductos.get(i).getEstado();
+        	filaDato[0] = arrayProductos.get(i).getProductos();
+        	filaDato[1] = arrayProductos.get(i).getCantidad();
         	modelo.addRow(filaDato);
     	}
         tabla.setModel(modelo);
         modelo.fireTableDataChanged();
         tabla = VentanaPrincipal.formatoTabla(tabla);
+        
+        
+//        arrayProductos = new ArrayList<ModeloPRUEBA>();
+//        BbddVentas.listarClientes();					
+//        arrayProductos = BbddVentas.getArrayRecetas();
+//		tabla = new JTable();
+//		scroll.setViewportView(tabla);
+//        DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
+//        modelo.addColumn("PRODUCTOS");
+//        modelo.addColumn("STOCK ACTUAL");
+//        
+//        Object filaDato[] = new Object[2];     
+//        for (int i = 0; i < arrayProductos.size(); i++) {
+//        	filaDato[0] = arrayProductos.get(i).getReceta();
+//        	filaDato[1] = arrayProductos.get(i).getEstado();
+//        	modelo.addRow(filaDato);
+//    	}
+//        tabla.setModel(modelo);
+//        modelo.fireTableDataChanged();
+//        tabla = VentanaPrincipal.formatoTabla(tabla);
     }
 	
 
