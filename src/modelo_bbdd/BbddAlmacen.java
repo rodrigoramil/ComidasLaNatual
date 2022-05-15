@@ -36,14 +36,41 @@ public class BbddAlmacen {
 		
 	public static void addPructoAlmacen(String nombreProducto, float cantidadActual, float cantidadMinima, float cantidadMaxima, int idTipoProducto, int unidadMedida) {
 		arrayAlmacen = new ArrayList<ModeloAlmacen>();	
+		String vNombreProducto="salchichon";
+		String vCantidad = "2";
+		int vIdUnidadMedida = 1;
+		String vCantidadMinima ="3";
+		String vCantidadMaxima="2";
+		int vIdTipo=1;
+		
+		float v = Float.parseFloat(vCantidad);
+		float v1 = Float.parseFloat(vCantidadMinima);
+		float v2 = Float.parseFloat(vCantidadMaxima);
+		
+		
+		
 		try {
-			sentenciaAlmacen = connection.prepareStatement("INSERT INTO Almacen (NombreProducto, idTipo, Cantidad, IdUnidadMedida, CantidadMinima, CantidadMaxima) VALUES (? ,? ,? ,? , ?, ?)");
-			sentenciaAlmacen.setString(1, nombreProducto);
-			sentenciaAlmacen.setInt(2, idTipoProducto);
-			sentenciaAlmacen.setFloat(3, cantidadActual);
-			sentenciaAlmacen.setInt(4, unidadMedida);
-			sentenciaAlmacen.setFloat(5, cantidadMinima);
-			sentenciaAlmacen.setFloat(6, cantidadMaxima);
+			sentenciaAlmacen = connection.prepareStatement("INSERT INTO Almacen (NombreProducto, Cantidad, IdUnidadMedida, CantidadMinima, CantidadMaxima, IdTipo) VALUES ( ?, ?, ?, ?, ?, ?);");
+			sentenciaAlmacen.setString(1, vNombreProducto);
+			sentenciaAlmacen.setFloat(2, v);
+			sentenciaAlmacen.setInt(3, vIdUnidadMedida); // Unidad Medida
+			sentenciaAlmacen.setFloat(4, v1);
+			sentenciaAlmacen.setFloat(5, v2);
+			sentenciaAlmacen.setInt(6, vIdTipo); // Tipo
+
+			
+//			
+//			sentenciaAlmacen = connection.prepareStatement("INSERT INTO Almacen (NombreProducto, Cantidad, IdUnidadMedida, CantidadMinima, CantidadMaxima, IdTipo) VALUES ( ?, ?, ?, ?, ?, ?);");
+//			sentenciaAlmacen.setString(1, nombreProducto);
+//			sentenciaAlmacen.setFloat(2, cantidadActual);
+//			sentenciaAlmacen.setInt(3, 1); // Unidad Medida
+////			sentenciaAlmacen.setInt(2, idTipoProducto);
+//			sentenciaAlmacen.setFloat(4, cantidadMinima);
+//			sentenciaAlmacen.setFloat(5, cantidadMaxima);
+//			sentenciaAlmacen.setInt(6, 1); // Tipo
+////			sentenciaAlmacen.setInt(4, unidadMedida);
+			
+			
 			sentenciaAlmacen.executeUpdate();
 			ResultSet rs = sentenciaAlmacen.executeQuery();			
 			while (rs.next()) {
