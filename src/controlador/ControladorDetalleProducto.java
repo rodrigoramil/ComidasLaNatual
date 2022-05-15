@@ -27,7 +27,7 @@ public class ControladorDetalleProducto implements ActionListener {
 		if (e.getSource() == DetalleProducto.getBtn_Aceptar()) {
 			VentanaPrincipal.getPanelAlmacen().setVisible(true);
 			VentanaPrincipal.getPanelDetalleProducto().setVisible(false);
-			
+			/*
 
 			String nombreProducto = DetalleProducto.getTfd_Nombre().getText();
 			int tipoProducto = DetalleProducto.getTipo().getSelectedIndex();
@@ -35,8 +35,16 @@ public class ControladorDetalleProducto implements ActionListener {
 			int unidadMedida = DetalleProducto.getUnidadMedida().getSelectedIndex();
 			float cantidadMinima = Float.parseFloat(DetalleProducto.getTfd_Minimo().getText());
 			float cantidadMaxima = Float.parseFloat(DetalleProducto.getTfd_Maximo().getText());
-						
-			BbddAlmacen.addPructoAlmacen(nombreProducto, cantidadActual, cantidadMinima, cantidadMaxima, tipoProducto, unidadMedida);
+			
+			
+			System.out.println("nombreProducto: "+nombreProducto);
+			System.out.println("tipoProducto: "+tipoProducto);
+			System.out.println("cantidadActual: "+cantidadActual);
+			System.out.println("unidadMedida: "+unidadMedida);
+			System.out.println("cantidadMinima: "+cantidadMinima);
+			System.out.println("cantidadMaxima: "+cantidadMaxima);
+			*/
+//			BbddAlmacen.addPructoAlmacen(nombreProducto, cantidadActual, cantidadMinima, cantidadMaxima, tipoProducto, unidadMedida);
 			
 			
 		}

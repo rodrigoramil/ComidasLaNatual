@@ -10,12 +10,12 @@ public class ModeloAlmacen implements Serializable {
 	 */
 	private static final long serialVersionUID = 1522571376895366509L;
 	
-	String nombreProducto;
-	int tipo;	
+	String nombreProducto;	
 	float cantidadActual;
 	int unidadMedida;
 	float cantidadMinima;
 	float cantidadMaxima;
+	int tipo;	
 	/**
 	 * @param nombreProducto
 	 * @param tipo
@@ -24,15 +24,14 @@ public class ModeloAlmacen implements Serializable {
 	 * @param cantidadMinima
 	 * @param cantidadMaxima
 	 */
-	public ModeloAlmacen(String nombreProducto, int tipo, float cantidadActual, int unidadMedida, float cantidadMinima,
-			float cantidadMaxima) {
+	public ModeloAlmacen(String nombreProducto, float cantidadActual, int unidadMedida, float cantidadMinima, float cantidadMaxima, int tipo) {
 		super();
-		this.nombreProducto = nombreProducto;
-		this.tipo = tipo;
+		this.nombreProducto = nombreProducto;		
 		this.cantidadActual = cantidadActual;
 		this.unidadMedida = unidadMedida;
 		this.cantidadMinima = cantidadMinima;
 		this.cantidadMaxima = cantidadMaxima;
+		this.tipo = tipo;
 	}
 	/**
 	 * 
