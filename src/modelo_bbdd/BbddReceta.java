@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import modelo.ModeloReceta;
+import vista.Recetario;
 
 public class BbddReceta {
 
@@ -25,13 +26,18 @@ public class BbddReceta {
 		arrayVentanaReceta = new ArrayList<ModeloReceta>();
 		
 		try {
-			nombreRecetaSeleccionada="Paella";  		// <--- BORRAR
-			sentenciaRecetas = connection.prepareStatement("Select A.NombreProducto, I.Cantidad  from Recetas R, Ingredientes I, Almacen A where r.NombreReceta=? and R.IdReceta = I.IdReceta and I.IDPRODUCTO = A.IDPRODUCTO");
+			int recetaSelecionada = Recetario.recetaSeleccionada();			
+			for (int i = 0; i < Recetario.getArrayRecetas().size(); i++) {
+				if (recetaSelecionada==i) {
+					nombreRecetaSeleccionada=Recetario.getArrayRecetas().get(i).getNombreReceta();
+				}
+			}
+			sentenciaRecetas = connection.prepareStatement("Select A.NombreProducto, R.NombreReceta, R.Elaboracion, I.Cantidad  from Recetas R, Ingredientes I, Almacen A where r.NombreReceta=? and R.IdReceta = I.IdReceta and I.IDPRODUCTO = A.IDPRODUCTO");
 			sentenciaRecetas.setString(1, nombreRecetaSeleccionada);
 			ResultSet rsReceta = sentenciaRecetas.executeQuery();
 
 			while (rsReceta.next()) {
-				ModeloReceta recetas = new ModeloReceta(rsReceta.getString("NombreProducto"),rsReceta.getInt("Cantidad"));
+				ModeloReceta recetas = new ModeloReceta(rsReceta.getString("NombreProducto"),rsReceta.getInt("Cantidad"), rsReceta.getString("Elaboracion"), rsReceta.getString("NombreReceta"));
 				arrayVentanaReceta.add(recetas);
 			}
 		}
@@ -44,6 +50,10 @@ public class BbddReceta {
 
 	public static ArrayList<ModeloReceta> getArrayVentanaReceta() {
 		return arrayVentanaReceta;
+	}
+
+	public static String getNombreRecetaSeleccionada() {
+		return nombreRecetaSeleccionada;
 	}
 	
 	

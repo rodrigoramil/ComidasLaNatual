@@ -1,15 +1,8 @@
 package vista;
 
-
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.EventQueue;
-import java.awt.Font;
-
 import java.util.ArrayList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -30,10 +23,6 @@ public class ListasCompra extends JPanel {
 	private static JButton btn_Ver;	
 	private static JTable tabla;
     private static JScrollPane scroll;
-	private static int ancho = 800;
-	private static int alto = 600;
-	private static int posicionPanel_x = 100;
-	private static int posicionPanel_y = 50;
 
 	private static ArrayList<ModeloListasCompra> arrayListasCompra;
 
@@ -44,26 +33,20 @@ public class ListasCompra extends JPanel {
 		listarCompras();
 	}
 
-
 	public void inicializarComponentes() {
 
 		panelListasCompra = VentanaPrincipal.parametrosPanel(800,600);
-		
-		
-		
+
 		btn_Volver = VentanaPrincipal.parametrosJButton("Volver", 710, 20, 70, 20);
 		panelListasCompra.add(btn_Volver);
 		
 		btn_Ver = VentanaPrincipal.parametrosJButton("Ver",340, 550, 120, 20);
 		panelListasCompra.add(btn_Ver);
-				
-		
-		
+
 		tabla = new JTable();
 		scroll = VentanaPrincipal.parametrosJScrollPane(50, 100, 700, 400);
-		scroll.setViewportView(tabla);	    
-		panelListasCompra.add(scroll);
 	    
+		panelListasCompra.add(scroll);
 		panelListasCompra.setVisible(false);
 		
 	}
@@ -71,7 +54,6 @@ public class ListasCompra extends JPanel {
 	public void establecerManejador() {			
 		ControladorListasCompra controlador = new ControladorListasCompra(this);
 		
-		tabla.addMouseListener(controlador);
 		btn_Volver.addActionListener(controlador);
 		btn_Ver.addActionListener(controlador);
 		
@@ -82,6 +64,8 @@ public class ListasCompra extends JPanel {
 		arrayListasCompra = new ArrayList<ModeloListasCompra>();
         BbddListasCompra.listarListasCompra();	
         arrayListasCompra = BbddListasCompra.getArrayListasCompra();
+		tabla = new JTable();
+		scroll.setViewportView(tabla);
         DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
         modelo.addColumn("Nº");
         modelo.addColumn("FECHA");
@@ -100,6 +84,7 @@ public class ListasCompra extends JPanel {
     	}
         tabla.setModel(modelo);
         modelo.fireTableDataChanged();
+        tabla = VentanaPrincipal.formatoTabla(tabla);
     }
 	
 

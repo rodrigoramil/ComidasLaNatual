@@ -1,14 +1,7 @@
 package vista;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
 import controlador.ControladorCliente;
-
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -23,12 +16,6 @@ public class Cliente extends JPanel {
 	private static JLabel lbl_telefono;
 	private static JButton btn_Aceptar;
 	private static JButton btn_volver;
-	
-	private static int ancho = 800;
-	private static int alto = 600;
-	private static int posicionPanel_x = 100;
-	private static int posicionPanel_y = 50;
-
 	public Cliente() {
 		super();
 		inicializarComponentes();
@@ -38,16 +25,14 @@ public class Cliente extends JPanel {
 	public void inicializarComponentes() {
 		
 		panelcliente = VentanaPrincipal.parametrosPanel(400, 400);
-		
-		//inicializamos NOMBRE
+
 		lbl_nombre = VentanaPrincipal.parametrosJlabel("Nombre",15, 100, 90,30);
 		lbl_nombre.setHorizontalAlignment(SwingConstants.RIGHT);
 		panelcliente.add(lbl_nombre); 												//añadimos al panel
 		
 		tfd_nombre = VentanaPrincipal.parametrosJTextField(120, 100, 250, 30);
 		panelcliente.add(tfd_nombre);												//añadimos al panel
-		
-		//inicializamos TELEFONO
+
 		lbl_telefono = VentanaPrincipal.parametrosJlabel("Telefono",15, 200, 90,30);
 		lbl_telefono.setHorizontalAlignment(SwingConstants.RIGHT);
 		panelcliente.add(lbl_telefono);

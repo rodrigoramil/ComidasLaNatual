@@ -5,26 +5,25 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
 import modelo.ModeloAlmacen;
 
 public class BbddAlmacen {
 	
 	private static Connection connection = null;
 	private static Conexion conexion = null;
-	private static PreparedStatement sentenciaRecetas = null;
+	private static PreparedStatement sentenciaAlmacen = null;
 	private static ArrayList<ModeloAlmacen> arrayAlmacen = null;
-	
+
 	public static void listarProductosAlmacen() {
 		conexion = new Conexion();
 		connection = conexion.obtenerConexion();		
 		arrayAlmacen = new ArrayList<ModeloAlmacen>();		
 		try {
-			sentenciaRecetas = connection.prepareStatement("Select NombreProducto, Cantidad, CantidadMinima, CantidadMaxima from Almacen");
-			ResultSet rs = sentenciaRecetas.executeQuery();			
+			sentenciaAlmacen = connection.prepareStatement("Select NombreProducto, Cantidad, IdUnidadMedida, CantidadMinima, CantidadMaxima, IdTipo from Almacen");
+			ResultSet rs = sentenciaAlmacen.executeQuery();			
 
 			while (rs.next()) {
-				ModeloAlmacen modelo = new ModeloAlmacen(rs.getString("NombreProducto"), rs.getFloat("Cantidad"), rs.getFloat("CantidadMinima"), rs.getFloat("CantidadMaxima"));
+				ModeloAlmacen modelo = new ModeloAlmacen(rs.getString("NombreProducto"), rs.getFloat("Cantidad"), rs.getInt("IdUnidadMedida"), rs.getFloat("CantidadMinima"), rs.getFloat("CantidadMaxima"), rs.getInt("IdTipo"));
 				arrayAlmacen.add(modelo);
 			}
 			
@@ -35,7 +34,53 @@ public class BbddAlmacen {
 			
 	}
 		
+	public static void addPructoAlmacen(String nombreProducto, float cantidadActual,int idUnidadMedida, float cantidadMinima, float cantidadMaxima, int idTipoProducto) throws SQLException {
+
+
+			String SQL = "INSERT INTO Almacen (NombreProducto, Cantidad, IdUnidadMedida, CantidadMinima, CantidadMaxima, IdTipo) VALUES ( ?, ?, ?, ?, ?, ?)";
+			sentenciaAlmacen = connection.prepareStatement(SQL);
+			sentenciaAlmacen.setString(1, nombreProducto);
+			sentenciaAlmacen.setFloat(2, cantidadActual);
+			sentenciaAlmacen.setInt(3, idUnidadMedida);
+			sentenciaAlmacen.setFloat(4, cantidadMinima);
+			sentenciaAlmacen.setFloat(5, cantidadMaxima);
+			sentenciaAlmacen.setInt(6, idTipoProducto); 
+			
+//******************************* BORRAR ***************************************************************************			
+			System.out.println("nombre es: "+nombreProducto);
+			System.out.println("cantidadActual es:"+cantidadActual);
+			System.out.println("idUnidadMedida es:"+idUnidadMedida);
+			System.out.println("cantidadMinima es:"+cantidadMinima);
+			System.out.println("cantidadMaxima es:"+cantidadMaxima);
+			System.out.println("idTipoProducto es:"+idTipoProducto);
+//******************************* BORRAR ***************************************************************************	
+			
+			sentenciaAlmacen.executeUpdate();
+
+	}
+	
+
+
+	public static void updatePructoAlmacen(String nombreProducto, float cantidadActual, int idunidadMedida,	float cantidadMinima, float cantidadMaxima, int idTipoProducto) throws SQLException {
+		
+		
+		
+		// Sentencia SQL Update
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	public static ArrayList<ModeloAlmacen> getArrayAlmacen() {
 		return arrayAlmacen;
-	}
+	}	
 }
