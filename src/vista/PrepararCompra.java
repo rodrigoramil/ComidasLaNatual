@@ -52,7 +52,7 @@ public class PrepararCompra extends JPanel {
 		
 		panelPrepararCompra = VentanaPrincipal.parametrosPanel(800,600);
 		
-		lblNewLabel = VentanaPrincipal.parametrosJlabel("Lista de la compra N\u00BAx",150, 30, 300, 40);
+		lblNewLabel = VentanaPrincipal.parametrosJlabel("LISTA DE LA COMPRA",150, 30, 300, 40);
 		lblNewLabel.setFont(new Font("Manche Condensed",Font.BOLD,(int)(15*VentanaPrincipal.getCordenadaY())));
 		lblNewLabel.setForeground(Color.orange);
 		panelPrepararCompra.add(lblNewLabel);
@@ -99,11 +99,13 @@ public class PrepararCompra extends JPanel {
         Object filaDato[] = new Object[2];     
         for (int i = 0; i < arrayPrepararCompra.size(); i++) {
         	filaDato[0] = arrayPrepararCompra.get(i).getProducto();
-        	filaDato[1] = arrayPrepararCompra.get(i).getCantidadCompra();
+        	filaDato[1] = arrayPrepararCompra.get(i).getCantidadMaxima()-arrayPrepararCompra.get(i).getCantidadCompra();
         	modelo.addRow(filaDato);
     	}
         tabla.setModel(modelo);
         modelo.fireTableDataChanged();
+        tabla = VentanaPrincipal.formatoTabla(tabla);
+
     }
 	
 
@@ -130,10 +132,8 @@ public class PrepararCompra extends JPanel {
 	}
 
 
-	
-	
-	
-	
-	
+	public static JTable getTabla() {
+		return tabla;
+	}
 	
 }

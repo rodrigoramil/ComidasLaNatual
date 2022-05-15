@@ -27,11 +27,12 @@ public class BbddPrepararCompra {
 		connection = conexion.obtenerConexion();		
 		arrayPrepararCompra = new ArrayList<ModeloPrepararCompra>();		
 		try {
-			sentenciaRecetas = connection.prepareStatement("Select A.NombreProducto, C.CantidadCompraProducto from Almacen A, Compraproductos C  where A.IdProducto = C.IdProducto");
+//			sentenciaRecetas = connection.prepareStatement("Select A.NombreProducto, C.CantidadCompraProducto from Almacen A, Compraproductos C  where A.IdProducto = C.IdProducto");
+			sentenciaRecetas = connection.prepareStatement("Select NombreProducto, Cantidad, CantidadMaxima from Almacen");
 			ResultSet rs = sentenciaRecetas.executeQuery();			
 
 			while (rs.next()) {
-				ModeloPrepararCompra recetas = new ModeloPrepararCompra (rs.getString("NombreProducto"), rs.getFloat("CantidadCompraProducto"));
+				ModeloPrepararCompra recetas = new ModeloPrepararCompra (rs.getString("NombreProducto"), rs.getFloat("Cantidad"), rs.getFloat("CantidadMaxima"));
 				arrayPrepararCompra.add(recetas);
 			}
 			

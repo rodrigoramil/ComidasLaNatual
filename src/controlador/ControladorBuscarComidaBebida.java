@@ -5,6 +5,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import javax.swing.JOptionPane;
+
 import vista.BuscarComidaBebida;
 import vista.Receta;
 import vista.VentanaPrincipal;
@@ -12,6 +14,7 @@ import vista.VentanaPrincipal;
 public class ControladorBuscarComidaBebida implements ActionListener, MouseListener  {
 
 	private BuscarComidaBebida panelBuscarComidaBebida;
+	private int cantidad;
 	private static boolean desdeVentas;
 	
 	public ControladorBuscarComidaBebida(BuscarComidaBebida panelBuscarComidaBebida) {
@@ -26,7 +29,30 @@ public class ControladorBuscarComidaBebida implements ActionListener, MouseListe
 			VentanaPrincipal.getPanelPedido().setVisible(true);
 		}
 		if (e.getSource() == BuscarComidaBebida.getBtn_anadir()) {
+			cantidad=0;
+			String respuesta = JOptionPane.showInputDialog("¿Que cantidad desea añadir?");
+			if (respuesta != null) {
+				if (!respuesta.equals("")) {
+					try {	
+						cantidad = Integer.parseInt(respuesta);
+					} catch (NumberFormatException e2) {
+						cantidad=1;
+						JOptionPane.showMessageDialog(panelBuscarComidaBebida, "No ha introducido un número, por defecto se a añadido uno");
+					}
+				}
+				else {
+					cantidad=1;
+				}
+			}
+			System.out.println("cantidad añadida --> "+cantidad);
 			
+			
+			
+			
+			
+			
+			VentanaPrincipal.getPanelBuscarComidaBebida().setVisible(false);
+			VentanaPrincipal.getPanelPedido().setVisible(true);
 		}
 		
 		if (e.getSource() == BuscarComidaBebida.getBtn_bebidas_disponibles()) {

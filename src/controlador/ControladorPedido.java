@@ -5,6 +5,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import javax.swing.JOptionPane;
+
 import vista.GestionPedidos;
 import vista.Pedido;
 import vista.VentanaPrincipal;
@@ -12,6 +14,7 @@ import vista.VentanaPrincipal;
 public class ControladorPedido  implements ActionListener, MouseListener {
 
 	private Pedido panelPedido;
+	private int cantidad;
 
 	public ControladorPedido (Pedido panelPedido) {
 		this.panelPedido = panelPedido;
@@ -38,6 +41,27 @@ public class ControladorPedido  implements ActionListener, MouseListener {
 		}
 		
 		if (e.getSource() == Pedido.getBtn_Modificar()) {
+			cantidad=0;
+			String respuesta = JOptionPane.showInputDialog("¿Que cantidad quieres introducir?");
+			if (respuesta != null) {
+				if (!respuesta.equals("")) {
+					try {	
+						cantidad = Integer.parseInt(respuesta);
+					} catch (NumberFormatException e2) {
+						cantidad=1;
+						JOptionPane.showMessageDialog(panelPedido, "No ha introducido un número, por defecto será uno");
+					}
+				}
+				else {
+					cantidad=1;
+				}
+			}
+			System.out.println("cantidad modificada --> "+cantidad);
+			
+			
+			
+			
+			
 			
 		}
 		

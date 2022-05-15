@@ -8,7 +8,9 @@ import javax.swing.JTextField;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import controlador.ControladorBuscarComidaBebida;
+import modelo.ModeloComidaBebida;
 import modelo.ModeloPRUEBA;
+import modelo_bbdd.BbddComidaBebida;
 import modelo_bbdd.BbddVentas;
 
 
@@ -31,7 +33,7 @@ public class BuscarComidaBebida extends JPanel {
 	private static JTable tabla;
     private static JScrollPane scroll;
 
-	private static ArrayList<ModeloPRUEBA> arrayComidaBebida;
+	private static ArrayList<ModeloComidaBebida> arrayComidaBebida;
 
     
 	public BuscarComidaBebida() {
@@ -92,10 +94,10 @@ public class BuscarComidaBebida extends JPanel {
 	}
 
 	public static void pedidos () {
-		arrayComidaBebida = new ArrayList<ModeloPRUEBA>();
-        BbddVentas.listarClientes();						
-        arrayComidaBebida = BbddVentas.getArrayRecetas();	
-		tabla = new JTable();
+		arrayComidaBebida = new ArrayList<ModeloComidaBebida>();
+        BbddComidaBebida.listarComidaBebida();						
+        arrayComidaBebida = BbddComidaBebida.getArrayComidaBebida();	
+        tabla = new JTable();
 		scroll.setViewportView(tabla);
         DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
         modelo.addColumn("COMIDA/BEBIDA");
@@ -104,13 +106,14 @@ public class BuscarComidaBebida extends JPanel {
         
         Object filaDato[] = new Object[3];     
         for (int i = 0; i < arrayComidaBebida.size(); i++) {
-        	filaDato[0] = arrayComidaBebida.get(i).getReceta();
-        	filaDato[1] = arrayComidaBebida.get(i).getEstado();
+        	filaDato[0] = arrayComidaBebida.get(i).getNombreReceta();
+        	filaDato[1] = arrayComidaBebida.get(i).getPrecioVenta();
         	filaDato[2] = arrayComidaBebida.get(i).getEstado();
         	modelo.addRow(filaDato);
     	}
         tabla.setModel(modelo);
         modelo.fireTableDataChanged();
+        tabla = VentanaPrincipal.formatoTabla(tabla);
     }
 
 	 public static int productoSeleccionado() throws NullPointerException {

@@ -100,9 +100,9 @@ public class CalculoGastos extends JPanel {
 
 	
 	public static void listarGastos () {
-		arrayGastos = new ArrayList<ModeloPRUEBA>();			// <-- modificar el tipo de array al modelo objeto que corresponda
-        BbddVentas.listarClientes();							// <-- modificar el método para que llame a la sentencia SQL que corresponda y y cargue los datos
-        arrayGastos = BbddVentas.getArrayRecetas();				// <-- crear y modificar el metodo GET que trae los datos del array que corresponda
+		arrayGastos = new ArrayList<ModeloPRUEBA>();
+        BbddVentas.listarClientes();					
+        arrayGastos = BbddVentas.getArrayRecetas();		
 		tabla = new JTable();
 		scroll.setViewportView(tabla);
         DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
@@ -112,13 +112,14 @@ public class CalculoGastos extends JPanel {
         
         Object filaDato[] = new Object[3];     
         for (int i = 0; i < arrayGastos.size(); i++) {
-        	filaDato[0] = arrayGastos.get(i).getReceta();	// <-- llamar el dato que corresponda del objeto modelo
-        	filaDato[1] = arrayGastos.get(i).getEstado();  	// <-- llamar el dato que corresponda del objeto modelo
-        	filaDato[2] = arrayGastos.get(i).getEstado();  	// <-- llamar el dato que corresponda del objeto modelo
+        	filaDato[0] = arrayGastos.get(i).getReceta();
+        	filaDato[1] = arrayGastos.get(i).getEstado();
+        	filaDato[2] = arrayGastos.get(i).getEstado();
         	modelo.addRow(filaDato);
     	}
         tabla.setModel(modelo);
         modelo.fireTableDataChanged();
+        tabla = VentanaPrincipal.formatoTabla(tabla);
 	}
 	
 

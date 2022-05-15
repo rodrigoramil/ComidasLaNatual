@@ -11,6 +11,8 @@ import vista.VentanaPrincipal;
 public class ControladorAlmacen implements ActionListener, MouseListener  {
 
 private Almacen panelAlmacen;
+private static boolean nuevoProducto=false;
+
 	
 	public ControladorAlmacen(Almacen panelAlmacen) {
 		this.panelAlmacen = panelAlmacen;
@@ -26,8 +28,10 @@ private Almacen panelAlmacen;
 		if (e.getSource() == Almacen.getBtn_Modificar()) {
 			VentanaPrincipal.getPanelAlmacen().setVisible(false);
 			VentanaPrincipal.getPanelDetalleProducto().setVisible(true);
+			nuevoProducto = false;		
 		}
 		if (e.getSource() == Almacen.getBtn_Nuevo()) {
+			nuevoProducto = true;			
 			VentanaPrincipal.getPanelAlmacen().setVisible(false);
 			VentanaPrincipal.getPanelDetalleProducto().setVisible(true);
 		}
@@ -91,14 +95,14 @@ private Almacen panelAlmacen;
 
 		
 	}
-		
-			
-			
-			
 
-			
-			
-		
-			
-	
+	public static boolean isNuevoProducto() {
+		return nuevoProducto;
+	}
+
+	public static void setNuevoProducto(boolean nuevoProducto) {
+		ControladorAlmacen.nuevoProducto = nuevoProducto;
+	}
+
+
 }

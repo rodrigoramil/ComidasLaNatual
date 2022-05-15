@@ -145,7 +145,7 @@ public class Receta extends JPanel {
 	
         tabla.setModel(modelo);
         modelo.fireTableDataChanged();
-        
+        tabla = VentanaPrincipal.formatoTabla(tabla);
     }
 
 

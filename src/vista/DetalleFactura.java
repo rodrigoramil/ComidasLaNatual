@@ -119,6 +119,7 @@ public class DetalleFactura extends JPanel {
     	}
         tabla.setModel(modelo);
         modelo.fireTableDataChanged();
+        tabla = VentanaPrincipal.formatoTabla(tabla);
     }
 	
 

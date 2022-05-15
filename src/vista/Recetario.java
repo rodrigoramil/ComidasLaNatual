@@ -97,7 +97,7 @@ public class Recetario extends JPanel {
 		btn_listadoRecetas.addActionListener(controlador);
 		btn_buscar.addActionListener(controlador);
 		btn_volver.addActionListener(controlador);
-//		tabla.addMouseListener(controlador);
+
 	}
 		
 	
@@ -119,6 +119,7 @@ public class Recetario extends JPanel {
     	}
         tabla.setModel(modelo);
         modelo.fireTableDataChanged();
+        tabla = VentanaPrincipal.formatoTabla(tabla);
     }
 	
 

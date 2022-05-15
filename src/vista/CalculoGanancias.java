@@ -110,6 +110,7 @@ public class CalculoGanancias extends JPanel {
     	}
         tabla.setModel(modelo);
         modelo.fireTableDataChanged();
+        tabla = VentanaPrincipal.formatoTabla(tabla);
     }
 
 	 public static int indiceSeleccionado() throws NullPointerException {

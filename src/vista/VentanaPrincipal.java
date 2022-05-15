@@ -287,6 +287,23 @@ public class VentanaPrincipal extends JFrame {
 								Math.round(tamañoY*VentanaPrincipal.getCordenadaY())); 		//tamaño VERTICAL
 		return jscrollPanegenerico;
 	}
+	
+	
+	public static JTable formatoTabla (JTable tabla) {
+		
+        tabla.getColumnModel().getColumn(0).setPreferredWidth(550);
+        tabla.getColumnModel().getColumn(1).setPreferredWidth(150);
+        tabla.getColumnModel().getColumn(0).setResizable(false);
+        tabla.getColumnModel().getColumn(1).setResizable(false);
+        
+        tabla.setRowHeight(40);
+        tabla.setForeground(VentanaPrincipal.getAzulOscuro());
+        tabla.setBackground(VentanaPrincipal.getAzulClaro());
+        tabla.setFont(VentanaPrincipal.getFuente());		
+		return tabla;
+	}
+	
+	
 	/**
 	 * Get y Set
 	 * @return
@@ -437,18 +454,8 @@ public class VentanaPrincipal extends JFrame {
 	}
 
 
-	public static void setAzulOscuro(Color azulOscuro) {
-		VentanaPrincipal.azulOscuro = azulOscuro;
-	}
-
-
 	public static Color getAzulNormal() {
 		return azulNormal;
-	}
-
-
-	public static void setAzulNormal(Color azulNormal) {
-		VentanaPrincipal.azulNormal = azulNormal;
 	}
 
 
@@ -457,20 +464,10 @@ public class VentanaPrincipal extends JFrame {
 	}
 
 
-	public static void setAzulClaro(Color azulClaro) {
-		VentanaPrincipal.azulClaro = azulClaro;
-	}
-
-
 	public static Font getFuente() {
 		return fuente;
 	}
 
-
-	public static void setFuente(Font fuente) {
-		VentanaPrincipal.fuente = fuente;
-	}
-	
 
 }
 
