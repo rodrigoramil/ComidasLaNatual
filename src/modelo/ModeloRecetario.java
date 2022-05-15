@@ -5,9 +5,6 @@ import java.io.Serializable;
 
 public class ModeloRecetario implements Serializable{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -8891320620372209880L;
 	
 	String nombreReceta;

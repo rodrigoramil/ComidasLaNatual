@@ -25,6 +25,7 @@ public class BbddComidaBebida {
 
 			while (rs.next()) {
 				ModeloComidaBebida modelo = new ModeloComidaBebida(rs.getString("NombreReceta"), rs.getFloat("PrecioVenta"), rs.getString("Estado"), rs.getString("Tipo"));
+
 				arrayComidaBebida.add(modelo);
 			}
 			

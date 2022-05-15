@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class ModeloComidaBebida implements Serializable  {
 
+
 	/**
 	 * 
 	 */
@@ -12,18 +13,22 @@ public class ModeloComidaBebida implements Serializable  {
 	float precioVenta;
 	String estado;
 	String tipo;
+
 	/**
 	 * @param nombreReceta
 	 * @param precioVenta
 	 * @param estado
+<<<<<<< HEAD
 	 * @param tipo
 	 */
 	public ModeloComidaBebida(String nombreReceta, float precioVenta, String estado, String tipo) {
+
 		super();
 		this.nombreReceta = nombreReceta;
 		this.precioVenta = precioVenta;
 		this.estado = estado;
 		this.tipo = tipo;
+
 	}
 	/**
 	 * 
@@ -61,4 +66,5 @@ public class ModeloComidaBebida implements Serializable  {
 				+ estado + ", tipo=" + tipo + "]";
 	}
 		
+
 }

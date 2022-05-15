@@ -3,7 +3,9 @@ package vista;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+
 import java.text.Normalizer;
+
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JTextField;
@@ -37,7 +39,9 @@ public class BuscarComidaBebida extends JPanel {
 
 	private static ArrayList<ModeloComidaBebida> arrayComidaBebida;
 
+
 	private static BuscarComidaBebida buscarComidaBebida;
+
 
     
 	public BuscarComidaBebida() {
@@ -83,8 +87,10 @@ public class BuscarComidaBebida extends JPanel {
 		panelBuscarComidaBebida.setVisible(false);
 	}
 	
+
 	public static void establecerManejador() {			
 		ControladorBuscarComidaBebida controlador = new ControladorBuscarComidaBebida(buscarComidaBebida);		
+
 		btn_comidas_disponibles.addActionListener(controlador);
 		btn_bebidas_disponibles.addActionListener(controlador);
 		btn_listar_todo.addActionListener(controlador);
@@ -97,12 +103,14 @@ public class BuscarComidaBebida extends JPanel {
 	}
 
 	public static void pedidos () {
+
 		arrayComidaBebida = new ArrayList<ModeloComidaBebida>();   
 		BbddComidaBebida.listarComidaBebida();
         arrayComidaBebida = BbddComidaBebida.getArrayComidaBebida();
         
         scroll.remove(tabla);
         tabla = new JTable();        
+
 		scroll.setViewportView(tabla);
         DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
         modelo.addColumn("COMIDA/BEBIDA");
@@ -111,6 +119,7 @@ public class BuscarComidaBebida extends JPanel {
         
         Object filaDato[] = new Object[3];     
         for (int i = 0; i < arrayComidaBebida.size(); i++) {
+
         	
         	if (ControladorBuscarComidaBebida.isBebida()) {        		
 				if (arrayComidaBebida.get(i).getTipo().equals("Bebida")) {
@@ -175,6 +184,7 @@ public class BuscarComidaBebida extends JPanel {
     } 
 	
 
+
 	
 	public static JPanel getPanelBuscarComidaBebida() {
 		return panelBuscarComidaBebida;
@@ -216,10 +226,11 @@ public class BuscarComidaBebida extends JPanel {
 	}
 
 
+
 	public static JTable getTabla() {
 		return tabla;
 	}
 
-	
+
 	
 }

@@ -70,16 +70,7 @@ public class BbddAlmacen {
 		
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	public static ArrayList<ModeloAlmacen> getArrayAlmacen() {
 		return arrayAlmacen;
 	}	
