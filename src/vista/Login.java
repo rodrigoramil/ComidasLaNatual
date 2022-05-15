@@ -1,6 +1,5 @@
 package vista;
 
-import java.awt.Color;
 import java.awt.Font;
 
 import javax.swing.JButton;
@@ -9,9 +8,6 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-// import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
-
 import controlador.ControladorLogin;
 
 public class Login extends JPanel {
@@ -39,8 +35,6 @@ public class Login extends JPanel {
 
 		//inicializamos PANEL
 		panelLogin = VentanaPrincipal.parametrosPanel(300,300);
-		
-		
 		
 		//inicializamos USUARIO
 		lbl_Usuario = VentanaPrincipal.parametrosJlabel("USUARIO",15, 83, 90,14);
@@ -108,6 +102,4 @@ public class Login extends JPanel {
 	public JPasswordField getJtf_Entrada_Contrasena() {
 		return jtf_Entrada_Contrasena;
 	}
-
-
 }

@@ -3,15 +3,12 @@ package vista;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JButton;
 import controlador.ControladorPedido;
 import modelo.ModeloPRUEBA;
 import modelo_bbdd.BbddVentas;
-
 import java.awt.Color;
 import java.awt.Font;
 import java.util.ArrayList;
@@ -31,13 +28,6 @@ public class Pedido extends JPanel {
 	private static JButton btn_Nuevo;
 	private static JButton btn_Eliminar;
 	private static JButton btn_Facturar;
-
-	private static int ancho = 800;
-	private static int alto = 600;
-	private static int posicionPanel_x = 100;
-	private static int posicionPanel_y = 50;
-	
-//	private static JList listaPedidos;
 	private static JTable tabla;
     private static JScrollPane scroll;
 
@@ -82,8 +72,7 @@ public class Pedido extends JPanel {
 		panelPedido.add(btn_Facturar);
 		
 		tabla = new JTable();
-		scroll = VentanaPrincipal.parametrosJScrollPane(50, 100, 700, 400);
-		scroll.setViewportView(tabla);	    
+		scroll = VentanaPrincipal.parametrosJScrollPane(50, 100, 700, 400);    
 	    panelPedido.add(scroll);
 	    
 	    panelPedido.setVisible(false);
@@ -100,7 +89,6 @@ public class Pedido extends JPanel {
 		btn_Nuevo.addActionListener(controlador);
 		btn_Eliminar.addActionListener(controlador);
 		btn_Facturar.addActionListener(controlador);
-		tabla.addMouseListener(controlador);	
 
 		
 	}
@@ -109,6 +97,8 @@ public class Pedido extends JPanel {
 		arrayPedidos = new ArrayList<ModeloPRUEBA>();
         BbddVentas.listarClientes();
         arrayPedidos = BbddVentas.getArrayRecetas();
+		tabla = new JTable();
+		scroll.setViewportView(tabla);
         DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
         modelo.addColumn("COMIDA/BEBIDA");
         modelo.addColumn("CANTIDAD");
@@ -123,6 +113,7 @@ public class Pedido extends JPanel {
     	}
         tabla.setModel(modelo);
         modelo.fireTableDataChanged();
+        tabla = VentanaPrincipal.formatoTabla(tabla);
     }
 	
 

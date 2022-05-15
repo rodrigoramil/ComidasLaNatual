@@ -38,12 +38,6 @@ public class Usuario extends JPanel {
 	private static JRadioButton rdbtn_ventas;
 	private static ButtonGroup grupoRol;
 	private static JButton btn_volver;
-	
-	private static int ancho = 800;
-	private static int alto = 600;
-	private static int posicionPanel_x = 100;
-	private static int posicionPanel_y = 50;
-
 
 	public Usuario() {
 		super();

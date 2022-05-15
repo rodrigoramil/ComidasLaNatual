@@ -1,29 +1,17 @@
 package vista;
 
-
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.border.EmptyBorder;
-
-import java.awt.Font;
-import java.awt.Toolkit;
 import java.util.ArrayList;
-
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
-
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
-
-import javax.swing.JTable;
 import javax.swing.UIManager;
-
 import controlador.ControladorGestionPedidos;
 import modelo.ModeloCliente;
 import modelo_bbdd.BbddVentas;
-
-
 
 public class GestionPedidos extends JPanel {
 
@@ -146,11 +134,9 @@ public class GestionPedidos extends JPanel {
 		btn_Ver_Pedido.addActionListener(controlador);		
 		btn_volver.addActionListener(controlador);
 	
-	
 	}
 
 
-	
 	public static ArrayList<ModeloCliente> creaListaClientes() {
 		BbddVentas.listarClientes();
 		array_clientes = BbddVentas.getArrayClientes();
@@ -222,7 +208,6 @@ public class GestionPedidos extends JPanel {
 	public static JPanel getPanelGestionPedidos() {
 		return panelGestionPedidos;
 	}
-
 
 	public static JList getListaCliente() {
 		return listaCliente;

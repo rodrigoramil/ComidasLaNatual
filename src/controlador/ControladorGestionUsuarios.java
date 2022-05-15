@@ -39,19 +39,7 @@ public class ControladorGestionUsuarios implements ActionListener, MouseListener
 			Usuario.getCaja_nombre().setText("");
 			Usuario.getCaja_pass_1().setText("");
 			Usuario.getCaja_pass_2().setText("");
-
-			String nuevoNombre = Usuario.getCaja_nombre().getText();
-			String pass1 = Usuario.getCaja_pass_1().getText();
-			String pass2 = Usuario.getCaja_pass_2().getText();
-			if (pass1.equals(pass2)) {
-				
-				/* Falta implementar el método en la clase Login que realice una sentencia SQL con un INSERT INTO */
-				
-				System.out.println("nuevoNombre: "+nuevoNombre+" - pass1: "+pass1+" - pass2: "+pass1);
-				
-				
-			}
-
+		
 		}
 		
 		
@@ -79,11 +67,7 @@ public class ControladorGestionUsuarios implements ActionListener, MouseListener
 			try {	
 				usuarioSelecionado = GestionUsuarios.usuarioSeleccionado();
 				comprobarUsuario();
-				
-	//			String eliminaUsuario = "Manolete";
 				JOptionPane.showConfirmDialog(panelGestionUsuarios, "Quiere eleminar el usuario "+usuarioSelecionado);
-
-				
 			} catch (NullPointerException errorSelectorVacio) {				
 				JOptionPane.showMessageDialog(panelGestionUsuarios, "Selecciona cliente a eliminar");
 			}	
@@ -113,7 +97,7 @@ public class ControladorGestionUsuarios implements ActionListener, MouseListener
 				else if (usuarioRolBBDD.equals("Cocina")){
 					Usuario.getRdbtn_Cocina().setSelected(true);
 				}
-				else {
+				else if (usuarioRolBBDD.equals("Venta")) {
 					Usuario.getRdbtn_ventas().setSelected(true);
 				}
 			}			
