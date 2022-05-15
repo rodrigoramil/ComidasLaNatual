@@ -7,58 +7,66 @@ public class ModeloReceta  implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private String ingrediente;
+	private int IdProducto;
+	private int IdReceta;
 	private float cantidad;
 	private String elaboracion; 
 	private String nombreReceta;
-	/**
-	 * @param ingrediente
-	 * @param cantidad
-	 * @param elaboracion
-	 * @param nombreReceta
-	 */
-	public ModeloReceta(String ingrediente, float cantidad, String elaboracion, String nombreReceta) {
+
+	public ModeloReceta(int idProducto, int idReceta, float cantidad, String elaboracion, String nombreReceta) {
 		super();
-		this.ingrediente = ingrediente;
+		IdProducto = idProducto;
+		IdReceta = idReceta;
 		this.cantidad = cantidad;
 		this.elaboracion = elaboracion;
 		this.nombreReceta = nombreReceta;
+
 	}
-	/**
-	 * 
-	 */
-	public ModeloReceta() {
-		super();
+
+	public int getIdProducto() {
+		return IdProducto;
 	}
-	public String getIngrediente() {
-		return ingrediente;
+
+	public void setIdProducto(int idProducto) {
+		IdProducto = idProducto;
 	}
-	public void setIngrediente(String ingrediente) {
-		this.ingrediente = ingrediente;
+
+	public int getIdReceta() {
+		return IdReceta;
 	}
+
+	public void setIdReceta(int idReceta) {
+		IdReceta = idReceta;
+	}
+
 	public float getCantidad() {
 		return cantidad;
 	}
+
 	public void setCantidad(float cantidad) {
 		this.cantidad = cantidad;
 	}
+
 	public String getElaboracion() {
 		return elaboracion;
 	}
+
 	public void setElaboracion(String elaboracion) {
 		this.elaboracion = elaboracion;
 	}
+
 	public String getNombreReceta() {
 		return nombreReceta;
 	}
+
 	public void setNombreReceta(String nombreReceta) {
 		this.nombreReceta = nombreReceta;
 	}
+
 	@Override
 	public String toString() {
-		return "ModeloReceta [ingrediente=" + ingrediente + ", cantidad=" + cantidad + ", elaboracion=" + elaboracion
-				+ ", nombreReceta=" + nombreReceta + "]";
+		return "ModeloReceta [IdProducto=" + IdProducto + ", IdReceta=" + IdReceta + ", cantidad=" + cantidad
+				+ ", elaboracion=" + elaboracion + ", nombreReceta=" + nombreReceta + "]";
 	}
 	
 }
-
