@@ -25,7 +25,7 @@ public class ControladorGestionPedidos implements ActionListener, MouseListener 
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		clienteSelecionado = GestionPedidos.clienteSeleccionado();
+clienteSelecionado = GestionPedidos.clienteSeleccionado();
 		
 		if (e.getSource() == GestionPedidos.getBtn_Nuevo_Cliente()) {
 			VentanaPrincipal.getPanelGestionPedidos().setVisible(false);
@@ -47,7 +47,7 @@ public class ControladorGestionPedidos implements ActionListener, MouseListener 
 				
 			try {
 				for (int i = 0; i < BbddVentas.getArrayClientes().size(); i++) {
-					clienteBBDD = BbddVentas.getArrayClientes().get(i).getId()-9;					
+					clienteBBDD = BbddVentas.getArrayClientes().get(i).getId()-8;					
 //					System.out.println("clienteSelecionado: "+clienteSelecionado+" ---- clienteBBDD: "+clienteBBDD);
 					if (clienteSelecionado==clienteBBDD) {	
 //						System.out.println("clienteSelecionado -> "+clienteSelecionado+" clienteBBDD -> "+clienteBBDD); // <-- BORRAR
@@ -137,7 +137,7 @@ public class ControladorGestionPedidos implements ActionListener, MouseListener 
 		if (e.getSource() == GestionPedidos.getBtn_Ver_Pedido()) {
 			VentanaPrincipal.getPanelGestionPedidos().setVisible(false);
 			VentanaPrincipal.getPanelPedido().setVisible(true);
-//			GestionPedidos.getListaCliente().clearSelection();
+
 			
 			for (int i = 0; i < BbddVentas.getArrayClientes().size(); i++) {
 				clienteBBDD = BbddVentas.getArrayClientes().get(i).getId()-9;					
@@ -145,14 +145,8 @@ public class ControladorGestionPedidos implements ActionListener, MouseListener 
 					Pedido.getLbl_Num_Mesa().setText(BbddVentas.getArrayClientes().get(i).getNombre());
 					System.out.println(BbddVentas.getArrayClientes().get(i).getNombre());
 				}
-				
-				
-				
+
 			}
-			
-			
-			
-			
 			
 		}
 		
@@ -160,35 +154,10 @@ public class ControladorGestionPedidos implements ActionListener, MouseListener 
 			VentanaPrincipal.getPanelGestionPedidos().setVisible(false);
 			VentanaPrincipal.getPanelMenuPrincipal().setVisible(true);
 			GestionPedidos.getListaCliente().clearSelection();
-			
-			
-			/*
-			for (int i = 0; i < BbddVentas.getArrayClientes().size(); i++) {
-				
-				clienteSelecionado = GestionPedidos.clienteSeleccionado();
-				clienteBBDD = BbddVentas.getArrayClientes().get(i).getId()-9;					
-				
-				if (clienteSelecionado==clienteBBDD) {	
-					Pedido.getLbl_Num_Mesa().setText(BbddVentas.getArrayClientes().get(i).getNombre());
-				}
-				
-				
-				
-			}
-			*/
-			
-			/*
-			// ********* BORRAR ************
-			for (int i = 0; i < BbddVentas.getArrayClientes().size(); i++) {
-				
-				System.out.println(i+" -> "+BbddVentas.getArrayClientes().get(i).getNombre());
-				
-				int clienteBBDD = BbddVentas.getArrayClientes().get(i).getId()-1;					
-				System.out.println(clienteBBDD+" -> "+BbddVentas.getArrayClientes().get(clienteBBDD).getNombre());
-			}
-			// ********* BORRAR ************
-			*/
+
 		}
+
+
 		
 	}
 
@@ -205,8 +174,6 @@ public class ControladorGestionPedidos implements ActionListener, MouseListener 
 			GestionPedidos.getBtn_Editar_Cliente().setEnabled(true);
 			GestionPedidos.getBtn_Ver_Pedido().setEnabled(true);
 		}
-		
-
 
 		
 	}
@@ -219,14 +186,107 @@ public class ControladorGestionPedidos implements ActionListener, MouseListener 
 
 	@Override
 	public void mouseEntered(MouseEvent e) { // al tener el raton encima
-
+		if (e.getSource() == GestionPedidos.getBtn_Editar_Cliente()) {
+			GestionPedidos.getBtn_Editar_Cliente().setBackground(VentanaPrincipal.getAzulOscuro());
+			GestionPedidos.getBtn_Editar_Cliente().setForeground(VentanaPrincipal.getAzulClaro());;
+		}
+		if (e.getSource() == GestionPedidos.getBtn_Mesa_1()) {
+			GestionPedidos.getBtn_Mesa_1().setBackground(VentanaPrincipal.getAzulOscuro());
+			GestionPedidos.getBtn_Mesa_1().setForeground(VentanaPrincipal.getAzulClaro());;
+		}
+		if (e.getSource() == GestionPedidos.getBtn_Mesa_2()) {
+			GestionPedidos.getBtn_Mesa_2().setBackground(VentanaPrincipal.getAzulOscuro());
+			GestionPedidos.getBtn_Mesa_2().setForeground(VentanaPrincipal.getAzulClaro());;
+		}
+		if (e.getSource() == GestionPedidos.getBtn_Mesa_3()) {
+			GestionPedidos.getBtn_Mesa_3().setBackground(VentanaPrincipal.getAzulOscuro());
+			GestionPedidos.getBtn_Mesa_3().setForeground(VentanaPrincipal.getAzulClaro());;
+		}
+		if (e.getSource() == GestionPedidos.getBtn_Mesa_4()) {
+			GestionPedidos.getBtn_Mesa_4().setBackground(VentanaPrincipal.getAzulOscuro());
+			GestionPedidos.getBtn_Mesa_4().setForeground(VentanaPrincipal.getAzulClaro());;
+		}
+		if (e.getSource() == GestionPedidos.getBtn_Mesa_5()) {
+			GestionPedidos.getBtn_Mesa_5().setBackground(VentanaPrincipal.getAzulOscuro());
+			GestionPedidos.getBtn_Mesa_5().setForeground(VentanaPrincipal.getAzulClaro());;
+		}
+		if (e.getSource() == GestionPedidos.getBtn_Mesa_6()) {
+			GestionPedidos.getBtn_Mesa_6().setBackground(VentanaPrincipal.getAzulOscuro());
+			GestionPedidos.getBtn_Mesa_6().setForeground(VentanaPrincipal.getAzulClaro());;
+		}
+		if (e.getSource() == GestionPedidos.getBtn_Mesa_7()) {
+			GestionPedidos.getBtn_Mesa_7().setBackground(VentanaPrincipal.getAzulOscuro());
+			GestionPedidos.getBtn_Mesa_7().setForeground(VentanaPrincipal.getAzulClaro());;
+		}
+		if (e.getSource() == GestionPedidos.getBtn_Mesa_8()) {
+			GestionPedidos.getBtn_Mesa_8().setBackground(VentanaPrincipal.getAzulOscuro());
+			GestionPedidos.getBtn_Mesa_8().setForeground(VentanaPrincipal.getAzulClaro());;
+		}
+		if (e.getSource() == GestionPedidos.getBtn_Nuevo_Cliente()) {
+			GestionPedidos.getBtn_Nuevo_Cliente().setBackground(VentanaPrincipal.getAzulOscuro());
+			GestionPedidos.getBtn_Nuevo_Cliente().setForeground(VentanaPrincipal.getAzulClaro());;
+		}
+		if (e.getSource() == GestionPedidos.getBtn_Ver_Pedido()) {
+			GestionPedidos.getBtn_Ver_Pedido().setBackground(VentanaPrincipal.getAzulOscuro());
+			GestionPedidos.getBtn_Ver_Pedido().setForeground(VentanaPrincipal.getAzulClaro());;
+		}
+		if (e.getSource() == GestionPedidos.getBtn_volver()) {
+			GestionPedidos.getBtn_volver().setBackground(VentanaPrincipal.getAzulOscuro());
+			GestionPedidos.getBtn_volver().setForeground(VentanaPrincipal.getAzulClaro());;
+		}
 		
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) { //al salir el raton de encima
-
-		
+		if (e.getSource() == GestionPedidos.getBtn_Editar_Cliente()) {
+			GestionPedidos.getBtn_Editar_Cliente().setBackground(VentanaPrincipal.getAzulClaro());
+			GestionPedidos.getBtn_Editar_Cliente().setForeground(VentanaPrincipal.getAzulOscuro());;
+		}
+		if (e.getSource() == GestionPedidos.getBtn_Mesa_1()) {
+			GestionPedidos.getBtn_Mesa_1().setBackground(VentanaPrincipal.getAzulClaro());
+			GestionPedidos.getBtn_Mesa_1().setForeground(VentanaPrincipal.getAzulOscuro());;
+		}
+		if (e.getSource() == GestionPedidos.getBtn_Mesa_2()) {
+			GestionPedidos.getBtn_Mesa_2().setBackground(VentanaPrincipal.getAzulClaro());
+			GestionPedidos.getBtn_Mesa_2().setForeground(VentanaPrincipal.getAzulOscuro());;
+		}
+		if (e.getSource() == GestionPedidos.getBtn_Mesa_3()) {
+			GestionPedidos.getBtn_Mesa_3().setBackground(VentanaPrincipal.getAzulClaro());
+			GestionPedidos.getBtn_Mesa_3().setForeground(VentanaPrincipal.getAzulOscuro());;
+		}
+		if (e.getSource() == GestionPedidos.getBtn_Mesa_4()) {
+			GestionPedidos.getBtn_Mesa_4().setBackground(VentanaPrincipal.getAzulClaro());
+			GestionPedidos.getBtn_Mesa_4().setForeground(VentanaPrincipal.getAzulOscuro());;
+		}
+		if (e.getSource() == GestionPedidos.getBtn_Mesa_5()) {
+			GestionPedidos.getBtn_Mesa_5().setBackground(VentanaPrincipal.getAzulClaro());
+			GestionPedidos.getBtn_Mesa_5().setForeground(VentanaPrincipal.getAzulOscuro());;
+		}
+		if (e.getSource() == GestionPedidos.getBtn_Mesa_6()) {
+			GestionPedidos.getBtn_Mesa_6().setBackground(VentanaPrincipal.getAzulClaro());
+			GestionPedidos.getBtn_Mesa_6().setForeground(VentanaPrincipal.getAzulOscuro());;
+		}
+		if (e.getSource() == GestionPedidos.getBtn_Mesa_7()) {
+			GestionPedidos.getBtn_Mesa_7().setBackground(VentanaPrincipal.getAzulClaro());
+			GestionPedidos.getBtn_Mesa_7().setForeground(VentanaPrincipal.getAzulOscuro());;
+		}
+		if (e.getSource() == GestionPedidos.getBtn_Mesa_8()) {
+			GestionPedidos.getBtn_Mesa_8().setBackground(VentanaPrincipal.getAzulClaro());
+			GestionPedidos.getBtn_Mesa_8().setForeground(VentanaPrincipal.getAzulOscuro());;
+		}
+		if (e.getSource() == GestionPedidos.getBtn_Nuevo_Cliente()) {
+			GestionPedidos.getBtn_Nuevo_Cliente().setBackground(VentanaPrincipal.getAzulClaro());
+			GestionPedidos.getBtn_Nuevo_Cliente().setForeground(VentanaPrincipal.getAzulOscuro());;
+		}
+		if (e.getSource() == GestionPedidos.getBtn_Ver_Pedido()) {
+			GestionPedidos.getBtn_Ver_Pedido().setBackground(VentanaPrincipal.getAzulClaro());
+			GestionPedidos.getBtn_Ver_Pedido().setForeground(VentanaPrincipal.getAzulOscuro());;
+		}
+		if (e.getSource() == GestionPedidos.getBtn_volver()) {
+			GestionPedidos.getBtn_volver().setBackground(VentanaPrincipal.getAzulClaro());
+			GestionPedidos.getBtn_volver().setForeground(VentanaPrincipal.getAzulOscuro());;
+		}
 	}
 
 	public static boolean getNuevoCliente() {

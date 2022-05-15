@@ -2,24 +2,18 @@ package vista;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JButton;
-
 import java.awt.Color;
 import java.awt.Font;
 import java.util.ArrayList;
-
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
-
 import controlador.ControladorFacturar;
 import modelo.ModeloPRUEBA;
 import modelo_bbdd.BbddVentas;
-
 
 public class Facturar extends JPanel {
 
@@ -41,12 +35,6 @@ public class Facturar extends JPanel {
 	private static JLabel lbl_valor_total;
 	private static JLabel lbl_valor_devolver;
 	private static JLabel lbl_valor_IVA;
-
-	private static int ancho = 800;
-	private static int alto = 600;
-	private static int posicionPanel_x = 100;
-	private static int posicionPanel_y = 50;
-	
 	private static JTable tabla;
     private static JScrollPane scroll;
 
@@ -60,11 +48,9 @@ public class Facturar extends JPanel {
 		factura();
 	}
 
-
 	public void inicializarComponentes() {
 		
 		panelFacturar = VentanaPrincipal.parametrosPanel(800,600);
-		
 		
 		lbl_mesa = VentanaPrincipal.parametrosJlabel("Mesa 1",50, 15, 300, 40);
 		lbl_mesa.setFont(new Font("Manche Condensed",Font.BOLD,(int)(15*VentanaPrincipal.getCordenadaY())));
@@ -79,7 +65,6 @@ public class Facturar extends JPanel {
 		
 		btn_pagado = VentanaPrincipal.parametrosJButton("Pagado",50, 500, 120, 40);
 		panelFacturar.add(btn_pagado);
-		
 		
 		lbl_total = VentanaPrincipal.parametrosJlabel("Total",500, 460, 120, 20);
 		lbl_total.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -117,7 +102,6 @@ public class Facturar extends JPanel {
 		
 		tabla = new JTable();
 	    scroll = VentanaPrincipal.parametrosJScrollPane(50, 50, 700, 400);
-	    scroll.setViewportView(tabla);
 	    panelFacturar.add(scroll);	
 		
 	    panelFacturar.setVisible(false);
@@ -125,8 +109,7 @@ public class Facturar extends JPanel {
 	
 	public void establecerManejador() {			
 		ControladorFacturar controlador = new ControladorFacturar(this);
-		
-		tabla.addMouseListener(controlador);
+
 		lbl_valor_total.addMouseListener(controlador);
 		lbl_valor_devolver.addMouseListener(controlador);
 		lbl_valor_IVA.addMouseListener(controlador);
@@ -138,9 +121,11 @@ public class Facturar extends JPanel {
 	}
 	
 	public static void factura () {
-		arrayFacturas = new ArrayList<ModeloPRUEBA>();			// <-- modificar el tipo de array al modelo objeto que corresponda
-        BbddVentas.listarClientes();							// <-- modificar el método para que llame a la sentencia SQL que corresponda y y cargue los datos
-        arrayFacturas = BbddVentas.getArrayRecetas();			// <-- crear y modificar el metodo GET que trae los datos del array que corresponda
+		arrayFacturas = new ArrayList<ModeloPRUEBA>();
+        BbddVentas.listarClientes();					
+        arrayFacturas = BbddVentas.getArrayRecetas();	
+		tabla = new JTable();
+		scroll.setViewportView(tabla);
         DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
         modelo.addColumn("COMIDA/BEBIDA");
         modelo.addColumn("PRECIO UNIDAD");
@@ -149,18 +134,19 @@ public class Facturar extends JPanel {
         
         Object filaDato[] = new Object[4];     
         for (int i = 0; i < arrayFacturas.size(); i++) {
-        	filaDato[0] = arrayFacturas.get(i).getReceta();	// <-- llamar el dato que corresponda del objeto modelo
-        	filaDato[1] = arrayFacturas.get(i).getEstado();  	// <-- llamar el dato que corresponda del objeto modelo
-        	filaDato[2] = arrayFacturas.get(i).getEstado();  	// <-- llamar el dato que corresponda del objeto modelo
-        	filaDato[3] = arrayFacturas.get(i).getEstado();  	// <-- llamar el dato que corresponda del objeto modelo
+        	filaDato[0] = arrayFacturas.get(i).getReceta();
+        	filaDato[1] = arrayFacturas.get(i).getEstado();
+        	filaDato[2] = arrayFacturas.get(i).getEstado();
+        	filaDato[3] = arrayFacturas.get(i).getEstado();
         	modelo.addRow(filaDato);
     	}
         tabla.setModel(modelo);
         modelo.fireTableDataChanged();
+        tabla = VentanaPrincipal.formatoTabla(tabla);
     }
 	
 
-	 public static int productoSeleccionado() throws NullPointerException {			// <-- modificar el nombre del metodo
+	 public static int productoSeleccionado() throws NullPointerException {
 		 int indiceSeleccionado = tabla.getSelectedRow();
 		 return indiceSeleccionado;	
 	 }

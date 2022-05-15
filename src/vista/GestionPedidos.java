@@ -1,29 +1,17 @@
 package vista;
 
-
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.border.EmptyBorder;
-
-import java.awt.Font;
-import java.awt.Toolkit;
 import java.util.ArrayList;
-
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
-
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
-
-import javax.swing.JTable;
 import javax.swing.UIManager;
-
 import controlador.ControladorGestionPedidos;
 import modelo.ModeloCliente;
 import modelo_bbdd.BbddVentas;
-
-
 
 public class GestionPedidos extends JPanel {
 
@@ -119,6 +107,22 @@ public class GestionPedidos extends JPanel {
 	
 	public void establecerManejador() {			
 		ControladorGestionPedidos controlador = new ControladorGestionPedidos(this);
+		btn_Mesa_1.addMouseListener(controlador);
+		btn_Mesa_2.addMouseListener(controlador);
+		btn_Mesa_3.addMouseListener(controlador);
+		btn_Mesa_4.addMouseListener(controlador);
+		btn_Mesa_8.addMouseListener(controlador);
+		btn_Mesa_7.addMouseListener(controlador);
+		btn_Mesa_6.addMouseListener(controlador);
+		btn_Mesa_5.addMouseListener(controlador);		
+		btn_Nuevo_Cliente.addMouseListener(controlador);
+		btn_Editar_Cliente.addMouseListener(controlador);
+		btn_volver.addMouseListener(controlador);
+		btn_Ver_Pedido.addMouseListener(controlador);		
+		listaCliente.addMouseListener(controlador);
+		
+		btn_Nuevo_Cliente.addActionListener(controlador);
+		btn_Editar_Cliente.addActionListener(controlador);		
 		btn_Mesa_1.addActionListener(controlador);
 		btn_Mesa_2.addActionListener(controlador);
 		btn_Mesa_3.addActionListener(controlador);
@@ -126,25 +130,20 @@ public class GestionPedidos extends JPanel {
 		btn_Mesa_8.addActionListener(controlador);
 		btn_Mesa_7.addActionListener(controlador);
 		btn_Mesa_6.addActionListener(controlador);
-		btn_Mesa_5.addActionListener(controlador);	
-		btn_Nuevo_Cliente.addActionListener(controlador);
-		btn_Editar_Cliente.addActionListener(controlador);
-		btn_volver.addActionListener(controlador);
-
+		btn_Mesa_5.addActionListener(controlador);		
 		btn_Ver_Pedido.addActionListener(controlador);		
-		listaCliente.addMouseListener(controlador);
+		btn_volver.addActionListener(controlador);
+	
 	}
 
 
-	
 	public static ArrayList<ModeloCliente> creaListaClientes() {
 		BbddVentas.listarClientes();
 		array_clientes = BbddVentas.getArrayClientes();
 		modeloListaCliente = new DefaultListModel();
 		for (ModeloCliente c : array_clientes) {
-			if (c.getId()>=9) {
-				modeloListaCliente.addElement(c.getNombre());
-			}
+			modeloListaCliente.addElement(c.getNombre());
+		
 		}	
 
 		listaCliente.setModel(modeloListaCliente);
@@ -208,7 +207,6 @@ public class GestionPedidos extends JPanel {
 	public static JPanel getPanelGestionPedidos() {
 		return panelGestionPedidos;
 	}
-
 
 	public static JList getListaCliente() {
 		return listaCliente;

@@ -4,10 +4,17 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import controlador.ControladorUsuario;
 import javax.swing.JLabel;
+
+
+import java.awt.Choice;
+import java.awt.Font;
+
 import javax.swing.ButtonGroup;
+
 import javax.swing.JButton;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.JPasswordField;
 
 public class Usuario extends JPanel {
@@ -31,12 +38,6 @@ public class Usuario extends JPanel {
 	private static JRadioButton rdbtn_ventas;
 	private static ButtonGroup grupoRol;
 	private static JButton btn_volver;
-	
-	private static int ancho = 800;
-	private static int alto = 600;
-	private static int posicionPanel_x = 100;
-	private static int posicionPanel_y = 50;
-
 
 	public Usuario() {
 		super();
@@ -46,69 +47,103 @@ public class Usuario extends JPanel {
 	}
 
 	public void inicializarComponentes() {
+
+		panelUsuario = VentanaPrincipal.parametrosPanel(400, 400);
 		
-		panelUsuario = new JPanel();
-		lbl_nombre = new JLabel("Nombre");		
-		lbl_pass = new JLabel("Contrasena");		
-		lbl_repetir_pass = new JLabel("Repita la contrase\u00F1a");
-		lbl_rol = new JLabel("Rol");
-		btn_Aceptar = new JButton("Aceptar");		
-		rdbtn_admin = new JRadioButton("Administrador");	
-		rdbtn_Cocina = new JRadioButton("Cocinas");	
-		rdbtn_ventas = new JRadioButton("Ventas");
-		btn_volver = new JButton("Volver");
-		caja_nombre = new JTextField();
-		caja_pass_1 = new JPasswordField();		
-		caja_pass_2 = new JPasswordField();		
-		grupoRol= new ButtonGroup();
-		
-		panelUsuario.setBorder(new EmptyBorder(5, 5, 5, 5));
-		panelUsuario.setBounds(posicionPanel_x, posicionPanel_y, ancho, alto);
-		panelUsuario.setLayout(null);
-		panelUsuario.setVisible(false);
-		
-		lbl_nombre.setBounds(10, 67, 65, 14);
-		panelUsuario.add(lbl_nombre);
-		
-		lbl_pass.setBounds(10, 103, 65, 14);
-		panelUsuario.add(lbl_pass);
-		
-		lbl_repetir_pass.setBounds(10, 139, 113, 14);
-		panelUsuario.add(lbl_repetir_pass);
-		
-		lbl_rol.setBounds(10, 175, 46, 14);
-		panelUsuario.add(lbl_rol);
-		
-		btn_Aceptar.setBounds(10, 211, 89, 23);
-		panelUsuario.add(btn_Aceptar);
-		
-		rdbtn_admin.setBounds(79, 166, 109, 23);
-		panelUsuario.add(rdbtn_admin);
-		
-		rdbtn_Cocina.setBounds(204, 166, 109, 23);
-		panelUsuario.add(rdbtn_Cocina);
-		
-		rdbtn_ventas.setSelected(true);
-		rdbtn_ventas.setBounds(319, 166, 109, 23);
-		panelUsuario.add(rdbtn_ventas);
-		
-		caja_nombre.setBounds(85, 64, 312, 20);
-		panelUsuario.add(caja_nombre);
-		caja_nombre.setColumns(10);
-		
-		caja_pass_1.setBounds(118, 101, 280, 17);
-		panelUsuario.add(caja_pass_1);
-		
-		caja_pass_2.setBounds(118, 137, 280, 17);
-		panelUsuario.add(caja_pass_2);
-		
-		btn_volver.setBounds(342, 11, 71, 23);
+		btn_volver = VentanaPrincipal.parametrosJButton("Volver", 310, 20, 70, 20);
 		panelUsuario.add(btn_volver);
 		
-		grupoRol.add(rdbtn_ventas);
-		grupoRol.add(rdbtn_Cocina);
-		grupoRol.add(rdbtn_admin);
 		
+		//NOMBRE
+		lbl_nombre = VentanaPrincipal.parametrosJlabel("Nombre",5, 60, 45,20);
+		lbl_nombre.setHorizontalAlignment(SwingConstants.RIGHT);
+		panelUsuario.add(lbl_nombre); 												
+		
+		caja_nombre = VentanaPrincipal.parametrosJTextField(70, 60, 325,20);
+		panelUsuario.add(caja_nombre);												
+		
+		//PASSWORD
+		lbl_pass = VentanaPrincipal.parametrosJlabel("Contrasena",5, 120, 45,20);
+		lbl_pass.setHorizontalAlignment(SwingConstants.RIGHT);
+		panelUsuario.add(lbl_pass); 												
+		
+		caja_pass_1 = new JPasswordField();
+		caja_pass_1.setFont(new Font("Manche Condensed",Font.BOLD,(int)(12*VentanaPrincipal.getCordenadaY())));
+		caja_pass_1.setHorizontalAlignment(SwingConstants.CENTER);
+		caja_pass_1.setBorder(null);
+		caja_pass_1.setBounds(
+								Math.round(70*VentanaPrincipal.getCordenadaX()), 		//posicion HORIZONTAL
+								Math.round(120*VentanaPrincipal.getCordenadaY()),		//posicion VERTICAL 
+								Math.round(325*VentanaPrincipal.getCordenadaX()),  		//tamaño HORIZONTAL
+								Math.round(20*VentanaPrincipal.getCordenadaY())); 		//tamaño VERTICAL
+		panelUsuario.add(caja_pass_1);	
+		
+		//REPIT PASSWORD
+		lbl_repetir_pass = VentanaPrincipal.parametrosJlabel("Repita la contrase\u00F1a",5, 180, 45,20);
+		lbl_repetir_pass.setHorizontalAlignment(SwingConstants.RIGHT);
+		panelUsuario.add(lbl_repetir_pass); 												
+		
+		caja_pass_2 = new JPasswordField();
+		caja_pass_2.setFont(new Font("Manche Condensed",Font.BOLD,(int)(12*VentanaPrincipal.getCordenadaY())));
+		caja_pass_2.setHorizontalAlignment(SwingConstants.CENTER);
+		caja_pass_2.setBorder(null);
+		caja_pass_2.setBounds(
+								Math.round(70*VentanaPrincipal.getCordenadaX()), 		//posicion HORIZONTAL
+								Math.round(180*VentanaPrincipal.getCordenadaY()),		//posicion VERTICAL 
+								Math.round(325*VentanaPrincipal.getCordenadaX()),  		//tamaño HORIZONTAL
+								Math.round(20*VentanaPrincipal.getCordenadaY())); 		//tamaño VERTICAL
+		panelUsuario.add(caja_pass_2);
+		
+						
+		//ROL
+		lbl_rol = VentanaPrincipal.parametrosJlabel("Rol",5, 240, 45,20);
+		lbl_rol.setHorizontalAlignment(SwingConstants.RIGHT);
+		panelUsuario.add(lbl_rol);
+		
+		rdbtn_admin = new JRadioButton("Administrador");
+		rdbtn_admin.setFont(new Font("Manche Condensed",Font.BOLD,(int)(12*VentanaPrincipal.getCordenadaY())));
+		rdbtn_admin.setBackground(VentanaPrincipal.getAzulNormal());
+		rdbtn_admin.setHorizontalAlignment(SwingConstants.CENTER);
+		rdbtn_admin.setBorder(null);
+		rdbtn_admin.setBounds(
+								Math.round(70*VentanaPrincipal.getCordenadaX()), 		//posicion HORIZONTAL
+								Math.round(240*VentanaPrincipal.getCordenadaY()),		//posicion VERTICAL 
+								Math.round(100*VentanaPrincipal.getCordenadaX()),  		//tamaño HORIZONTAL
+								Math.round(20*VentanaPrincipal.getCordenadaY())); 		//tamaño VERTICAL
+		panelUsuario.add(rdbtn_admin);
+		
+		rdbtn_Cocina = new JRadioButton("Cocinas");
+		rdbtn_Cocina.setFont(new Font("Manche Condensed",Font.BOLD,(int)(12*VentanaPrincipal.getCordenadaY())));
+		rdbtn_Cocina.setBackground(VentanaPrincipal.getAzulNormal());
+		rdbtn_Cocina.setHorizontalAlignment(SwingConstants.CENTER);
+		rdbtn_Cocina.setBorder(null);
+		rdbtn_Cocina.setBounds(
+								Math.round(190*VentanaPrincipal.getCordenadaX()), 		//posicion HORIZONTAL
+								Math.round(240*VentanaPrincipal.getCordenadaY()),		//posicion VERTICAL 
+								Math.round(100*VentanaPrincipal.getCordenadaX()),  		//tamaño HORIZONTAL
+								Math.round(20*VentanaPrincipal.getCordenadaY())); 		//tamaño VERTICAL
+		panelUsuario.add(rdbtn_Cocina);
+		
+		rdbtn_ventas = new JRadioButton("Ventas");
+		rdbtn_ventas.setFont(new Font("Manche Condensed",Font.BOLD,(int)(12*VentanaPrincipal.getCordenadaY())));
+		rdbtn_ventas.setBackground(VentanaPrincipal.getAzulNormal());
+		rdbtn_ventas.setHorizontalAlignment(SwingConstants.CENTER);
+		rdbtn_ventas.setBorder(null);
+		rdbtn_ventas.setBounds(
+								Math.round(300*VentanaPrincipal.getCordenadaX()), 		//posicion HORIZONTAL
+								Math.round(240*VentanaPrincipal.getCordenadaY()),		//posicion VERTICAL 
+								Math.round(100*VentanaPrincipal.getCordenadaX()),  		//tamaño HORIZONTAL
+								Math.round(20*VentanaPrincipal.getCordenadaY())); 		//tamaño VERTICAL
+		panelUsuario.add(rdbtn_ventas);
+		
+		
+		//ACEPTAR
+		btn_Aceptar = VentanaPrincipal.parametrosJButton("Aceptar",140,300,120,40);
+		panelUsuario.add(btn_Aceptar);
+
+		panelUsuario.setVisible(false);
+				
+
 	}
 	
 	private void establecerManejador() {

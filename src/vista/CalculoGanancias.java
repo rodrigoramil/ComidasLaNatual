@@ -1,25 +1,19 @@
 package vista;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
+import java.awt.Font;
 import java.util.ArrayList;
 
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
-
 import controlador.ControladorCalculoGanancias;
 import modelo.ModeloCalculoGanancias;
-import modelo.ModeloPRUEBA;
 import modelo_bbdd.BbddCalculoGanancias;
-import modelo_bbdd.BbddVentas;
 
 public class CalculoGanancias extends JPanel {
 
@@ -34,11 +28,7 @@ public class CalculoGanancias extends JPanel {
 	private static JButton btn_Imprimir;
 	private static JTable tabla;
     private static JScrollPane scroll;
-    
-	private static int ancho = 800;
-	private static int alto = 600;
-	private static int posicionPanel_x = 100;
-	private static int posicionPanel_y = 50;
+
 	private static ArrayList<ModeloCalculoGanancias> arrayGanancias;
 
     
@@ -51,58 +41,47 @@ public class CalculoGanancias extends JPanel {
 
 	public void inicializarComponentes() {
 		
-		panelCalculoGanancias = new JPanel();
-		btn_Volver = new JButton("Volver");
-		lbl_Desde = new JLabel("Desde");		
-		lbl_Hasta = new JLabel("Hasta");
-		tfd_Desde = new JTextField();
-		tfd_hasta = new JTextField();
-		lbl_Total_Ganancias = new JLabel("Total Ganancias");
-		lbl_Calculo_Ganancias = new JLabel("284,76");
-		btn_Imprimir = new JButton("Imprimir");
-		tabla = new JTable();
+		panelCalculoGanancias = VentanaPrincipal.parametrosPanel(800,600);
 		
-		panelCalculoGanancias.setBorder(new EmptyBorder(5, 5, 5, 5));
-		panelCalculoGanancias.setBounds(posicionPanel_x, posicionPanel_y, ancho, alto);
-		panelCalculoGanancias.setLayout(null);
-		panelCalculoGanancias.setVisible(false);
-		
-		btn_Volver.setBounds(348, 11, 76, 23);
+		btn_Volver = VentanaPrincipal.parametrosJButton("Volver", 710, 20, 70, 20);
 		panelCalculoGanancias.add(btn_Volver);
-
-		lbl_Desde.setBounds(10, 64, 46, 14);
-		panelCalculoGanancias.add(lbl_Desde);
-
-		lbl_Hasta.setBounds(10, 95, 46, 14);
-		panelCalculoGanancias.add(lbl_Hasta);
-
-		tfd_Desde.setBounds(48, 61, 86, 20);
+		
+		lbl_Desde = VentanaPrincipal.parametrosJlabel("Desde",40, 150, 100, 20);
+		lbl_Desde.setHorizontalAlignment(SwingConstants.RIGHT);
+		panelCalculoGanancias.add(lbl_Desde); 	
+		
+		tfd_Desde = VentanaPrincipal.parametrosJTextField(150, 150, 120, 20);
 		panelCalculoGanancias.add(tfd_Desde);
-		tfd_Desde.setColumns(10);
-
-		tfd_hasta.setBounds(48, 92, 86, 20);
+		
+		lbl_Hasta = VentanaPrincipal.parametrosJlabel("Hasta",40, 200, 100, 20);
+		lbl_Hasta.setHorizontalAlignment(SwingConstants.RIGHT);
+		panelCalculoGanancias.add(lbl_Hasta); 	
+		
+		tfd_hasta = VentanaPrincipal.parametrosJTextField(150, 200, 120, 20);
 		panelCalculoGanancias.add(tfd_hasta);
-		tfd_hasta.setColumns(10);
-
-		lbl_Total_Ganancias.setBounds(30, 161, 86, 14);
+		
+		lbl_Total_Ganancias = VentanaPrincipal.parametrosJlabel("Total Ganancias",40, 360, 200, 40);
+		lbl_Total_Ganancias.setFont(new Font("Manche Condensed",Font.BOLD,(int)(20*VentanaPrincipal.getCordenadaY())));
 		panelCalculoGanancias.add(lbl_Total_Ganancias);
-
-		lbl_Calculo_Ganancias.setBounds(40, 186, 46, 14);
+				
+		
+		lbl_Calculo_Ganancias = VentanaPrincipal.parametrosJlabel("284,76 \u20AC",40, 400, 200, 40);
+		lbl_Calculo_Ganancias.setFont(new Font("Manche Condensed",Font.BOLD,(int)(20*VentanaPrincipal.getCordenadaY())));
 		panelCalculoGanancias.add(lbl_Calculo_Ganancias);
 
-		btn_Imprimir.setBounds(185, 210, 76, 23);
+		btn_Imprimir = VentanaPrincipal.parametrosJButton("Imprimir",340, 550, 120, 20);
 		panelCalculoGanancias.add(btn_Imprimir);
-		
-	    scroll = new JScrollPane(tabla);
-	    scroll.setViewportView(tabla);
-	    scroll.setBounds(185, 51, 228, 148);
-	    panelCalculoGanancias.add(scroll);	
+
+		tabla = new JTable();
+		scroll = VentanaPrincipal.parametrosJScrollPane(400, 100, 350, 400);    
+		panelCalculoGanancias.add(scroll);
+	    
+		panelCalculoGanancias.setVisible(false);
 	}
 
 	public void establecerManejador() {			
 		ControladorCalculoGanancias controlador = new ControladorCalculoGanancias(this);
 		
-		tabla.addMouseListener(controlador);
 		tfd_Desde.addMouseListener(controlador);
 		tfd_hasta.addMouseListener(controlador);
 		lbl_Calculo_Ganancias.addMouseListener(controlador);		
@@ -115,6 +94,8 @@ public class CalculoGanancias extends JPanel {
 		arrayGanancias = new ArrayList<ModeloCalculoGanancias>();
         BbddCalculoGanancias.listarCalculoGanancias();
         arrayGanancias = BbddCalculoGanancias.getArrayCalculoGanancias();
+		tabla = new JTable();
+		scroll.setViewportView(tabla);
         DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
         modelo.addColumn("Nº");
         modelo.addColumn("FECHA-HORA");
@@ -129,8 +110,8 @@ public class CalculoGanancias extends JPanel {
     	}
         tabla.setModel(modelo);
         modelo.fireTableDataChanged();
+        tabla = VentanaPrincipal.formatoTabla(tabla);
     }
-	
 
 	 public static int indiceSeleccionado() throws NullPointerException {
 		 int indiceSeleccionado = tabla.getSelectedRow();

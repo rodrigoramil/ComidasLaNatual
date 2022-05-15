@@ -2,7 +2,6 @@ package vista;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.border.EmptyBorder;
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JTextField;
@@ -24,12 +23,6 @@ public class Almacen extends JPanel {
 	private static JButton btn_Ver_Listas_Compras;
 	private static JButton btn_Modificar;
 	private static JButton btn_Nuevo;
-
-	private int ancho = 800;
-	private int alto = 600;
-	private int posicionPanel_x = 180;
-	private int posicionPanel_y = 80;
-	
 	private static JTable tabla;
     private static JScrollPane scroll;
 	private static ArrayList<ModeloAlmacen> arrayAlmacen;
@@ -44,59 +37,45 @@ public class Almacen extends JPanel {
 
 	public void inicializarComponentes() {
 		
-		panelAlmacen = new JPanel();	
-		btn_todos_los_Productos = new JButton("Todos los productos");
-		textField = new JTextField();
-		btn_Buscar = new JButton("Buscar");
-		btn_Volver = new JButton("Volver");
-		btn_Realizar_Lista_Compra = new JButton("Realizar lista de la compra");
-		btn_Ver_Listas_Compras = new JButton("Ver listas de la compra");
-		btn_Modificar = new JButton("Modificar");
-		btn_Nuevo = new JButton("Nuevo");
-		tabla = new JTable();
-		
-		panelAlmacen.setBorder(new EmptyBorder(5, 5, 5, 5));
-		panelAlmacen.setBounds(posicionPanel_x, posicionPanel_y, ancho, alto);
-		panelAlmacen.setLayout(null);
-		panelAlmacen.setVisible(false);
+		panelAlmacen = VentanaPrincipal.parametrosPanel(800,600);
 
-		btn_todos_los_Productos.setBounds(10, 11, 142, 23);
+		btn_todos_los_Productos = VentanaPrincipal.parametrosJButton("Todos los productos",50, 30, 150, 20);
 		panelAlmacen.add(btn_todos_los_Productos);
 		
-		textField.setBounds(10, 45, 177, 20);
+		btn_Volver = VentanaPrincipal.parametrosJButton("Volver", 710, 20, 70, 20);
+		panelAlmacen.add(btn_Volver);
+
+		textField = VentanaPrincipal.parametrosJTextField(50, 65, 287, 20);
 		panelAlmacen.add(textField);
-		textField.setColumns(10);
 		
-		btn_Buscar.setBounds(193, 44, 89, 23);
+		btn_Buscar = VentanaPrincipal.parametrosJButton("Buscar",350, 65, 65, 20);
 		panelAlmacen.add(btn_Buscar);
 		
-		btn_Volver.setBounds(378, 11, 69, 23);
-		panelAlmacen.add(btn_Volver);
-		
-		btn_Realizar_Lista_Compra.setBounds(10, 236, 157, 23);
+		btn_Realizar_Lista_Compra = VentanaPrincipal.parametrosJButton("Realizar lista de la compra",50, 520, 240, 20);
 		panelAlmacen.add(btn_Realizar_Lista_Compra);
 		
-		btn_Ver_Listas_Compras.setBounds(178, 236, 142, 23);
+		btn_Ver_Listas_Compras = VentanaPrincipal.parametrosJButton("Ver listas de la compra",320, 520, 240, 20);
 		panelAlmacen.add(btn_Ver_Listas_Compras);
 		
-		btn_Modificar.setBounds(368, 228, 79, 23);
+		btn_Modificar = VentanaPrincipal.parametrosJButton("Modificar",630, 520, 120, 20);
 		panelAlmacen.add(btn_Modificar);
 		
-		btn_Nuevo.setBounds(368, 263, 79, 23);
+		btn_Nuevo = VentanaPrincipal.parametrosJButton("Nuevo",630, 560, 120, 20);
 		panelAlmacen.add(btn_Nuevo);
+		
+		tabla = new JTable();
+		scroll = VentanaPrincipal.parametrosJScrollPane(50, 100, 700, 400);
+	    panelAlmacen.add(scroll);
 
-	    scroll = new JScrollPane(tabla);
-	    scroll.setViewportView(tabla);
-	    scroll.setBounds(10, 76, 437, 141);
-	    panelAlmacen.add(scroll);	
-				
+	    panelAlmacen.setVisible(false);
+
 	}
 	
 	public void establecerManejador() {	
 		
 		ControladorAlmacen controlador = new ControladorAlmacen(this);	
-		textField.addActionListener(controlador);
 		
+		textField.addActionListener(controlador);		
 		btn_todos_los_Productos.addActionListener(controlador);
 		btn_Buscar.addActionListener(controlador);
 		btn_Volver.addActionListener(controlador);
@@ -104,50 +83,41 @@ public class Almacen extends JPanel {
 		btn_Ver_Listas_Compras.addActionListener(controlador);
 		btn_Modificar.addActionListener(controlador);
 		btn_Nuevo.addActionListener(controlador);
-		tabla.addMouseListener(controlador);
 	
 	}
 
 	
-	//*******
-	
+
 	public static void listarProductos () {
 		arrayAlmacen = new ArrayList<ModeloAlmacen>();
         BbddAlmacen.listarProductosAlmacen();
         arrayAlmacen = BbddAlmacen.getArrayAlmacen();	
+		tabla = new JTable();
+		scroll.setViewportView(tabla);
         DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
         modelo.addColumn("PRODUCTOS");
         modelo.addColumn("ACTUAL");
         modelo.addColumn("MÍNIMO");
-        modelo.addColumn("MAXIMO");
-        
+        modelo.addColumn("MAXIMO");        
         Object filaDato[] = new Object[4];     
         for (int i = 0; i < arrayAlmacen.size(); i++) {
         	filaDato[0] = arrayAlmacen.get(i).getNombreProducto();
         	filaDato[1] = arrayAlmacen.get(i).getCantidadActual();
         	filaDato[2] = arrayAlmacen.get(i).getCantidadMinima();
-        	filaDato[3] = arrayAlmacen.get(i).getCantidadMaxima();
-        	
+        	filaDato[3] = arrayAlmacen.get(i).getCantidadMaxima();        	
         	modelo.addRow(filaDato);
     	}
         tabla.setModel(modelo);
         modelo.fireTableDataChanged();
+        tabla = VentanaPrincipal.formatoTabla(tabla);
     }
 	
-
 	 public static int indiceSeleccionado() throws NullPointerException {
 		 int indiceSeleccionado = tabla.getSelectedRow();
 		 return indiceSeleccionado;	
 	 }
 
-	
-	
-	
-	
-	
-	
-	
-	
+	 
 	public static JTextField getTextField() {
 		return textField;
 	}

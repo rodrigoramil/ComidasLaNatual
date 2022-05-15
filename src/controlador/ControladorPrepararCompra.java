@@ -36,17 +36,17 @@ private PrepararCompra panelPrepararCompra;
 		}
 		
 		if (e.getSource() == PrepararCompra.getBtn_Imprimir()) {
-			/*
+			
 			try {
 				
-				panelPrepararCompra.getPanelPrepararCompra().print();
+				panelPrepararCompra.getTabla().print();
 				
 			} catch (PrinterException e1) {
 				JOptionPane.showMessageDialog(panelPrepararCompra, "Error al imprimir la lista de la compra");
 				System.out.println("Error al imprimir la lista de la compra");
 				e1.printStackTrace();
 			}
-			*/
+			
 		}
 		
 	}

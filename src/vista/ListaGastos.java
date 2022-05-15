@@ -3,15 +3,12 @@ package vista;
 import java.util.ArrayList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.border.EmptyBorder;
 import javax.swing.JTable;
 import javax.swing.JButton;
 import javax.swing.table.DefaultTableModel;
 import controlador.ControladorListaGastos;
 import modelo.ModeloListaGastos;
 import modelo_bbdd.BbddListaGastos;
-import modelo_bbdd.BbddVentas;
-
 
 public class ListaGastos extends JPanel {
 
@@ -24,12 +21,7 @@ public class ListaGastos extends JPanel {
 	private static JButton btn_Volver;
 	private static JButton btn_Ver;
 	private static JButton btn_Calcular_Gastos;
-	
-	private static int ancho = 800;
-	private static int alto = 600;
-	private static int posicionPanel_x = 100;
-	private static int posicionPanel_y = 50;
-	
+
 	private static JTable tabla;
     private static JScrollPane scroll;
 
@@ -45,36 +37,30 @@ public class ListaGastos extends JPanel {
 	
 	public void inicializarComponentes() {
 		
-		panelListaGastos = new JPanel();	
-		btn_Volver = new JButton("Volver");
-		btn_Ver = new JButton("Ver");
-		btn_Calcular_Gastos = new JButton("Calcular gastos");
-		tabla = new JTable();
-		panelListaGastos.setBorder(new EmptyBorder(5, 5, 5, 5));
-		panelListaGastos.setBounds(posicionPanel_x, posicionPanel_y, ancho, alto);
-		panelListaGastos.setLayout(null);
-		panelListaGastos.setVisible(false);
-				
-		btn_Volver.setBounds(335, 11, 89, 23);
+		
+		panelListaGastos = VentanaPrincipal.parametrosPanel(800,600);
+		
+		btn_Volver = VentanaPrincipal.parametrosJButton("Volver", 710, 20, 70, 20);
 		panelListaGastos.add(btn_Volver);
 		
-		btn_Ver.setBounds(75, 215, 89, 23);
+		btn_Ver = VentanaPrincipal.parametrosJButton("Ver",200, 550, 120, 20);
 		panelListaGastos.add(btn_Ver);
 		
-		btn_Calcular_Gastos.setBounds(242, 215, 112, 23);
+		btn_Calcular_Gastos = VentanaPrincipal.parametrosJButton("Calcular gastos",480, 550, 120, 20);
 		panelListaGastos.add(btn_Calcular_Gastos);
-		
-	    scroll = new JScrollPane(tabla);
-	    scroll.setViewportView(tabla);
-	    scroll.setBounds(65, 45, 330, 159);
-	    panelListaGastos.add(scroll);	
 
+		tabla = new JTable();
+		scroll = VentanaPrincipal.parametrosJScrollPane(50, 100, 700, 400);	    
+		panelListaGastos.add(scroll);
+	    
+		panelListaGastos.setVisible(false);
+		
+				
 	}
 	
 	public void establecerManejador() {			
 		ControladorListaGastos controlador = new ControladorListaGastos(this);
-		
-		tabla.addMouseListener(controlador);
+
 		btn_Volver.addActionListener(controlador);
 		btn_Ver.addActionListener(controlador);
 		btn_Calcular_Gastos.addActionListener(controlador);
@@ -86,6 +72,8 @@ public class ListaGastos extends JPanel {
 		arrayListaGastos = new ArrayList<ModeloListaGastos>();
 		BbddListaGastos.listarListaGastos();					
 		arrayListaGastos = BbddListaGastos.getArrayListaGastos();
+		tabla = new JTable();
+		scroll.setViewportView(tabla);
         DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
         modelo.addColumn("Nº");
         modelo.addColumn("FECHA");
@@ -108,6 +96,7 @@ public class ListaGastos extends JPanel {
     	}
         tabla.setModel(modelo);
         modelo.fireTableDataChanged();
+        tabla = VentanaPrincipal.formatoTabla(tabla);
     }
 	
 

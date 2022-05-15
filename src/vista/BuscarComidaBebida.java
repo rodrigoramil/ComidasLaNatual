@@ -2,14 +2,15 @@ package vista;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.border.EmptyBorder;
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import controlador.ControladorBuscarComidaBebida;
+import modelo.ModeloComidaBebida;
 import modelo.ModeloPRUEBA;
+import modelo_bbdd.BbddComidaBebida;
 import modelo_bbdd.BbddVentas;
 
 
@@ -29,16 +30,10 @@ public class BuscarComidaBebida extends JPanel {
 	private static JButton btn_buscar;
 	private static JButton btn_anadir;
 	private static JButton btn_ver_receta;
-
-	private static int ancho = 800;
-	private static int alto = 600;
-	private static int posicionPanel_x = 100;
-	private static int posicionPanel_y = 50;
-
 	private static JTable tabla;
     private static JScrollPane scroll;
 
-	private static ArrayList<ModeloPRUEBA> arrayComidaBebida;
+	private static ArrayList<ModeloComidaBebida> arrayComidaBebida;
 
     
 	public BuscarComidaBebida() {
@@ -52,9 +47,7 @@ public class BuscarComidaBebida extends JPanel {
 	public void inicializarComponentes() {
 		
 		panelBuscarComidaBebida = VentanaPrincipal.parametrosPanel(800,600);
-		
-		
-		
+
 		btn_comidas_disponibles = VentanaPrincipal.parametrosJButton("Comidas Disponibles",50, 30, 150, 20);
 		panelBuscarComidaBebida.add(btn_comidas_disponibles);
 
@@ -63,8 +56,7 @@ public class BuscarComidaBebida extends JPanel {
 		
 		btn_listar_todo = VentanaPrincipal.parametrosJButton("Listar todo",390, 30, 89, 20);
 		panelBuscarComidaBebida.add(btn_listar_todo);
-		
-		
+
 		btn_volver = VentanaPrincipal.parametrosJButton("Volver", 710, 20, 70, 20);
 		panelBuscarComidaBebida.add(btn_volver);
 		
@@ -82,7 +74,6 @@ public class BuscarComidaBebida extends JPanel {
 		
 		tabla = new JTable();
 		scroll = VentanaPrincipal.parametrosJScrollPane(50, 100, 700, 400);
-	    scroll.setViewportView(tabla);
 		panelBuscarComidaBebida.add(scroll);
 		
 		panelBuscarComidaBebida.setVisible(false);
@@ -91,7 +82,6 @@ public class BuscarComidaBebida extends JPanel {
 	public void establecerManejador() {			
 		ControladorBuscarComidaBebida controlador = new ControladorBuscarComidaBebida(this);
 		
-		tabla.addMouseListener(controlador);
 		btn_comidas_disponibles.addActionListener(controlador);
 		btn_bebidas_disponibles.addActionListener(controlador);
 		btn_listar_todo.addActionListener(controlador);
@@ -104,9 +94,11 @@ public class BuscarComidaBebida extends JPanel {
 	}
 
 	public static void pedidos () {
-		arrayComidaBebida = new ArrayList<ModeloPRUEBA>(); 		// <-- modificar el tipo de array al modelo objeto que corresponda
-        BbddVentas.listarClientes();							// <-- modificar el método para que llame a la sentencia SQL que corresponda y y cargue los datos
-        arrayComidaBebida = BbddVentas.getArrayRecetas();		// <-- crear y modificar el metodo GET que trae los datos del array que corresponda
+		arrayComidaBebida = new ArrayList<ModeloComidaBebida>();
+        BbddComidaBebida.listarComidaBebida();						
+        arrayComidaBebida = BbddComidaBebida.getArrayComidaBebida();	
+        tabla = new JTable();
+		scroll.setViewportView(tabla);
         DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
         modelo.addColumn("COMIDA/BEBIDA");
         modelo.addColumn("PRECIO");
@@ -114,15 +106,15 @@ public class BuscarComidaBebida extends JPanel {
         
         Object filaDato[] = new Object[3];     
         for (int i = 0; i < arrayComidaBebida.size(); i++) {
-        	filaDato[0] = arrayComidaBebida.get(i).getReceta();		// <-- llamar el dato que corresponda del objeto modelo
-        	filaDato[1] = arrayComidaBebida.get(i).getEstado();  	// <-- llamar el dato que corresponda del objeto modelo
-        	filaDato[2] = arrayComidaBebida.get(i).getEstado(); 	// <-- llamar el dato que corresponda del objeto modelo
+        	filaDato[0] = arrayComidaBebida.get(i).getNombreReceta();
+        	filaDato[1] = arrayComidaBebida.get(i).getPrecioVenta();
+        	filaDato[2] = arrayComidaBebida.get(i).getEstado();
         	modelo.addRow(filaDato);
     	}
         tabla.setModel(modelo);
         modelo.fireTableDataChanged();
+        tabla = VentanaPrincipal.formatoTabla(tabla);
     }
-	
 
 	 public static int productoSeleccionado() throws NullPointerException {
 		 int indiceSeleccionado = tabla.getSelectedRow();
@@ -168,9 +160,6 @@ public class BuscarComidaBebida extends JPanel {
 	public static JButton getBtn_ver_receta() {
 		return btn_ver_receta;
 	}
-	
-	
-	
-	
+
 	
 }

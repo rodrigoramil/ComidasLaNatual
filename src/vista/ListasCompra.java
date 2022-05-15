@@ -3,7 +3,6 @@ package vista;
 import java.util.ArrayList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -24,10 +23,6 @@ public class ListasCompra extends JPanel {
 	private static JButton btn_Ver;	
 	private static JTable tabla;
     private static JScrollPane scroll;
-	private static int ancho = 800;
-	private static int alto = 600;
-	private static int posicionPanel_x = 100;
-	private static int posicionPanel_y = 50;
 
 	private static ArrayList<ModeloListasCompra> arrayListasCompra;
 
@@ -38,37 +33,27 @@ public class ListasCompra extends JPanel {
 		listarCompras();
 	}
 
-
 	public void inicializarComponentes() {
 
-		panelListasCompra = new JPanel();
+		panelListasCompra = VentanaPrincipal.parametrosPanel(800,600);
 
-		btn_Volver = new JButton("Volver");			
-		btn_Ver = new JButton("Ver");
-		
-		panelListasCompra.setVisible(false);
-		panelListasCompra.setBorder(new EmptyBorder(5, 5, 5, 5));
-		panelListasCompra.setBounds(posicionPanel_x, posicionPanel_y, ancho, alto);
-		panelListasCompra.setLayout(null);
-		tabla = new JTable();
-		
-		btn_Volver.setBounds(335, 11, 89, 23);
+		btn_Volver = VentanaPrincipal.parametrosJButton("Volver", 710, 20, 70, 20);
 		panelListasCompra.add(btn_Volver);
 		
-		btn_Ver.setBounds(159, 197, 89, 23);
+		btn_Ver = VentanaPrincipal.parametrosJButton("Ver",340, 550, 120, 20);
 		panelListasCompra.add(btn_Ver);
 
-	    scroll = new JScrollPane(tabla);
-	    scroll.setViewportView(tabla);		
-	    scroll.setBounds(35, 50, 367, 119);
-	    panelListasCompra.add(scroll);	
-
+		tabla = new JTable();
+		scroll = VentanaPrincipal.parametrosJScrollPane(50, 100, 700, 400);
+	    
+		panelListasCompra.add(scroll);
+		panelListasCompra.setVisible(false);
+		
 	}
 	
 	public void establecerManejador() {			
 		ControladorListasCompra controlador = new ControladorListasCompra(this);
 		
-		tabla.addMouseListener(controlador);
 		btn_Volver.addActionListener(controlador);
 		btn_Ver.addActionListener(controlador);
 		
@@ -79,6 +64,8 @@ public class ListasCompra extends JPanel {
 		arrayListasCompra = new ArrayList<ModeloListasCompra>();
         BbddListasCompra.listarListasCompra();	
         arrayListasCompra = BbddListasCompra.getArrayListasCompra();
+		tabla = new JTable();
+		scroll.setViewportView(tabla);
         DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
         modelo.addColumn("Nº");
         modelo.addColumn("FECHA");
@@ -97,6 +84,7 @@ public class ListasCompra extends JPanel {
     	}
         tabla.setModel(modelo);
         modelo.fireTableDataChanged();
+        tabla = VentanaPrincipal.formatoTabla(tabla);
     }
 	
 

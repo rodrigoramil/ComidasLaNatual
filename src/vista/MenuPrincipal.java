@@ -1,7 +1,6 @@
 
 package vista;
 
-
 import javax.swing.*;
 import controlador.ControladorMenuPrincipal;
 import java.awt.*;
@@ -18,8 +17,9 @@ public class MenuPrincipal extends JPanel {
 	private static JButton btn_Almacen;
 	private static JButton btn_Gestion_Usuario;
 	private static JButton btn_Cerrar_Sesion;
+	private static Color azulFondoBotonCerrar = new Color(50,100,255);
+	private static Color azulLetrasBotonCerrar = new Color(192,227,247);
 	
-
 	public MenuPrincipal() {
 		super();
 		inicializarComponentes();
@@ -69,12 +69,12 @@ public class MenuPrincipal extends JPanel {
 		//inicializamos CERRAR SESION
 		btn_Cerrar_Sesion = VentanaPrincipal.parametrosJButton("Cerrar Sesi\u00F3n",640,550,150,30);
 		btn_Cerrar_Sesion.setEnabled(true);
-		btn_Cerrar_Sesion.setBackground(new Color(50,100,255));
-		btn_Cerrar_Sesion.setForeground(new Color(192,227,247));
+		btn_Cerrar_Sesion.setBackground(azulFondoBotonCerrar);
+		btn_Cerrar_Sesion.setForeground(azulLetrasBotonCerrar);
 		panelMenuPrincipal.add(btn_Cerrar_Sesion);
 		
-		Imagen imagen = new Imagen(tamañoX,tamañoY);
-		panelMenuPrincipal.add(imagen);
+		FondoMenuPrincipal imgFondo = new FondoMenuPrincipal(tamañoX,tamañoY);
+		panelMenuPrincipal.add(imgFondo);
 	}
 	
 
@@ -87,9 +87,18 @@ public class MenuPrincipal extends JPanel {
 		btn_Gestion_Usuario.addActionListener(controlador);
 		btn_Cerrar_Sesion.addActionListener(controlador);
 	
+		btn_Contabilidad.addMouseListener(controlador);
+		btn_Ventas.addMouseListener(controlador);
+		btn_Recetario.addMouseListener(controlador);
+		btn_Almacen.addMouseListener(controlador);
+		btn_Gestion_Usuario.addMouseListener(controlador);
+		btn_Cerrar_Sesion.addMouseListener(controlador);
 	}
 	
 
+	
+	
+	
 	public static JPanel getPanelMenuPrincipal() {
 		return panelMenuPrincipal;
 	}
@@ -122,6 +131,16 @@ public class MenuPrincipal extends JPanel {
 
 	public static JButton getBtn_Cerrar_Sesion() {
 		return btn_Cerrar_Sesion;
+	}
+
+
+	public static Color getAzulFondoBotonCerrar() {
+		return azulFondoBotonCerrar;
+	}
+
+
+	public static Color getAzulLetrasBotonCerrar() {
+		return azulLetrasBotonCerrar;
 	}
 	
 }

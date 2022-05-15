@@ -2,16 +2,14 @@ package vista;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JButton;
+import java.awt.Color;
 import java.awt.Font;
 import java.util.ArrayList;
-
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
-
 import controlador.ControladorDetalleFactura;
 import modelo.ModeloPRUEBA;
 import modelo_bbdd.BbddVentas;
@@ -34,15 +32,8 @@ public class DetalleFactura extends JPanel {
 	private static JButton btn_Imprimir;
 	private static JTable tabla;
     private static JScrollPane scroll;
-	private static int ancho = 800;
-	private static int alto = 600;
-	private static int posicionPanel_x = 100;
-	private static int posicionPanel_y = 50;
-
 	private static ArrayList<ModeloPRUEBA> arrayDetalleFactura;
 
-
-    
 	public DetalleFactura() {
 		super();
 		inicializarComponentes();
@@ -52,64 +43,54 @@ public class DetalleFactura extends JPanel {
 
 	public void inicializarComponentes() {
 		
-		panelDetalleFactura = new JPanel();
-		lbl_Num_Mesa = new JLabel("Mesa 1");
-		btn_Volver = new JButton("Volver");
-		lbl_Detalle_Factura = new JLabel("Facturada el dia 05/05/2022 a las 14:08 h por pepe");	
-		btn_Imprimir = new JButton("Imprimir");	
-		lbl_Total = new JLabel("Total:");		
-		lbl_Cantidad_Total = new JLabel("0,00");		
-		lbl_IVA = new JLabel("Total + IVA(21%):");	
-		lbl_Cantidad_Total_IVA = new JLabel("0,00");
-		tabla = new JTable();
-		
-		panelDetalleFactura.setBorder(new EmptyBorder(5, 5, 5, 5));
-		panelDetalleFactura.setBounds(posicionPanel_x, posicionPanel_y, ancho, alto);
-		panelDetalleFactura.setLayout(null);
-		panelDetalleFactura.setVisible(false);
-		
-		lbl_Num_Mesa.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lbl_Num_Mesa.setBounds(31, 32, 46, 14);
-		panelDetalleFactura.add(lbl_Num_Mesa);
-		
-		btn_Volver.setBounds(348, 11, 76, 23);
-		panelDetalleFactura.add(btn_Volver);
+		panelDetalleFactura = VentanaPrincipal.parametrosPanel(800,600);
 
-		lbl_Detalle_Factura.setBounds(41, 56, 298, 14);
+		lbl_Num_Mesa = VentanaPrincipal.parametrosJlabel("Mesa 1",50, 15, 300, 40);
+		lbl_Num_Mesa.setFont(new Font("Manche Condensed",Font.BOLD,(int)(15*VentanaPrincipal.getCordenadaY())));
+		lbl_Num_Mesa.setForeground(Color.orange);
+		panelDetalleFactura.add(lbl_Num_Mesa);
+				
+		lbl_Detalle_Factura = VentanaPrincipal.parametrosJlabel("Facturada el dia 05/05/2022 a las 14:08 h por pepe",50, 60, 300, 40);
+		lbl_Detalle_Factura.setForeground(Color.black);
 		panelDetalleFactura.add(lbl_Detalle_Factura);
 		
-		btn_Imprimir.setBounds(39, 227, 76, 23);
-		panelDetalleFactura.add(btn_Imprimir);
+		btn_Volver = VentanaPrincipal.parametrosJButton("Volver", 710, 20, 70, 20);
+		panelDetalleFactura.add(btn_Volver);
 		
-		lbl_Total.setBounds(295, 212, 28, 14);
+		btn_Imprimir = VentanaPrincipal.parametrosJButton("Imprimir",50, 520, 120, 20);
+		panelDetalleFactura.add(btn_Imprimir);
+
+		lbl_Total = VentanaPrincipal.parametrosJlabel("Total:",500, 520, 120, 20);
+		lbl_Total.setHorizontalAlignment(SwingConstants.RIGHT);
 		panelDetalleFactura.add(lbl_Total);
-
-		lbl_Cantidad_Total.setBounds(333, 212, 46, 14);
-		panelDetalleFactura.add(lbl_Cantidad_Total);
-
-		lbl_IVA.setBounds(233, 231, 90, 14);
+		
+		lbl_IVA = VentanaPrincipal.parametrosJlabel("Total + IVA(21%):",500, 540, 120, 20);
+		lbl_IVA.setHorizontalAlignment(SwingConstants.RIGHT);
 		panelDetalleFactura.add(lbl_IVA);
 
-		lbl_Cantidad_Total_IVA.setBounds(333, 231, 37, 14);
-		panelDetalleFactura.add(lbl_Cantidad_Total_IVA);
+		lbl_Cantidad_Total = VentanaPrincipal.parametrosJlabel("0,00 €",630,520, 120, 20);
+		lbl_Cantidad_Total.setHorizontalAlignment(SwingConstants.CENTER);
+		panelDetalleFactura.add(lbl_Cantidad_Total);
 		
-	    scroll = new JScrollPane(tabla);
-	    scroll.setViewportView(tabla);
-	    scroll.setBounds(41, 81, 362, 120);
+		lbl_Cantidad_Total_IVA = VentanaPrincipal.parametrosJlabel("0,00 €",630, 540, 120, 20);
+		lbl_Cantidad_Total_IVA.setHorizontalAlignment(SwingConstants.CENTER);
+		panelDetalleFactura.add(lbl_Cantidad_Total_IVA);
+
+		tabla = new JTable();
+	    scroll = VentanaPrincipal.parametrosJScrollPane(50, 100, 700, 400);
 	    panelDetalleFactura.add(scroll);	
-        
+		
+	    panelDetalleFactura.setVisible(false);
 	}
 
 	
 	public void establecerManejador() {			
 		ControladorDetalleFactura controlador = new ControladorDetalleFactura(this);
 		
-		tabla.addMouseListener(controlador);
 		lbl_Detalle_Factura.addMouseListener(controlador);
 		lbl_Cantidad_Total.addMouseListener(controlador);
 		lbl_Cantidad_Total_IVA.addMouseListener(controlador);
 		lbl_Num_Mesa.addMouseListener(controlador);
-
 		btn_Volver.addActionListener(controlador);
 		btn_Imprimir.addActionListener(controlador);
 
@@ -117,9 +98,11 @@ public class DetalleFactura extends JPanel {
 	}
 	
 	public static void listarDetalleFactura () {
-		arrayDetalleFactura = new ArrayList<ModeloPRUEBA>();			// <-- modificar el tipo de array al modelo objeto que corresponda
-        BbddVentas.listarClientes();									// <-- modificar el método para que llame a la sentencia SQL que corresponda y y cargue los datos
-        arrayDetalleFactura = BbddVentas.getArrayRecetas();				// <-- crear y modificar el metodo GET que trae los datos del array que corresponda
+		arrayDetalleFactura = new ArrayList<ModeloPRUEBA>();
+        BbddVentas.listarClientes();						
+        arrayDetalleFactura = BbddVentas.getArrayRecetas();	
+		tabla = new JTable();
+		scroll.setViewportView(tabla);
         DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
         modelo.addColumn("COMIDA/BEBIDA");
         modelo.addColumn("PRECIO UNIDAD");
@@ -128,14 +111,15 @@ public class DetalleFactura extends JPanel {
         
         Object filaDato[] = new Object[4];     
         for (int i = 0; i < arrayDetalleFactura.size(); i++) {
-        	filaDato[0] = arrayDetalleFactura.get(i).getReceta();	// <-- llamar el dato que corresponda del objeto modelo
-        	filaDato[1] = arrayDetalleFactura.get(i).getEstado();  	// <-- llamar el dato que corresponda del objeto modelo
-        	filaDato[2] = arrayDetalleFactura.get(i).getReceta();	// <-- llamar el dato que corresponda del objeto modelo
-        	filaDato[3] = arrayDetalleFactura.get(i).getEstado();  	// <-- llamar el dato que corresponda del objeto modelo
+        	filaDato[0] = arrayDetalleFactura.get(i).getReceta();
+        	filaDato[1] = arrayDetalleFactura.get(i).getEstado();
+        	filaDato[2] = arrayDetalleFactura.get(i).getReceta();
+        	filaDato[3] = arrayDetalleFactura.get(i).getEstado();
         	modelo.addRow(filaDato);
     	}
         tabla.setModel(modelo);
         modelo.fireTableDataChanged();
+        tabla = VentanaPrincipal.formatoTabla(tabla);
     }
 	
 
