@@ -43,6 +43,9 @@ public class BbddRecetario {
 			System.out.println(e.getMessage());
 		}
 	}
+
+	
+	
 	public static ArrayList<ModeloRecetario> getarrayRecetario() {
 		return arrayRecetario;
 	}
