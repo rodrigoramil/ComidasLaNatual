@@ -2,8 +2,14 @@ package modelo_bbdd;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+
+import modelo.ModeloCliente;
+import modelo.ModeloPRUEBA;
 
 
 public class CreacionBBDD {	
@@ -11,6 +17,10 @@ public class CreacionBBDD {
 	private Statement stmt=null;
 	private String usuario = "root";
 	private String pass = "";
+	private static Connection connection = null;
+	private static Conexion conexion = null;
+	private static PreparedStatement sentencia = null;
+	
 	
 	public void creacionBBDD() {
 	
@@ -37,6 +47,7 @@ public class CreacionBBDD {
 		  crearTablaPedidoCliente();
 		  crearTablaCompraProductos();
 		  crearTablaIngredientes();
+		  crearDatosBase();
 		  System.out.println("Se ha generado la base de datos");
 		  
 		} catch (SQLException e) {
@@ -120,7 +131,37 @@ public class CreacionBBDD {
 		stmt.execute("CREATE TABLE IF NOT EXISTS Ingredientes( IdReceta INT NOT NULL ,IdProducto INT NOT NULL , Cantidad real not null, constraint fkIdRecetas foreign key(IdReceta) references Recetas(IdReceta), constraint fkIdIdProductoAlmacenes foreign key(IdProducto) references Almacen(IdProducto) )ENGINE=INNODB;");
 	}
 	
+	public void crearDatosBase() throws SQLException {
+		conexion = new Conexion();
+		connection = conexion.obtenerConexion();
+		sentencia = connection.prepareStatement("Select * from cliente");
+		ResultSet rs = sentencia.executeQuery();
+		
+		if (!rs.next()) {
+			stmt.execute("INSERT IGNORE INTO tipoproducto (Tipo) values ('Bebida');");
+			stmt.execute("INSERT IGNORE INTO tipoproducto (Tipo) values ('Comida');");
+			
+			stmt.execute("INSERT IGNORE INTO DisponibilidadReceta (Estado) values ('Disponible');");
+			stmt.execute("INSERT IGNORE INTO DisponibilidadReceta (Estado) values ('No Disponible');");
+			stmt.execute("INSERT IGNORE INTO DisponibilidadReceta (Estado) values ('En Elaboracion');");
+			
+			stmt.execute("INSERT IGNORE INTO Cliente (NombreCliente) values ('Mesa 1');");
+			stmt.execute("INSERT IGNORE INTO Cliente (NombreCliente) values ('Mesa 2');");
+			stmt.execute("INSERT IGNORE INTO Cliente (NombreCliente) values ('Mesa 3');");
+			stmt.execute("INSERT IGNORE INTO Cliente (NombreCliente) values ('Mesa 4');");
+			stmt.execute("INSERT IGNORE INTO Cliente (NombreCliente) values ('Mesa 5');");
+			stmt.execute("INSERT IGNORE INTO Cliente (NombreCliente) values ('Mesa 6');");
+			stmt.execute("INSERT IGNORE INTO Cliente (NombreCliente) values ('Mesa 7');");
+			
+			stmt.execute("INSERT IGNORE INTO UnidadMedidaProducto(UnidadMedida) values('Ud')");
+			stmt.execute("INSERT IGNORE INTO UnidadMedidaProducto(UnidadMedida) values('Kg')");
+			stmt.execute("INSERT IGNORE INTO UnidadMedidaProducto(UnidadMedida) values('L')");
+				
+		}
+		
+		
+		
+	
 	// crear sentencia para crear en la tabla CLIENTE si no existen las MESAS 1,2,3,4,5,6,7,8
-	
+	}		
 }
-	

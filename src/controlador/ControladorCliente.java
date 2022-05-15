@@ -2,6 +2,7 @@ package controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import modelo_bbdd.BbddVentas;
 import vista.Cliente;
@@ -35,7 +36,12 @@ public class ControladorCliente implements ActionListener{
 			
 			if (nuevoCliente) {				
 				System.out.println("Nuevo Cliente");		
-				BbddVentas.insertarCliente(cajaTextoNombre, cajaTextoTlf);
+				try {
+					BbddVentas.insertarCliente(cajaTextoNombre, cajaTextoTlf);
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				
 				GestionPedidos.creaListaClientes();
 				ControladorGestionPedidos.setNuevoCliente(false);				

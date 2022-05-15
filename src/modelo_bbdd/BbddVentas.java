@@ -23,7 +23,7 @@ public class BbddVentas {
 		arrayClientes = new ArrayList<ModeloCliente>();
 		arrayRecetas = new ArrayList<ModeloPRUEBA>();  // <---- BORRAR
 		try {
-			sentencia = connection.prepareStatement("Select * from cliente order by IdCliente");
+			sentencia = connection.prepareStatement("Select * from cliente where nombreCliente not like '%Mesa %'  order by IdCliente");
 			ResultSet rs = sentencia.executeQuery();
 
 			while (rs.next()) {
@@ -34,15 +34,9 @@ public class BbddVentas {
 						rs.getString("Telefono"));
 				arrayClientes.add(cliente);
 				
-				// <---- BORRAR ----->
-				ModeloPRUEBA receta = new ModeloPRUEBA(
-						rs.getString("NombreCliente"), 
-						rs.getString("Telefono"));
-				arrayRecetas.add(receta);
-				// <---- BORRAR ----->
 				
 			}
-//			cumpruebaMesas();
+
 		} catch (SQLException e) {
 			System.out.println("Error en gestionPedidosClientes SentenciasSQL");
 			System.out.println(e.getMessage());
@@ -56,14 +50,15 @@ public class BbddVentas {
         connection = conexion.obtenerConexion();
  
         try {
-            sentencia = connection.prepareStatement("update Cliente set NombreCliente = ?, Telefono = ?  where IdCliente = ?");
+        	
+			sentencia= connection.prepareStatement("update Cliente set NombreCliente = ?, Telefono = ?  where IdCliente = ?");
             sentencia.setString(1, nombre);
             sentencia.setString(2, telefono);
-            sentencia.setInt(3, id+8);
+            sentencia.setInt(3, id);
             sentencia.executeUpdate();
-            
+//            
             listarClientes();            
-
+//
         } catch (SQLException e) {
         	System.out.println("Error en editarCliente SentenciasSQL");
             System.out.println(e.getMessage());
@@ -72,24 +67,14 @@ public class BbddVentas {
 
 	
 
-	public static void insertarCliente(String nombre, String telefono) {
-		System.out.println("esta entrando por en insert");
-		conexion = new Conexion();
-        connection = conexion.obtenerConexion();
- 
-        try {
-            sentencia = connection.prepareStatement("INSERT INTO Cliente (NombreCliente, Telefono) VALUES (?, ?)"); 
-            sentencia.setString(1, nombre);
-            sentencia.setString(2, telefono);
-            
-            sentencia.executeQuery();
-            listarClientes();            
-
-        } catch (SQLException e) {
-        	System.out.println("Error en insertarCliente SentenciasSQL");
-            System.out.println(e.getMessage());
-            
-        }
+	public static void insertarCliente(String nombre, String telefono)  throws SQLException{
+		
+		String SQL = "INSERT INTO Cliente (NombreCliente, telefono) VALUES ( ?, ?)";
+		sentencia = connection.prepareStatement(SQL);
+		
+		sentencia.setString(1, nombre);
+		sentencia.setInt(2, Integer.parseInt(telefono));
+		sentencia.executeUpdate();
 	}
 
 	
@@ -119,21 +104,7 @@ public class BbddVentas {
 		
 		
 		
-		
-		/*
-		stmt.execute("INSERT INTO Cliente (NombreCliente) values ('Mesa 1');");
-		stmt.execute("INSERT INTO Cliente (NombreCliente) values ('Mesa 2');");
-		stmt.execute("INSERT INTO Cliente (NombreCliente) values ('Mesa 3');");
-		stmt.execute("INSERT INTO Cliente (NombreCliente) values ('Mesa 4');");
-		stmt.execute("INSERT INTO Cliente (NombreCliente) values ('Mesa 5');");
-		stmt.execute("INSERT INTO Cliente (NombreCliente) values ('Mesa 6');");
-		stmt.execute("INSERT INTO Cliente (NombreCliente) values ('Mesa 7');");
-		stmt.execute("INSERT INTO Cliente (NombreCliente) values ('Mesa 8');");
-		
-	}
-*/
-	
-	
+
 
 	public static ArrayList<ModeloPRUEBA> getArrayRecetas() {
 		return arrayRecetas;
@@ -143,6 +114,10 @@ public class BbddVentas {
 		return arrayClientes;
 	}
 
+
+
+
 	
 
 }
+
