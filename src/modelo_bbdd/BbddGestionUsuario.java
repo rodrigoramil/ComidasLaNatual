@@ -29,6 +29,26 @@ public class BbddGestionUsuario {
 	}
 
 	
+	public static void editarUsuario(int IdUsuario,String nombreUsuario, String contrasena, String rol) {
+        conexion = new Conexion();
+        connection = conexion.obtenerConexion();
+ 
+        try {
+        	
+			sentencia= connection.prepareStatement("update Cliente set nombreUsuario = ?, contrasena = ? rol=? where IdCliente = ?");
+            sentencia.setString(1, nombreUsuario);
+            sentencia.setString(2, contrasena);
+            sentencia.setString(3, rol);
+            sentencia.setInt(4, IdUsuario);
+            
+            sentencia.executeUpdate();
+//              
+//
+        } catch (SQLException e) {
+        	System.out.println("Error en editarCliente SentenciasSQL");
+            System.out.println(e.getMessage());
+        }
+    }
 	
 	
   	public static ArrayList<ModeloGestionUsuarios> getArrayClientes() {
