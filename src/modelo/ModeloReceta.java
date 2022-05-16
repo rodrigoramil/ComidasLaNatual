@@ -7,66 +7,86 @@ public class ModeloReceta  implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private int IdProducto;
-	private int IdReceta;
-	private float cantidad;
-	private String elaboracion; 
+	private int idProducto;
+	private String nombreProducto;
+	private int idReceta;
 	private String nombreReceta;
-
-	public ModeloReceta(int idProducto, int idReceta, float cantidad, String elaboracion, String nombreReceta) {
+	private float cantidad;
+	private String elaboracion;
+	private float precioVenta;
+	/**
+	 * @param idProducto
+	 * @param nombreProducto
+	 * @param idReceta
+	 * @param nombreReceta
+	 * @param cantidad
+	 * @param elaboracion
+	 * @param precioVenta
+	 */
+	public ModeloReceta(int idProducto, String nombreProducto, int idReceta, String nombreReceta, float cantidad,
+			String elaboracion, float precioVenta) {
 		super();
-		IdProducto = idProducto;
-		IdReceta = idReceta;
-		this.cantidad = cantidad;
-		this.elaboracion = elaboracion;
+		this.idProducto = idProducto;
+		this.nombreProducto = nombreProducto;
+		this.idReceta = idReceta;
 		this.nombreReceta = nombreReceta;
-
-	}
-
-	public int getIdProducto() {
-		return IdProducto;
-	}
-
-	public void setIdProducto(int idProducto) {
-		IdProducto = idProducto;
-	}
-
-	public int getIdReceta() {
-		return IdReceta;
-	}
-
-	public void setIdReceta(int idReceta) {
-		IdReceta = idReceta;
-	}
-
-	public float getCantidad() {
-		return cantidad;
-	}
-
-	public void setCantidad(float cantidad) {
 		this.cantidad = cantidad;
-	}
-
-	public String getElaboracion() {
-		return elaboracion;
-	}
-
-	public void setElaboracion(String elaboracion) {
 		this.elaboracion = elaboracion;
+		this.precioVenta = precioVenta;
 	}
-
+	/**
+	 * 
+	 */
+	public ModeloReceta() {
+		super();
+	}
+	public int getIdProducto() {
+		return idProducto;
+	}
+	public void setIdProducto(int idProducto) {
+		this.idProducto = idProducto;
+	}
+	public String getNombreProducto() {
+		return nombreProducto;
+	}
+	public void setNombreProducto(String nombreProducto) {
+		this.nombreProducto = nombreProducto;
+	}
+	public int getIdReceta() {
+		return idReceta;
+	}
+	public void setIdReceta(int idReceta) {
+		this.idReceta = idReceta;
+	}
 	public String getNombreReceta() {
 		return nombreReceta;
 	}
-
 	public void setNombreReceta(String nombreReceta) {
 		this.nombreReceta = nombreReceta;
 	}
-
+	public float getCantidad() {
+		return cantidad;
+	}
+	public void setCantidad(float cantidad) {
+		this.cantidad = cantidad;
+	}
+	public String getElaboracion() {
+		return elaboracion;
+	}
+	public void setElaboracion(String elaboracion) {
+		this.elaboracion = elaboracion;
+	}
+	public float getPrecioVenta() {
+		return precioVenta;
+	}
+	public void setPrecioVenta(float precioVenta) {
+		this.precioVenta = precioVenta;
+	}
 	@Override
 	public String toString() {
-		return "ModeloReceta [IdProducto=" + IdProducto + ", IdReceta=" + IdReceta + ", cantidad=" + cantidad
-				+ ", elaboracion=" + elaboracion + ", nombreReceta=" + nombreReceta + "]";
+		return "ModeloReceta [idProducto=" + idProducto + ", nombreProducto=" + nombreProducto + ", idReceta="
+				+ idReceta + ", nombreReceta=" + nombreReceta + ", cantidad=" + cantidad + ", elaboracion="
+				+ elaboracion + ", precioVenta=" + precioVenta + "]";
 	}
 	
 }

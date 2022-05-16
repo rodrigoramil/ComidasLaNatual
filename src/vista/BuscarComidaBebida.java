@@ -100,9 +100,11 @@ public class BuscarComidaBebida extends JPanel {
 		arrayComidaBebida = new ArrayList<ModeloComidaBebida>();   
 		BbddComidaBebida.listarComidaBebida();
         arrayComidaBebida = BbddComidaBebida.getArrayComidaBebida();
+        //***
         scroll.remove(tabla);
         tabla = new JTable();        
 		scroll.setViewportView(tabla);
+		//***
         DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
         modelo.addColumn("COMIDA/BEBIDA");
         modelo.addColumn("PRECIO");
@@ -111,7 +113,6 @@ public class BuscarComidaBebida extends JPanel {
         Object filaDato[] = new Object[3];     
         for (int i = 0; i < arrayComidaBebida.size(); i++) {
 
-        	
         	if (ControladorBuscarComidaBebida.isBebida()) {        		
 				if (arrayComidaBebida.get(i).getTipo().equals("Bebida")) {
 					filaDato[0] = arrayComidaBebida.get(i).getNombreReceta();
@@ -140,7 +141,6 @@ public class BuscarComidaBebida extends JPanel {
 					filaDato[2] = arrayComidaBebida.get(i).getEstado();
 					modelo.addRow(filaDato);					
 				}	
-
 			}			
 			else {
 				filaDato[0] = arrayComidaBebida.get(i).getNombreReceta();
@@ -156,7 +156,9 @@ public class BuscarComidaBebida extends JPanel {
         tabla.setModel(modelo);
         modelo.fireTableDataChanged();
         tabla = VentanaPrincipal.formatoTabla(tabla);
+        //***
         establecerManejador();
+        //***
     }
 
 	

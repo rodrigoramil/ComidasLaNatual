@@ -22,10 +22,8 @@ public class ControladorBuscarComidaBebida implements ActionListener, MouseListe
 	private static boolean bebida = false;
 	private static boolean desdeVentas;
 
-	
 	public ControladorBuscarComidaBebida(BuscarComidaBebida panelBuscarComidaBebida) {
 		this.panelBuscarComidaBebida = panelBuscarComidaBebida;
-	
 	}	
 	
 	@Override
