@@ -4,9 +4,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.sql.SQLException;
+
 import javax.swing.JOptionPane;
 import modelo_bbdd.BbddProductosAlmacen;
+import modelo_bbdd.BbddReceta;
 import vista.ProductosAlmacen;
+import vista.Receta;
 import vista.VentanaPrincipal;
 
 public class ControladorProductosAlmacen  implements ActionListener, MouseListener  {
@@ -41,8 +45,19 @@ public class ControladorProductosAlmacen  implements ActionListener, MouseListen
 					}
 				}
 				else {
-					cantidad=1;
+					cantidad=1;				
 				}
+				
+				try {
+					
+					
+					
+					Receta.listarReceta(BbddReceta.updateAddProductoReceta());
+								
+				} catch (SQLException e1) {
+					JOptionPane.showMessageDialog(panelProductosAlmacen, "Error al realizar la accion con la Base de Datos");
+				}
+				
 			}	
 			
 			
@@ -178,6 +193,10 @@ System.out.println("productoSeleccionado -> "+ProductosAlmacen.productoSeleccion
 	public void mouseExited(MouseEvent e) { //al salir el raton de encima
 
 		
+	}
+
+	public static float getCantidad() {
+		return cantidad;
 	}
 		
 	

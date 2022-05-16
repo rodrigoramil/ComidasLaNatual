@@ -5,7 +5,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
+import controlador.ControladorProductosAlmacen;
+import modelo.ModeloProductosAlmacen;
 import modelo.ModeloReceta;
+import modelo.ModeloRecetario;
 import vista.ProductosAlmacen;
 import vista.Receta;
 import vista.Recetario;
@@ -20,6 +24,10 @@ public class BbddReceta {
 //	private static ArrayList<ModeloIngredientes> arrayIngredientes;
 	private static String precioVenta;
 	private static String elaboracion;
+	private static String datoSelecionado;
+	private static int idProducto;
+	private static int idReceta;
+	private static float cantidad;
 
 	
 	public static ArrayList<ModeloReceta> listarRecetas() {
@@ -57,6 +65,60 @@ public class BbddReceta {
 		return arrayReceta;
 	}
 
+	
+	
+	public static  ArrayList<ModeloReceta>  updateAddProductoReceta() throws SQLException{
+
+		cantidad = ControladorProductosAlmacen.getCantidad();		
+		datoSelecionado = ProductosAlmacen.datoSeleccionadoTabla();
+		
+	        for (int i = 0; i < ProductosAlmacen.getArrayProductos().size(); i++) {
+				if (ProductosAlmacen.getArrayProductos().get(i).getNombreProducto().equals(datoSelecionado)) {					
+					idProducto = ProductosAlmacen.getArrayProductos().get(i).getIdProducto();
+				}
+			}
+	        
+	        for (ModeloRecetario receta : Recetario.getArrayRecetas()) {
+	        	if (receta.getNombreReceta().equals(nombreRecetaSeleccionada) ) {
+	        		idReceta = receta.getIdReceta();
+				}
+
+			}
+	
+		String SQLReceta = "insert into ingredientes(IdReceta, IdProducto, Cantidad) values (?,?,?)";
+		sentenciaRecetas = connection.prepareStatement(SQLReceta);
+		sentenciaRecetas.setInt(1, idReceta);
+		sentenciaRecetas.setInt(2, idProducto);
+		sentenciaRecetas.setFloat(3, cantidad);
+		sentenciaRecetas.executeUpdate();
+		
+		arrayReceta = listarRecetas();
+		return arrayReceta;		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	public static void insertarReceta() throws SQLException{
 		
 		int idProducto = 0;

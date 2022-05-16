@@ -18,6 +18,7 @@ public class ControladorRecetario implements ActionListener, MouseListener  {
 
 	
 	private Recetario panelRecetario;
+	private static boolean verDesdeRecetario;
 	
 	public ControladorRecetario(Recetario panelRecetario) {
 		this.panelRecetario = panelRecetario;
@@ -43,18 +44,15 @@ public class ControladorRecetario implements ActionListener, MouseListener  {
 			VentanaPrincipal.getPanelRecetario().setVisible(false);
 			VentanaPrincipal.getPanelReceta().setVisible(true);
 			
+			botonVerReceta ();
+			
 			Receta.listarReceta(BbddReceta.listarRecetas());
-			
-			
-			
-			
+
 			if (BbddReceta.getArrayReceta().isEmpty()) {
 				Receta.getTexto_elaboracion().setText("");
 				Receta.getPrecio_receta().setText("");
 			}
-			
-			
-			
+
 		}
 		
 		if (e.getSource() == Recetario.getBtn_nueva_receta()) {
@@ -72,6 +70,14 @@ public class ControladorRecetario implements ActionListener, MouseListener  {
 			System.out.println("modificarReceta");
 			VentanaPrincipal.getPanelRecetario().setVisible(false);
 			VentanaPrincipal.getPanelReceta().setVisible(true);
+
+			Receta.listarReceta(BbddReceta.listarRecetas());
+	
+			if (BbddReceta.getArrayReceta().isEmpty()) {
+				Receta.getTexto_elaboracion().setText("");
+				Receta.getPrecio_receta().setText("");
+			}
+
 		}
 		
 		
@@ -137,4 +143,21 @@ public class ControladorRecetario implements ActionListener, MouseListener  {
 		
 	}
 		
+	
+	public void botonVerReceta () {
+		Receta.getBtn_guardar().setEnabled(false);
+		Receta.getBtn_borrar_ingrediente().setEnabled(false);
+		Receta.getBtn_modificar_cantidad().setEnabled(false);
+		Receta.getBtn_nuevo_ingrediente().setEnabled(false);
+		verDesdeRecetario = true;
+	}
+
+	public static boolean isVerDesdeRecetario() {
+		return verDesdeRecetario;
+	}
+
+	public static void setVerDesdeRecetario(boolean verDesdeRecetario) {
+		ControladorRecetario.verDesdeRecetario = verDesdeRecetario;
+	}
+	
 }

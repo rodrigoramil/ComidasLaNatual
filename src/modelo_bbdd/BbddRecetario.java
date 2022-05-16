@@ -55,8 +55,8 @@ public class BbddRecetario {
 		System.out.println("esta entrando por en editar"); //-> BORRAR
         conexion = new Conexion();
         connection = conexion.obtenerConexion();
-		datoSelecionado = Recetario.datoSeleccionadoTabla();       
         
+		datoSelecionado = Recetario.datoSeleccionadoTabla();        
         if (idDisponibilidad > 0) {
 	        for (int i = 0; i < arrayRecetario.size(); i++) {
 				if (arrayRecetario.get(i).getNombreReceta().equals(datoSelecionado)) {
