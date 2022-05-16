@@ -12,9 +12,12 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
+
 import controlador.ControladorReceta;
 import modelo.ModeloReceta;
 import modelo_bbdd.BbddReceta;
+import modelo_bbdd.BbddRecetario;
 
 public class Receta extends JPanel {
 
@@ -33,7 +36,7 @@ public class Receta extends JPanel {
 	private static JButton btn_guardar;
 	private static JButton btn_volver;
 	private static JTextField nombre_receta;
-//	private static JTable tabla;
+	private static JTable tabla;
     private static JScrollPane scroll;
     private static JScrollPane scrollTexto;
 	private static ArrayList<ModeloReceta> arrayIngredientes;
@@ -49,6 +52,7 @@ public class Receta extends JPanel {
 		inicializarComponentes();
 		establecerManejador();		
 //		listarRecetas();
+//		BbddReceta.listarRecetas();
 	}
 
 	public void inicializarComponentes() {
@@ -110,8 +114,9 @@ public class Receta extends JPanel {
 		panelReceta.add(btn_guardar);
 		
 		
-//		tabla = new JTable();
+		tabla = new JTable();
 		scroll = VentanaPrincipal.parametrosJScrollPane(50, 100, 300, 400);
+		scroll.setViewportView(tabla);
 		panelReceta.add(scroll);
 		
 		texto_elaboracion = new JTextArea();
@@ -146,49 +151,49 @@ public class Receta extends JPanel {
 		nombre_receta.addActionListener(controlador);
 
 	//*****************
-//		tabla.addMouseListener(controlador);
+		tabla.addMouseListener(controlador);
 	//******************
 	}
 	
 	
 	
-	public static void listarRecetas (ArrayList<ModeloReceta> arrayTabla) {
-
-        JTable tabla = new JTable();		
+	public static void listarReceta (ArrayList<ModeloReceta> arrayTabla) {
+		
 		arrayIngredientes = arrayTabla;
 		
 		nombre_receta.setText(BbddReceta.getNombreRecetaSeleccionada());
-        DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
+		precio_receta.setText(BbddReceta.getPrecioVenta());
+		texto_elaboracion.setText(BbddReceta.getElaboracion());
+        DefaultTableModel modelo =new DefaultTableModel(){
+		    @Override
+		    public boolean isCellEditable(int row, int column) {	
+		       return false;
+		    }
+		};        
         modelo.addColumn("NOMBRE");
-        modelo.addColumn("CANTIDAD");
-        
+        modelo.addColumn("CANTIDAD");        
         Object filaDato[] = new Object[2];  
         for (int i = 0; i < arrayIngredientes.size(); i++) {
         	filaDato[0] = arrayIngredientes.get(i).getNombreProducto();
         	filaDato[1] = arrayIngredientes.get(i).getCantidad();  
         	modelo.addRow(filaDato);
-        	texto_elaboracion.setText(arrayIngredientes.get(i).getElaboracion());
-        	precio_receta.setText(String.valueOf(arrayIngredientes.get(i).getPrecioVenta()));
-		}
+        }
    
         tabla.setModel(modelo);
         modelo.fireTableDataChanged();
-        tabla = VentanaPrincipal.formatoTabla(tabla); 
         
-        tabla = establecerManejadorTabla(tabla);
-        scroll.setViewportView(tabla);
-        
-		int indiceSelecionado = tabla.getSelectedRow();
-		System.out.println(indiceSelecionado);
+        tabla = VentanaPrincipal.formatoTabla(tabla);         
+        tabla.getColumnModel().getColumn(0).setPreferredWidth(550);
+        tabla.getColumnModel().getColumn(1).setPreferredWidth(150);
+        tabla.getColumnModel().getColumn(0).setResizable(false);
+        tabla.getColumnModel().getColumn(1).setResizable(false);
         
     }
-
-	private static JTable establecerManejadorTabla(JTable tabla) {
-		ControladorReceta controlador = new ControladorReceta(receta);	
-		tabla.addMouseListener(controlador);
-		return tabla;
-	}
 	
+	 public static int recetaSeleccionada() throws NullPointerException {
+		 int indiceSeleccionado = tabla.getSelectedRow();
+		 return indiceSeleccionado;	
+	 }
 	
 	/**
 	 * Gets y Sets
@@ -259,11 +264,11 @@ public class Receta extends JPanel {
 	public static void setNombre_receta(JTextField nombre_receta) {
 		Receta.nombre_receta = nombre_receta;
 	}
-/*
+
 	public static JTable getTabla() {
 		return tabla;
 	}
-*/
+
 	public static ArrayList<ModeloReceta> getArrayIngredientes() {
 		return arrayIngredientes;
 	}

@@ -5,8 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
 import modelo.ModeloReceta;
+import vista.ProductosAlmacen;
 import vista.Receta;
 import vista.Recetario;
 
@@ -15,29 +15,38 @@ public class BbddReceta {
 	private static Connection connection = null;
 	private static Conexion conexion = null;
 	private static PreparedStatement sentenciaRecetas = null;
-	private static ArrayList<ModeloReceta> arrayVentanaReceta = null;
 	private static String nombreRecetaSeleccionada;
+	private static ArrayList<ModeloReceta> arrayReceta;
+//	private static ArrayList<ModeloIngredientes> arrayIngredientes;
+	private static String precioVenta;
+	private static String elaboracion;
 
 	
 	public static ArrayList<ModeloReceta> listarRecetas() {
 		conexion = new Conexion();
 		connection = conexion.obtenerConexion();
-		arrayVentanaReceta = new ArrayList<ModeloReceta>();
+		arrayReceta = new ArrayList<ModeloReceta>();
 		
 		try {
 			int recetaSelecionada = Recetario.recetaSeleccionada();			
 			for (int i = 0; i < Recetario.getArrayRecetas().size(); i++) {
 				if (recetaSelecionada==i) {
 					nombreRecetaSeleccionada=Recetario.getArrayRecetas().get(i).getNombreReceta();
+					precioVenta = String.valueOf(Recetario.getArrayRecetas().get(i).getPrecioVenta());
+					elaboracion = Recetario.getArrayRecetas().get(i).getElaboracion();
+					
 				}
 			}
-			sentenciaRecetas = connection.prepareStatement("Select A.IdProducto, A.NombreProducto, R.IdReceta, R.NombreReceta, I.Cantidad, R.Elaboracion, R.PrecioVenta from Recetas R, Ingredientes I, Almacen A where r.NombreReceta=? and R.IdReceta = I.IdReceta and I.IDPRODUCTO = A.IDPRODUCTO");
+			
+			// "Select A.IdProducto, A.NombreProducto, R.IdReceta, R.NombreReceta, I.Cantidad, R.Elaboracion, R.PrecioVenta from Recetas R, Ingredientes I, Almacen A where r.NombreReceta=? and R.IdReceta = I.IdReceta and I.IDPRODUCTO = A.IDPRODUCTO"
+			sentenciaRecetas = connection.prepareStatement("Select I.IdReceta, R.NombreReceta, I.IdProducto, A.NombreProducto, I.Cantidad from Ingredientes I, Recetas R, Almacen A where R.NombreReceta=? and R.IdReceta = I.IdReceta and I.IdProducto = A.IdProducto\r\n"
+					+ "");
 			sentenciaRecetas.setString(1, nombreRecetaSeleccionada);
 			ResultSet rsReceta = sentenciaRecetas.executeQuery();
 
 			while (rsReceta.next()) {
-				ModeloReceta recetas = new ModeloReceta(rsReceta.getInt("IdProducto"), rsReceta.getString("NombreProducto"), rsReceta.getInt("IdReceta"), rsReceta.getString("NombreReceta"), rsReceta.getFloat("Cantidad"), rsReceta.getString("Elaboracion"), rsReceta.getFloat("PrecioVenta"));
-				arrayVentanaReceta.add(recetas);
+				ModeloReceta recetas = new ModeloReceta(rsReceta.getInt("IdReceta"), rsReceta.getString("NombreReceta"), rsReceta.getInt("IdProducto"), rsReceta.getString("NombreProducto"), rsReceta.getFloat("Cantidad"));
+				arrayReceta.add(recetas);
 			}
 		}
 
@@ -45,7 +54,7 @@ public class BbddReceta {
 			System.out.println("Error en gestionPedidosClientes SentenciasSQL");
 			System.out.println(e.getMessage());
 		}
-		return arrayVentanaReceta;
+		return arrayReceta;
 	}
 
 	public static void insertarReceta() throws SQLException{
@@ -63,15 +72,15 @@ public class BbddReceta {
 			idReceta = Receta.getArrayIngredientes().get(i).getIdReceta();
 			System.out.println("idReceta - "+ idReceta);
 			
-			elaboracion = Receta.getArrayIngredientes().get(i).getElaboracion();
+//			elaboracion = Receta.getArrayIngredientes().get(i).getElaboracion();
 			System.out.println("elaboracion - "+ elaboracion);
 			
 			nombreReceta = Receta.getArrayIngredientes().get(i).getNombreReceta();
 			System.out.println("nombreReceta - "+ nombreReceta);
 			
 //			nombreProducto = Receta.getArrayIngredientes().get(i).getNombreProducto();
-			precio = Receta.getArrayIngredientes().get(i).getPrecioVenta();
-			System.out.println("precio - "+precio);
+//			precio = Receta.getArrayIngredientes().get(i).getPrecioVenta();
+//			System.out.println("precio - "+precio);
 			
 		}
 
@@ -127,14 +136,82 @@ public class BbddReceta {
 		sentenciaRecetas.executeUpdate();
 	*/
 	}
-	
-	public static ArrayList<ModeloReceta> getArrayVentanaReceta() {
-		listarRecetas();
-		return arrayVentanaReceta;
+	/*
+	public static ArrayList<ModeloReceta> listarIngredientes() {
+		conexion = new Conexion();
+		connection = conexion.obtenerConexion();
+		arrayReceta = new ArrayList<ModeloReceta>();
+		try {
+			// la seleción debe provenir del controlado
+			
+			int productoSelecionado = ProductosAlmacen.productoSeleccionado();			
+
+			sentenciaIngredientes = connection.prepareStatement("Select  I.IdReceta, I.IdProducto, I.Cantidad from Ingredientes I where I.IdReceta=? ");
+			sentenciaIngredientes.setInt(1, productoSelecionado);
+			ResultSet rsReceta = sentenciaIngredientes.executeQuery();
+
+			while (rsReceta.next()) {
+				ModeloReceta ingredientes = new ModeloReceta(rsReceta.getInt("IdProducto"), rsReceta.getInt("IdReceta"), rsReceta.getFloat("Cantidad"));
+				arrayReceta.add(ingredientes);
+			}
+			
+			System.out.println(arrayReceta);
+			
+		} catch (SQLException e) {
+			System.out.println("Error en gestionPedidosClientes SentenciasSQL");
+			System.out.println(e.getMessage());
+		}
+		
+		return arrayReceta;		
 	}
+	
+	public static void insertarIngredientes () throws SQLException {
+		
+		int idProducto = 0;
+		int idReceta = 0;
+		float cantidad = 0;
+		
+		for (int i = 0; i < Receta.getArrayIngredientes().size(); i++) {			
+			
+			idReceta = Receta.getArrayIngredientes().get(i).getIdReceta();
+			System.out.println("idReceta - "+idReceta);
+			
+			idProducto = Receta.getArrayIngredientes().get(i).getIdProducto();
+			System.out.println("idProducto - "+idProducto);
+
+			cantidad = Receta.getArrayIngredientes().get(i).getCantidad();
+			System.out.println("cantidad - "+cantidad);
+			
+			String SQLIngrediente = "insert into ingredientes(IdReceta, IdProducto, Cantidad) values (?,?,?))";
+			sentenciaIngredientes = connection.prepareStatement(SQLIngrediente);
+			sentenciaIngredientes.setInt(1, idReceta);
+			sentenciaIngredientes.setInt(2, idProducto);			
+			sentenciaIngredientes.setFloat(3, cantidad);
+			sentenciaIngredientes.executeUpdate();
+			
+		}
+		
+	}
+	
+	*/
+	
+	
+
+	public static ArrayList<ModeloReceta> getArrayReceta() {
+		return arrayReceta;
+	}
+
 
 	public static String getNombreRecetaSeleccionada() {
 		return nombreRecetaSeleccionada;
+	}
+
+	public static String getPrecioVenta() {
+		return precioVenta;
+	}
+
+	public static String getElaboracion() {
+		return elaboracion;
 	}
 	
 	

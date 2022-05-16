@@ -6,9 +6,13 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.SQLException;
 
+import javax.swing.table.TableColumn;
+
 import modelo.ModeloReceta;
+import modelo_bbdd.BbddProductosAlmacen;
 import modelo_bbdd.BbddReceta;
 import vista.BuscarComidaBebida;
+import vista.ProductosAlmacen;
 import vista.Receta;
 import vista.VentanaPrincipal;
 
@@ -40,6 +44,8 @@ public class ControladorReceta implements ActionListener, MouseListener  {
 			} else {
 				VentanaPrincipal.getPanelReceta().setVisible(false);
 				VentanaPrincipal.getPanelRecetario().setVisible(true);
+
+				
 			}
 			
 			
@@ -47,8 +53,13 @@ public class ControladorReceta implements ActionListener, MouseListener  {
 		
 		if (e.getSource() == Receta.getBtn_nuevo_ingrediente()) {
 
+			
 			VentanaPrincipal.getPanelProductosAlmacen().setVisible(true);
 			VentanaPrincipal.getPanelReceta().setVisible(false);
+			
+			ProductosAlmacen.listarProductos(BbddProductosAlmacen.listarProductosAlmacen());
+//			BbddProductosAlmacen.listarProductosAlmacen();
+			
 		}
 		
 		if (e.getSource() == Receta.getBtn_modificar_cantidad()) {
@@ -66,9 +77,9 @@ public class ControladorReceta implements ActionListener, MouseListener  {
 			} catch (SQLException e1) {				
 				e1.printStackTrace();
 			}
+
 			
-			VentanaPrincipal.getPanelRecetario().setVisible(true);
-			VentanaPrincipal.getPanelReceta().setVisible(false);
+			
 			
 //			System.out.println(Receta.getArrayIngredientes().get(indiceSeleccionado).getNombreReceta());
 //			System.out.println(Receta.getArrayIngredientes().get(indiceSeleccionado).getNombreProducto());
@@ -114,8 +125,8 @@ public class ControladorReceta implements ActionListener, MouseListener  {
 
 			
 			for (int i = 0; i < Receta.getArrayIngredientes().size(); i++) {			
-				System.out.println(Receta.getArrayIngredientes().get(i).getNombreReceta()+" <-------RECETA");
-				System.out.println(Receta.getArrayIngredientes().get(i).getNombreProducto());
+				System.out.println(Receta.getArrayIngredientes().get(i).getIdReceta()+" <-------RECETA");
+				System.out.println(Receta.getArrayIngredientes().get(i).getIdProducto()+" <-------Producto");
 
 		
 			}

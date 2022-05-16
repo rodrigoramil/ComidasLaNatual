@@ -8,6 +8,7 @@ import java.awt.event.MouseListener;
 import javax.swing.JOptionPane;
 
 import modelo_bbdd.BbddReceta;
+import modelo_bbdd.BbddRecetario;
 import vista.Receta;
 import vista.Recetario;
 import vista.VentanaPrincipal;
@@ -42,9 +43,12 @@ public class ControladorRecetario implements ActionListener, MouseListener  {
 			VentanaPrincipal.getPanelRecetario().setVisible(false);
 			VentanaPrincipal.getPanelReceta().setVisible(true);
 			
-			Receta.listarRecetas(BbddReceta.getArrayVentanaReceta());
+			Receta.listarReceta(BbddReceta.listarRecetas());
 			
-			if (BbddReceta.getArrayVentanaReceta().isEmpty()) {
+			
+			
+			
+			if (BbddReceta.getArrayReceta().isEmpty()) {
 				Receta.getTexto_elaboracion().setText("");
 				Receta.getPrecio_receta().setText("");
 			}
@@ -77,8 +81,13 @@ public class ControladorRecetario implements ActionListener, MouseListener  {
 	        		"¿Que estado de disponibilidad deseas cambiar el estado esta receta?",
 	                "Estado de la receta",
 	                JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcionEscogida, opcionEscogida[0]);
-// eliminar Syso	        
-	        System.out.println(x); // 0="Disponible", 1="NO disponible", 2="En elaboración", -1=cancelar en X
+	        
+	        BbddRecetario.setIdDisponibilidad(x+1);
+	        
+	        System.out.println(x+1); // 0="Disponible", 1="NO disponible", 2="En elaboración", -1=cancelar en X
+
+	        BbddRecetario.updateDisponibilidadReceta();
+	        Recetario.listarRecetas(BbddRecetario.getarrayRecetario());
 	        
 		}		
 
@@ -102,7 +111,11 @@ public class ControladorRecetario implements ActionListener, MouseListener  {
 
 	@Override
 	public void mousePressed(MouseEvent e) { // Al pulsar raton
-
+		
+		if (e.getSource() == Recetario.getTabla()) {			
+			Recetario.datoSeleccionadoTabla();
+		}
+		
 		
 	}
 

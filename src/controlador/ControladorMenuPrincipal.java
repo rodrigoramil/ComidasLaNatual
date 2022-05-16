@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import modelo_bbdd.BbddRecetario;
 import modelo_bbdd.BbddVentas;
 import vista.VentanaPrincipal;
 import vista.Almacen;
@@ -50,7 +51,9 @@ public class ControladorMenuPrincipal implements  ActionListener, MouseListener 
 			
 			VentanaPrincipal.getPanelMenuPrincipal().setVisible(false);
 			VentanaPrincipal.getPanelRecetario().setVisible(true);
-		
+			
+			Recetario.listarRecetas(BbddRecetario.getarrayRecetario());
+			
 		}
 		
 		if (e.getSource() == panelMenuPrincipal.getBtn_Almacen()) {

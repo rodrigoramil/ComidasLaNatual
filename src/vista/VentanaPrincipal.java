@@ -290,12 +290,7 @@ public class VentanaPrincipal extends JFrame {
 	
 	
 	public static JTable formatoTabla (JTable tabla) {
-		
-        tabla.getColumnModel().getColumn(0).setPreferredWidth(550);
-        tabla.getColumnModel().getColumn(1).setPreferredWidth(150);
-        tabla.getColumnModel().getColumn(0).setResizable(false);
-        tabla.getColumnModel().getColumn(1).setResizable(false);
-        
+	
         tabla.setRowHeight(40);
         tabla.setForeground(VentanaPrincipal.getAzulOscuro());
         tabla.setBackground(VentanaPrincipal.getAzulClaro());
