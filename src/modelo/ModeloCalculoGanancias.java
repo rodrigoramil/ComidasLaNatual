@@ -11,11 +11,7 @@ public class ModeloCalculoGanancias implements Serializable {
 	int idPedido;
 	String fechaPedido;
 	float gananciaPedido;
-	/**
-	 * @param idPedido
-	 * @param fechaPedido
-	 * @param gananciaPedido
-	 */
+	
 	public ModeloCalculoGanancias(int idPedido, String fechaPedido, float gananciaPedido) {
 		super();
 		this.idPedido = idPedido;
@@ -23,9 +19,10 @@ public class ModeloCalculoGanancias implements Serializable {
 		this.gananciaPedido = gananciaPedido;
 	}
 	/**
+	 * @param f 
 	 * 
 	 */
-	public ModeloCalculoGanancias() {
+	public ModeloCalculoGanancias(float f) {
 		super();
 	}
 	public int getIdPedido() {

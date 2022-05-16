@@ -32,7 +32,26 @@ public class BbddCalculoGanancias {
 			System.out.println(e.getMessage());
 		}			
 	}
+	
+	public static void sumaGanancias(float GananciaPedido) {
+		conexion = new Conexion(); // se ha de asociar al Lbl total ganancias 
+		connection = conexion.obtenerConexion();		
+		arrayCalculoGanancias = new ArrayList<ModeloCalculoGanancias>();		
+		try {
+			sentenciaRecetas = connection.prepareStatement("select sum(gananciaPedido) from ganancias");
+			ResultSet rs = sentenciaRecetas.executeQuery();			
 
+			while (rs.next()) {
+				ModeloCalculoGanancias modelo = new ModeloCalculoGanancias( rs.getFloat("GananciaPedido"));
+				arrayCalculoGanancias.add(modelo);
+			}
+			
+		} catch (SQLException e) {
+			System.out.println("Error en la consulta a Base de Datos");
+			System.out.println(e.getMessage());
+		}			
+	}
+	
 	public static ArrayList<ModeloCalculoGanancias> getArrayCalculoGanancias() {
 		return arrayCalculoGanancias;
 	}
