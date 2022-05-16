@@ -50,6 +50,23 @@ public class BbddGestionUsuario {
         }
     }
 	
+	public static void borrarUsuario(int IdUsuario) {
+        conexion = new Conexion();
+        connection = conexion.obtenerConexion();
+ 
+        try {
+        	
+			sentencia= connection.prepareStatement("DELETE FROM Usuarios WHERE IdUsuario = ?;");
+            sentencia.setInt(1, IdUsuario);
+            
+            sentencia.executeUpdate();
+
+        } catch (SQLException e) {
+        	System.out.println("Error en editarCliente SentenciasSQL");
+            System.out.println(e.getMessage());
+        }
+    }
+	
 	
   	public static ArrayList<ModeloGestionUsuarios> getArrayClientes() {
 		return arrayUsuarios;
