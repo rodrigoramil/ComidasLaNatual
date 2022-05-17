@@ -3,6 +3,7 @@ package vista;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import java.awt.Color;
 import java.awt.Font;
@@ -11,6 +12,7 @@ import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 import controlador.ControladorDetalleFactura;
+import modelo.ModeloAlmacen;
 import modelo.ModeloPRUEBA;
 import modelo_bbdd.BbddVentas;
 
@@ -32,16 +34,19 @@ public class DetalleFactura extends JPanel {
 	private static JButton btn_Imprimir;
 	private static JTable tabla;
     private static JScrollPane scroll;
-	private static ArrayList<ModeloPRUEBA> arrayDetalleFactura;
+    private static String dato;
+    private static DetalleFactura detalleFactura;
+	private static ArrayList<ModeloPRUEBA> arrayDetalleFactura;	
 
 	public DetalleFactura() {
 		super();
 		inicializarComponentes();
 		establecerManejador();		
-		listarDetalleFactura();
 	}
 
 	public void inicializarComponentes() {
+		
+		arrayDetalleFactura = new ArrayList<ModeloPRUEBA>();
 		
 		panelDetalleFactura = VentanaPrincipal.parametrosPanel(800,600);
 
@@ -78,14 +83,15 @@ public class DetalleFactura extends JPanel {
 
 		tabla = new JTable();
 	    scroll = VentanaPrincipal.parametrosJScrollPane(50, 100, 700, 400);
+	    scroll.setViewportView(tabla);
 	    panelDetalleFactura.add(scroll);	
 		
 	    panelDetalleFactura.setVisible(false);
 	}
 
 	
-	public void establecerManejador() {			
-		ControladorDetalleFactura controlador = new ControladorDetalleFactura(this);
+	public static void establecerManejador() {			
+		ControladorDetalleFactura controlador = new ControladorDetalleFactura(detalleFactura);
 		
 		lbl_Detalle_Factura.addMouseListener(controlador);
 		lbl_Cantidad_Total.addMouseListener(controlador);
@@ -93,17 +99,19 @@ public class DetalleFactura extends JPanel {
 		lbl_Num_Mesa.addMouseListener(controlador);
 		btn_Volver.addActionListener(controlador);
 		btn_Imprimir.addActionListener(controlador);
-
+		tabla.addMouseListener(controlador);
 
 	}
 	
-	public static void listarDetalleFactura () {
-		arrayDetalleFactura = new ArrayList<ModeloPRUEBA>();
-        BbddVentas.listarClientes();						
-        arrayDetalleFactura = BbddVentas.getArrayRecetas();	
-		tabla = new JTable();
-		scroll.setViewportView(tabla);
-        DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
+	public static void listarDetalleFactura (ArrayList<ModeloPRUEBA> arrayTabla) {
+					
+        arrayDetalleFactura = arrayTabla;	
+        DefaultTableModel modelo =new DefaultTableModel(){
+		    @Override
+		    public boolean isCellEditable(int row, int column) {	
+		       return false;
+		    }
+		};
         modelo.addColumn("COMIDA/BEBIDA");
         modelo.addColumn("PRECIO UNIDAD");
         modelo.addColumn("CANTIDAD");
@@ -120,8 +128,29 @@ public class DetalleFactura extends JPanel {
         tabla.setModel(modelo);
         modelo.fireTableDataChanged();
         tabla = VentanaPrincipal.formatoTabla(tabla);
+        
+        tabla.getColumnModel().getColumn(0).setPreferredWidth(400);
+        tabla.getColumnModel().getColumn(1).setPreferredWidth(100);
+        tabla.getColumnModel().getColumn(2).setPreferredWidth(100);
+        tabla.getColumnModel().getColumn(3).setPreferredWidth(100);
+        tabla.getColumnModel().getColumn(0).setResizable(false);
+        tabla.getColumnModel().getColumn(1).setResizable(false);
+        tabla.getColumnModel().getColumn(2).setResizable(false);
+        tabla.getColumnModel().getColumn(3).setResizable(false);
     }
 	
+	/**
+	 * Da el dato de la celda selecionada en la columna 0 
+	 * @return
+	 */
+	 public static String datoSeleccionadoTabla() {	
+		try {
+			dato=String.valueOf(tabla.getModel().getValueAt(tabla.getSelectedRow(),0));
+		} catch (ArrayIndexOutOfBoundsException e) {
+			JOptionPane.showMessageDialog(panelDetalleFactura, "Debes de selecionar algo de la lista antes");
+		}
+		return dato;		
+	}
 
 	 public static int productoSeleccionado() throws NullPointerException {
 		 int indiceSeleccionado = tabla.getSelectedRow();

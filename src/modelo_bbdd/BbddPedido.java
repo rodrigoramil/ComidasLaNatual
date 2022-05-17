@@ -11,6 +11,7 @@ import modelo.ModeloPedido;
 
 
 public class BbddPedido {
+
 	private static Connection connection = null;
 	private static Conexion conexion = null;
 	private static PreparedStatement sentenciaPedido = null;
@@ -22,13 +23,13 @@ public class BbddPedido {
 		connection = conexion.obtenerConexion();
 		arrayPedido = new ArrayList<ModeloPedido>();
 		try {
-			
-			sentenciaPedido = connection.prepareStatement("Select I.IdReceta, R.NombreReceta, I.IdProducto, A.NombreProducto, I.Cantidad from Ingredientes I, Recetas R, Almacen A where R.NombreReceta=? and R.IdReceta = I.IdReceta and I.IdProducto = A.IdProducto");
+			sentenciaPedido = connection.prepareStatement("Select R.NombreReceta, R.PrecioVenta, P.CantidadRecetaVenta, C.NombreCliente, PC.IdPedido, C.IdCliente from Recetas R, Pedidos P, Cliente C, PedidoCliente PC where C.IdCliente = PC.IdCliente AND PC.IdPedido = P.IdPedido And R.IdReceta = P.IdReceta and PC.IdPedido =?");
+
 			sentenciaPedido.setInt(1, idPedido);
 			ResultSet rsPedido = sentenciaPedido.executeQuery();
 
 			while (rsPedido.next()) {
-				ModeloPedido recetas = new ModeloPedido(rsPedido.getInt("IdPedido"), rsPedido.getInt("IdCliente"), rsPedido.getString("NombreCliente"), rsPedido.getInt("IdReceta"), rsPedido.getString("NombreReceta"), rsPedido.getInt("CantidadRecetaVenta"), rsPedido.getFloat("PrecioVenta"));
+				ModeloPedido recetas = new ModeloPedido(rsPedido.getString("NombreReceta"), rsPedido.getFloat("PrecioVenta"), rsPedido.getInt("CantidadRecetaVenta"), rsPedido.getString("NombreCliente"));
 				arrayPedido.add(recetas);
 			}
 		}
@@ -40,6 +41,15 @@ public class BbddPedido {
 
 		return arrayPedido;
 	}
+
+	public static int getIdPedido() {
+		return idPedido;
+	}
+
+	public static void setIdPedido(int idPedido) {
+		BbddPedido.idPedido = idPedido;
+	}
+
 
 /*
 
@@ -82,5 +92,17 @@ public class BbddPedido {
   	public static ArrayList<ModeloPedido> getArrayPedidos() {
 		return arrayPedidos;
 	}
+<<<<<<< HEAD
+=======
+
+<<<<<<< HEAD
+
+
+
+	
+
+=======
+>>>>>>> pruebas
+>>>>>>> e45f4bbdd21b9534b4d95488b2607ce1e1961c88
 */
 }

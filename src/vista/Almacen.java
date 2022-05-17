@@ -10,12 +10,14 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import controlador.ControladorAlmacen;
 import modelo.ModeloAlmacen;
-import modelo.ModeloReceta;
-import modelo_bbdd.BbddAlmacen;
 
 
 public class Almacen extends JPanel {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2638510831684047682L;
 	private static JPanel panelAlmacen;
 	private static JTextField textField;
 	private static JButton btn_todos_los_Productos;

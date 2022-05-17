@@ -5,6 +5,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import modelo_bbdd.BbddCalculoGanancias;
+import vista.CalculoGanancias;
 import vista.ListaFacturaciones;
 import vista.VentanaPrincipal;
 
@@ -32,6 +34,9 @@ private ListaFacturaciones panelListaFacturaciones;
 		if (e.getSource() == ListaFacturaciones.getBtn_Calcular_Ganancias()) {
 			VentanaPrincipal.getPanelListaFacturaciones().setVisible(false);
 			VentanaPrincipal.getPanelCalculoGanancias().setVisible(true);	
+			
+			CalculoGanancias.listarGanancias(BbddCalculoGanancias.listarCalculoGanancias());
+			CalculoGanancias.getLbl_Calculo_Ganancias().setText(String.valueOf(BbddCalculoGanancias.sumaGanancias()));
 		}
 		
 		

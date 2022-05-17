@@ -7,13 +7,13 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 import controlador.ControladorCalculoGanancias;
 import modelo.ModeloCalculoGanancias;
-import modelo_bbdd.BbddCalculoGanancias;
 
 public class CalculoGanancias extends JPanel {
 
@@ -28,18 +28,19 @@ public class CalculoGanancias extends JPanel {
 	private static JButton btn_Imprimir;
 	private static JTable tabla;
     private static JScrollPane scroll;
-
+    private static CalculoGanancias calculoGanancias;
 	private static ArrayList<ModeloCalculoGanancias> arrayGanancias;
+	private static String dato;
 
-    
 	public CalculoGanancias() {
 		super();
 		inicializarComponentes();
 		establecerManejador();		
-		listarGanancias();
 	}
 
 	public void inicializarComponentes() {
+		
+		arrayGanancias = new ArrayList<ModeloCalculoGanancias>();
 		
 		panelCalculoGanancias = VentanaPrincipal.parametrosPanel(800,600);
 		
@@ -73,30 +74,32 @@ public class CalculoGanancias extends JPanel {
 		panelCalculoGanancias.add(btn_Imprimir);
 
 		tabla = new JTable();
-		scroll = VentanaPrincipal.parametrosJScrollPane(400, 100, 350, 400);    
+		scroll = VentanaPrincipal.parametrosJScrollPane(400, 100, 350, 400); 
+		scroll.setViewportView(tabla);
 		panelCalculoGanancias.add(scroll);
 	    
 		panelCalculoGanancias.setVisible(false);
 	}
 
-	public void establecerManejador() {			
-		ControladorCalculoGanancias controlador = new ControladorCalculoGanancias(this);
+	public static void establecerManejador() {			
+		ControladorCalculoGanancias controlador = new ControladorCalculoGanancias(calculoGanancias);
 		
 		tfd_Desde.addMouseListener(controlador);
 		tfd_hasta.addMouseListener(controlador);
 		lbl_Calculo_Ganancias.addMouseListener(controlador);		
 		btn_Volver.addActionListener(controlador);
 		btn_Imprimir.addActionListener(controlador);
-
+		tabla.addMouseListener(controlador);
 	}
 
-	public static void listarGanancias () {
-		arrayGanancias = new ArrayList<ModeloCalculoGanancias>();
-        BbddCalculoGanancias.listarCalculoGanancias();
-        arrayGanancias = BbddCalculoGanancias.getArrayCalculoGanancias();
-		tabla = new JTable();
-		scroll.setViewportView(tabla);
-        DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
+	public static void listarGanancias (ArrayList<ModeloCalculoGanancias> arrayTabla) {
+		arrayGanancias = arrayTabla;
+        DefaultTableModel modelo =new DefaultTableModel(){
+		    @Override
+		    public boolean isCellEditable(int row, int column) {	
+		       return false;
+		    }
+		};
         modelo.addColumn("Nº");
         modelo.addColumn("FECHA-HORA");
         modelo.addColumn("GANANCIA");
@@ -111,8 +114,30 @@ public class CalculoGanancias extends JPanel {
         tabla.setModel(modelo);
         modelo.fireTableDataChanged();
         tabla = VentanaPrincipal.formatoTabla(tabla);
+        
+        tabla.getColumnModel().getColumn(0).setPreferredWidth(100);
+        tabla.getColumnModel().getColumn(1).setPreferredWidth(350);
+        tabla.getColumnModel().getColumn(2).setPreferredWidth(250);
+        tabla.getColumnModel().getColumn(0).setResizable(false);
+        tabla.getColumnModel().getColumn(1).setResizable(false);
+        tabla.getColumnModel().getColumn(2).setResizable(false);
+        
     }
 
+	
+	/**
+	 * Da el dato de la celda selecionada en la columna 0 
+	 * @return
+	 */
+	 public static String datoSeleccionadoTabla() {	
+		try {
+			dato=String.valueOf(tabla.getModel().getValueAt(tabla.getSelectedRow(),0));
+		} catch (ArrayIndexOutOfBoundsException e) {
+			JOptionPane.showMessageDialog(panelCalculoGanancias, "Debes de selecionar algo de la lista antes");
+		}
+		return dato;		
+	}
+	 
 	 public static int indiceSeleccionado() throws NullPointerException {
 		 int indiceSeleccionado = tabla.getSelectedRow();
 		 return indiceSeleccionado;	

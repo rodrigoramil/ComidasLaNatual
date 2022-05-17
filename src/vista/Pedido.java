@@ -8,11 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import controlador.ControladorPedido;
-
 import modelo.ModeloPedido;
-import modelo.ModeloReceta;
-import modelo_bbdd.BbddVentas;
-import modelo_bbdd.BbddPedido;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -100,7 +96,6 @@ public class Pedido extends JPanel {
 		tabla.addMouseListener(controlador);
 		
 	}
-
 
 	public static void listarPedido (ArrayList<ModeloPedido> arrayTabla) {
 		

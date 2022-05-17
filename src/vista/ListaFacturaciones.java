@@ -5,10 +5,11 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import java.util.ArrayList;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import controlador.ControladorListaFacturaciones;
-import modelo.ModeloPRUEBA;
-import modelo_bbdd.BbddVentas;
+import modelo.ModeloCalculoGanancias;
+
 
 public class ListaFacturaciones extends JPanel {
 
@@ -23,17 +24,21 @@ public class ListaFacturaciones extends JPanel {
 	private static JButton btn_Calcular_Ganancias;
 	private static JTable tabla;
     private static JScrollPane scroll;
+    private static ListaFacturaciones listaFacturaciones;
+	private static ArrayList<ModeloCalculoGanancias> arrayListaFacturaciones;
 
-	private static ArrayList<ModeloPRUEBA> arrayListaFacturaciones;
-
+	private static String dato;
+	
+	
 	public ListaFacturaciones() {
 		super();
 		inicializarComponentes();
-		establecerManejador();		
-		listarFacturaciones();
+		establecerManejador();
 	}
 
 	public static void inicializarComponentes() {
+			
+		arrayListaFacturaciones = new ArrayList<ModeloCalculoGanancias>();	
 		
 		panelListaFacturaciones = VentanaPrincipal.parametrosPanel(800,600);
 		
@@ -56,21 +61,23 @@ public class ListaFacturaciones extends JPanel {
 		
 	}
 
-	public void establecerManejador() {			
-		ControladorListaFacturaciones controlador = new ControladorListaFacturaciones(this);
-		
+	public static void establecerManejador() {			
+		ControladorListaFacturaciones controlador = new ControladorListaFacturaciones(listaFacturaciones);		
 		btn_Volver.addActionListener(controlador);
 		btn_Ver.addActionListener(controlador);
 		btn_Calcular_Ganancias.addActionListener(controlador);
+		tabla.addMouseListener(controlador);
 	}
 	
-	public static void listarFacturaciones () {
-		arrayListaFacturaciones = new ArrayList<ModeloPRUEBA>();
-        BbddVentas.listarClientes();
-        arrayListaFacturaciones = BbddVentas.getArrayRecetas();
-		tabla = new JTable();
-		scroll.setViewportView(tabla);
-        DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
+	public static void listarFacturaciones (ArrayList<ModeloCalculoGanancias> arrayTabla) {
+
+        arrayListaFacturaciones = arrayTabla;
+        DefaultTableModel modelo =new DefaultTableModel(){
+ 		    @Override
+ 		    public boolean isCellEditable(int row, int column) {	
+ 		       return false;
+ 		    }
+ 		};
         modelo.addColumn("Nº");
         modelo.addColumn("FECHA-HORA");
         modelo.addColumn("GANANCIA");
@@ -78,18 +85,39 @@ public class ListaFacturaciones extends JPanel {
         
         Object filaDato[] = new Object[4];     
         for (int i = 0; i < arrayListaFacturaciones.size(); i++) {
-        	filaDato[0] = arrayListaFacturaciones.get(i).getReceta();
-        	filaDato[1] = arrayListaFacturaciones.get(i).getEstado();
-        	filaDato[2] = arrayListaFacturaciones.get(i).getEstado();
-        	filaDato[3] = arrayListaFacturaciones.get(i).getEstado();
+        	filaDato[0] = arrayListaFacturaciones.get(i).getIdPedido();
+        	filaDato[1] = arrayListaFacturaciones.get(i).getFechaPedido();
+        	filaDato[2] = arrayListaFacturaciones.get(i).getGananciaPedido();
+        	filaDato[3] = arrayListaFacturaciones.get(i).getUsuario();
         	modelo.addRow(filaDato);
     	}
         tabla.setModel(modelo);
         modelo.fireTableDataChanged();
         tabla = VentanaPrincipal.formatoTabla(tabla);
+        
+        tabla.getColumnModel().getColumn(0).setPreferredWidth(100);
+        tabla.getColumnModel().getColumn(1).setPreferredWidth(200);
+        tabla.getColumnModel().getColumn(2).setPreferredWidth(200);
+        tabla.getColumnModel().getColumn(3).setPreferredWidth(200);
+        tabla.getColumnModel().getColumn(0).setResizable(false);
+        tabla.getColumnModel().getColumn(1).setResizable(false);
+        tabla.getColumnModel().getColumn(2).setResizable(false);
+        tabla.getColumnModel().getColumn(3).setResizable(false);
     }
 	
-
+	/**
+	 * Da el dato de la celda selecionada en la columna 0 
+	 * @return
+	 */
+	 public static String datoSeleccionadoTabla() {	
+		try {
+			dato=String.valueOf(tabla.getModel().getValueAt(tabla.getSelectedRow(),0));
+		} catch (ArrayIndexOutOfBoundsException e) {
+			JOptionPane.showMessageDialog(panelListaFacturaciones, "Debes de selecionar algo de la lista antes");
+		}
+		return dato;		
+	}
+	 
 	 public static int productoSeleccionado() throws NullPointerException {
 		 int indiceSeleccionado = tabla.getSelectedRow();
 		 return indiceSeleccionado;	
