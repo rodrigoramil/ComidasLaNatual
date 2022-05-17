@@ -34,10 +34,12 @@ public class ControladorReceta implements ActionListener, MouseListener  {
 				VentanaPrincipal.getPanelReceta().setVisible(false);
 				VentanaPrincipal.getPanelBuscarComidaBebida().setVisible(true);
 				ControladorBuscarComidaBebida.setDesdeVentas(false);
+				activaBotonesReceta ();
 			} else if (ControladorRecetario.isVerDesdeRecetario()) {
 				ControladorRecetario.setVerDesdeRecetario(false);
 				VentanaPrincipal.getPanelReceta().setVisible(false);
 				VentanaPrincipal.getPanelRecetario().setVisible(true);
+				activaBotonesReceta ();
 			} else {
 				VentanaPrincipal.getPanelReceta().setVisible(false);
 				VentanaPrincipal.getPanelRecetario().setVisible(true);

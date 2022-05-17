@@ -3,17 +3,9 @@ package vista;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import controlador.ControladorProductosAlmacen;
-import modelo.ModeloPRUEBA;
-import modelo.ModeloPrepararCompra;
 import modelo.ModeloProductosAlmacen;
-import modelo.ModeloRecetario;
-import modelo_bbdd.BbddPrepararCompra;
-import modelo_bbdd.BbddProductosAlmacen;
-import modelo_bbdd.BbddVentas;
-
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;

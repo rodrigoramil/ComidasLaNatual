@@ -5,7 +5,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import modelo_bbdd.BbddListasCompra;
+import modelo_bbdd.BbddPrepararCompra;
 import vista.Almacen;
+import vista.ListasCompra;
+import vista.PrepararCompra;
 import vista.VentanaPrincipal;
 
 public class ControladorAlmacen implements ActionListener, MouseListener  {
@@ -39,11 +43,17 @@ private static boolean nuevoProducto=false;
 		if (e.getSource() == Almacen.getBtn_Realizar_Lista_Compra()) {
 			VentanaPrincipal.getPanelAlmacen().setVisible(false);
 			VentanaPrincipal.getPanelPrepararCompra().setVisible(true);
+			PrepararCompra.listarProductos(BbddPrepararCompra.listarPrepararCompra());
 		}
 				
 		if (e.getSource() == Almacen.getBtn_Ver_Listas_Compras()) {
 			VentanaPrincipal.getPanelAlmacen().setVisible(false);
 			VentanaPrincipal.getPanelListasCompra().setVisible(true);
+
+			ListasCompra.listarCompras(BbddListasCompra.listarListasCompra());
+
+			
+			
 		}
 		
 		if (e.getSource() == Almacen.getBtn_todos_los_Productos()) {

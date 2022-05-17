@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Base64;
 import javax.swing.JOptionPane;
+
+import modelo.ModeloReceta;
 import modelo.ModeloUsuario;
 import vista.VentanaPrincipal;
 
@@ -41,7 +43,7 @@ public class BbddLogin {
 	}
 	
 	
-	public static void listarUsuarios() {
+	public static ArrayList<ModeloUsuario> listarUsuarios() {
 		conexion = new Conexion();
 		connection = conexion.obtenerConexion();
 		arrayUsuarios = new ArrayList<ModeloUsuario>();
@@ -60,7 +62,7 @@ public class BbddLogin {
 			JOptionPane.showMessageDialog(VentanaPrincipal.getPanelLogin(), "Error al acceder a los Usuarios de la Base de Datos");
 			System.out.println("Error al acceder a los Usuarios de la Base de Datos");
 		}
-			
+		return arrayUsuarios;			
 	}
 	
 

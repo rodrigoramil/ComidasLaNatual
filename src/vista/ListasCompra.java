@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import controlador.ControladorListasCompra;
 import modelo.ModeloListasCompra;
+import modelo.ModeloReceta;
 import modelo_bbdd.BbddListasCompra;
 
 
@@ -23,18 +25,23 @@ public class ListasCompra extends JPanel {
 	private static JButton btn_Ver;	
 	private static JTable tabla;
     private static JScrollPane scroll;
+    private static ListasCompra listasCompra;
 
 	private static ArrayList<ModeloListasCompra> arrayListasCompra;
+
+	private static String dato;
 
 	public ListasCompra() {
 		super();
 		inicializarComponentes();
 		establecerManejador();
-		listarCompras();
+
 	}
 
 	public void inicializarComponentes() {
-
+		
+		arrayListasCompra = new ArrayList<ModeloListasCompra>();
+		
 		panelListasCompra = VentanaPrincipal.parametrosPanel(800,600);
 
 		btn_Volver = VentanaPrincipal.parametrosJButton("Volver", 710, 20, 70, 20);
@@ -45,7 +52,7 @@ public class ListasCompra extends JPanel {
 
 		tabla = new JTable();
 		scroll = VentanaPrincipal.parametrosJScrollPane(50, 100, 700, 400);
-	    
+	    scroll.setViewportView(tabla);
 		panelListasCompra.add(scroll);
 		panelListasCompra.setVisible(false);
 		
@@ -56,17 +63,24 @@ public class ListasCompra extends JPanel {
 		
 		btn_Volver.addActionListener(controlador);
 		btn_Ver.addActionListener(controlador);
-		
+		tabla.addMouseListener(controlador);
 	}
 
 
-	public static void listarCompras () {
-		arrayListasCompra = new ArrayList<ModeloListasCompra>();
-        BbddListasCompra.listarListasCompra();	
-        arrayListasCompra = BbddListasCompra.getArrayListasCompra();
-		tabla = new JTable();
-		scroll.setViewportView(tabla);
-        DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
+	public static void listarCompras (ArrayList<ModeloListasCompra> arrayTabla) {
+
+        arrayListasCompra = arrayTabla;
+        
+        /**
+         * Evita editar las celdas de la tabla haciendo doble clic
+         */
+        DefaultTableModel modelo =new DefaultTableModel(){
+		    @Override
+		    public boolean isCellEditable(int row, int column) {	
+		       return false;
+		    }
+		};  
+		
         modelo.addColumn("Nº");
         modelo.addColumn("FECHA");
         modelo.addColumn("COMPRA HECHA");
@@ -85,8 +99,25 @@ public class ListasCompra extends JPanel {
         tabla.setModel(modelo);
         modelo.fireTableDataChanged();
         tabla = VentanaPrincipal.formatoTabla(tabla);
+        
+        tabla.getColumnModel().getColumn(0).setPreferredWidth(550);
+        tabla.getColumnModel().getColumn(1).setPreferredWidth(150);
+        tabla.getColumnModel().getColumn(0).setResizable(false);
+        tabla.getColumnModel().getColumn(1).setResizable(false);
     }
 	
+	/**
+	 * Da el dato de la celda selecionada en la columna 0 
+	 * @return
+	 */
+	 public static String datoSeleccionadoTabla() {	
+		try {
+			dato=String.valueOf(tabla.getModel().getValueAt(tabla.getSelectedRow(),0));
+		} catch (ArrayIndexOutOfBoundsException e) {
+			JOptionPane.showMessageDialog(panelListasCompra, "Debes de selecionar algo de la lista antes");
+		}
+		return dato;		
+	}
 
 	 public static int indiceSeleccionado() throws NullPointerException {
 		 int indiceSeleccionado = tabla.getSelectedRow();

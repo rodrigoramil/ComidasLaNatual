@@ -4,9 +4,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
+import modelo.ModeloReceta;
 import modelo_bbdd.BbddReceta;
 import modelo_bbdd.BbddRecetario;
 import vista.Receta;
@@ -56,18 +58,15 @@ public class ControladorRecetario implements ActionListener, MouseListener  {
 		}
 		
 		if (e.getSource() == Recetario.getBtn_nueva_receta()) {
-			System.out.println("nuevaReceta");
 			VentanaPrincipal.getPanelRecetario().setVisible(false);
 			VentanaPrincipal.getPanelReceta().setVisible(true);
+			Receta.listarReceta(new ArrayList<ModeloReceta>());
 			Receta.getNombre_receta().setText("");
 			Receta.getTexto_elaboracion().setText("");
-			
-			
-			
+			Receta.getPrecio_receta().setText("");
 		}		
 		
 		if (e.getSource() == Recetario.getBtn_modificar_receta()) {
-			System.out.println("modificarReceta");
 			VentanaPrincipal.getPanelRecetario().setVisible(false);
 			VentanaPrincipal.getPanelReceta().setVisible(true);
 

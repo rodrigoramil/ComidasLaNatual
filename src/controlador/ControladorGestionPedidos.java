@@ -6,10 +6,13 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.JOptionPane;
 
+import modelo_bbdd.BbddPedido;
+import modelo_bbdd.BbddProductosAlmacen;
 import modelo_bbdd.BbddVentas;
 import vista.Cliente;
 import vista.GestionPedidos;
 import vista.Pedido;
+import vista.ProductosAlmacen;
 import vista.VentanaPrincipal;
 
 public class ControladorGestionPedidos implements ActionListener, MouseListener  {
@@ -64,74 +67,75 @@ clienteSelecionado = GestionPedidos.clienteSeleccionado();
 		
 		if (e.getSource() == GestionPedidos.getBtn_Mesa_1()) {		
 			VentanaPrincipal.getPanelGestionPedidos().setVisible(false);
-			VentanaPrincipal.getPanelPedido().setVisible(true);
-			
+			VentanaPrincipal.getPanelPedido().setVisible(true);			
 			GestionPedidos.getListaCliente().clearSelection();
-			System.out.println(BbddVentas.getArrayClientes().get(0).getNombre());	
-			Pedido.getLbl_Num_Mesa().setText(BbddVentas.getArrayClientes().get(0).getNombre());
+			
+			Pedido.getLbl_Num_Mesa().setText(BbddVentas.getArrayClientes().get(0).getNombre());			
+			Pedido.listarPedido(BbddPedido.listarPedido());
+
 		}
 		
 		if (e.getSource() == GestionPedidos.getBtn_Mesa_2()) {
 			VentanaPrincipal.getPanelGestionPedidos().setVisible(false);
-			VentanaPrincipal.getPanelPedido().setVisible(true);
-			
+			VentanaPrincipal.getPanelPedido().setVisible(true);			
 			GestionPedidos.getListaCliente().clearSelection();
-			System.out.println(BbddVentas.getArrayClientes().get(1).getNombre());
-			Pedido.getLbl_Num_Mesa().setText(BbddVentas.getArrayClientes().get(1).getNombre());
+			
+			Pedido.getLbl_Num_Mesa().setText(BbddVentas.getArrayClientes().get(1).getNombre());			
+			Pedido.listarPedido(BbddPedido.listarPedido());
 		}
 		
 		if (e.getSource() == GestionPedidos.getBtn_Mesa_3()) {
 			VentanaPrincipal.getPanelGestionPedidos().setVisible(false);
-			VentanaPrincipal.getPanelPedido().setVisible(true);
-			
+			VentanaPrincipal.getPanelPedido().setVisible(true);			
 			GestionPedidos.getListaCliente().clearSelection();
-			System.out.println(BbddVentas.getArrayClientes().get(2).getNombre());
+			
 			Pedido.getLbl_Num_Mesa().setText(BbddVentas.getArrayClientes().get(2).getNombre());
+			Pedido.listarPedido(BbddPedido.listarPedido());
 		}
 		
 		if (e.getSource() == GestionPedidos.getBtn_Mesa_4()) {
 			VentanaPrincipal.getPanelGestionPedidos().setVisible(false);
-			VentanaPrincipal.getPanelPedido().setVisible(true);
-			
+			VentanaPrincipal.getPanelPedido().setVisible(true);			
 			GestionPedidos.getListaCliente().clearSelection();
-			System.out.println(BbddVentas.getArrayClientes().get(3).getNombre());
+			
 			Pedido.getLbl_Num_Mesa().setText(BbddVentas.getArrayClientes().get(3).getNombre());
+			Pedido.listarPedido(BbddPedido.listarPedido());
 		}
 		
 		if (e.getSource() == GestionPedidos.getBtn_Mesa_5()) {
 			VentanaPrincipal.getPanelGestionPedidos().setVisible(false);
-			VentanaPrincipal.getPanelPedido().setVisible(true);
-			
+			VentanaPrincipal.getPanelPedido().setVisible(true);			
 			GestionPedidos.getListaCliente().clearSelection();
-			System.out.println(BbddVentas.getArrayClientes().get(4).getNombre());
+			
 			Pedido.getLbl_Num_Mesa().setText(BbddVentas.getArrayClientes().get(4).getNombre());
+			Pedido.listarPedido(BbddPedido.listarPedido());
 		}
 		
 		if (e.getSource() == GestionPedidos.getBtn_Mesa_6()) {
 			VentanaPrincipal.getPanelGestionPedidos().setVisible(false);
-			VentanaPrincipal.getPanelPedido().setVisible(true);
-			
+			VentanaPrincipal.getPanelPedido().setVisible(true);			
 			GestionPedidos.getListaCliente().clearSelection();
-			System.out.println(BbddVentas.getArrayClientes().get(5).getNombre());			
+						
 			Pedido.getLbl_Num_Mesa().setText(BbddVentas.getArrayClientes().get(5).getNombre());
+			Pedido.listarPedido(BbddPedido.listarPedido());
 		}
 		
 		if (e.getSource() == GestionPedidos.getBtn_Mesa_7()) {
 			VentanaPrincipal.getPanelGestionPedidos().setVisible(false);
-			VentanaPrincipal.getPanelPedido().setVisible(true);
-			
+			VentanaPrincipal.getPanelPedido().setVisible(true);			
 			GestionPedidos.getListaCliente().clearSelection();
-			System.out.println(BbddVentas.getArrayClientes().get(6).getNombre());
+			
 			Pedido.getLbl_Num_Mesa().setText(BbddVentas.getArrayClientes().get(6).getNombre());
+			Pedido.listarPedido(BbddPedido.listarPedido());
 		}
 		
 		if (e.getSource() == GestionPedidos.getBtn_Mesa_8()) {
 			VentanaPrincipal.getPanelGestionPedidos().setVisible(false);
-			VentanaPrincipal.getPanelPedido().setVisible(true);
-			
+			VentanaPrincipal.getPanelPedido().setVisible(true);			
 			GestionPedidos.getListaCliente().clearSelection();
-			System.out.println(BbddVentas.getArrayClientes().get(7).getNombre());
+			
 			Pedido.getLbl_Num_Mesa().setText(BbddVentas.getArrayClientes().get(7).getNombre());
+			Pedido.listarPedido(BbddPedido.listarPedido());
 		}
 		
 		if (e.getSource() == GestionPedidos.getBtn_Ver_Pedido()) {
@@ -147,14 +151,13 @@ clienteSelecionado = GestionPedidos.clienteSeleccionado();
 				}
 
 			}
-			
+			Pedido.listarPedido(BbddPedido.listarPedido());
 		}
 		
 		if (e.getSource() == GestionPedidos.getBtn_volver()) {
 			VentanaPrincipal.getPanelGestionPedidos().setVisible(false);
 			VentanaPrincipal.getPanelMenuPrincipal().setVisible(true);
 			GestionPedidos.getListaCliente().clearSelection();
-
 		}
 
 

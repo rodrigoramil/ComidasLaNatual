@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import modelo.ModeloAlmacen;
 import modelo.ModeloComidaBebida;
+import modelo.ModeloPedido;
 
 public class BbddComidaBebida {
 	private static Connection connection = null;
@@ -15,7 +16,7 @@ public class BbddComidaBebida {
 	private static PreparedStatement sentenciaAlmacen = null;
 	private static ArrayList<ModeloComidaBebida> arrayComidaBebida = null;
 	
-	public static void listarComidaBebida() {
+	public static ArrayList<ModeloComidaBebida> listarComidaBebida() {
 		conexion = new Conexion();
 		connection = conexion.obtenerConexion();		
 		arrayComidaBebida = new ArrayList<ModeloComidaBebida>();		
@@ -31,7 +32,8 @@ public class BbddComidaBebida {
 		} catch (SQLException e) {
 			System.out.println("Error al listar las recetas SentenciasSQL");
 			System.out.println(e.getMessage());
-		}	
+		}
+		return arrayComidaBebida;	
 	}
 
 	public static ArrayList<ModeloComidaBebida> getArrayComidaBebida() {

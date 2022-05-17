@@ -1,22 +1,17 @@
 package controlador;
 
-import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.print.PrinterException;
-
 import javax.swing.JOptionPane;
-
 import vista.PrepararCompra;
 import vista.VentanaPrincipal;
 
 public class ControladorPrepararCompra implements ActionListener, MouseListener  {
 
-	
-
-private PrepararCompra panelPrepararCompra;
+	private PrepararCompra panelPrepararCompra;
 	
 	public ControladorPrepararCompra(PrepararCompra panelPrepararCompra) {
 		this.panelPrepararCompra = panelPrepararCompra;

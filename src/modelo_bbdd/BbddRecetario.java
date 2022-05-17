@@ -5,12 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
-import javax.swing.JOptionPane;
-
-import modelo.ModeloCliente;
-import modelo.ModeloPRUEBA;
-import modelo.ModeloReceta;
 import modelo.ModeloRecetario;
 import vista.Recetario;
 

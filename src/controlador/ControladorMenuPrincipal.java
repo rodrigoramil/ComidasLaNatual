@@ -5,6 +5,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import modelo_bbdd.BbddAlmacen;
+import modelo_bbdd.BbddLogin;
 import modelo_bbdd.BbddRecetario;
 import modelo_bbdd.BbddVentas;
 import vista.VentanaPrincipal;
@@ -52,7 +54,7 @@ public class ControladorMenuPrincipal implements  ActionListener, MouseListener 
 			VentanaPrincipal.getPanelMenuPrincipal().setVisible(false);
 			VentanaPrincipal.getPanelRecetario().setVisible(true);
 			
-			Recetario.listarRecetas(BbddRecetario.getarrayRecetario());
+			Recetario.listarRecetas(BbddRecetario.listarRecetas());
 			
 		}
 		
@@ -60,6 +62,7 @@ public class ControladorMenuPrincipal implements  ActionListener, MouseListener 
 			VentanaPrincipal.getPanelMenuPrincipal().setVisible(false);
 			VentanaPrincipal.getPanelAlmacen().setVisible(true);
 
+			Almacen.listarProductos(BbddAlmacen.listarProductosAlmacen());
 		}
 		
 		if (e.getSource() == panelMenuPrincipal.getBtn_Contabilidad()) {
@@ -73,6 +76,8 @@ public class ControladorMenuPrincipal implements  ActionListener, MouseListener 
 			VentanaPrincipal.getPanelMenuPrincipal().setVisible(false);
 			VentanaPrincipal.getPanelGestionUsuarios().setVisible(true);
 
+			GestionUsuarios.listarUsuarios(BbddLogin.listarUsuarios());
+			
 		}
 		
 		if (e.getSource() == panelMenuPrincipal.getBtn_Cerrar_Sesion()) {

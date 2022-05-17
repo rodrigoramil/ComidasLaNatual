@@ -3,6 +3,7 @@ package vista;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import java.awt.Color;
 import java.awt.Font;
@@ -12,8 +13,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 import controlador.ControladorFacturar;
-import modelo.ModeloPRUEBA;
-import modelo_bbdd.BbddVentas;
+import modelo.ModeloPedido;
 
 public class Facturar extends JPanel {
 
@@ -37,19 +37,24 @@ public class Facturar extends JPanel {
 	private static JLabel lbl_valor_IVA;
 	private static JTable tabla;
     private static JScrollPane scroll;
+    private static Facturar facturar;
+	private static ArrayList<ModeloPedido> arrayFacturas;
+	private static String dato;
 
-	private static ArrayList<ModeloPRUEBA> arrayFacturas;
-
+	private static float precioTotal = 0;
+	private static double precioTotalIVA = precioTotal+precioTotal*0.21;
+	private static float abonado;
+	private static double aDevolver = abonado - precioTotalIVA;
     
 	public Facturar() {
 		super();
 		inicializarComponentes();
 		establecerManejador();
-		factura();
+
 	}
 
 	public void inicializarComponentes() {
-		
+		arrayFacturas = new ArrayList<ModeloPedido>();
 		panelFacturar = VentanaPrincipal.parametrosPanel(800,600);
 		
 		lbl_mesa = VentanaPrincipal.parametrosJlabel("Mesa 1",50, 15, 300, 40);
@@ -82,51 +87,54 @@ public class Facturar extends JPanel {
 		lbl_devolver.setHorizontalAlignment(SwingConstants.RIGHT);
 		panelFacturar.add(lbl_devolver);
 		
-		lbl_valor_total = VentanaPrincipal.parametrosJlabel("0,00 €",630, 460, 120, 20);
+		lbl_valor_total = VentanaPrincipal.parametrosJlabel(String.format("%.2f", precioTotal)+" €",630, 460, 120, 20);
 		lbl_valor_total.setHorizontalAlignment(SwingConstants.CENTER);
 		panelFacturar.add(lbl_valor_total);
 		
-		lbl_valor_IVA = VentanaPrincipal.parametrosJlabel("0,00 €",630, 490, 120, 20);
+		
+		lbl_valor_IVA = VentanaPrincipal.parametrosJlabel(String.format("%.2f", precioTotalIVA)+" €",630, 490, 120, 20);
 		lbl_valor_IVA.setHorizontalAlignment(SwingConstants.CENTER);
 		panelFacturar.add(lbl_valor_IVA);
 
 		caja_abonado = VentanaPrincipal.parametrosJTextField(630, 520, 120, 20);
-		caja_abonado.setText("0,00 €");
+//		caja_abonado.setText(String.format("%.2f", abonado));
 		caja_abonado.setBackground(VentanaPrincipal.getAzulClaro());
 		caja_abonado.setHorizontalAlignment(SwingConstants.CENTER);
 		panelFacturar.add(caja_abonado);
 		
-		lbl_valor_devolver = VentanaPrincipal.parametrosJlabel("0,00 €",630, 550, 120, 20);
+		lbl_valor_devolver = VentanaPrincipal.parametrosJlabel(String.format("%.2f", aDevolver)+" €",630, 550, 120, 20);
 		lbl_valor_devolver.setHorizontalAlignment(SwingConstants.CENTER);
 		panelFacturar.add(lbl_valor_devolver);
 		
 		tabla = new JTable();
 	    scroll = VentanaPrincipal.parametrosJScrollPane(50, 50, 700, 400);
-	    panelFacturar.add(scroll);	
-		
+	    scroll.setViewportView(tabla);
+	    panelFacturar.add(scroll);			
 	    panelFacturar.setVisible(false);
 	}
 	
-	public void establecerManejador() {			
-		ControladorFacturar controlador = new ControladorFacturar(this);
+	public static void establecerManejador() {			
+		ControladorFacturar controlador = new ControladorFacturar(facturar);
 
 		lbl_valor_total.addMouseListener(controlador);
 		lbl_valor_devolver.addMouseListener(controlador);
-		lbl_valor_IVA.addMouseListener(controlador);
-		
+		lbl_valor_IVA.addMouseListener(controlador);		
 		btn_volver.addActionListener(controlador);
 		btn_pagado.addActionListener(controlador);
 		btn_pago_tarjeta.addActionListener(controlador);
-		
+		tabla.addMouseListener(controlador);
+		caja_abonado.addKeyListener(controlador);
 	}
 	
-	public static void factura () {
-		arrayFacturas = new ArrayList<ModeloPRUEBA>();
-        BbddVentas.listarClientes();					
-        arrayFacturas = BbddVentas.getArrayRecetas();	
-		tabla = new JTable();
-		scroll.setViewportView(tabla);
-        DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
+	public static void factura (ArrayList<ModeloPedido> arrayTabla) {
+		
+        arrayFacturas = arrayTabla;	
+        DefaultTableModel modelo =new DefaultTableModel(){
+		    @Override
+		    public boolean isCellEditable(int row, int column) {	
+		       return false;
+		    }
+		}; 
         modelo.addColumn("COMIDA/BEBIDA");
         modelo.addColumn("PRECIO UNIDAD");
         modelo.addColumn("CANTIDAD");
@@ -134,17 +142,43 @@ public class Facturar extends JPanel {
         
         Object filaDato[] = new Object[4];     
         for (int i = 0; i < arrayFacturas.size(); i++) {
-        	filaDato[0] = arrayFacturas.get(i).getReceta();
-        	filaDato[1] = arrayFacturas.get(i).getEstado();
-        	filaDato[2] = arrayFacturas.get(i).getEstado();
-        	filaDato[3] = arrayFacturas.get(i).getEstado();
+        	filaDato[0] = arrayFacturas.get(i).getNombreReceta();
+        	filaDato[1] = arrayFacturas.get(i).getPrecioVenta();
+        	filaDato[2] = arrayFacturas.get(i).getCantidadRecetaVenta();
+        	filaDato[3] = arrayFacturas.get(i).getPrecioVenta() 
+        			* arrayFacturas.get(i).getCantidadRecetaVenta();
         	modelo.addRow(filaDato);
+        	
+        	precioTotal = precioTotal 
+        			+ arrayFacturas.get(i).getPrecioVenta() 
+        			* arrayFacturas.get(i).getCantidadRecetaVenta();
     	}
         tabla.setModel(modelo);
         modelo.fireTableDataChanged();
         tabla = VentanaPrincipal.formatoTabla(tabla);
+        
+        tabla.getColumnModel().getColumn(0).setPreferredWidth(550);
+        tabla.getColumnModel().getColumn(1).setPreferredWidth(50);
+        tabla.getColumnModel().getColumn(2).setPreferredWidth(50);
+        tabla.getColumnModel().getColumn(3).setPreferredWidth(50);
+        tabla.getColumnModel().getColumn(0).setResizable(false);
+        tabla.getColumnModel().getColumn(1).setResizable(false);
+        tabla.getColumnModel().getColumn(2).setResizable(false);
+        tabla.getColumnModel().getColumn(3).setResizable(false);
     }
 	
+	/**
+	 * Da el dato de la celda selecionada en la columna 0 
+	 * @return
+	 */
+	 public static String datoSeleccionadoTabla() {	
+		try {
+			dato=String.valueOf(tabla.getModel().getValueAt(tabla.getSelectedRow(),0));
+		} catch (ArrayIndexOutOfBoundsException e) {
+			JOptionPane.showMessageDialog(panelFacturar, "Debes de selecionar algo de la lista antes");
+		}
+		return dato;		
+	}
 
 	 public static int productoSeleccionado() throws NullPointerException {
 		 int indiceSeleccionado = tabla.getSelectedRow();
@@ -203,6 +237,30 @@ public class Facturar extends JPanel {
 
 	public static JTextField getCaja_abonado() {
 		return caja_abonado;
+	}
+
+	public static float getPrecioTotal() {
+		return precioTotal;
+	}
+
+	public static void setPrecioTotal(float precioTotal) {
+		Facturar.precioTotal = precioTotal;
+	}
+
+	public static float getAbonado() {
+		return abonado;
+	}
+
+	public static void setAbonado(float abonado) {
+		Facturar.abonado = abonado;
+	}
+
+	public static double getaDevolver() {
+		return aDevolver;
+	}
+
+	public static void setaDevolver(double aDevolver) {
+		Facturar.aDevolver = aDevolver;
 	}	
 	
 	

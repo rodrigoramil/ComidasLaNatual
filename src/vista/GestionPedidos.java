@@ -2,6 +2,8 @@ package vista;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+
+import java.awt.Font;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
@@ -97,6 +99,8 @@ public class GestionPedidos extends JPanel {
 		panelGestionPedidos.add(btn_Ver_Pedido);
 
 		listaCliente = new JList();
+		listaCliente.setFont(new Font("Manche Condensed",Font.BOLD,(int)(16*VentanaPrincipal.getCordenadaY())));
+		listaCliente.setBackground(VentanaPrincipal.getAzulClaro());
 		listaCliente.setLayout(null);
 		listaCliente.setVisible(true);		
 		

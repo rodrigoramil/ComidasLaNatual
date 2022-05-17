@@ -5,12 +5,13 @@ import javax.swing.JScrollPane;
 import java.text.Normalizer;
 import java.util.ArrayList;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import controlador.ControladorBuscarComidaBebida;
 import modelo.ModeloComidaBebida;
-import modelo.ModeloPRUEBA;
+import modelo.ModeloPedido;
 import modelo_bbdd.BbddComidaBebida;
 import modelo_bbdd.BbddVentas;
 
@@ -33,21 +34,22 @@ public class BuscarComidaBebida extends JPanel {
 	private static JButton btn_ver_receta;
 	private static JTable tabla;
     private static JScrollPane scroll;
-
 	private static ArrayList<ModeloComidaBebida> arrayComidaBebida;
 	private static BuscarComidaBebida buscarComidaBebida;
+
+	private static String dato;
 
 
     
 	public BuscarComidaBebida() {
-
 		inicializarComponentes();
 		establecerManejador();
-		pedidos();
 	}
 
 
 	public void inicializarComponentes() {
+		
+		arrayComidaBebida = new ArrayList<ModeloComidaBebida>();  
 		
 		panelBuscarComidaBebida = VentanaPrincipal.parametrosPanel(800,600);
 
@@ -77,8 +79,8 @@ public class BuscarComidaBebida extends JPanel {
 		
 		tabla = new JTable();
 		scroll = VentanaPrincipal.parametrosJScrollPane(50, 100, 700, 400);
-		panelBuscarComidaBebida.add(scroll);
-		
+		scroll.setViewportView(tabla);
+		panelBuscarComidaBebida.add(scroll);		
 		panelBuscarComidaBebida.setVisible(false);
 	}
 	
@@ -96,16 +98,16 @@ public class BuscarComidaBebida extends JPanel {
 	
 	}
 
-	public static void pedidos () {
-		arrayComidaBebida = new ArrayList<ModeloComidaBebida>();   
-		BbddComidaBebida.listarComidaBebida();
-        arrayComidaBebida = BbddComidaBebida.getArrayComidaBebida();
-        //***
-        scroll.remove(tabla);
-        tabla = new JTable();        
-		scroll.setViewportView(tabla);
-		//***
-        DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
+	public static void listarPedido (ArrayList<ModeloComidaBebida> arrayTabla) {
+		 
+
+        arrayComidaBebida = arrayTabla;
+        DefaultTableModel modelo =new DefaultTableModel(){
+		    @Override
+		    public boolean isCellEditable(int row, int column) {	
+		       return false;
+		    }
+		};
         modelo.addColumn("COMIDA/BEBIDA");
         modelo.addColumn("PRECIO");
         modelo.addColumn("ESTADO");
@@ -153,14 +155,35 @@ public class BuscarComidaBebida extends JPanel {
         ControladorBuscarComidaBebida.setBuscar(false);
     	ControladorBuscarComidaBebida.setComida(false);
     	ControladorBuscarComidaBebida.setBebida(false);
+    	
+    	
+    	
+    	
         tabla.setModel(modelo);
         modelo.fireTableDataChanged();
         tabla = VentanaPrincipal.formatoTabla(tabla);
-        //***
-        establecerManejador();
-        //***
+        
+        tabla.getColumnModel().getColumn(0).setPreferredWidth(550);
+        tabla.getColumnModel().getColumn(1).setPreferredWidth(50);
+        tabla.getColumnModel().getColumn(2).setPreferredWidth(100);
+        tabla.getColumnModel().getColumn(0).setResizable(false);
+        tabla.getColumnModel().getColumn(1).setResizable(false);
+        tabla.getColumnModel().getColumn(2).setResizable(false);
+
     }
 
+	/**
+	 * Da el dato de la celda selecionada en la columna 0 
+	 * @return
+	 */
+	 public static String datoSeleccionadoTabla() {	
+		try {
+			dato=String.valueOf(tabla.getModel().getValueAt(tabla.getSelectedRow(),0));
+		} catch (ArrayIndexOutOfBoundsException e) {
+			JOptionPane.showMessageDialog(panelBuscarComidaBebida, "Debes de selecionar algo de la lista antes");
+		}
+		return dato;		
+	}
 	
 	// Metodo que pasa las letras a minusculas y llama al metodo que elimina Tildes
 	public static String compruebaMayusculasTildes (String palabra) {

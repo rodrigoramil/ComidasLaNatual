@@ -3,6 +3,7 @@ package vista;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import java.awt.Color;
 import java.awt.Font;
@@ -45,21 +46,21 @@ public class Receta extends JPanel {
 	
 	//**************
 	private static Receta receta;
+
+	private static String dato;
 	//**************
 	
 	public Receta() {		
 		super();
 		inicializarComponentes();
 		establecerManejador();		
-//		listarRecetas();
-//		BbddReceta.listarRecetas();
+
 	}
 
 	public void inicializarComponentes() {
+		//**************
 		arrayIngredientes = new ArrayList<ModeloReceta>();
-		//arrayIngredientes = BbddReceta.listarRecetas();
-
-		
+		//**************
 		panelReceta = VentanaPrincipal.parametrosPanel(800,600);
 		
 		
@@ -180,9 +181,9 @@ public class Receta extends JPanel {
         }
    
         tabla.setModel(modelo);
-        modelo.fireTableDataChanged();
+        modelo.fireTableDataChanged();        
+        tabla = VentanaPrincipal.formatoTabla(tabla);
         
-        tabla = VentanaPrincipal.formatoTabla(tabla);         
         tabla.getColumnModel().getColumn(0).setPreferredWidth(550);
         tabla.getColumnModel().getColumn(1).setPreferredWidth(150);
         tabla.getColumnModel().getColumn(0).setResizable(false);
@@ -190,6 +191,19 @@ public class Receta extends JPanel {
         
     }
 	
+	/**
+	 * Da el dato de la celda selecionada en la columna 0 
+	 * @return
+	 */
+	 public static String datoSeleccionadoTabla() {	
+		try {
+			dato=String.valueOf(tabla.getModel().getValueAt(tabla.getSelectedRow(),0));
+		} catch (ArrayIndexOutOfBoundsException e) {
+			JOptionPane.showMessageDialog(panelReceta, "Debes de selecionar algo de la lista antes");
+		}
+		return dato;		
+	}
+	 
 	 public static int recetaSeleccionada() throws NullPointerException {
 		 int indiceSeleccionado = tabla.getSelectedRow();
 		 return indiceSeleccionado;	

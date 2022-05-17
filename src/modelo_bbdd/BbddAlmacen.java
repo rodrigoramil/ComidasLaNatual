@@ -14,7 +14,7 @@ public class BbddAlmacen {
 	private static PreparedStatement sentenciaAlmacen = null;
 	private static ArrayList<ModeloAlmacen> arrayAlmacen = null;
 
-	public static void listarProductosAlmacen() {
+	public static ArrayList<ModeloAlmacen> listarProductosAlmacen() {
 		conexion = new Conexion();
 		connection = conexion.obtenerConexion();		
 		arrayAlmacen = new ArrayList<ModeloAlmacen>();		
@@ -31,12 +31,11 @@ public class BbddAlmacen {
 			System.out.println("Error al listar las recetas SentenciasSQL");
 			System.out.println(e.getMessage());
 		}
+		return arrayAlmacen;
 			
 	}
 		
 	public static void addPructoAlmacen(String nombreProducto, float cantidadActual,int idUnidadMedida, float cantidadMinima, float cantidadMaxima, int idTipoProducto) throws SQLException {
-
-
 			String SQL = "INSERT INTO Almacen (NombreProducto, Cantidad, IdUnidadMedida, CantidadMinima, CantidadMaxima, IdTipo) VALUES ( ?, ?, ?, ?, ?, ?)";
 			sentenciaAlmacen = connection.prepareStatement(SQL);
 			sentenciaAlmacen.setString(1, nombreProducto);
@@ -45,18 +44,7 @@ public class BbddAlmacen {
 			sentenciaAlmacen.setFloat(4, cantidadMinima);
 			sentenciaAlmacen.setFloat(5, cantidadMaxima);
 			sentenciaAlmacen.setInt(6, idTipoProducto); 
-			
-//******************************* BORRAR ***************************************************************************			
-			System.out.println("nombre es: "+nombreProducto);
-			System.out.println("cantidadActual es:"+cantidadActual);
-			System.out.println("idUnidadMedida es:"+idUnidadMedida);
-			System.out.println("cantidadMinima es:"+cantidadMinima);
-			System.out.println("cantidadMaxima es:"+cantidadMaxima);
-			System.out.println("idTipoProducto es:"+idTipoProducto);
-//******************************* BORRAR ***************************************************************************	
-			
 			sentenciaAlmacen.executeUpdate();
-
 	}
 	
 

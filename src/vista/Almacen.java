@@ -4,11 +4,13 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import java.util.ArrayList;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import controlador.ControladorAlmacen;
 import modelo.ModeloAlmacen;
+import modelo.ModeloReceta;
 import modelo_bbdd.BbddAlmacen;
 
 
@@ -26,16 +28,18 @@ public class Almacen extends JPanel {
 	private static JTable tabla;
     private static JScrollPane scroll;
 	private static ArrayList<ModeloAlmacen> arrayAlmacen;
-    
+	private static Almacen almacen;
+	private static String dato;
+	
 	public Almacen() {
 		
 		super();
 		inicializarComponentes();		
 		establecerManejador();		
-		listarProductos();
 	}
 
 	public void inicializarComponentes() {
+		arrayAlmacen = new ArrayList<ModeloAlmacen>();
 		
 		panelAlmacen = VentanaPrincipal.parametrosPanel(800,600);
 
@@ -65,15 +69,17 @@ public class Almacen extends JPanel {
 		
 		tabla = new JTable();
 		scroll = VentanaPrincipal.parametrosJScrollPane(50, 100, 700, 400);
+		scroll.setViewportView(tabla);
 	    panelAlmacen.add(scroll);
-
+	    tabla.setVisible(true);
+	    scroll.setVisible(true);
 	    panelAlmacen.setVisible(false);
 
 	}
 	
-	public void establecerManejador() {	
+	public static void establecerManejador() {	
 		
-		ControladorAlmacen controlador = new ControladorAlmacen(this);	
+		ControladorAlmacen controlador = new ControladorAlmacen(almacen);	
 		
 		textField.addActionListener(controlador);		
 		btn_todos_los_Productos.addActionListener(controlador);
@@ -83,18 +89,21 @@ public class Almacen extends JPanel {
 		btn_Ver_Listas_Compras.addActionListener(controlador);
 		btn_Modificar.addActionListener(controlador);
 		btn_Nuevo.addActionListener(controlador);
-	
+		tabla.addMouseListener(controlador);
+		
 	}
 
 	
 
-	public static void listarProductos () {
-		arrayAlmacen = new ArrayList<ModeloAlmacen>();
-        BbddAlmacen.listarProductosAlmacen();
-        arrayAlmacen = BbddAlmacen.getArrayAlmacen();	
-		tabla = new JTable();
-		scroll.setViewportView(tabla);
-        DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
+	public static void listarProductos (ArrayList<ModeloAlmacen> arrayTabla) {
+
+        arrayAlmacen = arrayTabla;	
+        DefaultTableModel modelo =new DefaultTableModel(){
+		    @Override
+		    public boolean isCellEditable(int row, int column) {	
+		       return false;
+		    }
+		};
         modelo.addColumn("PRODUCTOS");
         modelo.addColumn("ACTUAL");
         modelo.addColumn("MÍNIMO");
@@ -110,14 +119,41 @@ public class Almacen extends JPanel {
         tabla.setModel(modelo);
         modelo.fireTableDataChanged();
         tabla = VentanaPrincipal.formatoTabla(tabla);
+        
+        tabla.getColumnModel().getColumn(0).setPreferredWidth(550);
+        tabla.getColumnModel().getColumn(1).setPreferredWidth(50);
+        tabla.getColumnModel().getColumn(2).setPreferredWidth(50);
+        tabla.getColumnModel().getColumn(3).setPreferredWidth(50);
+        tabla.getColumnModel().getColumn(0).setResizable(false);
+        tabla.getColumnModel().getColumn(1).setResizable(false);
+        tabla.getColumnModel().getColumn(2).setResizable(false);
+        tabla.getColumnModel().getColumn(3).setResizable(false);
+        
     }
 	
+	/**
+	 * Da el dato de la celda selecionada en la columna 0 
+	 * @return
+	 */
+	 public static String datoSeleccionadoTabla() {	
+		try {
+			dato=String.valueOf(tabla.getModel().getValueAt(tabla.getSelectedRow(),0));
+		} catch (ArrayIndexOutOfBoundsException e) {
+			JOptionPane.showMessageDialog(panelAlmacen, "Debes de selecionar algo de la lista antes");
+		}
+		return dato;		
+	}
+	 
 	 public static int indiceSeleccionado() throws NullPointerException {
 		 int indiceSeleccionado = tabla.getSelectedRow();
 		 return indiceSeleccionado;	
 	 }
 
-	 
+	/**
+	 * Gets y Sets
+	 * @return
+	 */
+
 	public static JTextField getTextField() {
 		return textField;
 	}

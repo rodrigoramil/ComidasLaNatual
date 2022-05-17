@@ -6,10 +6,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import controlador.ControladorBuscarComidaBebida;
 import controlador.ControladorProductosAlmacen;
 import modelo.ModeloProductosAlmacen;
 import modelo.ModeloReceta;
 import modelo.ModeloRecetario;
+import vista.BuscarComidaBebida;
 import vista.ProductosAlmacen;
 import vista.Receta;
 import vista.Recetario;
@@ -21,7 +23,6 @@ public class BbddReceta {
 	private static PreparedStatement sentenciaRecetas = null;
 	private static String nombreRecetaSeleccionada;
 	private static ArrayList<ModeloReceta> arrayReceta;
-//	private static ArrayList<ModeloIngredientes> arrayIngredientes;
 	private static String precioVenta;
 	private static String elaboracion;
 	private static String datoSelecionado;
@@ -36,19 +37,21 @@ public class BbddReceta {
 		arrayReceta = new ArrayList<ModeloReceta>();
 		
 		try {
-			int recetaSelecionada = Recetario.recetaSeleccionada();			
-			for (int i = 0; i < Recetario.getArrayRecetas().size(); i++) {
-				if (recetaSelecionada==i) {
-					nombreRecetaSeleccionada=Recetario.getArrayRecetas().get(i).getNombreReceta();
-					precioVenta = String.valueOf(Recetario.getArrayRecetas().get(i).getPrecioVenta());
-					elaboracion = Recetario.getArrayRecetas().get(i).getElaboracion();
-					
+			
+			if (ControladorBuscarComidaBebida.getDesdeVentas()) {
+				nombreRecetaSeleccionada = BuscarComidaBebida.datoSeleccionadoTabla();
+			} else {			
+				int recetaSelecionada = Recetario.recetaSeleccionada();			
+				for (int i = 0; i < Recetario.getArrayRecetas().size(); i++) {
+					if (recetaSelecionada==i) {
+						nombreRecetaSeleccionada=Recetario.getArrayRecetas().get(i).getNombreReceta();
+						precioVenta = String.valueOf(Recetario.getArrayRecetas().get(i).getPrecioVenta());
+						elaboracion = Recetario.getArrayRecetas().get(i).getElaboracion();						
+					}
 				}
 			}
-			
 			// "Select A.IdProducto, A.NombreProducto, R.IdReceta, R.NombreReceta, I.Cantidad, R.Elaboracion, R.PrecioVenta from Recetas R, Ingredientes I, Almacen A where r.NombreReceta=? and R.IdReceta = I.IdReceta and I.IDPRODUCTO = A.IDPRODUCTO"
-			sentenciaRecetas = connection.prepareStatement("Select I.IdReceta, R.NombreReceta, I.IdProducto, A.NombreProducto, I.Cantidad from Ingredientes I, Recetas R, Almacen A where R.NombreReceta=? and R.IdReceta = I.IdReceta and I.IdProducto = A.IdProducto\r\n"
-					+ "");
+			sentenciaRecetas = connection.prepareStatement("Select I.IdReceta, R.NombreReceta, I.IdProducto, A.NombreProducto, I.Cantidad from Ingredientes I, Recetas R, Almacen A where R.NombreReceta=? and R.IdReceta = I.IdReceta and I.IdProducto = A.IdProducto");
 			sentenciaRecetas.setString(1, nombreRecetaSeleccionada);
 			ResultSet rsReceta = sentenciaRecetas.executeQuery();
 
@@ -267,6 +270,12 @@ public class BbddReceta {
 	public static String getNombreRecetaSeleccionada() {
 		return nombreRecetaSeleccionada;
 	}
+
+	public static void setNombreRecetaSeleccionada(String nombreRecetaSeleccionada) {
+		BbddReceta.nombreRecetaSeleccionada = nombreRecetaSeleccionada;
+	}
+
+
 
 	public static String getPrecioVenta() {
 		return precioVenta;

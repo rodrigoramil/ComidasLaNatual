@@ -6,10 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
 
-import modelo.ModeloCliente;
-import modelo.ModeloPRUEBA;
 
 
 public class CreacionBBDD {	
