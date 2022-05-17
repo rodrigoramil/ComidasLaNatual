@@ -33,8 +33,6 @@ public class Pedido extends JPanel {
 	private static Pedido pedido;
 	private static ArrayList<ModeloPedido> arrayPedidos;
 	private static String dato;
-
-    
     
     public Pedido() {
 		super();
@@ -117,7 +115,6 @@ public class Pedido extends JPanel {
         	filaDato[0] = arrayPedidos.get(i).getNombreReceta();
         	filaDato[1] = arrayPedidos.get(i).getCantidadRecetaVenta();
         	filaDato[2] = arrayPedidos.get(i).getPrecioVenta(); 
-
         	modelo.addRow(filaDato);
     	}
         tabla.setModel(modelo);

@@ -83,10 +83,13 @@ public class BbddPedido {
 		return arrayPedidos;
 	}
 
+<<<<<<< HEAD
 
 
 
 	
 
+=======
+>>>>>>> pruebas
 */
 }

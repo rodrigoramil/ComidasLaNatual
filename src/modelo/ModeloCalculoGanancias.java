@@ -17,10 +17,16 @@ public class ModeloCalculoGanancias implements Serializable {
 		this.gananciaPedido = gananciaPedido;
 	}
 
+	/**
+	 * 
+	 */
+	public ModeloCalculoGanancias() {
+		super();
+	}
+
 	public ModeloCalculoGanancias(float gananciaPedido) {
 		this.gananciaPedido = gananciaPedido;
 	}
-
 
 	public int getIdPedido() {
 		return idPedido;
