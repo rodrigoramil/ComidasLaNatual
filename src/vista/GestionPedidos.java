@@ -2,9 +2,12 @@ package vista;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.SwingConstants;
 
 import java.awt.Font;
 import java.util.ArrayList;
+
+import javax.swing.DefaultListCellRenderer.UIResource;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -149,7 +152,10 @@ public class GestionPedidos extends JPanel {
 			modeloListaCliente.addElement(c.getNombre());
 		
 		}	
-
+		//se alinean las celdas al centro
+		UIResource posicion = new UIResource();
+		posicion.setHorizontalAlignment(SwingConstants.CENTER);
+		listaCliente.setCellRenderer(posicion);
 		listaCliente.setModel(modeloListaCliente);
 		return array_clientes;
 	}

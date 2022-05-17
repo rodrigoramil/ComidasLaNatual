@@ -152,13 +152,31 @@ public class CreacionBBDD {
 			stmt.execute("INSERT IGNORE INTO Cliente (NombreCliente) values ('Mesa 5');");
 			stmt.execute("INSERT IGNORE INTO Cliente (NombreCliente) values ('Mesa 6');");
 			stmt.execute("INSERT IGNORE INTO Cliente (NombreCliente) values ('Mesa 7');");
+			stmt.execute("INSERT IGNORE INTO Cliente (NombreCliente) values ('Mesa 8');");
 			
 			stmt.execute("INSERT IGNORE INTO UnidadMedidaProducto(UnidadMedida) values('Ud')");
 			stmt.execute("INSERT IGNORE INTO UnidadMedidaProducto(UnidadMedida) values('Kg')");
 			stmt.execute("INSERT IGNORE INTO UnidadMedidaProducto(UnidadMedida) values('L')");
-				
+			
+			// Usuario Admin para la primera vez que se instala la apliación			
+			stmt.execute("INSERT IGNORE INTO Usuarios(NombreUsuario, Contrasena, Rol) values('Admin','','Administrador')");
+			
+			// Ingredientes y receta e prueba
+			stmt.execute("INSERT IGNORE INTO  Almacen (NombreProducto, Cantidad, IdUnidadMedida, CantidadMinima, CantidadMaxima, IdTipo) VALUES ('Huevos', 24, 1, 6, 32, 1)");
+			stmt.execute("INSERT IGNORE INTO  Almacen (NombreProducto, Cantidad, IdUnidadMedida, CantidadMinima, CantidadMaxima, IdTipo) VALUES ('Cebollas', 8, 1, 5, 15, 1)");
+			stmt.execute("INSERT IGNORE INTO  Almacen (NombreProducto, Cantidad, IdUnidadMedida, CantidadMinima, CantidadMaxima, IdTipo) VALUES ('Patatas', 30, 1, 20, 50, 1)");
+			stmt.execute("INSERT IGNORE INTO  Almacen (NombreProducto, Cantidad, IdUnidadMedida, CantidadMinima, CantidadMaxima, IdTipo) VALUES ('Aceite de Girasol', 6, 3, 5, 10, 1)");
+			stmt.execute("INSERT IGNORE INTO  Almacen (NombreProducto, Cantidad, IdUnidadMedida, CantidadMinima, CantidadMaxima, IdTipo) VALUES ('Sal', 1, 2, 0.500, 2, 1)");
+			
+			stmt.execute("INSERT IGNORE INTO  recetas(IdTipo, IdDisponibilidad, NombreReceta, PrecioVenta, Elaboracion) values(2, 1, 'Tortilla de patatas', 4, 'Pelamos y lavamos las patatas, las cortamos en rodajas finas al igual que la cebolla. Ponemos ambas cosas en una sartén y cubrimos de aceite de oliva virgen extra, dejamos que se hagan a fuego medio-suave hasta que comiencen a dorarse. Sabréis que las patatas están hechas cuando comiencen a romperse, con la paleta. Para que la tortilla esté jugosa es importante que las patatas se hagan bien y se confiten, porque no hay nada peor que una tortilla con las patatas medio crudas. Por lo tanto, paciencia con este paso. Las sacamos de la sartén y escurrimos bien. Ponemos en un cuenco grande, aparte batimos los huevos y los añadimos a las patatas y a la cebolla, añadimos un poco de sal y mezclamos. Dejamos un par de minutos que se mezclen bien. Aquí hay quien prefiere dejar las patatas enteras y quien prefiere machacarlas un poco con la paleta para que se mezclen bien con el huevo Ponemos en la sartén un par de cucharadas de aceite de oliva virgen extra y vertemos todo. Al principio rompemos un poco, como si fuéramos a hacer un revuelto, luego vamos dándole forma  por los bordes. Cuando veamos que ya está cuajada por abajo ponemos un plato o una tapa encima de la sartén y le damos la vuelta rápidamente. Ponemos de nuevo la sartén en el fuego y deslizamos la tortilla desde el plato a la sartén. Dejamos unos minutos más (2 o 3 si te gusta más cuajada, menos si te gusta jugosa) para que se termine de hacer y ya tenemos lista nuestra tortilla de patatas.')");
+			
+			stmt.execute("INSERT IGNORE INTO  ingredientes (IdReceta,IdProducto, Cantidad) values (1, 1, 6)");
+			stmt.execute("INSERT IGNORE INTO  ingredientes (IdReceta,IdProducto, Cantidad) values (1, 2, 1)");
+			stmt.execute("INSERT IGNORE INTO  ingredientes (IdReceta,IdProducto, Cantidad) values (1, 3, 5)");
+			stmt.execute("INSERT IGNORE INTO  ingredientes (IdReceta,IdProducto, Cantidad) values (1, 4, 0.500)");
+			stmt.execute("INSERT IGNORE INTO  ingredientes (IdReceta,IdProducto, Cantidad) values (1, 5, 0.005)");
+			
 		}
-
 	}		
 }
 	

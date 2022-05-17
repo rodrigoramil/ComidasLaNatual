@@ -16,7 +16,7 @@ public class BbddPedido {
 	private static ArrayList<ModeloPedido> arrayPedido;
 	private static int idPedido;
 	
-	public static ArrayList<ModeloPedido>  listarPedido() {
+	public static ArrayList<ModeloPedido> listarPedido() {
 		conexion = new Conexion();
 		connection = conexion.obtenerConexion();
 		arrayPedido = new ArrayList<ModeloPedido>();

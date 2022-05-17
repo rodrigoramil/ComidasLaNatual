@@ -6,8 +6,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import controlador.ControladorGestionPedidos;
 import modelo.ModeloCliente;
 import modelo.ModeloPRUEBA;
+import modelo.ModeloPedido;
 
 public class BbddVentas {
 
@@ -17,13 +19,23 @@ public class BbddVentas {
 	private static ArrayList<ModeloCliente> arrayClientes = null;
 	private static ArrayList<ModeloPRUEBA> arrayRecetas=null; // <---- BORRAR
 
-	public static void listarClientes() {
+	public static ArrayList<ModeloCliente> listarClientes() {
 		conexion = new Conexion();
 		connection = conexion.obtenerConexion();
 		arrayClientes = new ArrayList<ModeloCliente>();
 		arrayRecetas = new ArrayList<ModeloPRUEBA>();  // <---- BORRAR
 		try {
-			sentencia = connection.prepareStatement("Select * from cliente where nombreCliente not like '%Mesa %'  order by IdCliente");
+			
+			if (!ControladorGestionPedidos.isMesa()) {
+				sentencia = connection.prepareStatement("Select * from cliente where nombreCliente not like '%Mesa %'  order by IdCliente");
+				ControladorGestionPedidos.setMesa(true);
+			} else {				
+				sentencia = connection.prepareStatement("Select * from cliente order by IdCliente");
+				
+			}
+			
+			
+			
 			ResultSet rs = sentencia.executeQuery();
 
 			while (rs.next()) {
@@ -41,6 +53,7 @@ public class BbddVentas {
 			System.out.println("Error en gestionPedidosClientes SentenciasSQL");
 			System.out.println(e.getMessage());
 		}
+		return arrayClientes;
 	}
 
     
