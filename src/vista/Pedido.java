@@ -107,6 +107,7 @@ public class Pedido extends JPanel {
 		       return false;
 		    }
 		}; 
+
         modelo.addColumn("COMIDA/BEBIDA");
         modelo.addColumn("CANTIDAD");
         modelo.addColumn("PRECIO");
@@ -128,6 +129,7 @@ public class Pedido extends JPanel {
         tabla.getColumnModel().getColumn(0).setResizable(false);
         tabla.getColumnModel().getColumn(1).setResizable(false);
         tabla.getColumnModel().getColumn(2).setResizable(false);
+
     }
 	
 	/**
