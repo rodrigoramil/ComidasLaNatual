@@ -7,10 +7,10 @@ import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
 
-import modelo.ModeloComidaBebida;
 import modelo_bbdd.BbddComidaBebida;
+import modelo_bbdd.BbddReceta;
+import modelo_bbdd.BbddRecetario;
 import vista.BuscarComidaBebida;
 import vista.Receta;
 import vista.VentanaPrincipal;
@@ -26,10 +26,8 @@ public class ControladorBuscarComidaBebida implements ActionListener, MouseListe
 	private static boolean bebida = false;
 	private static boolean desdeVentas;
 
-	
 	public ControladorBuscarComidaBebida(BuscarComidaBebida panelBuscarComidaBebida) {
 		this.panelBuscarComidaBebida = panelBuscarComidaBebida;
-	
 	}	
 	
 	@Override
@@ -46,14 +44,8 @@ public class ControladorBuscarComidaBebida implements ActionListener, MouseListe
 				if (!respuesta.equals("")) {
 					try {	
 						cantidad = Integer.parseInt(respuesta);
-						
-						
-						
-						
-						
-						
-						
-						
+
+
 					} catch (NumberFormatException e2) {
 						cantidad=1;
 						JOptionPane.showMessageDialog(panelBuscarComidaBebida, "No ha introducido un número, por defecto se a añadido uno");
@@ -63,8 +55,6 @@ public class ControladorBuscarComidaBebida implements ActionListener, MouseListe
 					cantidad=1;
 				}
 			}
-//			System.out.println("cantidad añadida --> "+cantidad);
-			
 
 			
 			VentanaPrincipal.getPanelBuscarComidaBebida().setVisible(false);
@@ -73,23 +63,23 @@ public class ControladorBuscarComidaBebida implements ActionListener, MouseListe
 		
 		if (e.getSource() == BuscarComidaBebida.getBtn_bebidas_disponibles()) {
 			bebida = true;
-			BuscarComidaBebida.pedidos();			
+			BuscarComidaBebida.listarPedido(BbddComidaBebida.getArrayComidaBebida());			
 		}
 		
 		if (e.getSource() == BuscarComidaBebida.getBtn_comidas_disponibles()) {
 			comida = true;
-			BuscarComidaBebida.pedidos();
+			BuscarComidaBebida.listarPedido(BbddComidaBebida.getArrayComidaBebida());
 		}
 		
 		if (e.getSource() == BuscarComidaBebida.getBtn_listar_todo()) {
-			BuscarComidaBebida.pedidos();
+			BuscarComidaBebida.listarPedido(BbddComidaBebida.getArrayComidaBebida());
 		}
 	
 		if (e.getSource() == BuscarComidaBebida.getBtn_buscar()) {
 			buscar = true;
 			
 			
-			BuscarComidaBebida.pedidos();
+			BuscarComidaBebida.listarPedido(BbddComidaBebida.getArrayComidaBebida());
 		}
 	
 		if (e.getSource() == BuscarComidaBebida.getBtn_ver_receta()) {
@@ -100,6 +90,24 @@ public class ControladorBuscarComidaBebida implements ActionListener, MouseListe
 			Receta.getBtn_borrar_ingrediente().setEnabled(false);
 			Receta.getBtn_guardar().setEnabled(false);
 			desdeVentas = true;
+			
+			String nombreRecetaSelecionada = BuscarComidaBebida.datoSeleccionadoTabla();
+			
+			BbddReceta.setNombreRecetaSeleccionada(nombreRecetaSelecionada);
+			Receta.listarReceta(BbddReceta.listarRecetas());
+			
+			for (int i = 0; i < BbddRecetario.getarrayRecetario().size(); i++) {
+				if (BbddRecetario.getarrayRecetario().get(i).getNombreReceta().equals(nombreRecetaSelecionada)) {
+					
+					String elaboracion = BbddRecetario.getarrayRecetario().get(i).getElaboracion();
+					Receta.getTexto_elaboracion().setText(elaboracion);
+					
+					String precioVenta = String.valueOf(BbddRecetario.getarrayRecetario().get(i).getPrecioVenta());					
+					Receta.getPrecio_receta().setText(precioVenta);
+				}
+				
+				
+			}
 		}
 	
 	}

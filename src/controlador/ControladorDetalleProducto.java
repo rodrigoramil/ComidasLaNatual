@@ -38,7 +38,8 @@ public class ControladorDetalleProducto implements ActionListener {
 		
 		
 		if (e.getSource() == DetalleProducto.getBtn_Aceptar()) {
-
+			VentanaPrincipal.getPanelAlmacen().setVisible(true);
+			VentanaPrincipal.getPanelDetalleProducto().setVisible(false);
 			try {
 				nombreProducto = DetalleProducto.getTfd_Nombre().getText();
 				idTipoProducto = DetalleProducto.getTipo().getSelectedIndex()+1;
@@ -58,8 +59,7 @@ public class ControladorDetalleProducto implements ActionListener {
 				} catch (SQLException e1) {
 					JOptionPane.showMessageDialog(panelDetalleProductos, "Error al acceder a la Base de Datos");
 					System.out.println(e1.getMessage());
-				}
-				Almacen.listarProductos();				
+				}			
 				limpiarCajaTexto ();
 			} else if (!DetalleProducto.getTfd_Nombre().getText().equals("")) {
 				try {
@@ -69,11 +69,10 @@ public class ControladorDetalleProducto implements ActionListener {
 					JOptionPane.showMessageDialog(panelDetalleProductos, "Error al acceder a la Base de Datos");
 					System.out.println(e1.getMessage());
 				}
-				Almacen.listarProductos();
+				
 			}	
-			
-			VentanaPrincipal.getPanelAlmacen().setVisible(true);
-			VentanaPrincipal.getPanelDetalleProducto().setVisible(false);
+			Almacen.listarProductos(BbddAlmacen.listarProductosAlmacen());
+
 			limpiarCajaTexto ();
 		}
 

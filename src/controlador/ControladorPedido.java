@@ -7,6 +7,9 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JOptionPane;
 
+import modelo_bbdd.BbddComidaBebida;
+import modelo_bbdd.BbddPedido;
+import vista.BuscarComidaBebida;
 import vista.GestionPedidos;
 import vista.Pedido;
 import vista.VentanaPrincipal;
@@ -38,6 +41,10 @@ public class ControladorPedido  implements ActionListener, MouseListener {
 		if (e.getSource() == Pedido.getBtn_Nuevo()) {
 			VentanaPrincipal.getPanelPedido().setVisible(false);
 			VentanaPrincipal.getPanelBuscarComidaBebida().setVisible(true);	
+			
+			BuscarComidaBebida.listarPedido(BbddComidaBebida.listarComidaBebida());
+
+			
 		}
 		
 		if (e.getSource() == Pedido.getBtn_Modificar()) {
@@ -59,7 +66,7 @@ public class ControladorPedido  implements ActionListener, MouseListener {
 			System.out.println("cantidad modificada --> "+cantidad);
 			
 			
-			
+			// Sentencia Update
 			
 			
 			
@@ -67,6 +74,8 @@ public class ControladorPedido  implements ActionListener, MouseListener {
 		
 		if (e.getSource() == Pedido.getBtn_Eliminar()) {
 			
+			// falta el JcrollPanel
+			// Sentencia Delete
 		}
 		
 		if (e.getSource() == Pedido.getBtn_Facturar()) {

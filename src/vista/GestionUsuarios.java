@@ -5,7 +5,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import controlador.ControladorGestionUsuarios;
+import modelo.ModeloReceta;
 import modelo.ModeloUsuario;
 import modelo_bbdd.BbddLogin;
 import javax.swing.JButton;
@@ -29,17 +32,20 @@ public class GestionUsuarios extends JPanel {
 	private static JTable tabla;
     private static JScrollPane scroll;
 	private static ArrayList<ModeloUsuario> arrayUsuarios;    
-    
+	private static GestionUsuarios gestionUsuarios;
+
+	private static String dato;
+	
 	public GestionUsuarios() {		
 		super();
 		inicializarComponentes();
 		establecerManejador();
-		listarUsuarios();
 	}
 
 
 	public void inicializarComponentes() {
 		
+		arrayUsuarios = new ArrayList<ModeloUsuario>();
 		
 		panelGestionUsuarios = VentanaPrincipal.parametrosPanel(800,600);
 		
@@ -61,9 +67,9 @@ public class GestionUsuarios extends JPanel {
 		panelGestionUsuarios.add(btn_eliminar);
 		
 		tabla = new JTable();
-		scroll = VentanaPrincipal.parametrosJScrollPane(50, 100, 700, 400);    
-		panelGestionUsuarios.add(scroll);
-	    
+		scroll = VentanaPrincipal.parametrosJScrollPane(50, 100, 700, 400); 
+		scroll.setViewportView(tabla);
+		panelGestionUsuarios.add(scroll);	    
 		panelGestionUsuarios.setVisible(false);
 		
 		
@@ -77,16 +83,20 @@ public class GestionUsuarios extends JPanel {
 		btn_nuevo.addActionListener(controlador);
 		btn_eliminar.addActionListener(controlador);
 		btn_volver.addActionListener(controlador);
+		tabla.addMouseListener(controlador);
 	}
 	
-	public static void listarUsuarios () {
-		tabla.removeAll();
-		arrayUsuarios = new ArrayList<ModeloUsuario>();
-        BbddLogin.listarUsuarios();
-        arrayUsuarios = BbddLogin.getArrayUsuarios();
-		tabla = new JTable();
-		scroll.setViewportView(tabla);
-        DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
+	public static void listarUsuarios (ArrayList<ModeloUsuario> arrayTabla) {
+		
+        arrayUsuarios = arrayTabla;
+        
+        DefaultTableModel modelo =new DefaultTableModel(){
+		    @Override
+		    public boolean isCellEditable(int row, int column) {	
+		       return false;
+		    }
+		};  
+		
         modelo.addColumn("USUARIO");
         modelo.addColumn("ROL");
         
@@ -99,9 +109,25 @@ public class GestionUsuarios extends JPanel {
         tabla.setModel(modelo);
         modelo.fireTableDataChanged();
         tabla = VentanaPrincipal.formatoTabla(tabla);
+        tabla.getColumnModel().getColumn(0).setPreferredWidth(550);
+        tabla.getColumnModel().getColumn(1).setPreferredWidth(150);
+        tabla.getColumnModel().getColumn(0).setResizable(false);
+        tabla.getColumnModel().getColumn(1).setResizable(false);        
     }
 	
-
+	/**
+	 * Da el dato de la celda selecionada en la columna 0 
+	 * @return
+	 */
+	 public static String datoSeleccionadoTabla() {	
+		try {
+			dato=String.valueOf(tabla.getModel().getValueAt(tabla.getSelectedRow(),0));
+		} catch (ArrayIndexOutOfBoundsException e) {
+			JOptionPane.showMessageDialog(panelGestionUsuarios, "Debes de selecionar algo de la lista antes");
+		}
+		return dato;		
+	}
+	 
 	 public static String usuarioSeleccionado() throws NullPointerException {
 		 int indiceSeleccionado = tabla.getSelectedRow();
 		 String usuarioSelecionado = null;
@@ -114,6 +140,10 @@ public class GestionUsuarios extends JPanel {
 		return usuarioSelecionado;
 	 }
 	 
+	 /**
+	 * Gets y Sets
+	 * @return
+	 */
 	public static JPanel getPanelGestionUsuarios() {
 		return panelGestionUsuarios;
 	}

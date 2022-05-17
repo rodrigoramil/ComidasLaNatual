@@ -3,14 +3,13 @@ package vista;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import controlador.ControladorProductosAlmacen;
-import modelo.ModeloPRUEBA;
-import modelo_bbdd.BbddVentas;
-
+import modelo.ModeloProductosAlmacen;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
+
 import java.util.ArrayList;
 
 public class ProductosAlmacen extends JPanel {
@@ -28,19 +27,23 @@ public class ProductosAlmacen extends JPanel {
 	private static JButton btn_volver;
 	private static JTable tabla;
     private static JScrollPane scroll;
+    private static ArrayList<ModeloProductosAlmacen> arrayProductos;
+    private static ProductosAlmacen productosAlmacen;
 
-private static ArrayList<ModeloPRUEBA> arrayProductos;
+	private static String dato;
+    
     
 	public ProductosAlmacen() {
 		super();
 		inicializarComponentes();				
 		establecerManejador();
-		listarProductos();		
+//		BbddProductosAlmacen.listarProductosAlmacen();
+//		listarProductos();		
 	}
 
 
 	public void inicializarComponentes() {
-		
+		arrayProductos = new ArrayList<ModeloProductosAlmacen>();
 
 		panelProductosAlmacen = VentanaPrincipal.parametrosPanel(800,600);
 		
@@ -64,47 +67,69 @@ private static ArrayList<ModeloPRUEBA> arrayProductos;
 		
 		tabla = new JTable();
 		scroll = VentanaPrincipal.parametrosJScrollPane(50, 100, 700, 400);
+		scroll.setViewportView(tabla);
 	    panelProductosAlmacen.add(scroll);
 	    panelProductosAlmacen.setVisible(false);
 		
 	}
 	
-	public void establecerManejador() {		
-		ControladorProductosAlmacen controlador = new ControladorProductosAlmacen(this);
+	public static void establecerManejador() {		
+		ControladorProductosAlmacen controlador = new ControladorProductosAlmacen(productosAlmacen);
 		
 		caja_nombre_producto.addActionListener(controlador);
 		btn_add_receta.addActionListener(controlador);
 		btn_todos_productos.addActionListener(controlador);
 		btn_buscar.addActionListener(controlador);
 		btn_volver.addActionListener(controlador);
-//		tabla.addMouseListener(controlador);
+		tabla.addMouseListener(controlador);
 			
 		
 	}
 
 	
-	public static void listarProductos () {
-		arrayProductos = new ArrayList<ModeloPRUEBA>();
-        BbddVentas.listarClientes();					
-        arrayProductos = BbddVentas.getArrayRecetas();
-		tabla = new JTable();
-		scroll.setViewportView(tabla);
-        DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
-        modelo.addColumn("PRODUCTOS");
-        modelo.addColumn("STOCK ACTUAL");
+	public static void listarProductos (ArrayList<ModeloProductosAlmacen> arrayTabla) {
+
+		arrayProductos = arrayTabla;
+		
+		DefaultTableModel modelo =new DefaultTableModel() {
+		    @Override
+		    public boolean isCellEditable(int row, int column) {	
+		       return false;
+		    }
+		};
         
+        modelo.addColumn("PRODUCTOS");
+        modelo.addColumn("STOCK ACTUAL");        
         Object filaDato[] = new Object[2];     
         for (int i = 0; i < arrayProductos.size(); i++) {
-        	filaDato[0] = arrayProductos.get(i).getReceta();
-        	filaDato[1] = arrayProductos.get(i).getEstado();
+        	filaDato[0] = arrayProductos.get(i).getNombreProducto();
+        	filaDato[1] = arrayProductos.get(i).getCantidad();
         	modelo.addRow(filaDato);
     	}
         tabla.setModel(modelo);
         modelo.fireTableDataChanged();
         tabla = VentanaPrincipal.formatoTabla(tabla);
+        tabla.getColumnModel().getColumn(0).setPreferredWidth(650);
+        tabla.getColumnModel().getColumn(1).setPreferredWidth(50);
+        tabla.getColumnModel().getColumn(0).setResizable(false);
+        tabla.getColumnModel().getColumn(1).setResizable(false);
     }
 	
 
+	/**
+	 * Da el dato de la celda selecionada en la columna 0 
+	 * @return
+	 */
+	 public static String datoSeleccionadoTabla() {	
+		try {
+			dato=String.valueOf(tabla.getModel().getValueAt(tabla.getSelectedRow(),0));
+		} catch (ArrayIndexOutOfBoundsException e) {
+			JOptionPane.showMessageDialog(panelProductosAlmacen, "Debes de selecionar algo de la lista antes");
+		}
+		return dato;		
+	}
+		
+	
 	 public static int productoSeleccionado() throws NullPointerException {
 		 int indiceSeleccionado = tabla.getSelectedRow();
 		 return indiceSeleccionado;	
@@ -154,10 +179,10 @@ private static ArrayList<ModeloPRUEBA> arrayProductos;
 	public static JButton getBtn_volver() {
 		return btn_volver;
 	}
-	
-	
-	
-	
-	
+
+
+	public static ArrayList<ModeloProductosAlmacen> getArrayProductos() {
+		return arrayProductos;
+	}
 	
 }

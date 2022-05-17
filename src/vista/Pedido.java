@@ -5,9 +5,11 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import controlador.ControladorPedido;
-import modelo.ModeloPRUEBA;
+import modelo.ModeloPedido;
+import modelo.ModeloReceta;
 import modelo_bbdd.BbddVentas;
 import java.awt.Color;
 import java.awt.Font;
@@ -30,18 +32,21 @@ public class Pedido extends JPanel {
 	private static JButton btn_Facturar;
 	private static JTable tabla;
     private static JScrollPane scroll;
-
-	private static ArrayList<ModeloPRUEBA> arrayPedidos;
+	private static Pedido pedido;
+	private static ArrayList<ModeloPedido> arrayPedidos;
+	private static String dato;
     
     
     public Pedido() {
 		super();
 		inicializarComponentes();
 		establecerManejador();
-		pedidos();
+
 	}
 
 	public void inicializarComponentes() {
+		
+		arrayPedidos = new ArrayList<ModeloPedido>();
 		
 		panelPedido = VentanaPrincipal.parametrosPanel(800,600);
 		
@@ -72,16 +77,16 @@ public class Pedido extends JPanel {
 		panelPedido.add(btn_Facturar);
 		
 		tabla = new JTable();
-		scroll = VentanaPrincipal.parametrosJScrollPane(50, 100, 700, 400);    
-	    panelPedido.add(scroll);
-	    
+		scroll = VentanaPrincipal.parametrosJScrollPane(50, 100, 700, 400);
+		scroll.setViewportView(tabla);
+	    panelPedido.add(scroll);	    
 	    panelPedido.setVisible(false);
   
 	}
 	
 	
-	public void establecerManejador() {			
-		ControladorPedido controlador = new ControladorPedido(this);
+	public static void establecerManejador() {			
+		ControladorPedido controlador = new ControladorPedido(pedido);
 		
 		btn_Guardar.addActionListener(controlador);
 		btn_Volver.addActionListener(controlador);
@@ -89,33 +94,54 @@ public class Pedido extends JPanel {
 		btn_Nuevo.addActionListener(controlador);
 		btn_Eliminar.addActionListener(controlador);
 		btn_Facturar.addActionListener(controlador);
-
+		tabla.addMouseListener(controlador);
 		
 	}
 
-	public static void pedidos () {
-		arrayPedidos = new ArrayList<ModeloPRUEBA>();
-        BbddVentas.listarClientes();
-        arrayPedidos = BbddVentas.getArrayRecetas();
-		tabla = new JTable();
-		scroll.setViewportView(tabla);
-        DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
+	public static void listarPedido (ArrayList<ModeloPedido> arrayTabla) {
+		
+        arrayPedidos = arrayTabla;
+        DefaultTableModel modelo =new DefaultTableModel(){
+		    @Override
+		    public boolean isCellEditable(int row, int column) {	
+		       return false;
+		    }
+		}; 
         modelo.addColumn("COMIDA/BEBIDA");
         modelo.addColumn("CANTIDAD");
         modelo.addColumn("PRECIO");
         
         Object filaDato[] = new Object[3];     
         for (int i = 0; i < arrayPedidos.size(); i++) {
-        	filaDato[0] = arrayPedidos.get(i).getReceta();
-        	filaDato[1] = arrayPedidos.get(i).getEstado();
-        	filaDato[2] = arrayPedidos.get(i).getEstado(); 
+        	filaDato[0] = arrayPedidos.get(i).getNombreReceta();
+        	filaDato[1] = arrayPedidos.get(i).getCantidadRecetaVenta();
+        	filaDato[2] = arrayPedidos.get(i).getPrecioVenta(); 
         	modelo.addRow(filaDato);
     	}
         tabla.setModel(modelo);
         modelo.fireTableDataChanged();
         tabla = VentanaPrincipal.formatoTabla(tabla);
+        
+        tabla.getColumnModel().getColumn(0).setPreferredWidth(550);
+        tabla.getColumnModel().getColumn(1).setPreferredWidth(50);
+        tabla.getColumnModel().getColumn(2).setPreferredWidth(100);
+        tabla.getColumnModel().getColumn(0).setResizable(false);
+        tabla.getColumnModel().getColumn(1).setResizable(false);
+        tabla.getColumnModel().getColumn(2).setResizable(false);
     }
 	
+	/**
+	 * Da el dato de la celda selecionada en la columna 0 
+	 * @return
+	 */
+	 public static String datoSeleccionadoTabla() {	
+		try {
+			dato=String.valueOf(tabla.getModel().getValueAt(tabla.getSelectedRow(),0));
+		} catch (ArrayIndexOutOfBoundsException e) {
+			JOptionPane.showMessageDialog(panelPedido, "Debes de selecionar algo de la lista antes");
+		}
+		return dato;		
+	}
 
 	 public static int productoSeleccionado() throws NullPointerException {
 		 int indiceSeleccionado = tabla.getSelectedRow();

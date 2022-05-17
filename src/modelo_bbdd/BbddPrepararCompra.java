@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import modelo.ModeloPrepararCompra;
+import modelo.ModeloReceta;
 
 public class BbddPrepararCompra {
 	
@@ -22,7 +23,7 @@ public class BbddPrepararCompra {
 	
 	
 	
-	public static void listarPrepararCompra() {
+	public static ArrayList<ModeloPrepararCompra>  listarPrepararCompra() {
 		conexion = new Conexion();
 		connection = conexion.obtenerConexion();		
 		arrayPrepararCompra = new ArrayList<ModeloPrepararCompra>();		
@@ -40,6 +41,7 @@ public class BbddPrepararCompra {
 			System.out.println("Error al listar las recetas SentenciasSQL");
 			System.out.println(e.getMessage());
 		}
+		return arrayPrepararCompra;
 			
 	}
 

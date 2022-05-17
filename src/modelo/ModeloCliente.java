@@ -21,10 +21,7 @@ public class ModeloCliente implements Serializable{
 		this.telefono = telefono;
 	}
 
-	public ModeloCliente() {
-		super();
-	}
-
+	
 	
 
 	public int getId() {

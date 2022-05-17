@@ -12,6 +12,7 @@ public class ModeloComidaBebida implements Serializable  {
 	float precioVenta;
 	String estado;
 	String tipo;
+
 	/**
 	 * @param nombreReceta
 	 * @param precioVenta
@@ -60,5 +61,5 @@ public class ModeloComidaBebida implements Serializable  {
 		return "ModeloComidaBebida [nombreReceta=" + nombreReceta + ", precioVenta=" + precioVenta + ", estado="
 				+ estado + ", tipo=" + tipo + "]";
 	}
-		
+
 }

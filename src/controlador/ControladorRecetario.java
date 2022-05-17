@@ -4,10 +4,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
+import modelo.ModeloReceta;
 import modelo_bbdd.BbddReceta;
+import modelo_bbdd.BbddRecetario;
 import vista.Receta;
 import vista.Recetario;
 import vista.VentanaPrincipal;
@@ -17,6 +20,7 @@ public class ControladorRecetario implements ActionListener, MouseListener  {
 
 	
 	private Recetario panelRecetario;
+	private static boolean verDesdeRecetario;
 	
 	public ControladorRecetario(Recetario panelRecetario) {
 		this.panelRecetario = panelRecetario;
@@ -42,22 +46,37 @@ public class ControladorRecetario implements ActionListener, MouseListener  {
 			VentanaPrincipal.getPanelRecetario().setVisible(false);
 			VentanaPrincipal.getPanelReceta().setVisible(true);
 			
-			Receta.listarRecetas();
+			botonVerReceta ();
+			
+			Receta.listarReceta(BbddReceta.listarRecetas());
+
+			if (BbddReceta.getArrayReceta().isEmpty()) {
+				Receta.getTexto_elaboracion().setText("");
+				Receta.getPrecio_receta().setText("");
+			}
+
 		}
 		
 		if (e.getSource() == Recetario.getBtn_nueva_receta()) {
-			System.out.println("nuevaReceta");
-			//implementar desabilitar boton cuando el usuario tenga rol venta
 			VentanaPrincipal.getPanelRecetario().setVisible(false);
 			VentanaPrincipal.getPanelReceta().setVisible(true);
-			
+			Receta.listarReceta(new ArrayList<ModeloReceta>());
+			Receta.getNombre_receta().setText("");
+			Receta.getTexto_elaboracion().setText("");
+			Receta.getPrecio_receta().setText("");
 		}		
 		
 		if (e.getSource() == Recetario.getBtn_modificar_receta()) {
-			System.out.println("modificarReceta");
-			//implementar desabilitar boton cuando el usuario tenga rol venta 
 			VentanaPrincipal.getPanelRecetario().setVisible(false);
 			VentanaPrincipal.getPanelReceta().setVisible(true);
+
+			Receta.listarReceta(BbddReceta.listarRecetas());
+	
+			if (BbddReceta.getArrayReceta().isEmpty()) {
+				Receta.getTexto_elaboracion().setText("");
+				Receta.getPrecio_receta().setText("");
+			}
+
 		}
 		
 		
@@ -67,8 +86,13 @@ public class ControladorRecetario implements ActionListener, MouseListener  {
 	        		"¿Que estado de disponibilidad deseas cambiar el estado esta receta?",
 	                "Estado de la receta",
 	                JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcionEscogida, opcionEscogida[0]);
-// eliminar Syso	        
-	        System.out.println(x); // 0="Disponible", 1="NO disponible", 2="En elaboración", -1=cancelar en X
+	        
+	        BbddRecetario.setIdDisponibilidad(x+1);
+	        
+	        System.out.println(x+1); // 0="Disponible", 1="NO disponible", 2="En elaboración", -1=cancelar en X
+
+	        BbddRecetario.updateDisponibilidadReceta();
+	        Recetario.listarRecetas(BbddRecetario.getarrayRecetario());
 	        
 		}		
 
@@ -92,7 +116,11 @@ public class ControladorRecetario implements ActionListener, MouseListener  {
 
 	@Override
 	public void mousePressed(MouseEvent e) { // Al pulsar raton
-
+		
+		if (e.getSource() == Recetario.getTabla()) {			
+			Recetario.datoSeleccionadoTabla();
+		}
+		
 		
 	}
 
@@ -114,4 +142,21 @@ public class ControladorRecetario implements ActionListener, MouseListener  {
 		
 	}
 		
+	
+	public void botonVerReceta () {
+		Receta.getBtn_guardar().setEnabled(false);
+		Receta.getBtn_borrar_ingrediente().setEnabled(false);
+		Receta.getBtn_modificar_cantidad().setEnabled(false);
+		Receta.getBtn_nuevo_ingrediente().setEnabled(false);
+		verDesdeRecetario = true;
+	}
+
+	public static boolean isVerDesdeRecetario() {
+		return verDesdeRecetario;
+	}
+
+	public static void setVerDesdeRecetario(boolean verDesdeRecetario) {
+		ControladorRecetario.verDesdeRecetario = verDesdeRecetario;
+	}
+	
 }

@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import modelo.ModeloListasCompra;
+import modelo.ModeloReceta;
 
 public class BbddListasCompra {
 	private static Connection connection = null;
@@ -14,7 +15,7 @@ public class BbddListasCompra {
 	private static PreparedStatement sentenciaRecetas = null;
 	private static ArrayList<ModeloListasCompra> arrayListasCompra = null;
 	
-	public static void listarListasCompra() {
+	public static ArrayList<ModeloListasCompra> listarListasCompra() {
 		conexion = new Conexion();
 		connection = conexion.obtenerConexion();		
 		arrayListasCompra = new ArrayList<ModeloListasCompra>();		
@@ -30,7 +31,8 @@ public class BbddListasCompra {
 		} catch (SQLException e) {
 			System.out.println("Error al listar las recetas SentenciasSQL");
 			System.out.println(e.getMessage());
-		}			
+		}
+		return arrayListasCompra;			
 	}
 
 	public static ArrayList<ModeloListasCompra> getArrayListasCompra() {
