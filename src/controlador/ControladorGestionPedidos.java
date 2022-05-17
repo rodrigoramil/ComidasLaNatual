@@ -72,7 +72,7 @@ public class ControladorGestionPedidos implements ActionListener, MouseListener 
 			GestionPedidos.getListaCliente().clearSelection();			
 			mesa = true;
 			Pedido.getLbl_Num_Mesa().setText(BbddVentas.listarClientes().get(0).getNombre());	
-			
+			BbddPedido.setIdPedido(BbddVentas.listarClientes().get(0).getId());
 			Pedido.listarPedido(BbddPedido.listarPedido());
 
 		}
@@ -82,7 +82,8 @@ public class ControladorGestionPedidos implements ActionListener, MouseListener 
 			VentanaPrincipal.getPanelPedido().setVisible(true);			
 			GestionPedidos.getListaCliente().clearSelection();
 			mesa = true;
-			Pedido.getLbl_Num_Mesa().setText(BbddVentas.listarClientes().get(1).getNombre());			
+			Pedido.getLbl_Num_Mesa().setText(BbddVentas.listarClientes().get(1).getNombre());	
+			BbddPedido.setIdPedido(BbddVentas.listarClientes().get(1).getId());
 			Pedido.listarPedido(BbddPedido.listarPedido());
 		}
 		
@@ -92,6 +93,7 @@ public class ControladorGestionPedidos implements ActionListener, MouseListener 
 			GestionPedidos.getListaCliente().clearSelection();
 			mesa = true;
 			Pedido.getLbl_Num_Mesa().setText(BbddVentas.listarClientes().get(2).getNombre());
+			BbddPedido.setIdPedido(BbddVentas.listarClientes().get(2).getId());
 			Pedido.listarPedido(BbddPedido.listarPedido());
 		}
 		
@@ -101,6 +103,7 @@ public class ControladorGestionPedidos implements ActionListener, MouseListener 
 			GestionPedidos.getListaCliente().clearSelection();
 			mesa = true;
 			Pedido.getLbl_Num_Mesa().setText(BbddVentas.listarClientes().get(3).getNombre());
+			BbddPedido.setIdPedido(BbddVentas.listarClientes().get(3).getId());
 			Pedido.listarPedido(BbddPedido.listarPedido());
 		}
 		
@@ -110,6 +113,7 @@ public class ControladorGestionPedidos implements ActionListener, MouseListener 
 			GestionPedidos.getListaCliente().clearSelection();
 			mesa = true;
 			Pedido.getLbl_Num_Mesa().setText(BbddVentas.listarClientes().get(4).getNombre());
+			BbddPedido.setIdPedido(BbddVentas.listarClientes().get(4).getId());
 			Pedido.listarPedido(BbddPedido.listarPedido());
 		}
 		
@@ -119,6 +123,7 @@ public class ControladorGestionPedidos implements ActionListener, MouseListener 
 			GestionPedidos.getListaCliente().clearSelection();
 			mesa = true;		
 			Pedido.getLbl_Num_Mesa().setText(BbddVentas.listarClientes().get(5).getNombre());
+			BbddPedido.setIdPedido(BbddVentas.listarClientes().get(5).getId());
 			Pedido.listarPedido(BbddPedido.listarPedido());
 		}
 		
@@ -128,6 +133,7 @@ public class ControladorGestionPedidos implements ActionListener, MouseListener 
 			GestionPedidos.getListaCliente().clearSelection();
 			mesa = true;
 			Pedido.getLbl_Num_Mesa().setText(BbddVentas.listarClientes().get(6).getNombre());
+			BbddPedido.setIdPedido(BbddVentas.listarClientes().get(6).getId());
 			Pedido.listarPedido(BbddPedido.listarPedido());
 		}
 		
@@ -138,6 +144,7 @@ public class ControladorGestionPedidos implements ActionListener, MouseListener 
 			mesa = true;
 			
 			Pedido.getLbl_Num_Mesa().setText(BbddVentas.listarClientes().get(7).getNombre());
+			BbddPedido.setIdPedido(BbddVentas.listarClientes().get(7).getId());
 			Pedido.listarPedido(BbddPedido.listarPedido());
 		}
 		
@@ -150,7 +157,7 @@ public class ControladorGestionPedidos implements ActionListener, MouseListener 
 				clienteBBDD = BbddVentas.getArrayClientes().get(i).getId()-9;					
 				if (clienteSelecionado==clienteBBDD) {	
 					Pedido.getLbl_Num_Mesa().setText(BbddVentas.getArrayClientes().get(i).getNombre());
-					System.out.println(BbddVentas.listarClientes().get(i).getNombre());
+					BbddPedido.setIdPedido(BbddVentas.listarClientes().get(i).getId());
 				}
 
 			}

@@ -3,26 +3,25 @@ package vista;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import controlador.ControladorCalculoGastos;
-import modelo.ModeloPRUEBA;
-import modelo_bbdd.BbddVentas;
 import java.awt.Font;
 import java.util.ArrayList;
 import javax.swing.JButton;
+import modelo.ModeloPRUEBA;
 
 public class CalculoGastos extends JPanel {
 
-	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -5172361613940509176L;
 	
-	private static JPanel paneCalculoGastos;
+	private static JPanel panelCalculoGastos;
 	private static JTextField caja_Desde;
 	private static JTextField caja_Hasta;
 	private static JLabel lbl_Desde;
@@ -33,79 +32,81 @@ public class CalculoGastos extends JPanel {
 	private static JButton btn_Imprimir;
 	private static JTable tabla;
     private static JScrollPane scroll;
-
+    private static CalculoGastos calculoGastos;
 	private static ArrayList<ModeloPRUEBA> arrayGastos;
 
-
+	private static String dato;
     
 	public CalculoGastos() {
 		super();
 		inicializarComponentes();
 		establecerManejador();
-		listarGastos();
 	}
 
 	public void inicializarComponentes() {
 		
+		arrayGastos = new ArrayList<ModeloPRUEBA>();
 		
-		paneCalculoGastos = VentanaPrincipal.parametrosPanel(800,600);
+		panelCalculoGastos = VentanaPrincipal.parametrosPanel(800,600);
 		
 		btn_Volver = VentanaPrincipal.parametrosJButton("Volver", 710, 20, 70, 20);
-		paneCalculoGastos.add(btn_Volver);
+		panelCalculoGastos.add(btn_Volver);
 		
 		lbl_Desde = VentanaPrincipal.parametrosJlabel("Desde",40, 150, 100, 20);
 		lbl_Desde.setHorizontalAlignment(SwingConstants.RIGHT);
-		paneCalculoGastos.add(lbl_Desde); 	
+		panelCalculoGastos.add(lbl_Desde); 	
 		
 		caja_Desde = VentanaPrincipal.parametrosJTextField(150, 150, 120, 20);
-		paneCalculoGastos.add(caja_Desde);
+		panelCalculoGastos.add(caja_Desde);
 		
 		lbl_Hasta = VentanaPrincipal.parametrosJlabel("Hasta",40, 200, 100, 20);
 		lbl_Hasta.setHorizontalAlignment(SwingConstants.RIGHT);
-		paneCalculoGastos.add(lbl_Hasta); 	
+		panelCalculoGastos.add(lbl_Hasta); 	
 		
 		caja_Hasta = VentanaPrincipal.parametrosJTextField(150, 200, 120, 20);
-		paneCalculoGastos.add(caja_Hasta);
+		panelCalculoGastos.add(caja_Hasta);
 		
 		lbl_Gastos = VentanaPrincipal.parametrosJlabel("Total gastos",40, 360, 200, 40);
 		lbl_Gastos.setFont(new Font("Manche Condensed",Font.BOLD,(int)(20*VentanaPrincipal.getCordenadaY())));
-		paneCalculoGastos.add(lbl_Gastos);
+		panelCalculoGastos.add(lbl_Gastos);
 				
 		
 		lbl_Cuenta_Gastos = VentanaPrincipal.parametrosJlabel("0,00 \u20AC",40, 400, 200, 40);
 		lbl_Cuenta_Gastos.setFont(new Font("Manche Condensed",Font.BOLD,(int)(20*VentanaPrincipal.getCordenadaY())));
-		paneCalculoGastos.add(lbl_Cuenta_Gastos);
+		panelCalculoGastos.add(lbl_Cuenta_Gastos);
 
 		btn_Imprimir = VentanaPrincipal.parametrosJButton("Imprimir",340, 550, 120, 20);
-		paneCalculoGastos.add(btn_Imprimir);
+		panelCalculoGastos.add(btn_Imprimir);
 
 		tabla = new JTable();
-		scroll = VentanaPrincipal.parametrosJScrollPane(400, 100, 350, 400);    
-		paneCalculoGastos.add(scroll);
+		scroll = VentanaPrincipal.parametrosJScrollPane(400, 100, 350, 400);
+		scroll.setViewportView(tabla);
+		panelCalculoGastos.add(scroll);
 	    
-		paneCalculoGastos.setVisible(false);
+		panelCalculoGastos.setVisible(false);
 
 	}
 
-	public void establecerManejador() {			
-		ControladorCalculoGastos controlador = new ControladorCalculoGastos(this);
+	public static void establecerManejador() {			
+		ControladorCalculoGastos controlador = new ControladorCalculoGastos(calculoGastos);
 
 		lbl_Cuenta_Gastos.addMouseListener(controlador);
 		caja_Desde.addActionListener(controlador);
 		caja_Hasta.addActionListener(controlador);	
 		btn_Volver.addActionListener(controlador);
 		btn_Imprimir.addActionListener(controlador);
-			
+		tabla.addMouseListener(controlador);
 	}
 
 	
-	public static void listarGastos () {
-		arrayGastos = new ArrayList<ModeloPRUEBA>();
-        BbddVentas.listarClientes();					
-        arrayGastos = BbddVentas.getArrayRecetas();		
-		tabla = new JTable();
-		scroll.setViewportView(tabla);
-        DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
+	public static void listarGastos (ArrayList<ModeloPRUEBA> arrayTabla) {
+		arrayGastos = arrayTabla;
+        DefaultTableModel modelo =new DefaultTableModel(){
+		    @Override
+		    public boolean isCellEditable(int row, int column) {	
+		       return false;
+		    }
+		};
         modelo.addColumn("Nº");
         modelo.addColumn("FECHA");
         modelo.addColumn("GASTO");
@@ -120,9 +121,31 @@ public class CalculoGastos extends JPanel {
         tabla.setModel(modelo);
         modelo.fireTableDataChanged();
         tabla = VentanaPrincipal.formatoTabla(tabla);
+        
+        tabla.getColumnModel().getColumn(0).setPreferredWidth(100);
+        tabla.getColumnModel().getColumn(1).setPreferredWidth(350);
+        tabla.getColumnModel().getColumn(2).setPreferredWidth(250);
+
+        tabla.getColumnModel().getColumn(0).setResizable(false);
+        tabla.getColumnModel().getColumn(1).setResizable(false);
+        tabla.getColumnModel().getColumn(2).setResizable(false);
+
 	}
 	
 
+	/**
+	 * Da el dato de la celda selecionada en la columna 0 
+	 * @return
+	 */
+	 public static String datoSeleccionadoTabla() {	
+		try {
+			dato=String.valueOf(tabla.getModel().getValueAt(tabla.getSelectedRow(),0));
+		} catch (ArrayIndexOutOfBoundsException e) {
+			JOptionPane.showMessageDialog(panelCalculoGastos, "Debes de selecionar algo de la lista antes");
+		}
+		return dato;		
+	}
+	 
 	 public static int productoSeleccionado() throws NullPointerException {
 		 int indiceSeleccionado = tabla.getSelectedRow();
 		 return indiceSeleccionado;	
@@ -153,7 +176,7 @@ public class CalculoGastos extends JPanel {
 	}
 	
 	public static JPanel getPaneCalculoGastos() {
-		return paneCalculoGastos;
+		return panelCalculoGastos;
 	}
 	
 	public static JButton getBtn_Volver() {
@@ -165,7 +188,7 @@ public class CalculoGastos extends JPanel {
 	}
 	
 	public static void setPaneCalculoGastos(JPanel paneCalculoGastos) {
-		CalculoGastos.paneCalculoGastos = paneCalculoGastos;
+		CalculoGastos.panelCalculoGastos = paneCalculoGastos;
 	}	
 	
 	

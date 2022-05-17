@@ -28,7 +28,6 @@ public class CreacionBBDD {
 		  con = DriverManager.getConnection(sURL, usuario, pass);
 		  stmt = con.createStatement();
 		  crearBBDD();
-
 		  crearTablaUsuarios();
 		  crearTablaGanancias();
 		  crearTablaCliente();
@@ -36,16 +35,17 @@ public class CreacionBBDD {
 		  crearTablaUnidadMedidaProducto();
 		  crearTablaTipoProducto();
 		  crearTablaDisponibilidadReceta();
-		  crearTablaPedidos();
 		  crearTablaRecetas();
+		  crearTablaPedidoCliente();
+		  crearTablaPedidos();
 		  crearTablaAlmacen();
 		  crearTablaTrabajoUsuariosGastos();
-		  crearTablaTrabajoUsuariosGanancias();
-		  crearTablaPedidoCliente();
+		  crearTablaTrabajoUsuariosGanancias();		  
 		  crearTablaCompraProductos();
 		  crearTablaIngredientes();
-
 		  crearDatosBase();
+		  
+		 
 
 		  System.out.println("Se ha generado la base de datos");
 		  
@@ -91,7 +91,7 @@ public class CreacionBBDD {
 	}
 	
 	public void crearTablaUsuarios() throws SQLException {
-		stmt.execute("CREATE TABLE IF NOT EXISTS Usuarios (IdUsuario INT NOT NULL AUTO_INCREMENT,NombreUsuario VARCHAR(45) NOT NULL, Contrasena VARCHAR(45) NOT NULL, Rol ENUM('Administrador', 'Cocina', 'Venta') NOT NULL, PRIMARY KEY(NombreUsuario))ENGINE=INNODB;");
+		stmt.execute("CREATE TABLE IF NOT EXISTS Usuarios (IdUsuario INT NOT NULL AUTO_INCREMENT,NombreUsuario VARCHAR(45) NOT NULL, Contrasena VARCHAR(45) NOT NULL, Rol ENUM('Administrador', 'Cocina', 'Venta') NOT NULL, PRIMARY KEY(IdUsuario))ENGINE=INNODB;");
 	}
 	
 	public void crearTablaGanancias() throws SQLException {
@@ -107,11 +107,11 @@ public class CreacionBBDD {
 	}
 	
 	public void crearTablaTrabajoUsuariosGastos() throws SQLException {
-		stmt.execute("CREATE TABLE IF NOT EXISTS TrabajoUsuariosGastos(NombreUsuario VARCHAR(45) NOT NULL,IdCompraProductos int NOT NULL,constraint fkNombreUsuarioGastos foreign key(NombreUsuario) references Usuarios(NombreUsuario), constraint fkIdCompraProductos foreign key(IdCompraProductos) references Gasto(IdCompraProductos) )ENGINE=INNODB;");
+		stmt.execute("CREATE TABLE IF NOT EXISTS TrabajoUsuariosGastos(IdUsuario INT NOT NULL,IdCompraProductos int NOT NULL,constraint fkIdUsuarioGastos foreign key(IdUsuario) references Usuarios(IdUsuario), constraint fkIdCompraProductos foreign key(IdCompraProductos) references Gasto(IdCompraProductos) )ENGINE=INNODB;");
 	}
 	
 	public void crearTablaTrabajoUsuariosGanancias() throws SQLException {
-		stmt.execute("CREATE TABLE IF NOT EXISTS TrabajoUsuariosGanancias(NombreUsuario VARCHAR(45) NOT NULL, IdPedido INT NOT NULL , constraint fkNombreUsuarioGanancia foreign key(NombreUsuario) references Usuarios(NombreUsuario), constraint fkIdPedidoGanancias foreign key(IdPedido) references Ganancias(IdPedido) )ENGINE=INNODB;");
+		stmt.execute("CREATE TABLE IF NOT EXISTS TrabajoUsuariosGanancias(IdUsuario INT NOT NULL, IdPedido INT NOT NULL , constraint fkIdUsuarioGanancia foreign key(IdUsuario) references Usuarios(IdUsuario), constraint fkIdPedidoGanancias foreign key(IdPedido) references Ganancias(IdPedido) )ENGINE=INNODB;");
 	}
 	
 	public void crearTablaPedidoCliente() throws SQLException {
@@ -119,7 +119,8 @@ public class CreacionBBDD {
 	}
 	
 	public void crearTablaPedidos() throws SQLException {
-		stmt.execute("CREATE TABLE IF NOT EXISTS Pedidos(IdReceta INT NOT NULL ,IdPedido INT NOT NULL,CantidadRecetaVenta int not null,constraint fkPedidos foreign key(IdPedido) references UnidadMedidaProducto(IdUnidadMedida))ENGINE=INNODB;");
+		stmt.execute("CREATE TABLE IF NOT EXISTS Pedidos(IdReceta INT NOT NULL ,IdPedido INT NOT NULL,CantidadRecetaVenta int not null,constraint fkPedidos foreign key(IdPedido) references Ganancias(IdPedido),constraint fkIdrecetas foreign key (IdReceta) references Recetas(IdReceta))ENGINE=INNODB;");
+	//	stmt.execute("CREATE TABLE IF NOT EXISTS Pedidos(IdReceta INT NOT NULL ,IdPedido INT NOT NULL,CantidadRecetaVenta int not null,constraint fkPedidos foreign key(IdPedido) references UnidadMedidaProducto(IdUnidadMedida))ENGINE=INNODB;");
 	}
 	
 	public void crearTablaCompraProductos() throws SQLException {
@@ -127,7 +128,7 @@ public class CreacionBBDD {
 	}
 	
 	public void crearTablaIngredientes() throws SQLException {
-		stmt.execute("CREATE TABLE IF NOT EXISTS Ingredientes( IdReceta INT NOT NULL ,IdProducto INT NOT NULL , Cantidad real not null, constraint fkIdRecetas foreign key(IdReceta) references Recetas(IdReceta), constraint fkIdIdProductoAlmacenes foreign key(IdProducto) references Almacen(IdProducto) )ENGINE=INNODB;");
+		stmt.execute("CREATE TABLE IF NOT EXISTS Ingredientes( IdReceta INT NOT NULL ,IdProducto INT NOT NULL , Cantidad float not null, constraint fkIdReceta foreign key(IdReceta) references Recetas(IdReceta), constraint fkIdIdProductoAlmacenes foreign key(IdProducto) references Almacen(IdProducto) )ENGINE=INNODB;");
 	}
 	
 	
@@ -162,19 +163,19 @@ public class CreacionBBDD {
 			stmt.execute("INSERT IGNORE INTO Usuarios(NombreUsuario, Contrasena, Rol) values('Admin','','Administrador')");
 			
 			// Ingredientes y receta e prueba
-			stmt.execute("INSERT IGNORE INTO  Almacen (NombreProducto, Cantidad, IdUnidadMedida, CantidadMinima, CantidadMaxima, IdTipo) VALUES ('Huevos', 24, 1, 6, 32, 1)");
-			stmt.execute("INSERT IGNORE INTO  Almacen (NombreProducto, Cantidad, IdUnidadMedida, CantidadMinima, CantidadMaxima, IdTipo) VALUES ('Cebollas', 8, 1, 5, 15, 1)");
-			stmt.execute("INSERT IGNORE INTO  Almacen (NombreProducto, Cantidad, IdUnidadMedida, CantidadMinima, CantidadMaxima, IdTipo) VALUES ('Patatas', 30, 1, 20, 50, 1)");
-			stmt.execute("INSERT IGNORE INTO  Almacen (NombreProducto, Cantidad, IdUnidadMedida, CantidadMinima, CantidadMaxima, IdTipo) VALUES ('Aceite de Girasol', 6, 3, 5, 10, 1)");
-			stmt.execute("INSERT IGNORE INTO  Almacen (NombreProducto, Cantidad, IdUnidadMedida, CantidadMinima, CantidadMaxima, IdTipo) VALUES ('Sal', 1, 2, 0.500, 2, 1)");
-			
-			stmt.execute("INSERT IGNORE INTO  recetas(IdTipo, IdDisponibilidad, NombreReceta, PrecioVenta, Elaboracion) values(2, 1, 'Tortilla de patatas', 4, 'Pelamos y lavamos las patatas, las cortamos en rodajas finas al igual que la cebolla. Ponemos ambas cosas en una sartén y cubrimos de aceite de oliva virgen extra, dejamos que se hagan a fuego medio-suave hasta que comiencen a dorarse. Sabréis que las patatas están hechas cuando comiencen a romperse, con la paleta. Para que la tortilla esté jugosa es importante que las patatas se hagan bien y se confiten, porque no hay nada peor que una tortilla con las patatas medio crudas. Por lo tanto, paciencia con este paso. Las sacamos de la sartén y escurrimos bien. Ponemos en un cuenco grande, aparte batimos los huevos y los añadimos a las patatas y a la cebolla, añadimos un poco de sal y mezclamos. Dejamos un par de minutos que se mezclen bien. Aquí hay quien prefiere dejar las patatas enteras y quien prefiere machacarlas un poco con la paleta para que se mezclen bien con el huevo Ponemos en la sartén un par de cucharadas de aceite de oliva virgen extra y vertemos todo. Al principio rompemos un poco, como si fuéramos a hacer un revuelto, luego vamos dándole forma  por los bordes. Cuando veamos que ya está cuajada por abajo ponemos un plato o una tapa encima de la sartén y le damos la vuelta rápidamente. Ponemos de nuevo la sartén en el fuego y deslizamos la tortilla desde el plato a la sartén. Dejamos unos minutos más (2 o 3 si te gusta más cuajada, menos si te gusta jugosa) para que se termine de hacer y ya tenemos lista nuestra tortilla de patatas.')");
-			
-			stmt.execute("INSERT IGNORE INTO  ingredientes (IdReceta,IdProducto, Cantidad) values (1, 1, 6)");
-			stmt.execute("INSERT IGNORE INTO  ingredientes (IdReceta,IdProducto, Cantidad) values (1, 2, 1)");
-			stmt.execute("INSERT IGNORE INTO  ingredientes (IdReceta,IdProducto, Cantidad) values (1, 3, 5)");
-			stmt.execute("INSERT IGNORE INTO  ingredientes (IdReceta,IdProducto, Cantidad) values (1, 4, 0.500)");
-			stmt.execute("INSERT IGNORE INTO  ingredientes (IdReceta,IdProducto, Cantidad) values (1, 5, 0.005)");
+//			stmt.execute("INSERT IGNORE INTO  Almacen (NombreProducto, Cantidad, IdUnidadMedida, CantidadMinima, CantidadMaxima, IdTipo) VALUES ('Huevos', 24, 1, 6, 32, 1)");
+//			stmt.execute("INSERT IGNORE INTO  Almacen (NombreProducto, Cantidad, IdUnidadMedida, CantidadMinima, CantidadMaxima, IdTipo) VALUES ('Cebollas', 8, 1, 5, 15, 1)");
+//			stmt.execute("INSERT IGNORE INTO  Almacen (NombreProducto, Cantidad, IdUnidadMedida, CantidadMinima, CantidadMaxima, IdTipo) VALUES ('Patatas', 30, 1, 20, 50, 1)");
+//			stmt.execute("INSERT IGNORE INTO  Almacen (NombreProducto, Cantidad, IdUnidadMedida, CantidadMinima, CantidadMaxima, IdTipo) VALUES ('Aceite de Girasol', 6, 3, 5, 10, 1)");
+//			stmt.execute("INSERT IGNORE INTO  Almacen (NombreProducto, Cantidad, IdUnidadMedida, CantidadMinima, CantidadMaxima, IdTipo) VALUES ('Sal', 1, 2, 0.500, 2, 1)");
+//			
+//			stmt.execute("INSERT IGNORE INTO  recetas(IdTipo, IdDisponibilidad, NombreReceta, PrecioVenta, Elaboracion) values(2, 1, 'Tortilla de patatas', 4, 'Pelamos y lavamos las patatas, las cortamos en rodajas finas al igual que la cebolla. Ponemos ambas cosas en una sartén y cubrimos de aceite de oliva virgen extra, dejamos que se hagan a fuego medio-suave hasta que comiencen a dorarse. Sabréis que las patatas están hechas cuando comiencen a romperse, con la paleta. Para que la tortilla esté jugosa es importante que las patatas se hagan bien y se confiten, porque no hay nada peor que una tortilla con las patatas medio crudas. Por lo tanto, paciencia con este paso. Las sacamos de la sartén y escurrimos bien. Ponemos en un cuenco grande, aparte batimos los huevos y los añadimos a las patatas y a la cebolla, añadimos un poco de sal y mezclamos. Dejamos un par de minutos que se mezclen bien. Aquí hay quien prefiere dejar las patatas enteras y quien prefiere machacarlas un poco con la paleta para que se mezclen bien con el huevo Ponemos en la sartén un par de cucharadas de aceite de oliva virgen extra y vertemos todo. Al principio rompemos un poco, como si fuéramos a hacer un revuelto, luego vamos dándole forma  por los bordes. Cuando veamos que ya está cuajada por abajo ponemos un plato o una tapa encima de la sartén y le damos la vuelta rápidamente. Ponemos de nuevo la sartén en el fuego y deslizamos la tortilla desde el plato a la sartén. Dejamos unos minutos más (2 o 3 si te gusta más cuajada, menos si te gusta jugosa) para que se termine de hacer y ya tenemos lista nuestra tortilla de patatas.')");
+//			
+//			stmt.execute("INSERT IGNORE INTO  ingredientes (IdReceta,IdProducto, Cantidad) values (1, 1, 6)");
+//			stmt.execute("INSERT IGNORE INTO  ingredientes (IdReceta,IdProducto, Cantidad) values (1, 2, 1)");
+//			stmt.execute("INSERT IGNORE INTO  ingredientes (IdReceta,IdProducto, Cantidad) values (1, 3, 5)");
+//			stmt.execute("INSERT IGNORE INTO  ingredientes (IdReceta,IdProducto, Cantidad) values (1, 4, 0.500)");
+//			stmt.execute("INSERT IGNORE INTO  ingredientes (IdReceta,IdProducto, Cantidad) values (1, 5, 0.005)");
 			
 		}
 	}		

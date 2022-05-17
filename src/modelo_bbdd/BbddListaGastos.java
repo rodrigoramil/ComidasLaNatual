@@ -15,7 +15,7 @@ public class BbddListaGastos {
 	private static PreparedStatement sentenciaRecetas = null;
 	private static ArrayList<ModeloListaGastos> arrayListaGastos = null;
 	
-	public static void listarListaGastos() {
+	public static ArrayList<ModeloListaGastos> listarListaGastos() {
 		conexion = new Conexion();
 		connection = conexion.obtenerConexion();		
 		arrayListaGastos = new ArrayList<ModeloListaGastos>();		
@@ -31,7 +31,8 @@ public class BbddListaGastos {
 		} catch (SQLException e) {
 			System.out.println("Error al listar las recetas SentenciasSQL");
 			System.out.println(e.getMessage());
-		}			
+		}
+		return arrayListaGastos;			
 	}
 
 	public static ArrayList<ModeloListaGastos> getArrayListaGastos() {

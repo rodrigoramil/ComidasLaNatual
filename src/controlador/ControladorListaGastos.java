@@ -28,6 +28,7 @@ private ListaGastos panelListaGastos;
 		if (e.getSource() == ListaGastos.getBtn_Ver()) {
 			VentanaPrincipal.getPanelListaGastos().setVisible(false);
 			VentanaPrincipal.getPanelDetalleGasto().setVisible(true);
+			
 		}
 		
 		if (e.getSource() == ListaGastos.getBtn_Calcular_Gastos()) {
