@@ -4,9 +4,6 @@ import java.io.Serializable;
 
 public class ModeloPedido implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -2144175894579284069L;
 	
 	int idPedido;
@@ -25,8 +22,7 @@ public class ModeloPedido implements Serializable {
 	 * @param cantidadRecetaVenta
 	 * @param precioVenta
 	 */
-	public ModeloPedido(int idPedido, int idCliente, String nombreCliente, int idReceta, String nombreReceta,
-			int cantidadRecetaVenta, float precioVenta) {
+	public ModeloPedido(int idPedido, int idCliente, String nombreCliente, int idReceta, String nombreReceta, int cantidadRecetaVenta, float precioVenta) {
 		super();
 		this.idPedido = idPedido;
 		this.idCliente = idCliente;
@@ -36,6 +32,7 @@ public class ModeloPedido implements Serializable {
 		this.cantidadRecetaVenta = cantidadRecetaVenta;
 		this.precioVenta = precioVenta;
 	}
+
 	/**
 	 * 
 	 */

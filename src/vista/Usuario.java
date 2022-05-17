@@ -19,9 +19,6 @@ import javax.swing.JPasswordField;
 
 public class Usuario extends JPanel {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -386891114278475647L;
 	
 	private static JPanel panelUsuario;
@@ -47,7 +44,7 @@ public class Usuario extends JPanel {
 	}
 
 	public void inicializarComponentes() {
-
+		grupoRol=new ButtonGroup();
 		panelUsuario = VentanaPrincipal.parametrosPanel(400, 400);
 		
 		btn_volver = VentanaPrincipal.parametrosJButton("Volver", 310, 20, 70, 20);
@@ -111,6 +108,7 @@ public class Usuario extends JPanel {
 								Math.round(100*VentanaPrincipal.getCordenadaX()),  		//tamaño HORIZONTAL
 								Math.round(20*VentanaPrincipal.getCordenadaY())); 		//tamaño VERTICAL
 		panelUsuario.add(rdbtn_admin);
+		grupoRol.add(rdbtn_admin);
 		
 		rdbtn_Cocina = new JRadioButton("Cocinas");
 		rdbtn_Cocina.setFont(new Font("Manche Condensed",Font.BOLD,(int)(12*VentanaPrincipal.getCordenadaY())));
@@ -123,6 +121,7 @@ public class Usuario extends JPanel {
 								Math.round(100*VentanaPrincipal.getCordenadaX()),  		//tamaño HORIZONTAL
 								Math.round(20*VentanaPrincipal.getCordenadaY())); 		//tamaño VERTICAL
 		panelUsuario.add(rdbtn_Cocina);
+		grupoRol.add(rdbtn_Cocina);
 		
 		rdbtn_ventas = new JRadioButton("Ventas");
 		rdbtn_ventas.setFont(new Font("Manche Condensed",Font.BOLD,(int)(12*VentanaPrincipal.getCordenadaY())));
@@ -135,6 +134,7 @@ public class Usuario extends JPanel {
 								Math.round(100*VentanaPrincipal.getCordenadaX()),  		//tamaño HORIZONTAL
 								Math.round(20*VentanaPrincipal.getCordenadaY())); 		//tamaño VERTICAL
 		panelUsuario.add(rdbtn_ventas);
+		grupoRol.add(rdbtn_ventas);
 		
 		
 		//ACEPTAR
