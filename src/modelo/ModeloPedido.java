@@ -4,9 +4,6 @@ import java.io.Serializable;
 
 public class ModeloPedido implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -2144175894579284069L;
 	
 	int idPedido;
@@ -36,6 +33,7 @@ public class ModeloPedido implements Serializable {
 		this.cantidadRecetaVenta = cantidadRecetaVenta;
 		this.precioVenta = precioVenta;
 	}
+
 	/**
 	 * 
 	 */

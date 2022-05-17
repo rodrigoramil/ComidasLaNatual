@@ -9,8 +9,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import controlador.ControladorPedido;
 import modelo.ModeloPedido;
-import modelo.ModeloReceta;
-import modelo_bbdd.BbddVentas;
 import java.awt.Color;
 import java.awt.Font;
 import java.util.ArrayList;
@@ -35,6 +33,7 @@ public class Pedido extends JPanel {
 	private static Pedido pedido;
 	private static ArrayList<ModeloPedido> arrayPedidos;
 	private static String dato;
+
     
     
     public Pedido() {
@@ -80,6 +79,7 @@ public class Pedido extends JPanel {
 		scroll = VentanaPrincipal.parametrosJScrollPane(50, 100, 700, 400);
 		scroll.setViewportView(tabla);
 	    panelPedido.add(scroll);	    
+
 	    panelPedido.setVisible(false);
   
 	}
@@ -107,6 +107,7 @@ public class Pedido extends JPanel {
 		       return false;
 		    }
 		}; 
+
         modelo.addColumn("COMIDA/BEBIDA");
         modelo.addColumn("CANTIDAD");
         modelo.addColumn("PRECIO");
@@ -116,6 +117,7 @@ public class Pedido extends JPanel {
         	filaDato[0] = arrayPedidos.get(i).getNombreReceta();
         	filaDato[1] = arrayPedidos.get(i).getCantidadRecetaVenta();
         	filaDato[2] = arrayPedidos.get(i).getPrecioVenta(); 
+
         	modelo.addRow(filaDato);
     	}
         tabla.setModel(modelo);
@@ -128,6 +130,7 @@ public class Pedido extends JPanel {
         tabla.getColumnModel().getColumn(0).setResizable(false);
         tabla.getColumnModel().getColumn(1).setResizable(false);
         tabla.getColumnModel().getColumn(2).setResizable(false);
+
     }
 	
 	/**
