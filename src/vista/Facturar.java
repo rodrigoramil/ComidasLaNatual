@@ -25,7 +25,7 @@ public class Facturar extends JPanel {
 	private static JPanel panelFacturar;
 	private static JButton btn_volver;
 	private static JButton btn_pagado;
-	private static JButton btn_pago_tarjeta;
+	private static JButton btn_imprimir_factura;
 	private static JTextField caja_abonado;
 	private static JLabel lbl_mesa;
 	private static JLabel lbl_IVA;
@@ -42,9 +42,11 @@ public class Facturar extends JPanel {
 	private static String dato;
 
 	private static float precioTotal = 0;
-	private static double precioTotalIVA = precioTotal+precioTotal*0.21;
+	private static double precioTotalIVA;
 	private static float abonado;
-	private static double aDevolver = abonado - precioTotalIVA;
+	private static double aDevolver;
+
+	private static double totalIva;
     
 	public Facturar() {
 		super();
@@ -65,8 +67,8 @@ public class Facturar extends JPanel {
 		btn_volver = VentanaPrincipal.parametrosJButton("Volver", 710, 20, 70, 20);
 		panelFacturar.add(btn_volver);
 		
-		btn_pago_tarjeta = VentanaPrincipal.parametrosJButton("Pago con tarjeta",50, 460, 120, 20);
-		panelFacturar.add(btn_pago_tarjeta);
+		btn_imprimir_factura = VentanaPrincipal.parametrosJButton("Imprimir factura",50, 460, 120, 20);
+		panelFacturar.add(btn_imprimir_factura);
 		
 		btn_pagado = VentanaPrincipal.parametrosJButton("Pagado",50, 500, 120, 40);
 		panelFacturar.add(btn_pagado);
@@ -87,12 +89,12 @@ public class Facturar extends JPanel {
 		lbl_devolver.setHorizontalAlignment(SwingConstants.RIGHT);
 		panelFacturar.add(lbl_devolver);
 		
-		lbl_valor_total = VentanaPrincipal.parametrosJlabel(String.format("%.2f", precioTotal)+" €",630, 460, 120, 20);
+		lbl_valor_total = VentanaPrincipal.parametrosJlabel("0.00 €",630, 460, 120, 20);
 		lbl_valor_total.setHorizontalAlignment(SwingConstants.CENTER);
 		panelFacturar.add(lbl_valor_total);
 		
 		
-		lbl_valor_IVA = VentanaPrincipal.parametrosJlabel(String.format("%.2f", precioTotalIVA)+" €",630, 490, 120, 20);
+		lbl_valor_IVA = VentanaPrincipal.parametrosJlabel("0.00 €",630, 490, 120, 20);
 		lbl_valor_IVA.setHorizontalAlignment(SwingConstants.CENTER);
 		panelFacturar.add(lbl_valor_IVA);
 
@@ -102,7 +104,7 @@ public class Facturar extends JPanel {
 		caja_abonado.setHorizontalAlignment(SwingConstants.CENTER);
 		panelFacturar.add(caja_abonado);
 		
-		lbl_valor_devolver = VentanaPrincipal.parametrosJlabel(String.format("%.2f", aDevolver)+" €",630, 550, 120, 20);
+		lbl_valor_devolver = VentanaPrincipal.parametrosJlabel("0.00 €",630, 550, 120, 20);
 		lbl_valor_devolver.setHorizontalAlignment(SwingConstants.CENTER);
 		panelFacturar.add(lbl_valor_devolver);
 		
@@ -121,7 +123,7 @@ public class Facturar extends JPanel {
 		lbl_valor_IVA.addMouseListener(controlador);		
 		btn_volver.addActionListener(controlador);
 		btn_pagado.addActionListener(controlador);
-		btn_pago_tarjeta.addActionListener(controlador);
+		btn_imprimir_factura.addActionListener(controlador);
 		tabla.addMouseListener(controlador);
 		caja_abonado.addKeyListener(controlador);
 	}
@@ -145,14 +147,11 @@ public class Facturar extends JPanel {
         	filaDato[0] = arrayFacturas.get(i).getNombreReceta();
         	filaDato[1] = arrayFacturas.get(i).getPrecioVenta();
         	filaDato[2] = arrayFacturas.get(i).getCantidadRecetaVenta();
-        	filaDato[3] = arrayFacturas.get(i).getPrecioVenta() 
-        			* arrayFacturas.get(i).getCantidadRecetaVenta();
-        	modelo.addRow(filaDato);
-        	
-        	precioTotal = precioTotal 
-        			+ arrayFacturas.get(i).getPrecioVenta() 
-        			* arrayFacturas.get(i).getCantidadRecetaVenta();
+        	precioTotal =arrayFacturas.get(i).getPrecioVenta() * arrayFacturas.get(i).getCantidadRecetaVenta();
+        	filaDato[3] = precioTotal;
+        	modelo.addRow(filaDato);      	
     	}
+        
         tabla.setModel(modelo);
         modelo.fireTableDataChanged();
         tabla = VentanaPrincipal.formatoTabla(tabla);
@@ -165,7 +164,29 @@ public class Facturar extends JPanel {
         tabla.getColumnModel().getColumn(1).setResizable(false);
         tabla.getColumnModel().getColumn(2).setResizable(false);
         tabla.getColumnModel().getColumn(3).setResizable(false);
+        
+        
+        
     }
+	
+	
+	public static double calcularFactura() {
+		
+		double total = 0.0;
+		for (int i = 0; i < Facturar.getArrayFacturas().size(); i++) {
+			total = total + Facturar.getArrayFacturas().get(i).getPrecioVenta()*Facturar.getArrayFacturas().get(i).getCantidadRecetaVenta();
+		}
+		
+		totalIva = total+total*0.21;
+		abonado = 0;
+		aDevolver = abonado - totalIva;
+		Facturar.getLbl_valor_total().setText(String.format("%.2f", total)+" €");
+		Facturar.getLbl_valor_IVA().setText(String.format("%.2f", totalIva)+" €");	
+		Facturar.getLbl_valor_devolver().setText(String.format("%.2f", aDevolver)+" €");
+		return totalIva;
+	}
+	
+	
 	
 	/**
 	 * Da el dato de la celda selecionada en la columna 0 
@@ -229,12 +250,6 @@ public class Facturar extends JPanel {
 		return btn_pagado;
 	}
 
-
-	public static JButton getBtn_pago_tarjeta() {
-		return btn_pago_tarjeta;
-	}
-
-
 	public static JTextField getCaja_abonado() {
 		return caja_abonado;
 	}
@@ -245,6 +260,14 @@ public class Facturar extends JPanel {
 
 	public static void setPrecioTotal(float precioTotal) {
 		Facturar.precioTotal = precioTotal;
+	}
+
+	public static double getPrecioTotalIVA() {
+		return precioTotalIVA;
+	}
+
+	public static void setPrecioTotalIVA(double precioTotalIVA) {
+		Facturar.precioTotalIVA = precioTotalIVA;
 	}
 
 	public static float getAbonado() {
@@ -261,6 +284,14 @@ public class Facturar extends JPanel {
 
 	public static void setaDevolver(double aDevolver) {
 		Facturar.aDevolver = aDevolver;
+	}
+
+	public static JButton getBtn_imprimir_factura() {
+		return btn_imprimir_factura;
+	}
+
+	public static ArrayList<ModeloPedido> getArrayFacturas() {
+		return arrayFacturas;
 	}	
 	
 	

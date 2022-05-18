@@ -49,11 +49,8 @@ public class ControladorProductosAlmacen  implements ActionListener, MouseListen
 				}
 				
 				try {
-					
-					
-					
-					Receta.listarReceta(BbddReceta.updateAddProductoReceta());
-								
+					BbddReceta.addProductoReceta();
+					Receta.listarReceta(BbddReceta.listarRecetas());			
 				} catch (SQLException e1) {
 					JOptionPane.showMessageDialog(panelProductosAlmacen, "Error al realizar la accion con la Base de Datos");
 				}
@@ -61,96 +58,7 @@ public class ControladorProductosAlmacen  implements ActionListener, MouseListen
 			}	
 			
 			
-			
-			
-			
-			
-			
-			
-			
-			/*	
-			
-			BbddReceta.listarIngredientes();
-			System.out.println(BbddReceta.listarIngredientes());
-//			Receta.listarReceta(BbddReceta.listarRecetas());;
-			
-			for (int i = 0; i < ProductosAlmacen.getArrayProductos().size(); i++) {
-
-				if (ProductosAlmacen.productoSeleccionado()==i) {
-					
-System.out.println(ProductosAlmacen.getArrayProductos().get(i).getProductos());
-System.out.println("productoSeleccionado -> "+ProductosAlmacen.productoSeleccionado());
-					String nombreProducto = ProductosAlmacen.getArrayProductos().get(i).getProductos();
-				
-					for (int j = 0; j < .size(); j++) {
-						
-					}
-					
-					
-					int idReceta;
-					
-					if (ProductosAlmacen.getArrayProductos().get(i).getProductos().equals()) {
-						
-					}
-					
-					
-					
-					
-					
-					idReceta = BbddReceta.getArrayIngredientes().get(i).getIdReceta();
-					System.out.println("idReceta -> "+idReceta);
-					int idProducto;
-					idProducto=BbddReceta.getArrayReceta().get(i).getIdProducto();
-					System.out.println("idProducto -> "+idProducto);
-					
-
-
-				
-
-				}				
-			}
-			
-			
-			
-			
-			
-			System.out.println(BbddReceta.getArrayIngredientes());
-			
-			
-			for (int j = 0; j < BbddReceta.getArrayIngredientes().size(); j++) {
-				System.out.println("J - > "+j);
-				
-				ModeloIngredientes modeloIngredientes = new ModeloIngredientes(
-						idReceta,
-						idProducto,
-						cantidad
-						);
-				
-//				BbddReceta.listarIngredientes();
-				BbddReceta.getArrayIngredientes().add(modeloIngredientes);
-				System.out.println(BbddReceta.getArrayIngredientes());
-			}
-			
-			
 	
-	*/					
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			/* En boton Guardar de Receta hacer sentencia SQL Update 
-			 * enviado el array guardado en BbddReceta -> ArrayIngredientesReceta */
-			
-			
-			
-			
 		}
 		
 		if (e.getSource() == ProductosAlmacen.getBtn_todos_productos()) {

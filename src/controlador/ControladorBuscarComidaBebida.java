@@ -4,28 +4,38 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
+import modelo.ModeloPedido;
+import modelo_bbdd.BbddAlmacen;
+import modelo_bbdd.BbddCalculoGanancias;
 import modelo_bbdd.BbddComidaBebida;
+import modelo_bbdd.BbddPedido;
 import modelo_bbdd.BbddReceta;
 import modelo_bbdd.BbddRecetario;
+import modelo_bbdd.BbddVentas;
 import vista.BuscarComidaBebida;
+import vista.GestionPedidos;
+import vista.Pedido;
 import vista.Receta;
 import vista.VentanaPrincipal;
 
 public class ControladorBuscarComidaBebida implements ActionListener, MouseListener  {
 
 	private BuscarComidaBebida panelBuscarComidaBebida;
-	private int cantidad;
 	private ArrayList<String> arrayBebida;
 	private static int indiceSeleccionado;
 	private static boolean buscar = false;
 	private static boolean comida = false;
 	private static boolean bebida = false;
 	private static boolean desdeVentas;
-
+	private int cantidad;
+	private int idCliente;
+	private int idReceta;
+	
 	public ControladorBuscarComidaBebida(BuscarComidaBebida panelBuscarComidaBebida) {
 		this.panelBuscarComidaBebida = panelBuscarComidaBebida;
 	}	
@@ -55,7 +65,31 @@ public class ControladorBuscarComidaBebida implements ActionListener, MouseListe
 					cantidad=1;
 				}
 			}
+			
+			String ComidaBebidaSeleccionada = BuscarComidaBebida.datoSeleccionadoTabla();
+			
+			for (int i = 0; i < BbddComidaBebida.getArrayComidaBebida().size(); i++) {
+				if (BbddComidaBebida.getArrayComidaBebida().get(i).getNombreReceta().equals(ComidaBebidaSeleccionada)) {
+					idReceta = BbddComidaBebida.getArrayComidaBebida().get(i).getIdReceta();
+					
+				}
+			}
+					
+			for (int i = 0; i < BbddVentas.listarClientes().size(); i++) {
+				if (BbddVentas.getArrayClientes().get(i).getNombre().equals(Pedido.getLbl_Num_Mesa().getText())) {
+					idCliente = BbddVentas.getArrayClientes().get(i).getId();
+					
+				}				
+			}
 
+			try {
+
+				BbddPedido.addComidaBebida(idCliente, idReceta, cantidad);
+				Pedido.listarPedido(BbddPedido.listarPedido());
+			} catch (SQLException e1) {
+				JOptionPane.showMessageDialog(panelBuscarComidaBebida, "Error al añadir el producto selecionado");
+			}
+			
 			
 			VentanaPrincipal.getPanelBuscarComidaBebida().setVisible(false);
 			VentanaPrincipal.getPanelPedido().setVisible(true);
@@ -120,9 +154,6 @@ public class ControladorBuscarComidaBebida implements ActionListener, MouseListe
 
 	@Override
 	public void mousePressed(MouseEvent e) { // Al pulsar raton
-
-		 indiceSeleccionado = BuscarComidaBebida.getTabla().getSelectedRow();
-		 System.out.println("indiceSeleccionado -> "+indiceSeleccionado);
 
 	}
 

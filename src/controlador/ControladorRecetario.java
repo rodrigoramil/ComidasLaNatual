@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 import modelo.ModeloReceta;
 import modelo_bbdd.BbddReceta;
 import modelo_bbdd.BbddRecetario;
+import vista.GestionPedidos;
 import vista.Receta;
 import vista.Recetario;
 import vista.VentanaPrincipal;
@@ -119,6 +120,7 @@ public class ControladorRecetario implements ActionListener, MouseListener  {
 		
 		if (e.getSource() == Recetario.getTabla()) {			
 			Recetario.datoSeleccionadoTabla();
+			Recetario.getBtn_modificar_receta().setEnabled(true);
 		}
 		
 		

@@ -23,13 +23,13 @@ public class BbddPedido {
 		connection = conexion.obtenerConexion();
 		arrayPedido = new ArrayList<ModeloPedido>();
 		try {
-			sentenciaPedido = connection.prepareStatement("Select R.NombreReceta, R.PrecioVenta, P.CantidadRecetaVenta, C.NombreCliente, PC.IdPedido, C.IdCliente from Recetas R, Pedidos P, Cliente C, PedidoCliente PC where C.IdCliente = PC.IdCliente AND PC.IdPedido = P.IdPedido And R.IdReceta = P.IdReceta and PC.IdPedido =?");
+			sentenciaPedido = connection.prepareStatement("Select R.IdReceta, R.NombreReceta, R.PrecioVenta, P.CantidadRecetaVenta, C.NombreCliente, PC.IdPedido, C.IdCliente from Recetas R, Pedidos P, Cliente C, PedidoCliente PC where C.IdCliente = PC.IdCliente AND PC.IdPedido = P.IdPedido And R.IdReceta = P.IdReceta and PC.IdPedido =?");
 
 			sentenciaPedido.setInt(1, idPedido);
 			ResultSet rsPedido = sentenciaPedido.executeQuery();
 
 			while (rsPedido.next()) {
-				ModeloPedido recetas = new ModeloPedido(rsPedido.getString("NombreReceta"), rsPedido.getFloat("PrecioVenta"), rsPedido.getInt("CantidadRecetaVenta"), rsPedido.getString("NombreCliente"));
+				ModeloPedido recetas = new ModeloPedido(rsPedido.getInt("IdReceta"), rsPedido.getString("NombreReceta"), rsPedido.getFloat("PrecioVenta"), rsPedido.getInt("CantidadRecetaVenta"), rsPedido.getString("NombreCliente"), rsPedido.getInt("IdPedido"), rsPedido.getInt("IdCliente"));
 				arrayPedido.add(recetas);
 			}
 		}
@@ -42,6 +42,95 @@ public class BbddPedido {
 		return arrayPedido;
 	}
 
+	
+	public static ArrayList<ModeloPedido> listarTodosPedidos() {
+		conexion = new Conexion();
+		connection = conexion.obtenerConexion();
+		arrayPedido = new ArrayList<ModeloPedido>();
+		try {
+			sentenciaPedido = connection.prepareStatement("Select R.IdReceta, R.NombreReceta, R.PrecioVenta, P.CantidadRecetaVenta, C.NombreCliente, PC.IdPedido, C.IdCliente from Recetas R, Pedidos P, Cliente C, PedidoCliente PC where C.IdCliente = PC.IdCliente AND PC.IdPedido = P.IdPedido And R.IdReceta = P.IdReceta order by IdPedido");
+			ResultSet rsPedido = sentenciaPedido.executeQuery();
+
+			while (rsPedido.next()) {
+				ModeloPedido recetas = new ModeloPedido(rsPedido.getInt("IdReceta"), rsPedido.getString("NombreReceta"), rsPedido.getFloat("PrecioVenta"), rsPedido.getInt("CantidadRecetaVenta"), rsPedido.getString("NombreCliente"), rsPedido.getInt("IdPedido"), rsPedido.getInt("IdCliente"));
+				arrayPedido.add(recetas);
+			}
+		}
+		 catch (SQLException e) {
+			System.out.println("Error en gestionPedidosClientes SentenciasSQL");
+			System.out.println(e.getMessage());
+		}
+		return arrayPedido;
+	}
+
+
+	public static void addComidaBebida(int idCliente, int idReceta, int cantidadRecetaVenta)  throws SQLException{
+		
+		if (listarTodosPedidos().size()<idPedido) {
+			addPedido(idCliente);
+			idPedido = listarTodosPedidos().size()+1;
+		}
+		
+		String SQLPedidos = "INSERT INTO Pedidos (IdReceta, IdPedido, CantidadRecetaVenta ) VALUES ( ?, ?, ?)";
+		sentenciaPedido = connection.prepareStatement(SQLPedidos);
+		sentenciaPedido.setInt(1, idReceta);
+		sentenciaPedido.setInt(2, idPedido);
+		sentenciaPedido.setInt(3, cantidadRecetaVenta);
+		sentenciaPedido.executeUpdate();
+		
+	}
+		
+	
+	public static void addPedido(int idCliente)  throws SQLException{
+
+		String SQLPedidoCliente = "insert into PedidoCliente(IdCliente) values (?);";
+		sentenciaPedido = connection.prepareStatement(SQLPedidoCliente);
+		sentenciaPedido.setInt(1, idCliente );
+		sentenciaPedido.executeUpdate();
+		
+	}	
+	
+
+	
+	public static void editarPedido(int idReceta,int cantidadRecetaVenta) throws SQLException {
+        conexion = new Conexion();
+        connection = conexion.obtenerConexion();
+ 
+   
+    	sentenciaPedido= connection.prepareStatement("update Pedidos set CantidadRecetaVenta = ? where IdReceta = ? and IdPedido = ?");
+    	sentenciaPedido.setInt(1, cantidadRecetaVenta);
+        sentenciaPedido.setInt(2, idReceta);
+        sentenciaPedido.setInt(3, idPedido);            
+        sentenciaPedido.executeUpdate();
+
+    }
+	
+	public static void borrarComidaBebida(int idReceta) throws SQLException{
+        conexion = new Conexion();
+        connection = conexion.obtenerConexion();
+ 
+      
+        	
+    	sentenciaPedido= connection.prepareStatement("DELETE FROM Pedidos WHERE IdReceta = ? AND IdPedido = ?;");
+    	sentenciaPedido.setInt(1, idReceta);
+    	sentenciaPedido.setInt(2, idPedido);            
+    	sentenciaPedido.executeUpdate();
+
+    }
+
+	public static void borrarPedido () throws SQLException{
+        conexion = new Conexion();
+        connection = conexion.obtenerConexion();        	
+    	sentenciaPedido= connection.prepareStatement("DELETE FROM Pedidos WHERE IdPedido = ?;");
+    	sentenciaPedido.setInt(1, idPedido);            
+    	sentenciaPedido.executeUpdate();
+
+    }
+	
+	public static ArrayList<ModeloPedido> getArrayPedido() {
+		return arrayPedido;
+	}
+
 	public static int getIdPedido() {
 		return idPedido;
 	}
@@ -50,59 +139,5 @@ public class BbddPedido {
 		BbddPedido.idPedido = idPedido;
 	}
 
-
-/*
-
-	private static Connection connection = null;
-	private static Conexion conexion = null;
-	private static PreparedStatement sentencia = null;
-	private static ArrayList<ModeloPedido> arrayPedidos = null;
 	
-	public static void listarPedidos(int IdCliente) {
-		conexion = new Conexion();
-		connection = conexion.obtenerConexion();
-		arrayPedidos = new ArrayList<ModeloPedido>();
-	
-		try {
-			sentencia = connection.prepareStatement("Select R.NombreReceta, R.PrecioVenta, P.CantidadRecetaVenta,C.NombreCliente from Recetas R, Pedidos P, Cliente C, PedidoCliente PC where C.IdCliente=?");
-			ResultSet rs = sentencia.executeQuery();
-
-			while (rs.next()) {
-				
-				ModeloPedido cliente = new ModeloPedido(
-						rs.getString("NombreReceta"), 
-						rs.getFloat("PrecioVenta"),
-						rs.getInt("CantidadRecetaVenta"),
-						rs.getString("NombreCliente"));	
-						arrayPedidos.add(cliente);
-				
-				
-			}
-
-		} catch (SQLException e) {
-			System.out.println("Error en gestionPedidosClientes SentenciasSQL");
-			System.out.println(e.getMessage());
-		}
-	}
-
-    
-	
-
-
-  	public static ArrayList<ModeloPedido> getArrayPedidos() {
-		return arrayPedidos;
-	}
-<<<<<<< HEAD
-=======
-
-<<<<<<< HEAD
-
-
-
-	
-
-=======
->>>>>>> pruebas
->>>>>>> e45f4bbdd21b9534b4d95488b2607ce1e1961c88
-*/
 }

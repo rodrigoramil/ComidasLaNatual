@@ -6,14 +6,21 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.print.PrinterException;
+import java.sql.SQLException;
 
+import javax.swing.JOptionPane;
+
+import modelo_bbdd.BbddCalculoGanancias;
+import modelo_bbdd.BbddPedido;
+import vista.DetalleGasto;
 import vista.Facturar;
 import vista.VentanaPrincipal;
 
 public class ControladorFacturar implements ActionListener, MouseListener, KeyListener{
 
 	private Facturar panelFacturar;
-	
+	float totalIva;
 	public ControladorFacturar(Facturar panelFacturar) {
 		this.panelFacturar = panelFacturar;
 	}	
@@ -24,13 +31,33 @@ public class ControladorFacturar implements ActionListener, MouseListener, KeyLi
 		if (e.getSource() == Facturar.getBtn_volver()) {
 			VentanaPrincipal.getPanelFacturar().setVisible(false);
 			VentanaPrincipal.getPanelPedido().setVisible(true);
+			Facturar.getCaja_abonado().setText("");
 		}
 		
 		if (e.getSource() == Facturar.getBtn_pagado()) {
 			
+			VentanaPrincipal.getPanelFacturar().setVisible(false);
+			VentanaPrincipal.getPanelGestionPedidos().setVisible(true);
+			Facturar.getCaja_abonado().setText("");
+			try {
+				BbddCalculoGanancias.addGanancia(totalIva);				
+				// BbddPedido.borrarPedido(); <--- da fallo
+				JOptionPane.showMessageDialog(panelFacturar, "Factura pagada");
+			} catch (SQLException e1) {
+				JOptionPane.showMessageDialog(panelFacturar, "Error al guardar el pago");
+			}
 		}
 		
-		if (e.getSource() == Facturar.getBtn_pago_tarjeta()) {
+		if (e.getSource() == Facturar.getBtn_imprimir_factura()) {
+			
+			// Imprime solo la Tabla, debería imprimir el panel completo	
+			
+			try {				
+			DetalleGasto.getTabla().print();				
+			} catch (PrinterException e1) {
+				JOptionPane.showMessageDialog(panelFacturar, "Error al imprimir la Factura");
+			}
+			
 			
 		}
 		
@@ -78,15 +105,43 @@ public class ControladorFacturar implements ActionListener, MouseListener, KeyLi
 	@Override
 	public void keyPressed(KeyEvent e) {
 		
-		double abonado = Float.parseFloat(Facturar.getCaja_abonado().getText());		
-		Facturar.getLbl_valor_devolver().setText(String.format("%.2f", abonado)+" €");
+//		double abonado = Float.parseFloat(Facturar.getCaja_abonado().getText());
+		
+
+		
+		
+//		Facturar.getLbl_valor_devolver().setText(String.format("%.2f", abonado)+" €");
 		
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-
 		
+		try {
+			String abonado = Facturar.getCaja_abonado().getText();
+			
+			float abonadoNum = Float.parseFloat(abonado);
+			totalIva = (float) Facturar.calcularFactura();
+			double aDevolver = abonadoNum - totalIva;		
+			
+			
+			Facturar.getLbl_valor_devolver().setText(String.format("%.2f", aDevolver)+" €");
+
+		} catch (NumberFormatException e2) {
+			JOptionPane.showMessageDialog(panelFacturar, "No has introducido un número");
+		}
+		/*
+		String abonado = Facturar.getCaja_abonado().getText();
+		float abonadoNum = Float.parseFloat(abonado);
+		double totalIva = ControladorPedido.getTotalIva();
+		double aDevolver = abonadoNum - totalIva;		
+		Facturar.getLbl_valor_devolver().setText(String.format("%.2f", aDevolver)+" €");
+*/
+		
+	}
+
+	public float getTotalIva() {
+		return totalIva;
 	}
 		
 	

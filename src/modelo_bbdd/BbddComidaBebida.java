@@ -13,7 +13,7 @@ import modelo.ModeloPedido;
 public class BbddComidaBebida {
 	private static Connection connection = null;
 	private static Conexion conexion = null;
-	private static PreparedStatement sentenciaAlmacen = null;
+	private static PreparedStatement sentenciaComidaBebida = null;
 	private static ArrayList<ModeloComidaBebida> arrayComidaBebida = null;
 	
 	public static ArrayList<ModeloComidaBebida> listarComidaBebida() {
@@ -21,11 +21,11 @@ public class BbddComidaBebida {
 		connection = conexion.obtenerConexion();		
 		arrayComidaBebida = new ArrayList<ModeloComidaBebida>();		
 		try {
-			sentenciaAlmacen = connection.prepareStatement("Select R.NombreReceta, R.PrecioVenta, D.Estado, T.Tipo from recetas R, disponibilidadreceta D, tipoproducto T where D.IdDisponibilidad = R.IdDisponibilidad and R.IdTipo = T.IdTipo order by Estado");
-			ResultSet rs = sentenciaAlmacen.executeQuery();			
+			sentenciaComidaBebida = connection.prepareStatement("Select R.IdReceta, R.NombreReceta, R.PrecioVenta, D.Estado, T.Tipo from recetas R, disponibilidadreceta D, tipoproducto T where D.IdDisponibilidad = R.IdDisponibilidad and R.IdTipo = T.IdTipo order by Estado");
+			ResultSet rs = sentenciaComidaBebida.executeQuery();			
 
 			while (rs.next()) {
-				ModeloComidaBebida modelo = new ModeloComidaBebida(rs.getString("NombreReceta"), rs.getFloat("PrecioVenta"), rs.getString("Estado"), rs.getString("Tipo"));
+				ModeloComidaBebida modelo = new ModeloComidaBebida(rs.getInt("IdReceta"), rs.getString("NombreReceta"), rs.getFloat("PrecioVenta"), rs.getString("Estado"), rs.getString("Tipo"));
 				arrayComidaBebida.add(modelo);
 			}
 			
@@ -36,8 +36,11 @@ public class BbddComidaBebida {
 		return arrayComidaBebida;	
 	}
 
+
+	
+
 	public static ArrayList<ModeloComidaBebida> getArrayComidaBebida() {
 		return arrayComidaBebida;
 	}
-
+	
 }

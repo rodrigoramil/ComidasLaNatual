@@ -23,7 +23,6 @@ public class Pedido extends JPanel {
 	
 	private static JPanel panelPedido;
 	private static JLabel lbl_Num_Mesa;
-	private static JButton btn_Guardar;
 	private static JButton btn_Volver;
 	private static JButton btn_Modificar;
 	private static JButton btn_Nuevo;
@@ -48,15 +47,11 @@ public class Pedido extends JPanel {
 		
 		panelPedido = VentanaPrincipal.parametrosPanel(800,600);
 		
-		lbl_Num_Mesa = VentanaPrincipal.parametrosJlabel("Mesa 1",150, 30, 300, 40);
+		lbl_Num_Mesa = VentanaPrincipal.parametrosJlabel("",150, 30, 300, 40);
 		lbl_Num_Mesa.setFont(new Font("Manche Condensed",Font.BOLD,(int)(15*VentanaPrincipal.getCordenadaY())));
 		lbl_Num_Mesa.setForeground(Color.orange);
 		panelPedido.add(lbl_Num_Mesa);
-		
-		btn_Guardar = VentanaPrincipal.parametrosJButton("Guardar",550, 40, 120,30);
-		panelPedido.add(btn_Guardar);
-		
-		
+				
 		btn_Volver = VentanaPrincipal.parametrosJButton("Volver", 710, 20, 70, 20);
 		panelPedido.add(btn_Volver);
 		
@@ -87,7 +82,6 @@ public class Pedido extends JPanel {
 	public static void establecerManejador() {			
 		ControladorPedido controlador = new ControladorPedido(pedido);
 		
-		btn_Guardar.addActionListener(controlador);
 		btn_Volver.addActionListener(controlador);
 		btn_Modificar.addActionListener(controlador);
 		btn_Nuevo.addActionListener(controlador);
@@ -152,10 +146,6 @@ public class Pedido extends JPanel {
 	 
 	public static JPanel getPanelPedido() {
 		return panelPedido;
-	}
-
-	public static JButton getBtn_Guardar() {
-		return btn_Guardar;
 	}
 
 	public static JButton getBtn_Volver() {

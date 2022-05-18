@@ -4,12 +4,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
 import modelo_bbdd.BbddComidaBebida;
 import modelo_bbdd.BbddPedido;
 import vista.BuscarComidaBebida;
+import vista.Facturar;
 import vista.GestionPedidos;
 import vista.Pedido;
 import vista.VentanaPrincipal;
@@ -17,8 +19,12 @@ import vista.VentanaPrincipal;
 public class ControladorPedido  implements ActionListener, MouseListener {
 
 	private Pedido panelPedido;
-	private int cantidad;
-
+	private static int cantidad;
+	private static float total;
+	private static double totalIva;
+	private static double abonado = 0;
+	private static double aDevolver;
+	
 	public ControladorPedido (Pedido panelPedido) {
 		this.panelPedido = panelPedido;
 	}	
@@ -32,12 +38,7 @@ public class ControladorPedido  implements ActionListener, MouseListener {
 			GestionPedidos.getBtn_Editar_Cliente().setEnabled(false);
 			GestionPedidos.getBtn_Ver_Pedido().setEnabled(false);
 		}
-		if (e.getSource() == Pedido.getBtn_Guardar()) {
-			VentanaPrincipal.getPanelGestionPedidos().setVisible(true);
-			VentanaPrincipal.getPanelPedido().setVisible(false);
-			GestionPedidos.getBtn_Editar_Cliente().setEnabled(false);
-			GestionPedidos.getBtn_Ver_Pedido().setEnabled(false);
-		}
+
 		if (e.getSource() == Pedido.getBtn_Nuevo()) {
 			VentanaPrincipal.getPanelPedido().setVisible(false);
 			VentanaPrincipal.getPanelBuscarComidaBebida().setVisible(true);	
@@ -66,7 +67,22 @@ public class ControladorPedido  implements ActionListener, MouseListener {
 			System.out.println("cantidad modificada --> "+cantidad);
 			
 			
-			// Sentencia Update
+			
+			int idReceta = 0;			
+			String ComidaBebidaSeleccionada = Pedido.datoSeleccionadoTabla();			
+			for (int i = 0; i < BbddPedido.getArrayPedido().size(); i++) {
+				if (BbddPedido.getArrayPedido().get(i).getNombreReceta().equals(ComidaBebidaSeleccionada)) {
+					idReceta = BbddPedido.getArrayPedido().get(i).getIdReceta();					
+				}
+			}
+
+			try {
+				BbddPedido.editarPedido(idReceta, cantidad);
+			} catch (SQLException e1) {
+				JOptionPane.showMessageDialog(panelPedido, "Error al modificar la cantidad del producto selecionado");
+				e1.printStackTrace();
+			}
+			Pedido.listarPedido(BbddPedido.listarPedido());
 			
 			
 			
@@ -74,13 +90,40 @@ public class ControladorPedido  implements ActionListener, MouseListener {
 		
 		if (e.getSource() == Pedido.getBtn_Eliminar()) {
 			
-			// falta el JcrollPanel
-			// Sentencia Delete
+			
+			int idReceta = 0;
+			
+			
+			String ComidaBebidaSeleccionada = Pedido.datoSeleccionadoTabla();
+			
+			for (int i = 0; i < BbddPedido.getArrayPedido().size(); i++) {
+				if (BbddPedido.getArrayPedido().get(i).getNombreReceta().equals(ComidaBebidaSeleccionada)) {
+					idReceta = BbddPedido.getArrayPedido().get(i).getIdReceta();
+					
+				}
+			}
+			
+
+			
+			try {
+				BbddPedido.borrarComidaBebida(idReceta);
+			} catch (SQLException e1) {
+				JOptionPane.showMessageDialog(panelPedido, "Error al borrar el producto selecionado");
+				e1.printStackTrace();
+			}
+			Pedido.listarPedido(BbddPedido.listarPedido());
+			
+			
+			
 		}
 		
 		if (e.getSource() == Pedido.getBtn_Facturar()) {
 			VentanaPrincipal.getPanelPedido().setVisible(false);
 			VentanaPrincipal.getPanelFacturar().setVisible(true);	
+			
+			Facturar.factura(BbddPedido.listarPedido());
+			Facturar.calcularFactura();
+			
 		}
 		
 	}
@@ -119,6 +162,26 @@ public class ControladorPedido  implements ActionListener, MouseListener {
 		
 	}
 
-		
+	public static double getAbonado() {
+		return abonado;
+	}
+
+	public static void setAbonado(double abonado) {
+		ControladorPedido.abonado = abonado;
+	}
+
+	public static double getaDevolver() {
+		return aDevolver;
+	}
+
+	public static void setaDevolver(double aDevolver) {
+		ControladorPedido.aDevolver = aDevolver;
+	}
+
+	public static double getTotalIva() {
+		return totalIva;
+	}
+
+	
 	
 }

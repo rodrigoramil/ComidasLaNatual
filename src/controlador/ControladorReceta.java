@@ -14,6 +14,7 @@ import modelo_bbdd.BbddReceta;
 import vista.BuscarComidaBebida;
 import vista.ProductosAlmacen;
 import vista.Receta;
+import vista.Recetario;
 import vista.VentanaPrincipal;
 
 public class ControladorReceta implements ActionListener, MouseListener  {
@@ -30,10 +31,12 @@ public class ControladorReceta implements ActionListener, MouseListener  {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == Receta.getBtn_volver()) {
+			Recetario.getBtn_modificar_receta().setEnabled(false);
 			if (ControladorBuscarComidaBebida.getDesdeVentas()) {
 				VentanaPrincipal.getPanelReceta().setVisible(false);
 				VentanaPrincipal.getPanelBuscarComidaBebida().setVisible(true);
 				ControladorBuscarComidaBebida.setDesdeVentas(false);
+				
 				activaBotonesReceta ();
 			} else if (ControladorRecetario.isVerDesdeRecetario()) {
 				ControladorRecetario.setVerDesdeRecetario(false);
@@ -66,6 +69,7 @@ public class ControladorReceta implements ActionListener, MouseListener  {
 		}
 		
 		if (e.getSource() == Receta.getBtn_guardar()) {
+			Recetario.getBtn_modificar_receta().setEnabled(false);
 			try {
 				BbddReceta.insertarReceta();
 				System.out.println("Se ha creado una nueva receta");

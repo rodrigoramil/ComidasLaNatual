@@ -17,13 +17,12 @@ public class BbddVentas {
 	private static Conexion conexion = null;
 	private static PreparedStatement sentencia = null;
 	private static ArrayList<ModeloCliente> arrayClientes = null;
-	private static ArrayList<ModeloPRUEBA> arrayRecetas=null; // <---- BORRAR
 
 	public static ArrayList<ModeloCliente> listarClientes() {
 		conexion = new Conexion();
 		connection = conexion.obtenerConexion();
 		arrayClientes = new ArrayList<ModeloCliente>();
-		arrayRecetas = new ArrayList<ModeloPRUEBA>();  // <---- BORRAR
+
 		try {
 			
 			if (!ControladorGestionPedidos.isMesa()) {
@@ -115,14 +114,7 @@ public class BbddVentas {
 
    }
 		
-		
-		
 
-
-	public static ArrayList<ModeloPRUEBA> getArrayRecetas() {
-		return arrayRecetas;
-	}
-	
   	public static ArrayList<ModeloCliente> getArrayClientes() {
 		return arrayClientes;
 	}

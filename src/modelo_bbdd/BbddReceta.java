@@ -70,7 +70,7 @@ public class BbddReceta {
 
 	
 	
-	public static  ArrayList<ModeloReceta>  updateAddProductoReceta() throws SQLException{
+	public static void addProductoReceta() throws SQLException{
 
 		cantidad = ControladorProductosAlmacen.getCantidad();		
 		datoSelecionado = ProductosAlmacen.datoSeleccionadoTabla();
@@ -88,7 +88,7 @@ public class BbddReceta {
 
 			}
 	
-		String SQLReceta = "insert into ingredientes(IdReceta, IdProducto, Cantidad) values (?,?,?)";
+		String SQLReceta = "INSERT INTO Ingredientes (IdReceta, IdProducto, Cantidad ) VALUES ( ?, ?, ?)";
 		sentenciaRecetas = connection.prepareStatement(SQLReceta);
 		sentenciaRecetas.setInt(1, idReceta);
 		sentenciaRecetas.setInt(2, idProducto);
@@ -96,13 +96,22 @@ public class BbddReceta {
 		sentenciaRecetas.executeUpdate();
 		
 		arrayReceta = listarRecetas();
-		return arrayReceta;		
+			
 	}
 	
+	/*
+	public static void addProductoReceta(int idCliente)  throws SQLException{
+
+		String SQLPedidoCliente = "INSERT INTO Ingredientes (IdReceta, IdProducto, Cantidad ) VALUES ( ?, ?, ?)";
+		sentenciaRecetas = connection.prepareStatement(SQLPedidoCliente);
+		sentenciaRecetas.setInt(1, idReceta );
+		sentenciaRecetas.setInt(1, idProducto );
+		sentenciaRecetas.setFloat(1, cantidad );
+		sentenciaRecetas.executeUpdate();
+		
+	}	
 	
-	
-	
-	
+	*/
 	
 	
 	

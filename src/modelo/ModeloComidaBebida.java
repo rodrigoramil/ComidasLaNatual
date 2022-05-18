@@ -8,19 +8,21 @@ public class ModeloComidaBebida implements Serializable  {
 	 * 
 	 */
 	private static final long serialVersionUID = 1906510941001195986L;
+	int idReceta;
 	String nombreReceta;
 	float precioVenta;
 	String estado;
 	String tipo;
-
 	/**
+	 * @param idReceta
 	 * @param nombreReceta
 	 * @param precioVenta
 	 * @param estado
 	 * @param tipo
 	 */
-	public ModeloComidaBebida(String nombreReceta, float precioVenta, String estado, String tipo) {
+	public ModeloComidaBebida(int idReceta, String nombreReceta, float precioVenta, String estado, String tipo) {
 		super();
+		this.idReceta = idReceta;
 		this.nombreReceta = nombreReceta;
 		this.precioVenta = precioVenta;
 		this.estado = estado;
@@ -31,6 +33,12 @@ public class ModeloComidaBebida implements Serializable  {
 	 */
 	public ModeloComidaBebida() {
 		super();
+	}
+	public int getIdReceta() {
+		return idReceta;
+	}
+	public void setIdReceta(int idReceta) {
+		this.idReceta = idReceta;
 	}
 	public String getNombreReceta() {
 		return nombreReceta;
@@ -58,8 +66,8 @@ public class ModeloComidaBebida implements Serializable  {
 	}
 	@Override
 	public String toString() {
-		return "ModeloComidaBebida [nombreReceta=" + nombreReceta + ", precioVenta=" + precioVenta + ", estado="
-				+ estado + ", tipo=" + tipo + "]";
+		return "ModeloComidaBebida [idReceta=" + idReceta + ", nombreReceta=" + nombreReceta + ", precioVenta="
+				+ precioVenta + ", estado=" + estado + ", tipo=" + tipo + "]";
 	}
-
+	
 }

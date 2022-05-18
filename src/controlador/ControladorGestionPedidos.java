@@ -52,9 +52,7 @@ public class ControladorGestionPedidos implements ActionListener, MouseListener 
 			try {
 				for (int i = 0; i < BbddVentas.getArrayClientes().size(); i++) {
 					clienteBBDD = BbddVentas.getArrayClientes().get(i).getId()-9;					
-//					System.out.println("clienteSelecionado: "+clienteSelecionado+" ---- clienteBBDD: "+clienteBBDD);
 					if (clienteSelecionado==clienteBBDD) {	
-//						System.out.println("clienteSelecionado -> "+clienteSelecionado+" clienteBBDD -> "+clienteBBDD); // <-- BORRAR
 						Cliente.getTfd_nombre().setText(BbddVentas.getArrayClientes().get(i).getNombre());
 						Cliente.getTfd_telefono().setText(BbddVentas.getArrayClientes().get(i).getTelefono());
 					}

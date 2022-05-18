@@ -183,5 +183,9 @@ public class DetalleGasto extends JPanel {
 		DetalleGasto.lbl_detalle_lista = lbl_detalle_lista;
 	}
 
+	public static JTable getTabla() {
+		return tabla;
+	}
+
 	
 }
