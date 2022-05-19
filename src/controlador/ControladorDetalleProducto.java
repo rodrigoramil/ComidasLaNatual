@@ -41,6 +41,7 @@ public class ControladorDetalleProducto implements ActionListener {
 			VentanaPrincipal.getPanelAlmacen().setVisible(true);
 			VentanaPrincipal.getPanelDetalleProducto().setVisible(false);
 			Almacen.getBtn_Modificar().setEnabled(false);
+			Almacen.getBtn_Eliminar().setEnabled(false);
 			try {
 				nombreProducto = DetalleProducto.getTfd_Nombre().getText();
 				tipoProducto = DetalleProducto.getTipo().getSelectedIndex()+1;
@@ -87,6 +88,7 @@ public class ControladorDetalleProducto implements ActionListener {
 		DetalleProducto.getTfd_Maximo().setText("");
 		ControladorAlmacen.setNuevoProducto(false);
 		Almacen.getBtn_Modificar().setEnabled(false);
+		Almacen.getBtn_Eliminar().setEnabled(false);
 	}
 		
 }

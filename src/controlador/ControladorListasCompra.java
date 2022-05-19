@@ -25,6 +25,7 @@ private ListasCompra panelListasCompra;
 			VentanaPrincipal.getPanelListasCompra().setVisible(false);
 			VentanaPrincipal.getPanelAlmacen().setVisible(true);
 			Almacen.getBtn_Modificar().setEnabled(false);
+			Almacen.getBtn_Eliminar().setEnabled(false);
 		}
 		
 		if (e.getSource() == ListasCompra.getBtn_Ver()) {

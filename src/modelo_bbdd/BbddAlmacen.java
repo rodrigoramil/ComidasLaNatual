@@ -74,23 +74,23 @@ public class BbddAlmacen {
 			}
 		}
 	}
-/*
-	public static void borrarUsuario() throws SQLException{
-		listarUsuarios();
+
+	public static void borrarProducto() throws SQLException{
+		listarProductosAlmacen();
         conexion = new Conexion();
         connection = conexion.obtenerConexion();
-        String nombreUsuario = GestionUsuarios.datoSeleccionadoTabla();        
-        for (int i = 0; i < arrayUsuarios.size(); i++) {
-			if (arrayUsuarios.get(i).getNombreUsuario().equals(nombreUsuario)) {
-				idUsuario = arrayUsuarios.get(i).getIdUsuario();
-				sentencia= connection.prepareStatement("DELETE FROM Usuarios WHERE IdUsuario = ?;");
-				sentencia.setInt(1, idUsuario);
-				sentencia.executeUpdate();
+        String nombreProducto = Almacen.datoSeleccionadoTabla();        
+        for (int i = 0; i < arrayAlmacen.size(); i++) {
+			if (arrayAlmacen.get(i).getNombreProducto().equals(nombreProducto)) {
+				int idProducto = arrayAlmacen.get(i).getIdProducto();
+				sentenciaAlmacen= connection.prepareStatement("DELETE FROM Almacen WHERE IdProducto = ?;");
+				sentenciaAlmacen.setInt(1, idProducto);
+				sentenciaAlmacen.executeUpdate();
 			}
 		}    
     }
 	
-*/	
+
 	
 	
 	

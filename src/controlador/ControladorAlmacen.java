@@ -4,12 +4,17 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.sql.SQLException;
+
+import javax.swing.JOptionPane;
 
 import modelo_bbdd.BbddAlmacen;
+import modelo_bbdd.BbddGestionUsuario;
 import modelo_bbdd.BbddListasCompra;
 import modelo_bbdd.BbddPrepararCompra;
 import vista.Almacen;
 import vista.DetalleProducto;
+import vista.GestionUsuarios;
 import vista.ListasCompra;
 import vista.PrepararCompra;
 import vista.Recetario;
@@ -18,6 +23,7 @@ import vista.VentanaPrincipal;
 public class ControladorAlmacen implements ActionListener, MouseListener  {
 
 private Almacen panelAlmacen;
+private String productoSelecionado;
 private static boolean nuevoProducto=false;
 
 	
@@ -30,6 +36,12 @@ private static boolean nuevoProducto=false;
 		if (e.getSource() == Almacen.getBtn_Volver()) {
 			VentanaPrincipal.getPanelMenuPrincipal().setVisible(true);
 			VentanaPrincipal.getPanelAlmacen().setVisible(false);
+		}
+		
+		if (e.getSource() == Almacen.getBtn_Nuevo()) {
+			nuevoProducto = true;			
+			VentanaPrincipal.getPanelAlmacen().setVisible(false);
+			VentanaPrincipal.getPanelDetalleProducto().setVisible(true);
 		}
 		
 		if (e.getSource() == Almacen.getBtn_Modificar()) {
@@ -50,16 +62,31 @@ private static boolean nuevoProducto=false;
 					DetalleProducto.getUnidadMedida().select(unidadMedida-1);					
 				}				
 			}
-			
-			
-			
-			
-			
 		}
-		if (e.getSource() == Almacen.getBtn_Nuevo()) {
-			nuevoProducto = true;			
-			VentanaPrincipal.getPanelAlmacen().setVisible(false);
-			VentanaPrincipal.getPanelDetalleProducto().setVisible(true);
+		
+		if (e.getSource() == Almacen.getBtn_Eliminar()) {
+			try {	
+				productoSelecionado = Almacen.datoSeleccionadoTabla();
+
+				 // si = 0 / no = 1 / cancelar = 2 / X = -1
+				int respuestaEliminar = JOptionPane.showConfirmDialog(panelAlmacen, "Quiere eleminar el producto "+productoSelecionado);
+				if (respuestaEliminar == 0) {
+					
+					try {						
+						BbddAlmacen.borrarProducto();
+						Almacen.listarProductos(BbddAlmacen.listarProductosAlmacen());
+						Almacen.getBtn_Modificar().setEnabled(false);
+						Almacen.getBtn_Eliminar().setEnabled(false);
+					} catch (SQLException e1) {
+						JOptionPane.showMessageDialog(panelAlmacen, "Error con la Base de Datos");
+					}					
+				}				
+			} catch (NullPointerException errorSelectorVacio) {				
+				JOptionPane.showMessageDialog(panelAlmacen, "Selecciona un producto a eliminar");
+			}	
+			
+			Almacen.getTabla().clearSelection();
+			
 		}
 		
 		if (e.getSource() == Almacen.getBtn_Realizar_Lista_Compra()) {
@@ -108,6 +135,7 @@ private static boolean nuevoProducto=false;
 	public void mousePressed(MouseEvent e) { // Al pulsar raton
 		if (e.getSource() == Almacen.getTabla()) {			
 			Almacen.getBtn_Modificar().setEnabled(true);
+			Almacen.getBtn_Eliminar().setEnabled(true);
 		}
 		
 	}

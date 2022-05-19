@@ -27,6 +27,7 @@ public class Almacen extends JPanel {
 	private static JButton btn_Ver_Listas_Compras;
 	private static JButton btn_Modificar;
 	private static JButton btn_Nuevo;
+	private static JButton btn_Eliminar;
 	private static JTable tabla;
     private static JScrollPane scroll;
 	private static ArrayList<ModeloAlmacen> arrayAlmacen;
@@ -60,14 +61,17 @@ public class Almacen extends JPanel {
 		btn_Realizar_Lista_Compra = VentanaPrincipal.parametrosJButton("Realizar lista de la compra",50, 520, 240, 20);
 		panelAlmacen.add(btn_Realizar_Lista_Compra);
 		
-		btn_Ver_Listas_Compras = VentanaPrincipal.parametrosJButton("Ver listas de la compra",320, 520, 240, 20);
+		btn_Ver_Listas_Compras = VentanaPrincipal.parametrosJButton("Ver listas de la compra",50, 550, 240, 20);
 		panelAlmacen.add(btn_Ver_Listas_Compras);
 		
-		btn_Modificar = VentanaPrincipal.parametrosJButton("Modificar",630, 520, 120, 20);
+		btn_Nuevo = VentanaPrincipal.parametrosJButton("Nuevo",330, 530, 120, 20);
+		panelAlmacen.add(btn_Nuevo);
+		
+		btn_Modificar = VentanaPrincipal.parametrosJButton("Modificar",480, 530, 120, 20);
 		panelAlmacen.add(btn_Modificar);
 		
-		btn_Nuevo = VentanaPrincipal.parametrosJButton("Nuevo",630, 560, 120, 20);
-		panelAlmacen.add(btn_Nuevo);
+		btn_Eliminar = VentanaPrincipal.parametrosJButton("Eliminar",630, 530, 120, 20);
+		panelAlmacen.add(btn_Eliminar);
 		
 		tabla = new JTable();
 		scroll = VentanaPrincipal.parametrosJScrollPane(50, 100, 700, 400);
@@ -90,6 +94,7 @@ public class Almacen extends JPanel {
 		btn_Realizar_Lista_Compra.addActionListener(controlador);
 		btn_Ver_Listas_Compras.addActionListener(controlador);
 		btn_Modificar.addActionListener(controlador);
+		btn_Eliminar.addActionListener(controlador);
 		btn_Nuevo.addActionListener(controlador);
 		tabla.addMouseListener(controlador);
 		
@@ -198,6 +203,10 @@ public class Almacen extends JPanel {
 
 	public static JTable getTabla() {
 		return tabla;
+	}
+
+	public static JButton getBtn_Eliminar() {
+		return btn_Eliminar;
 	}
 
 	

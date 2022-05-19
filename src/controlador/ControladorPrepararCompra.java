@@ -26,12 +26,14 @@ public class ControladorPrepararCompra implements ActionListener, MouseListener 
 			VentanaPrincipal.getPanelAlmacen().setVisible(true);
 			VentanaPrincipal.getPanelPrepararCompra().setVisible(false);
 			Almacen.getBtn_Modificar().setEnabled(false);
+			Almacen.getBtn_Eliminar().setEnabled(false);
 		}
 		
 		if (e.getSource() == PrepararCompra.getBtn_Guardar()) {
 			VentanaPrincipal.getPanelAlmacen().setVisible(true);
 			VentanaPrincipal.getPanelPrepararCompra().setVisible(false);
 			Almacen.getBtn_Modificar().setEnabled(false);
+			Almacen.getBtn_Eliminar().setEnabled(false);
 		}
 		
 		if (e.getSource() == PrepararCompra.getBtn_Imprimir()) {
