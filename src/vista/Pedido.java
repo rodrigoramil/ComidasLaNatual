@@ -175,6 +175,10 @@ public class Pedido extends JPanel {
 	public static void setLbl_Num_Mesa(JLabel lbl_Num_Mesa) {
 		Pedido.lbl_Num_Mesa = lbl_Num_Mesa;
 	}
+
+	public static JTable getTabla() {
+		return tabla;
+	}
 	
 
 	

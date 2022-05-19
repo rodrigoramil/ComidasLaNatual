@@ -15,6 +15,7 @@ import modelo_bbdd.BbddCalculoGanancias;
 import modelo_bbdd.BbddPedido;
 import vista.DetalleGasto;
 import vista.Facturar;
+import vista.Pedido;
 import vista.VentanaPrincipal;
 
 public class ControladorFacturar implements ActionListener, MouseListener, KeyListener{
@@ -29,6 +30,8 @@ public class ControladorFacturar implements ActionListener, MouseListener, KeyLi
 	public void actionPerformed(ActionEvent e) {
 		
 		if (e.getSource() == Facturar.getBtn_volver()) {
+			Pedido.getBtn_Modificar().setEnabled(false);
+			Pedido.getBtn_Eliminar().setEnabled(false);
 			VentanaPrincipal.getPanelFacturar().setVisible(false);
 			VentanaPrincipal.getPanelPedido().setVisible(true);
 			Facturar.getCaja_abonado().setText("");
@@ -43,7 +46,7 @@ public class ControladorFacturar implements ActionListener, MouseListener, KeyLi
 				BbddCalculoGanancias.addGanancia(totalIva);				
 				// BbddPedido.borrarPedido(); <--- da fallo
 				JOptionPane.showMessageDialog(panelFacturar, "Factura pagada");
-			} catch (SQLException e1) {
+			} catch (SQLException | NullPointerException e1) {
 				JOptionPane.showMessageDialog(panelFacturar, "Error al guardar el pago");
 			}
 		}

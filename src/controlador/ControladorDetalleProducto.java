@@ -17,9 +17,9 @@ public class ControladorDetalleProducto implements ActionListener {
 	private DetalleProducto panelDetalleProductos;
 	private float cantidadMaxima;
 	private float cantidadMinima;
-	private int IdunidadMedida;
+	private int unidadMedida;
 	private float cantidadActual;
-	private int idTipoProducto;
+	private int tipoProducto;
 	private String nombreProducto;
 
 	public ControladorDetalleProducto(DetalleProducto panelDetalleProductos) {
@@ -40,11 +40,12 @@ public class ControladorDetalleProducto implements ActionListener {
 		if (e.getSource() == DetalleProducto.getBtn_Aceptar()) {
 			VentanaPrincipal.getPanelAlmacen().setVisible(true);
 			VentanaPrincipal.getPanelDetalleProducto().setVisible(false);
+			Almacen.getBtn_Modificar().setEnabled(false);
 			try {
 				nombreProducto = DetalleProducto.getTfd_Nombre().getText();
-				idTipoProducto = DetalleProducto.getTipo().getSelectedIndex()+1;
+				tipoProducto = DetalleProducto.getTipo().getSelectedIndex()+1;
 				cantidadActual = Float.parseFloat(DetalleProducto.getTfd_Actual().getText());
-				IdunidadMedida = DetalleProducto.getUnidadMedida().getSelectedIndex()+1;
+				unidadMedida = DetalleProducto.getUnidadMedida().getSelectedIndex()+1;
 				cantidadMinima = Float.parseFloat(DetalleProducto.getTfd_Minimo().getText());
 				cantidadMaxima = Float.parseFloat(DetalleProducto.getTfd_Maximo().getText());
 			} catch (NumberFormatException e2) {
@@ -54,7 +55,8 @@ public class ControladorDetalleProducto implements ActionListener {
 	
 			if (ControladorAlmacen.isNuevoProducto()) {
 				try {
-					BbddAlmacen.addPructoAlmacen(nombreProducto,  cantidadActual, IdunidadMedida,  cantidadMinima,  cantidadMaxima,  idTipoProducto);
+					BbddAlmacen.addPructoAlmacen(nombreProducto,  cantidadActual, unidadMedida,  cantidadMinima,  cantidadMaxima,  tipoProducto);
+					Almacen.listarProductos(BbddAlmacen.listarProductosAlmacen());
 					JOptionPane.showMessageDialog(panelDetalleProductos, "Se ha añadido el producto "+nombreProducto);
 				} catch (SQLException e1) {
 					JOptionPane.showMessageDialog(panelDetalleProductos, "Error al acceder a la Base de Datos");
@@ -63,7 +65,8 @@ public class ControladorDetalleProducto implements ActionListener {
 				limpiarCajaTexto ();
 			} else if (!DetalleProducto.getTfd_Nombre().getText().equals("")) {
 				try {
-					BbddAlmacen.updatePructoAlmacen(nombreProducto,  cantidadActual, IdunidadMedida,  cantidadMinima,  cantidadMaxima,  idTipoProducto);
+					BbddAlmacen.updatePructoAlmacen(nombreProducto,  cantidadActual, unidadMedida,  cantidadMinima,  cantidadMaxima,  tipoProducto);
+					Almacen.listarProductos(BbddAlmacen.listarProductosAlmacen());
 					JOptionPane.showMessageDialog(panelDetalleProductos, "Se ha actualizado el producto "+nombreProducto);
 				} catch (SQLException e1) {
 					JOptionPane.showMessageDialog(panelDetalleProductos, "Error al acceder a la Base de Datos");
@@ -72,7 +75,6 @@ public class ControladorDetalleProducto implements ActionListener {
 				
 			}	
 			Almacen.listarProductos(BbddAlmacen.listarProductosAlmacen());
-
 			limpiarCajaTexto ();
 		}
 
@@ -84,6 +86,7 @@ public class ControladorDetalleProducto implements ActionListener {
 		DetalleProducto.getTfd_Minimo().setText("");
 		DetalleProducto.getTfd_Maximo().setText("");
 		ControladorAlmacen.setNuevoProducto(false);
+		Almacen.getBtn_Modificar().setEnabled(false);
 	}
 		
 }

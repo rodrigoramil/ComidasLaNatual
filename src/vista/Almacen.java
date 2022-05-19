@@ -196,8 +196,9 @@ public class Almacen extends JPanel {
 		return btn_Nuevo;
 	}
 
-	
-	
-	
+	public static JTable getTabla() {
+		return tabla;
+	}
+
 	
 }

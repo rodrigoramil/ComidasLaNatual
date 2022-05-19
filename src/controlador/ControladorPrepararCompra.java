@@ -6,6 +6,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.print.PrinterException;
 import javax.swing.JOptionPane;
+
+import vista.Almacen;
 import vista.PrepararCompra;
 import vista.VentanaPrincipal;
 
@@ -23,17 +25,18 @@ public class ControladorPrepararCompra implements ActionListener, MouseListener 
 		if (e.getSource() == PrepararCompra.getBtn_volver()) {
 			VentanaPrincipal.getPanelAlmacen().setVisible(true);
 			VentanaPrincipal.getPanelPrepararCompra().setVisible(false);
+			Almacen.getBtn_Modificar().setEnabled(false);
 		}
 		
 		if (e.getSource() == PrepararCompra.getBtn_Guardar()) {
 			VentanaPrincipal.getPanelAlmacen().setVisible(true);
 			VentanaPrincipal.getPanelPrepararCompra().setVisible(false);
+			Almacen.getBtn_Modificar().setEnabled(false);
 		}
 		
 		if (e.getSource() == PrepararCompra.getBtn_Imprimir()) {
 			
-			try {
-				
+			try {				
 				panelPrepararCompra.getTabla().print();
 				
 			} catch (PrinterException e1) {

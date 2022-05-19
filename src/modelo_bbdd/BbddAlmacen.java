@@ -5,7 +5,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Base64;
+
 import modelo.ModeloAlmacen;
+import vista.Almacen;
+import vista.GestionUsuarios;
 
 public class BbddAlmacen {
 	
@@ -19,11 +23,11 @@ public class BbddAlmacen {
 		connection = conexion.obtenerConexion();		
 		arrayAlmacen = new ArrayList<ModeloAlmacen>();		
 		try {
-			sentenciaAlmacen = connection.prepareStatement("Select NombreProducto, Cantidad, IdUnidadMedida, CantidadMinima, CantidadMaxima, IdTipo from Almacen");
+			sentenciaAlmacen = connection.prepareStatement("Select IdProducto, NombreProducto, Cantidad, IdUnidadMedida, CantidadMinima, CantidadMaxima, IdTipo from Almacen");
 			ResultSet rs = sentenciaAlmacen.executeQuery();			
 
 			while (rs.next()) {
-				ModeloAlmacen modelo = new ModeloAlmacen(rs.getString("NombreProducto"), rs.getFloat("Cantidad"), rs.getInt("IdUnidadMedida"), rs.getFloat("CantidadMinima"), rs.getFloat("CantidadMaxima"), rs.getInt("IdTipo"));
+				ModeloAlmacen modelo = new ModeloAlmacen(rs.getInt("IdProducto"), rs.getString("NombreProducto"), rs.getFloat("Cantidad"), rs.getInt("IdUnidadMedida"), rs.getFloat("CantidadMinima"), rs.getFloat("CantidadMaxima"), rs.getInt("IdTipo"));
 				arrayAlmacen.add(modelo);
 			}
 			
@@ -50,14 +54,46 @@ public class BbddAlmacen {
 
 
 	public static void updatePructoAlmacen(String nombreProducto, float cantidadActual, int idunidadMedida,	float cantidadMinima, float cantidadMaxima, int idTipoProducto) throws SQLException {
-		
-		
-		
-		// Sentencia SQL Update
-		
-		
+		listarProductosAlmacen();
+		conexion = new Conexion();
+        connection = conexion.obtenerConexion();	        
+		     
+        for (int i = 0; i < arrayAlmacen.size(); i++) {        	
+			if (arrayAlmacen.get(i).getNombreProducto().equals(Almacen.datoSeleccionadoTabla())) {
+				int idProducto = arrayAlmacen.get(i).getIdProducto();
+				
+				sentenciaAlmacen= connection.prepareStatement("UPDATE Almacen SET NombreProducto = ? , Cantidad  = ? , IdUnidadMedida =? , CantidadMinima =? , CantidadMaxima =? , IdTipo =? WHERE IdProducto = ?");
+				sentenciaAlmacen.setString(1, nombreProducto);
+				sentenciaAlmacen.setFloat(2, cantidadActual);
+				sentenciaAlmacen.setInt(3, idunidadMedida);
+				sentenciaAlmacen.setFloat(4, cantidadMinima);
+				sentenciaAlmacen.setFloat(5, cantidadMaxima);
+				sentenciaAlmacen.setInt(6, idTipoProducto);
+				sentenciaAlmacen.setInt(7, idProducto);
+				sentenciaAlmacen.executeUpdate();
+			}
+		}
 	}
-
+/*
+	public static void borrarUsuario() throws SQLException{
+		listarUsuarios();
+        conexion = new Conexion();
+        connection = conexion.obtenerConexion();
+        String nombreUsuario = GestionUsuarios.datoSeleccionadoTabla();        
+        for (int i = 0; i < arrayUsuarios.size(); i++) {
+			if (arrayUsuarios.get(i).getNombreUsuario().equals(nombreUsuario)) {
+				idUsuario = arrayUsuarios.get(i).getIdUsuario();
+				sentencia= connection.prepareStatement("DELETE FROM Usuarios WHERE IdUsuario = ?;");
+				sentencia.setInt(1, idUsuario);
+				sentencia.executeUpdate();
+			}
+		}    
+    }
+	
+*/	
+	
+	
+	
 	public static ArrayList<ModeloAlmacen> getArrayAlmacen() {
 		return arrayAlmacen;
 	}	

@@ -14,6 +14,7 @@ import vista.BuscarComidaBebida;
 import vista.Facturar;
 import vista.GestionPedidos;
 import vista.Pedido;
+import vista.Recetario;
 import vista.VentanaPrincipal;
 
 public class ControladorPedido  implements ActionListener, MouseListener {
@@ -83,10 +84,10 @@ public class ControladorPedido  implements ActionListener, MouseListener {
 				e1.printStackTrace();
 			}
 			Pedido.listarPedido(BbddPedido.listarPedido());
-			
-			
-			
+			Pedido.getBtn_Modificar().setEnabled(false);
+			Pedido.getBtn_Eliminar().setEnabled(false);		
 		}
+		
 		
 		if (e.getSource() == Pedido.getBtn_Eliminar()) {
 			 // si = 0 / no = 1 / cancelar = 2 / X = -1
@@ -107,11 +108,8 @@ public class ControladorPedido  implements ActionListener, MouseListener {
 				}
 				Pedido.listarPedido(BbddPedido.listarPedido());
 			}
-			
-			
-			
-			
-			
+			Pedido.getBtn_Modificar().setEnabled(false);
+			Pedido.getBtn_Eliminar().setEnabled(false);
 		}
 		
 		if (e.getSource() == Pedido.getBtn_Facturar()) {
@@ -137,7 +135,11 @@ public class ControladorPedido  implements ActionListener, MouseListener {
 
 	@Override
 	public void mousePressed(MouseEvent e) { // Al pulsar raton
-
+		
+		if (e.getSource() == Pedido.getTabla()) {			
+			Pedido.getBtn_Modificar().setEnabled(true);
+			Pedido.getBtn_Eliminar().setEnabled(true);
+		}
 		
 	}
 

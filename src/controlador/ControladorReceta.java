@@ -142,7 +142,7 @@ public class ControladorReceta implements ActionListener, MouseListener  {
 
 	@Override
 	public void mousePressed(MouseEvent e) { // Al pulsar raton
-		
+
 	}
 	
 	@Override

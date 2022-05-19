@@ -63,7 +63,7 @@ public class ControladorMenuPrincipal implements  ActionListener, MouseListener 
 		if (e.getSource() == panelMenuPrincipal.getBtn_Almacen()) {
 			VentanaPrincipal.getPanelMenuPrincipal().setVisible(false);
 			VentanaPrincipal.getPanelAlmacen().setVisible(true);
-
+			Almacen.getBtn_Modificar().setEnabled(false);
 			Almacen.listarProductos(BbddAlmacen.listarProductosAlmacen());
 		}
 		

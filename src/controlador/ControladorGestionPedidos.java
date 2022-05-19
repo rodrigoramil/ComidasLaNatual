@@ -13,6 +13,7 @@ import vista.Cliente;
 import vista.GestionPedidos;
 import vista.Pedido;
 import vista.ProductosAlmacen;
+import vista.Recetario;
 import vista.VentanaPrincipal;
 
 public class ControladorGestionPedidos implements ActionListener, MouseListener  {
@@ -65,8 +66,7 @@ public class ControladorGestionPedidos implements ActionListener, MouseListener 
 		
 		
 		if (e.getSource() == GestionPedidos.getBtn_Mesa_1()) {		
-			VentanaPrincipal.getPanelGestionPedidos().setVisible(false);
-			VentanaPrincipal.getPanelPedido().setVisible(true);			
+			cambioVentanaPedido();		
 			GestionPedidos.getListaCliente().clearSelection();			
 			mesa = true;
 			Pedido.getLbl_Num_Mesa().setText(BbddVentas.listarClientes().get(0).getNombre());	
@@ -76,8 +76,7 @@ public class ControladorGestionPedidos implements ActionListener, MouseListener 
 		}
 		
 		if (e.getSource() == GestionPedidos.getBtn_Mesa_2()) {
-			VentanaPrincipal.getPanelGestionPedidos().setVisible(false);
-			VentanaPrincipal.getPanelPedido().setVisible(true);			
+			cambioVentanaPedido();	
 			GestionPedidos.getListaCliente().clearSelection();
 			mesa = true;
 			Pedido.getLbl_Num_Mesa().setText(BbddVentas.listarClientes().get(1).getNombre());	
@@ -86,8 +85,7 @@ public class ControladorGestionPedidos implements ActionListener, MouseListener 
 		}
 		
 		if (e.getSource() == GestionPedidos.getBtn_Mesa_3()) {
-			VentanaPrincipal.getPanelGestionPedidos().setVisible(false);
-			VentanaPrincipal.getPanelPedido().setVisible(true);			
+			cambioVentanaPedido();	
 			GestionPedidos.getListaCliente().clearSelection();
 			mesa = true;
 			Pedido.getLbl_Num_Mesa().setText(BbddVentas.listarClientes().get(2).getNombre());
@@ -96,8 +94,7 @@ public class ControladorGestionPedidos implements ActionListener, MouseListener 
 		}
 		
 		if (e.getSource() == GestionPedidos.getBtn_Mesa_4()) {
-			VentanaPrincipal.getPanelGestionPedidos().setVisible(false);
-			VentanaPrincipal.getPanelPedido().setVisible(true);			
+			cambioVentanaPedido();		
 			GestionPedidos.getListaCliente().clearSelection();
 			mesa = true;
 			Pedido.getLbl_Num_Mesa().setText(BbddVentas.listarClientes().get(3).getNombre());
@@ -106,8 +103,7 @@ public class ControladorGestionPedidos implements ActionListener, MouseListener 
 		}
 		
 		if (e.getSource() == GestionPedidos.getBtn_Mesa_5()) {
-			VentanaPrincipal.getPanelGestionPedidos().setVisible(false);
-			VentanaPrincipal.getPanelPedido().setVisible(true);			
+			cambioVentanaPedido();		
 			GestionPedidos.getListaCliente().clearSelection();
 			mesa = true;
 			Pedido.getLbl_Num_Mesa().setText(BbddVentas.listarClientes().get(4).getNombre());
@@ -116,8 +112,7 @@ public class ControladorGestionPedidos implements ActionListener, MouseListener 
 		}
 		
 		if (e.getSource() == GestionPedidos.getBtn_Mesa_6()) {
-			VentanaPrincipal.getPanelGestionPedidos().setVisible(false);
-			VentanaPrincipal.getPanelPedido().setVisible(true);			
+			cambioVentanaPedido();
 			GestionPedidos.getListaCliente().clearSelection();
 			mesa = true;		
 			Pedido.getLbl_Num_Mesa().setText(BbddVentas.listarClientes().get(5).getNombre());
@@ -126,8 +121,7 @@ public class ControladorGestionPedidos implements ActionListener, MouseListener 
 		}
 		
 		if (e.getSource() == GestionPedidos.getBtn_Mesa_7()) {
-			VentanaPrincipal.getPanelGestionPedidos().setVisible(false);
-			VentanaPrincipal.getPanelPedido().setVisible(true);			
+			cambioVentanaPedido();			
 			GestionPedidos.getListaCliente().clearSelection();
 			mesa = true;
 			Pedido.getLbl_Num_Mesa().setText(BbddVentas.listarClientes().get(6).getNombre());
@@ -136,8 +130,10 @@ public class ControladorGestionPedidos implements ActionListener, MouseListener 
 		}
 		
 		if (e.getSource() == GestionPedidos.getBtn_Mesa_8()) {
+			
 			VentanaPrincipal.getPanelGestionPedidos().setVisible(false);
-			VentanaPrincipal.getPanelPedido().setVisible(true);			
+			VentanaPrincipal.getPanelPedido().setVisible(true);	
+			
 			GestionPedidos.getListaCliente().clearSelection();
 			mesa = true;
 			
@@ -147,8 +143,7 @@ public class ControladorGestionPedidos implements ActionListener, MouseListener 
 		}
 		
 		if (e.getSource() == GestionPedidos.getBtn_Ver_Pedido()) {
-			VentanaPrincipal.getPanelGestionPedidos().setVisible(false);
-			VentanaPrincipal.getPanelPedido().setVisible(true);
+			cambioVentanaPedido();
 			mesa = false;
 			BbddVentas.listarClientes();
 			for (int i = 0; i < BbddVentas.getArrayClientes().size(); i++) {
@@ -172,6 +167,16 @@ public class ControladorGestionPedidos implements ActionListener, MouseListener 
 		
 	}
 
+	public void cambioVentanaPedido() {
+		Pedido.getBtn_Modificar().setEnabled(false);
+		Pedido.getBtn_Eliminar().setEnabled(false);
+		VentanaPrincipal.getPanelGestionPedidos().setVisible(false);
+		VentanaPrincipal.getPanelPedido().setVisible(true);
+	}
+	
+	
+	
+	
 
 	@Override
 	public void mouseClicked(MouseEvent e) { // Al hacer clic con el raton

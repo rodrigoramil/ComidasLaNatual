@@ -46,6 +46,8 @@ public class ControladorBuscarComidaBebida implements ActionListener, MouseListe
 		if (e.getSource() == BuscarComidaBebida.getBtn_volver()) {
 			VentanaPrincipal.getPanelBuscarComidaBebida().setVisible(false);
 			VentanaPrincipal.getPanelPedido().setVisible(true);
+			Pedido.getBtn_Modificar().setEnabled(false);
+			Pedido.getBtn_Eliminar().setEnabled(false);
 		}
 		if (e.getSource() == BuscarComidaBebida.getBtn_anadir()) {
 			cantidad=0;
@@ -54,8 +56,6 @@ public class ControladorBuscarComidaBebida implements ActionListener, MouseListe
 				if (!respuesta.equals("")) {
 					try {	
 						cantidad = Integer.parseInt(respuesta);
-
-
 					} catch (NumberFormatException e2) {
 						cantidad=1;
 						JOptionPane.showMessageDialog(panelBuscarComidaBebida, "No ha introducido un número, por defecto se a añadido uno");
@@ -70,27 +70,23 @@ public class ControladorBuscarComidaBebida implements ActionListener, MouseListe
 			
 			for (int i = 0; i < BbddComidaBebida.getArrayComidaBebida().size(); i++) {
 				if (BbddComidaBebida.getArrayComidaBebida().get(i).getNombreReceta().equals(ComidaBebidaSeleccionada)) {
-					idReceta = BbddComidaBebida.getArrayComidaBebida().get(i).getIdReceta();
-					
+					idReceta = BbddComidaBebida.getArrayComidaBebida().get(i).getIdReceta();					
 				}
 			}
 					
 			for (int i = 0; i < BbddVentas.listarClientes().size(); i++) {
 				if (BbddVentas.getArrayClientes().get(i).getNombre().equals(Pedido.getLbl_Num_Mesa().getText())) {
-					idCliente = BbddVentas.getArrayClientes().get(i).getId();
-					
+					idCliente = BbddVentas.getArrayClientes().get(i).getId();					
 				}				
 			}
 
 			try {
-
 				BbddPedido.addComidaBebida(idCliente, idReceta, cantidad);
 				Pedido.listarPedido(BbddPedido.listarPedido());
+				
 			} catch (SQLException e1) {
 				JOptionPane.showMessageDialog(panelBuscarComidaBebida, "Error al añadir el producto selecionado");
 			}
-			
-			
 			VentanaPrincipal.getPanelBuscarComidaBebida().setVisible(false);
 			VentanaPrincipal.getPanelPedido().setVisible(true);
 		}
@@ -111,8 +107,6 @@ public class ControladorBuscarComidaBebida implements ActionListener, MouseListe
 	
 		if (e.getSource() == BuscarComidaBebida.getBtn_buscar()) {
 			buscar = true;
-			
-			
 			BuscarComidaBebida.listarPedido(BbddComidaBebida.getArrayComidaBebida());
 		}
 	

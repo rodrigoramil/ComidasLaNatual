@@ -52,15 +52,16 @@ public class Usuario extends JPanel {
 		
 		
 		//NOMBRE
-		lbl_nombre = VentanaPrincipal.parametrosJlabel("Nombre",5, 60, 45,20);
+		lbl_nombre = VentanaPrincipal.parametrosJlabel("Nombre:",5, 60, 110,20);
 		lbl_nombre.setHorizontalAlignment(SwingConstants.RIGHT);
 		panelUsuario.add(lbl_nombre); 												
 		
-		caja_nombre = VentanaPrincipal.parametrosJTextField(70, 60, 325,20);
+		caja_nombre = VentanaPrincipal.parametrosJTextField(140, 60, 225,20);
+		caja_nombre.setHorizontalAlignment(SwingConstants.CENTER);
 		panelUsuario.add(caja_nombre);												
 		
 		//PASSWORD
-		lbl_pass = VentanaPrincipal.parametrosJlabel("Contrasena",5, 120, 45,20);
+		lbl_pass = VentanaPrincipal.parametrosJlabel("Contrasena:",5, 120, 110,20);
 		lbl_pass.setHorizontalAlignment(SwingConstants.RIGHT);
 		panelUsuario.add(lbl_pass); 												
 		
@@ -69,14 +70,14 @@ public class Usuario extends JPanel {
 		caja_pass_1.setHorizontalAlignment(SwingConstants.CENTER);
 		caja_pass_1.setBorder(null);
 		caja_pass_1.setBounds(
-								Math.round(70*VentanaPrincipal.getCordenadaX()), 		//posicion HORIZONTAL
+								Math.round(140*VentanaPrincipal.getCordenadaX()), 		//posicion HORIZONTAL
 								Math.round(120*VentanaPrincipal.getCordenadaY()),		//posicion VERTICAL 
-								Math.round(325*VentanaPrincipal.getCordenadaX()),  		//tamaño HORIZONTAL
+								Math.round(225*VentanaPrincipal.getCordenadaX()),  		//tamaño HORIZONTAL
 								Math.round(20*VentanaPrincipal.getCordenadaY())); 		//tamaño VERTICAL
 		panelUsuario.add(caja_pass_1);	
 		
 		//REPIT PASSWORD
-		lbl_repetir_pass = VentanaPrincipal.parametrosJlabel("Repita la contrase\u00F1a",5, 180, 45,20);
+		lbl_repetir_pass = VentanaPrincipal.parametrosJlabel("Repita la contrase\u00F1a:",5, 180, 110,20);
 		lbl_repetir_pass.setHorizontalAlignment(SwingConstants.RIGHT);
 		panelUsuario.add(lbl_repetir_pass); 												
 		
@@ -85,15 +86,15 @@ public class Usuario extends JPanel {
 		caja_pass_2.setHorizontalAlignment(SwingConstants.CENTER);
 		caja_pass_2.setBorder(null);
 		caja_pass_2.setBounds(
-								Math.round(70*VentanaPrincipal.getCordenadaX()), 		//posicion HORIZONTAL
+								Math.round(140*VentanaPrincipal.getCordenadaX()), 		//posicion HORIZONTAL
 								Math.round(180*VentanaPrincipal.getCordenadaY()),		//posicion VERTICAL 
-								Math.round(325*VentanaPrincipal.getCordenadaX()),  		//tamaño HORIZONTAL
+								Math.round(225*VentanaPrincipal.getCordenadaX()),  		//tamaño HORIZONTAL
 								Math.round(20*VentanaPrincipal.getCordenadaY())); 		//tamaño VERTICAL
 		panelUsuario.add(caja_pass_2);
 		
 						
 		//ROL
-		lbl_rol = VentanaPrincipal.parametrosJlabel("Rol",5, 240, 45,20);
+		lbl_rol = VentanaPrincipal.parametrosJlabel("Rol:",5, 240, 45,20);
 		lbl_rol.setHorizontalAlignment(SwingConstants.RIGHT);
 		panelUsuario.add(lbl_rol);
 		
@@ -103,7 +104,7 @@ public class Usuario extends JPanel {
 		rdbtn_admin.setHorizontalAlignment(SwingConstants.CENTER);
 		rdbtn_admin.setBorder(null);
 		rdbtn_admin.setBounds(
-								Math.round(70*VentanaPrincipal.getCordenadaX()), 		//posicion HORIZONTAL
+								Math.round(65*VentanaPrincipal.getCordenadaX()), 		//posicion HORIZONTAL
 								Math.round(240*VentanaPrincipal.getCordenadaY()),		//posicion VERTICAL 
 								Math.round(100*VentanaPrincipal.getCordenadaX()),  		//tamaño HORIZONTAL
 								Math.round(20*VentanaPrincipal.getCordenadaY())); 		//tamaño VERTICAL
@@ -116,7 +117,7 @@ public class Usuario extends JPanel {
 		rdbtn_Cocina.setHorizontalAlignment(SwingConstants.CENTER);
 		rdbtn_Cocina.setBorder(null);
 		rdbtn_Cocina.setBounds(
-								Math.round(190*VentanaPrincipal.getCordenadaX()), 		//posicion HORIZONTAL
+								Math.round(185*VentanaPrincipal.getCordenadaX()), 		//posicion HORIZONTAL
 								Math.round(240*VentanaPrincipal.getCordenadaY()),		//posicion VERTICAL 
 								Math.round(100*VentanaPrincipal.getCordenadaX()),  		//tamaño HORIZONTAL
 								Math.round(20*VentanaPrincipal.getCordenadaY())); 		//tamaño VERTICAL
@@ -129,7 +130,7 @@ public class Usuario extends JPanel {
 		rdbtn_ventas.setHorizontalAlignment(SwingConstants.CENTER);
 		rdbtn_ventas.setBorder(null);
 		rdbtn_ventas.setBounds(
-								Math.round(300*VentanaPrincipal.getCordenadaX()), 		//posicion HORIZONTAL
+								Math.round(295*VentanaPrincipal.getCordenadaX()), 		//posicion HORIZONTAL
 								Math.round(240*VentanaPrincipal.getCordenadaY()),		//posicion VERTICAL 
 								Math.round(100*VentanaPrincipal.getCordenadaX()),  		//tamaño HORIZONTAL
 								Math.round(20*VentanaPrincipal.getCordenadaY())); 		//tamaño VERTICAL

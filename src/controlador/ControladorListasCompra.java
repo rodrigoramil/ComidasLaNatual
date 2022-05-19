@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import vista.Almacen;
 import vista.ListasCompra;
 import vista.VentanaPrincipal;
 
@@ -23,6 +24,7 @@ private ListasCompra panelListasCompra;
 		if (e.getSource() == ListasCompra.getBtn_Volver()) {			
 			VentanaPrincipal.getPanelListasCompra().setVisible(false);
 			VentanaPrincipal.getPanelAlmacen().setVisible(true);
+			Almacen.getBtn_Modificar().setEnabled(false);
 		}
 		
 		if (e.getSource() == ListasCompra.getBtn_Ver()) {
