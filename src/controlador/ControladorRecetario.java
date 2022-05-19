@@ -13,6 +13,7 @@ import modelo.ModeloReceta;
 import modelo_bbdd.BbddReceta;
 import modelo_bbdd.BbddRecetario;
 import vista.GestionPedidos;
+import vista.MenuPrincipal;
 import vista.Receta;
 import vista.Recetario;
 import vista.VentanaPrincipal;
@@ -155,14 +156,74 @@ public class ControladorRecetario implements ActionListener, MouseListener  {
 
 	@Override
 	public void mouseEntered(MouseEvent e) { // al tener el raton encima
-
-		
+		if (e.getSource() == Recetario.getBtn_buscar()) {
+			Recetario.getBtn_buscar().setBackground(VentanaPrincipal.getAzulOscuro());
+			Recetario.getBtn_buscar().setForeground(VentanaPrincipal.getAzulClaro());;
+		}
+		if (e.getSource() == Recetario.getBtn_cambiar_estado()) {
+			Recetario.getBtn_cambiar_estado().setBackground(VentanaPrincipal.getAzulOscuro());
+			Recetario.getBtn_cambiar_estado().setForeground(VentanaPrincipal.getAzulClaro());;
+		}
+		if (e.getSource() == Recetario.getBtn_eliminar_receta()) {
+			Recetario.getBtn_eliminar_receta().setBackground(VentanaPrincipal.getAzulOscuro());
+			Recetario.getBtn_eliminar_receta().setForeground(VentanaPrincipal.getAzulClaro());;
+		}
+		if (e.getSource() == Recetario.getBtn_listadoRecetas()) {
+			Recetario.getBtn_listadoRecetas().setBackground(VentanaPrincipal.getAzulOscuro());
+			Recetario.getBtn_listadoRecetas().setForeground(VentanaPrincipal.getAzulClaro());;
+		}
+		if (e.getSource() == Recetario.getBtn_modificar_receta()) {
+			Recetario.getBtn_modificar_receta().setBackground(VentanaPrincipal.getAzulOscuro());
+			Recetario.getBtn_modificar_receta().setForeground(VentanaPrincipal.getAzulClaro());;
+		}
+		if (e.getSource() == Recetario.getBtn_nueva_receta()) {
+			Recetario.getBtn_nueva_receta().setBackground(VentanaPrincipal.getAzulOscuro());
+			Recetario.getBtn_nueva_receta().setForeground(VentanaPrincipal.getAzulClaro());;
+		}
+		if (e.getSource() == Recetario.getBtn_ver_recetas()) {
+			Recetario.getBtn_ver_recetas().setBackground(VentanaPrincipal.getAzulOscuro());
+			Recetario.getBtn_ver_recetas().setForeground(VentanaPrincipal.getAzulClaro());;
+		}
+		if (e.getSource() == Recetario.getBtn_volver()) {
+			Recetario.getBtn_volver().setBackground(VentanaPrincipal.getAzulOscuro());
+			Recetario.getBtn_volver().setForeground(VentanaPrincipal.getAzulClaro());;
+		}
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) { //al salir el raton de encima
-
-		
+		if (e.getSource() == Recetario.getBtn_buscar()) {
+			Recetario.getBtn_buscar().setBackground(VentanaPrincipal.getAzulClaro());
+			Recetario.getBtn_buscar().setForeground(VentanaPrincipal.getAzulOscuro());;
+		}
+		if (e.getSource() == Recetario.getBtn_cambiar_estado()) {
+			Recetario.getBtn_cambiar_estado().setBackground(VentanaPrincipal.getAzulClaro());
+			Recetario.getBtn_cambiar_estado().setForeground(VentanaPrincipal.getAzulOscuro());;
+		}
+		if (e.getSource() == Recetario.getBtn_eliminar_receta()) {
+			Recetario.getBtn_eliminar_receta().setBackground(VentanaPrincipal.getAzulClaro());
+			Recetario.getBtn_eliminar_receta().setForeground(VentanaPrincipal.getAzulOscuro());;
+		}
+		if (e.getSource() == Recetario.getBtn_listadoRecetas()) {
+			Recetario.getBtn_listadoRecetas().setBackground(VentanaPrincipal.getAzulClaro());
+			Recetario.getBtn_listadoRecetas().setForeground(VentanaPrincipal.getAzulOscuro());;
+		}
+		if (e.getSource() == Recetario.getBtn_modificar_receta()) {
+			Recetario.getBtn_modificar_receta().setBackground(VentanaPrincipal.getAzulClaro());
+			Recetario.getBtn_modificar_receta().setForeground(VentanaPrincipal.getAzulOscuro());;
+		}
+		if (e.getSource() == Recetario.getBtn_nueva_receta()) {
+			Recetario.getBtn_nueva_receta().setBackground(VentanaPrincipal.getAzulClaro());
+			Recetario.getBtn_nueva_receta().setForeground(VentanaPrincipal.getAzulOscuro());;
+		}
+		if (e.getSource() == Recetario.getBtn_ver_recetas()) {
+			Recetario.getBtn_ver_recetas().setBackground(VentanaPrincipal.getAzulClaro());
+			Recetario.getBtn_ver_recetas().setForeground(VentanaPrincipal.getAzulOscuro());;
+		}
+		if (e.getSource() == Recetario.getBtn_volver()) {
+			Recetario.getBtn_volver().setBackground(VentanaPrincipal.getAzulClaro());
+			Recetario.getBtn_volver().setForeground(VentanaPrincipal.getAzulOscuro());;
+		}
 	}
 		
 	

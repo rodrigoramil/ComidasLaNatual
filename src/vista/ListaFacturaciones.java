@@ -67,6 +67,9 @@ public class ListaFacturaciones extends JPanel {
 		btn_Ver.addActionListener(controlador);
 		btn_Calcular_Ganancias.addActionListener(controlador);
 		tabla.addMouseListener(controlador);
+		btn_Volver.addMouseListener(controlador);
+		btn_Ver.addMouseListener(controlador);
+		btn_Calcular_Ganancias.addMouseListener(controlador);
 	}
 	
 	public static void listarFacturaciones (ArrayList<ModeloCalculoGanancias> arrayTabla) {

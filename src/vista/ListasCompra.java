@@ -64,6 +64,8 @@ public class ListasCompra extends JPanel {
 		btn_Volver.addActionListener(controlador);
 		btn_Ver.addActionListener(controlador);
 		tabla.addMouseListener(controlador);
+		btn_Volver.addMouseListener(controlador);
+		btn_Ver.addMouseListener(controlador);
 	}
 
 

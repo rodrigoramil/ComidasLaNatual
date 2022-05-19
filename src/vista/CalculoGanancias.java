@@ -90,6 +90,8 @@ public class CalculoGanancias extends JPanel {
 		btn_Volver.addActionListener(controlador);
 		btn_Imprimir.addActionListener(controlador);
 		tabla.addMouseListener(controlador);
+		btn_Volver.addMouseListener(controlador);
+		btn_Imprimir.addMouseListener(controlador);
 	}
 
 	public static void listarGanancias (ArrayList<ModeloCalculoGanancias> arrayTabla) {
@@ -177,6 +179,10 @@ public class CalculoGanancias extends JPanel {
 
 	public static JButton getBtn_Imprimir() {
 		return btn_Imprimir;
+	}
+
+	public static JTable getTabla() {
+		return tabla;
 	}
 
 		

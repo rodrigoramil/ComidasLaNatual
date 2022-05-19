@@ -2,6 +2,8 @@ package controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
@@ -10,9 +12,10 @@ import javax.swing.JTextField;
 import modelo_bbdd.BbddAlmacen;
 import vista.Almacen;
 import vista.DetalleProducto;
+import vista.MenuPrincipal;
 import vista.VentanaPrincipal;
 
-public class ControladorDetalleProducto implements ActionListener {
+public class ControladorDetalleProducto implements ActionListener, MouseListener {
 
 	private DetalleProducto panelDetalleProductos;
 	private float cantidadMaxima;
@@ -89,6 +92,48 @@ public class ControladorDetalleProducto implements ActionListener {
 		ControladorAlmacen.setNuevoProducto(false);
 		Almacen.getBtn_Modificar().setEnabled(false);
 		Almacen.getBtn_Eliminar().setEnabled(false);
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		if (e.getSource() == DetalleProducto.getBtn_Aceptar()) {
+			DetalleProducto.getBtn_Aceptar().setBackground(VentanaPrincipal.getAzulOscuro());
+			DetalleProducto.getBtn_Aceptar().setForeground(VentanaPrincipal.getAzulClaro());;
+		}
+		if (e.getSource() == DetalleProducto.getBtn_volver()) {
+			DetalleProducto.getBtn_volver().setBackground(VentanaPrincipal.getAzulOscuro());
+			DetalleProducto.getBtn_volver().setForeground(VentanaPrincipal.getAzulClaro());;
+		}
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		if (e.getSource() == DetalleProducto.getBtn_Aceptar()) {
+			DetalleProducto.getBtn_Aceptar().setBackground(VentanaPrincipal.getAzulClaro());
+			DetalleProducto.getBtn_Aceptar().setForeground(VentanaPrincipal.getAzulOscuro());;
+		}
+		if (e.getSource() == DetalleProducto.getBtn_volver()) {
+			DetalleProducto.getBtn_volver().setBackground(VentanaPrincipal.getAzulClaro());
+			DetalleProducto.getBtn_volver().setForeground(VentanaPrincipal.getAzulOscuro());;
+		}
 	}
 		
 }

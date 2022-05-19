@@ -126,6 +126,9 @@ public class Facturar extends JPanel {
 		btn_imprimir_factura.addActionListener(controlador);
 		tabla.addMouseListener(controlador);
 		caja_abonado.addKeyListener(controlador);
+		btn_volver.addMouseListener(controlador);
+		btn_pagado.addMouseListener(controlador);
+		btn_imprimir_factura.addMouseListener(controlador);
 	}
 	
 	public static void factura (ArrayList<ModeloPedido> arrayTabla) {

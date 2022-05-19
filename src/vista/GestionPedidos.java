@@ -4,6 +4,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.util.ArrayList;
 
@@ -81,9 +82,11 @@ public class GestionPedidos extends JPanel {
 		panelGestionPedidos.add(btn_Mesa_8);
 
 		lbl_mesa = VentanaPrincipal.parametrosJlabel("En mesa",180, 30, 120, 40);
+		lbl_mesa.setFont(new Font("Manche Condensed",Font.BOLD,(int)(20*VentanaPrincipal.getCordenadaY())));
 		panelGestionPedidos.add(lbl_mesa);
 		
 		lbl_Para_llevar = VentanaPrincipal.parametrosJlabel("Para llevar", 450, 30, 120,40);
+		lbl_Para_llevar.setFont(new Font("Manche Condensed",Font.BOLD,(int)(20*VentanaPrincipal.getCordenadaY())));
 		panelGestionPedidos.add(lbl_Para_llevar);	
 		
 		btn_Nuevo_Cliente = VentanaPrincipal.parametrosJButton("Nuevo Cliente",450, 80, 220,40);

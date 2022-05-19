@@ -8,6 +8,7 @@ import java.awt.event.MouseListener;
 import modelo_bbdd.BbddCalculoGanancias;
 import vista.CalculoGanancias;
 import vista.ListaFacturaciones;
+import vista.MenuPrincipal;
 import vista.VentanaPrincipal;
 
 public class ControladorListaFacturaciones implements ActionListener, MouseListener {
@@ -62,14 +63,34 @@ private ListaFacturaciones panelListaFacturaciones;
 
 	@Override
 	public void mouseEntered(MouseEvent e) { // al tener el raton encima
-
-		
+		if (e.getSource() == ListaFacturaciones.getBtn_Calcular_Ganancias()) {
+			ListaFacturaciones.getBtn_Calcular_Ganancias().setBackground(VentanaPrincipal.getAzulOscuro());
+			ListaFacturaciones.getBtn_Calcular_Ganancias().setForeground(VentanaPrincipal.getAzulClaro());;
+		}
+		if (e.getSource() == ListaFacturaciones.getBtn_Ver()) {
+			ListaFacturaciones.getBtn_Ver().setBackground(VentanaPrincipal.getAzulOscuro());
+			ListaFacturaciones.getBtn_Ver().setForeground(VentanaPrincipal.getAzulClaro());;
+		}
+		if (e.getSource() == ListaFacturaciones.getBtn_Volver()) {
+			ListaFacturaciones.getBtn_Volver().setBackground(VentanaPrincipal.getAzulOscuro());
+			ListaFacturaciones.getBtn_Volver().setForeground(VentanaPrincipal.getAzulClaro());;
+		}
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) { //al salir el raton de encima
-
-		
+		if (e.getSource() == ListaFacturaciones.getBtn_Calcular_Ganancias()) {
+			ListaFacturaciones.getBtn_Calcular_Ganancias().setBackground(VentanaPrincipal.getAzulClaro());
+			ListaFacturaciones.getBtn_Calcular_Ganancias().setForeground(VentanaPrincipal.getAzulOscuro());;
+		}
+		if (e.getSource() == ListaFacturaciones.getBtn_Ver()) {
+			ListaFacturaciones.getBtn_Ver().setBackground(VentanaPrincipal.getAzulClaro());
+			ListaFacturaciones.getBtn_Ver().setForeground(VentanaPrincipal.getAzulOscuro());;
+		}
+		if (e.getSource() == ListaFacturaciones.getBtn_Volver()) {
+			ListaFacturaciones.getBtn_Volver().setBackground(VentanaPrincipal.getAzulClaro());
+			ListaFacturaciones.getBtn_Volver().setForeground(VentanaPrincipal.getAzulOscuro());;
+		}
 	}
 		
 }

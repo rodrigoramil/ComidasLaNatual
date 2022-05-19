@@ -36,9 +36,7 @@ public class ProductosAlmacen extends JPanel {
 	public ProductosAlmacen() {
 		super();
 		inicializarComponentes();				
-		establecerManejador();
-//		BbddProductosAlmacen.listarProductosAlmacen();
-//		listarProductos();		
+		establecerManejador();	
 	}
 
 
@@ -82,6 +80,10 @@ public class ProductosAlmacen extends JPanel {
 		btn_buscar.addActionListener(controlador);
 		btn_volver.addActionListener(controlador);
 		tabla.addMouseListener(controlador);
+		btn_add_receta.addMouseListener(controlador);
+		btn_todos_productos.addMouseListener(controlador);
+		btn_buscar.addMouseListener(controlador);
+		btn_volver.addMouseListener(controlador);
 			
 		
 	}

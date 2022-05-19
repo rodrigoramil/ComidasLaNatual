@@ -114,6 +114,8 @@ public class DetalleProducto extends JPanel {
 		
 		btn_volver.addActionListener(controlador);
 		btn_Aceptar.addActionListener(controlador);	
+		btn_volver.addMouseListener(controlador);
+		btn_Aceptar.addMouseListener(controlador);
 
 	}
 

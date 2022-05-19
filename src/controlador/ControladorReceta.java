@@ -14,6 +14,7 @@ import modelo_bbdd.BbddProductosAlmacen;
 import modelo_bbdd.BbddReceta;
 import modelo_bbdd.BbddRecetario;
 import vista.BuscarComidaBebida;
+import vista.MenuPrincipal;
 import vista.ProductosAlmacen;
 import vista.Receta;
 import vista.Recetario;
@@ -153,14 +154,50 @@ public class ControladorReceta implements ActionListener, MouseListener  {
 
 	@Override
 	public void mouseEntered(MouseEvent e) { // al tener el raton encima
-
-		
+		if (e.getSource() == Receta.getBtn_borrar_ingrediente()) {
+			Receta.getBtn_borrar_ingrediente().setBackground(VentanaPrincipal.getAzulOscuro());
+			Receta.getBtn_borrar_ingrediente().setForeground(VentanaPrincipal.getAzulClaro());;
+		}
+		if (e.getSource() == Receta.getBtn_guardar()) {
+			Receta.getBtn_guardar().setBackground(VentanaPrincipal.getAzulOscuro());
+			Receta.getBtn_guardar().setForeground(VentanaPrincipal.getAzulClaro());;
+		}
+		if (e.getSource() == Receta.getBtn_modificar_cantidad()) {
+			Receta.getBtn_modificar_cantidad().setBackground(VentanaPrincipal.getAzulOscuro());
+			Receta.getBtn_modificar_cantidad().setForeground(VentanaPrincipal.getAzulClaro());;
+		}
+		if (e.getSource() == Receta.getBtn_nuevo_ingrediente()) {
+			Receta.getBtn_nuevo_ingrediente().setBackground(VentanaPrincipal.getAzulOscuro());
+			Receta.getBtn_nuevo_ingrediente().setForeground(VentanaPrincipal.getAzulClaro());;
+		}
+		if (e.getSource() == Receta.getBtn_volver()) {
+			Receta.getBtn_volver().setBackground(VentanaPrincipal.getAzulOscuro());
+			Receta.getBtn_volver().setForeground(VentanaPrincipal.getAzulClaro());;
+		}
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) { //al salir el raton de encima
-
-		
+		if (e.getSource() == Receta.getBtn_borrar_ingrediente()) {
+			Receta.getBtn_borrar_ingrediente().setBackground(VentanaPrincipal.getAzulClaro());
+			Receta.getBtn_borrar_ingrediente().setForeground(VentanaPrincipal.getAzulOscuro());;
+		}
+		if (e.getSource() == Receta.getBtn_guardar()) {
+			Receta.getBtn_guardar().setBackground(VentanaPrincipal.getAzulClaro());
+			Receta.getBtn_guardar().setForeground(VentanaPrincipal.getAzulOscuro());;
+		}
+		if (e.getSource() == Receta.getBtn_modificar_cantidad()) {
+			Receta.getBtn_modificar_cantidad().setBackground(VentanaPrincipal.getAzulClaro());
+			Receta.getBtn_modificar_cantidad().setForeground(VentanaPrincipal.getAzulOscuro());;
+		}
+		if (e.getSource() == Receta.getBtn_nuevo_ingrediente()) {
+			Receta.getBtn_nuevo_ingrediente().setBackground(VentanaPrincipal.getAzulClaro());
+			Receta.getBtn_nuevo_ingrediente().setForeground(VentanaPrincipal.getAzulOscuro());;
+		}
+		if (e.getSource() == Receta.getBtn_volver()) {
+			Receta.getBtn_volver().setBackground(VentanaPrincipal.getAzulClaro());
+			Receta.getBtn_volver().setForeground(VentanaPrincipal.getAzulOscuro());;
+		}
 	}
 
 	public void activaBotonesReceta () {

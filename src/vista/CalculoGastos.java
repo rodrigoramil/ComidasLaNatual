@@ -96,6 +96,8 @@ public class CalculoGastos extends JPanel {
 		btn_Volver.addActionListener(controlador);
 		btn_Imprimir.addActionListener(controlador);
 		tabla.addMouseListener(controlador);
+		btn_Volver.addMouseListener(controlador);
+		btn_Imprimir.addMouseListener(controlador);
 	}
 
 	
@@ -189,6 +191,10 @@ public class CalculoGastos extends JPanel {
 	
 	public static void setPaneCalculoGastos(JPanel paneCalculoGastos) {
 		CalculoGastos.panelCalculoGastos = paneCalculoGastos;
+	}
+
+	public static JTable getTabla() {
+		return tabla;
 	}	
 	
 	

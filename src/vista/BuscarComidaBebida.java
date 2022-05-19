@@ -94,8 +94,15 @@ public class BuscarComidaBebida extends JPanel {
 		btn_buscar.addActionListener(controlador);
 		btn_anadir.addActionListener(controlador);
 		btn_ver_receta.addActionListener(controlador);
+		
 		tabla.addMouseListener(controlador);
-	
+		btn_comidas_disponibles.addMouseListener(controlador);
+		btn_bebidas_disponibles.addMouseListener(controlador);
+		btn_listar_todo.addMouseListener(controlador);
+		btn_volver.addMouseListener(controlador);
+		btn_buscar.addMouseListener(controlador);
+		btn_anadir.addMouseListener(controlador);
+		btn_ver_receta.addMouseListener(controlador);
 	}
 
 	public static void listarPedido (ArrayList<ModeloComidaBebida> arrayTabla) {

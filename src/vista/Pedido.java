@@ -48,7 +48,7 @@ public class Pedido extends JPanel {
 		panelPedido = VentanaPrincipal.parametrosPanel(800,600);
 		
 		lbl_Num_Mesa = VentanaPrincipal.parametrosJlabel("",150, 30, 300, 40);
-		lbl_Num_Mesa.setFont(new Font("Manche Condensed",Font.BOLD,(int)(15*VentanaPrincipal.getCordenadaY())));
+		lbl_Num_Mesa.setFont(new Font("Manche Condensed",Font.BOLD,(int)(25*VentanaPrincipal.getCordenadaY())));
 		lbl_Num_Mesa.setForeground(Color.orange);
 		panelPedido.add(lbl_Num_Mesa);
 				
@@ -88,6 +88,11 @@ public class Pedido extends JPanel {
 		btn_Eliminar.addActionListener(controlador);
 		btn_Facturar.addActionListener(controlador);
 		tabla.addMouseListener(controlador);
+		btn_Volver.addMouseListener(controlador);
+		btn_Modificar.addMouseListener(controlador);
+		btn_Nuevo.addMouseListener(controlador);
+		btn_Eliminar.addMouseListener(controlador);
+		btn_Facturar.addMouseListener(controlador);
 		
 	}
 

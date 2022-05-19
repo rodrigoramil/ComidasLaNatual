@@ -8,6 +8,7 @@ import java.awt.print.PrinterException;
 import javax.swing.JOptionPane;
 
 import vista.Almacen;
+import vista.MenuPrincipal;
 import vista.PrepararCompra;
 import vista.VentanaPrincipal;
 
@@ -78,14 +79,34 @@ public class ControladorPrepararCompra implements ActionListener, MouseListener 
 
 	@Override
 	public void mouseEntered(MouseEvent e) { // al tener el raton encima
-
-		
+		if (e.getSource() == PrepararCompra.getBtn_Guardar()) {
+			PrepararCompra.getBtn_Guardar().setBackground(VentanaPrincipal.getAzulOscuro());
+			PrepararCompra.getBtn_Guardar().setForeground(VentanaPrincipal.getAzulClaro());;
+		}
+		if (e.getSource() == PrepararCompra.getBtn_Imprimir()) {
+			PrepararCompra.getBtn_Imprimir().setBackground(VentanaPrincipal.getAzulOscuro());
+			PrepararCompra.getBtn_Imprimir().setForeground(VentanaPrincipal.getAzulClaro());;
+		}
+		if (e.getSource() == PrepararCompra.getBtn_volver()) {
+			PrepararCompra.getBtn_volver().setBackground(VentanaPrincipal.getAzulOscuro());
+			PrepararCompra.getBtn_volver().setForeground(VentanaPrincipal.getAzulClaro());;
+		}
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) { //al salir el raton de encima
-
-		
+		if (e.getSource() == PrepararCompra.getBtn_Guardar()) {
+			PrepararCompra.getBtn_Guardar().setBackground(VentanaPrincipal.getAzulClaro());
+			PrepararCompra.getBtn_Guardar().setForeground(VentanaPrincipal.getAzulOscuro());;
+		}
+		if (e.getSource() == PrepararCompra.getBtn_Imprimir()) {
+			PrepararCompra.getBtn_Imprimir().setBackground(VentanaPrincipal.getAzulClaro());
+			PrepararCompra.getBtn_Imprimir().setForeground(VentanaPrincipal.getAzulOscuro());;
+		}
+		if (e.getSource() == PrepararCompra.getBtn_volver()) {
+			PrepararCompra.getBtn_volver().setBackground(VentanaPrincipal.getAzulClaro());
+			PrepararCompra.getBtn_volver().setForeground(VentanaPrincipal.getAzulOscuro());;
+		}
 	}
 
 	

@@ -15,6 +15,7 @@ import modelo_bbdd.BbddCalculoGanancias;
 import modelo_bbdd.BbddPedido;
 import vista.DetalleGasto;
 import vista.Facturar;
+import vista.MenuPrincipal;
 import vista.Pedido;
 import vista.VentanaPrincipal;
 
@@ -89,31 +90,43 @@ public class ControladorFacturar implements ActionListener, MouseListener, KeyLi
 
 	@Override
 	public void mouseEntered(MouseEvent e) { // al tener el raton encima
-
-		
+		if (e.getSource() == Facturar.getBtn_imprimir_factura()) {
+			Facturar.getBtn_imprimir_factura().setBackground(VentanaPrincipal.getAzulOscuro());
+			Facturar.getBtn_imprimir_factura().setForeground(VentanaPrincipal.getAzulClaro());;
+		}
+		if (e.getSource() == Facturar.getBtn_pagado()) {
+			Facturar.getBtn_pagado().setBackground(VentanaPrincipal.getAzulOscuro());
+			Facturar.getBtn_pagado().setForeground(VentanaPrincipal.getAzulClaro());;
+		}
+		if (e.getSource() == Facturar.getBtn_volver()) {
+			Facturar.getBtn_volver().setBackground(VentanaPrincipal.getAzulOscuro());
+			Facturar.getBtn_volver().setForeground(VentanaPrincipal.getAzulClaro());;
+		}
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) { //al salir el raton de encima
-
-		
+		if (e.getSource() == Facturar.getBtn_imprimir_factura()) {
+			Facturar.getBtn_imprimir_factura().setBackground(VentanaPrincipal.getAzulClaro());
+			Facturar.getBtn_imprimir_factura().setForeground(VentanaPrincipal.getAzulOscuro());;
+		}
+		if (e.getSource() == Facturar.getBtn_pagado()) {
+			Facturar.getBtn_pagado().setBackground(VentanaPrincipal.getAzulClaro());
+			Facturar.getBtn_pagado().setForeground(VentanaPrincipal.getAzulOscuro());;
+		}
+		if (e.getSource() == Facturar.getBtn_volver()) {
+			Facturar.getBtn_volver().setBackground(VentanaPrincipal.getAzulClaro());
+			Facturar.getBtn_volver().setForeground(VentanaPrincipal.getAzulOscuro());;
+		}
 	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-	
-		
+
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		
-//		double abonado = Float.parseFloat(Facturar.getCaja_abonado().getText());
-		
-
-		
-		
-//		Facturar.getLbl_valor_devolver().setText(String.format("%.2f", abonado)+" €");
 		
 	}
 
@@ -126,21 +139,13 @@ public class ControladorFacturar implements ActionListener, MouseListener, KeyLi
 			float abonadoNum = Float.parseFloat(abonado);
 			totalIva = (float) Facturar.calcularFactura();
 			double aDevolver = abonadoNum - totalIva;		
-			
-			
+
 			Facturar.getLbl_valor_devolver().setText(String.format("%.2f", aDevolver)+" €");
 
 		} catch (NumberFormatException e2) {
 			JOptionPane.showMessageDialog(panelFacturar, "No has introducido un número");
 		}
-		/*
-		String abonado = Facturar.getCaja_abonado().getText();
-		float abonadoNum = Float.parseFloat(abonado);
-		double totalIva = ControladorPedido.getTotalIva();
-		double aDevolver = abonadoNum - totalIva;		
-		Facturar.getLbl_valor_devolver().setText(String.format("%.2f", aDevolver)+" €");
-*/
-		
+
 	}
 
 	public float getTotalIva() {

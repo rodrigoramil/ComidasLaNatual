@@ -64,6 +64,9 @@ public class ListaGastos extends JPanel {
 		btn_Ver.addActionListener(controlador);
 		btn_Calcular_Gastos.addActionListener(controlador);
 		tabla.addMouseListener(controlador);
+		btn_Volver.addMouseListener(controlador);
+		btn_Ver.addMouseListener(controlador);
+		btn_Calcular_Gastos.addMouseListener(controlador);
 	}
 
 	public static void listarGastos (ArrayList<ModeloListaGastos> arrayTabla) {

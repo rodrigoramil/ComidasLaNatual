@@ -104,6 +104,14 @@ public class Recetario extends JPanel {
 		btn_buscar.addActionListener(controlador);
 		btn_volver.addActionListener(controlador);
 		tabla.addMouseListener(controlador);
+		btn_cambiar_estado.addMouseListener(controlador);
+		btn_modificar_receta.addMouseListener(controlador);
+		btn_eliminar_receta.addMouseListener(controlador);
+		btn_nueva_receta.addMouseListener(controlador);
+		btn_ver_recetas.addMouseListener(controlador);
+		btn_listadoRecetas.addMouseListener(controlador);
+		btn_buscar.addMouseListener(controlador);
+		btn_volver.addMouseListener(controlador);
 
 	}
 		

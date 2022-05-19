@@ -1,5 +1,6 @@
 package controlador;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -13,6 +14,7 @@ import modelo_bbdd.BbddPedido;
 import vista.BuscarComidaBebida;
 import vista.Facturar;
 import vista.GestionPedidos;
+import vista.MenuPrincipal;
 import vista.Pedido;
 import vista.Recetario;
 import vista.VentanaPrincipal;
@@ -151,14 +153,50 @@ public class ControladorPedido  implements ActionListener, MouseListener {
 
 	@Override
 	public void mouseEntered(MouseEvent e) { // al tener el raton encima
-
-		
+		if (e.getSource() == Pedido.getBtn_Eliminar()) {
+			Pedido.getBtn_Eliminar().setBackground(VentanaPrincipal.getAzulOscuro());
+			Pedido.getBtn_Eliminar().setForeground(VentanaPrincipal.getAzulClaro());;
+		}
+		if (e.getSource() == Pedido.getBtn_Facturar()) {
+			Pedido.getBtn_Facturar().setBackground(VentanaPrincipal.getAzulOscuro());
+			Pedido.getBtn_Facturar().setForeground(VentanaPrincipal.getAzulClaro());;
+		}
+		if (e.getSource() == Pedido.getBtn_Modificar()) {
+			Pedido.getBtn_Modificar().setBackground(VentanaPrincipal.getAzulOscuro());
+			Pedido.getBtn_Modificar().setForeground(VentanaPrincipal.getAzulClaro());;
+		}
+		if (e.getSource() == Pedido.getBtn_Nuevo()) {
+			Pedido.getBtn_Nuevo().setBackground(VentanaPrincipal.getAzulOscuro());
+			Pedido.getBtn_Nuevo().setForeground(VentanaPrincipal.getAzulClaro());;
+		}
+		if (e.getSource() == Pedido.getBtn_Volver()) {
+			Pedido.getBtn_Volver().setBackground(VentanaPrincipal.getAzulOscuro());
+			Pedido.getBtn_Volver().setForeground(VentanaPrincipal.getAzulClaro());;
+		}
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) { //al salir el raton de encima
-
-		
+		if (e.getSource() == Pedido.getBtn_Eliminar()) {
+			Pedido.getBtn_Eliminar().setBackground(VentanaPrincipal.getAzulClaro());
+			Pedido.getBtn_Eliminar().setForeground(VentanaPrincipal.getAzulOscuro());;
+		}
+		if (e.getSource() == Pedido.getBtn_Facturar()) {
+			Pedido.getBtn_Facturar().setBackground(Color.ORANGE);
+			Pedido.getBtn_Facturar().setForeground(VentanaPrincipal.getAzulOscuro());;
+		}
+		if (e.getSource() == Pedido.getBtn_Modificar()) {
+			Pedido.getBtn_Modificar().setBackground(VentanaPrincipal.getAzulClaro());
+			Pedido.getBtn_Modificar().setForeground(VentanaPrincipal.getAzulOscuro());;
+		}
+		if (e.getSource() == Pedido.getBtn_Nuevo()) {
+			Pedido.getBtn_Nuevo().setBackground(VentanaPrincipal.getAzulClaro());
+			Pedido.getBtn_Nuevo().setForeground(VentanaPrincipal.getAzulOscuro());;
+		}
+		if (e.getSource() == Pedido.getBtn_Volver()) {
+			Pedido.getBtn_Volver().setBackground(VentanaPrincipal.getAzulClaro());
+			Pedido.getBtn_Volver().setForeground(VentanaPrincipal.getAzulOscuro());;
+		}
 	}
 
 	public static double getAbonado() {

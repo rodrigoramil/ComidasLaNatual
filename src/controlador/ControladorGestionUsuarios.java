@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 import modelo_bbdd.BbddGestionUsuario;
 import modelo_bbdd.BbddLogin;
 import vista.GestionUsuarios;
+import vista.MenuPrincipal;
 import vista.Recetario;
 import vista.Usuario;
 import vista.VentanaPrincipal;
@@ -139,14 +140,42 @@ public class ControladorGestionUsuarios implements ActionListener, MouseListener
 
 	@Override
 	public void mouseEntered(MouseEvent e) { // al tener el raton encima
-
-		
+		if (e.getSource() == GestionUsuarios.getBtn_eliminar()) {
+			GestionUsuarios.getBtn_eliminar().setBackground(VentanaPrincipal.getAzulOscuro());
+			GestionUsuarios.getBtn_eliminar().setForeground(VentanaPrincipal.getAzulClaro());;
+		}
+		if (e.getSource() == GestionUsuarios.getBtn_Modificar()) {
+			GestionUsuarios.getBtn_Modificar().setBackground(VentanaPrincipal.getAzulOscuro());
+			GestionUsuarios.getBtn_Modificar().setForeground(VentanaPrincipal.getAzulClaro());;
+		}
+		if (e.getSource() == GestionUsuarios.getBtn_nuevo()) {
+			GestionUsuarios.getBtn_nuevo().setBackground(VentanaPrincipal.getAzulOscuro());
+			GestionUsuarios.getBtn_nuevo().setForeground(VentanaPrincipal.getAzulClaro());;
+		}
+		if (e.getSource() == GestionUsuarios.getBtn_volver()) {
+			GestionUsuarios.getBtn_volver().setBackground(VentanaPrincipal.getAzulOscuro());
+			GestionUsuarios.getBtn_volver().setForeground(VentanaPrincipal.getAzulClaro());;
+		}
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) { //al salir el raton de encima
-
-		
+		if (e.getSource() == GestionUsuarios.getBtn_eliminar()) {
+			GestionUsuarios.getBtn_eliminar().setBackground(VentanaPrincipal.getAzulClaro());
+			GestionUsuarios.getBtn_eliminar().setForeground(VentanaPrincipal.getAzulOscuro());;
+		}
+		if (e.getSource() == GestionUsuarios.getBtn_Modificar()) {
+			GestionUsuarios.getBtn_Modificar().setBackground(VentanaPrincipal.getAzulClaro());
+			GestionUsuarios.getBtn_Modificar().setForeground(VentanaPrincipal.getAzulOscuro());;
+		}
+		if (e.getSource() == GestionUsuarios.getBtn_nuevo()) {
+			GestionUsuarios.getBtn_nuevo().setBackground(VentanaPrincipal.getAzulClaro());
+			GestionUsuarios.getBtn_nuevo().setForeground(VentanaPrincipal.getAzulOscuro());;
+		}
+		if (e.getSource() == GestionUsuarios.getBtn_volver()) {
+			GestionUsuarios.getBtn_volver().setBackground(VentanaPrincipal.getAzulClaro());
+			GestionUsuarios.getBtn_volver().setForeground(VentanaPrincipal.getAzulOscuro());;
+		}
 	}
 
 

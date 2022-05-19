@@ -159,7 +159,8 @@ public class Usuario extends JPanel {
 		caja_pass_1.addActionListener(controlador);	
 		caja_pass_2.addActionListener(controlador);		
 		btn_volver.addActionListener(controlador);
-		
+		btn_volver.addMouseListener(controlador);
+		btn_Aceptar.addMouseListener(controlador);
 	}
 
 	/**

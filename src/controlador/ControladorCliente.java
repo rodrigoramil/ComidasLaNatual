@@ -2,14 +2,17 @@ package controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.sql.SQLException;
 
 import modelo_bbdd.BbddVentas;
 import vista.Cliente;
 import vista.GestionPedidos;
+import vista.MenuPrincipal;
 import vista.VentanaPrincipal;
 
-public class ControladorCliente implements ActionListener{
+public class ControladorCliente implements ActionListener, MouseListener{
 
 	private Cliente panelCliente;
 
@@ -66,6 +69,49 @@ public class ControladorCliente implements ActionListener{
 			GestionPedidos.getListaCliente().clearSelection();
 			
 
+		}
+		
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		if (e.getSource() == Cliente.getBtn_Aceptar()) {
+			Cliente.getBtn_Aceptar().setBackground(VentanaPrincipal.getAzulOscuro());
+			Cliente.getBtn_Aceptar().setForeground(VentanaPrincipal.getAzulClaro());;
+		}
+		if (e.getSource() == Cliente.getBtn_volver()) {
+			Cliente.getBtn_volver().setBackground(VentanaPrincipal.getAzulOscuro());
+			Cliente.getBtn_volver().setForeground(VentanaPrincipal.getAzulClaro());;
+		}
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		if (e.getSource() == Cliente.getBtn_Aceptar()) {
+			Cliente.getBtn_Aceptar().setBackground(VentanaPrincipal.getAzulClaro());
+			Cliente.getBtn_Aceptar().setForeground(VentanaPrincipal.getAzulOscuro());;
+		}
+		if (e.getSource() == Cliente.getBtn_volver()) {
+			Cliente.getBtn_volver().setBackground(VentanaPrincipal.getAzulClaro());
+			Cliente.getBtn_volver().setForeground(VentanaPrincipal.getAzulOscuro());;
 		}
 		
 	}

@@ -16,6 +16,7 @@ import vista.Almacen;
 import vista.DetalleProducto;
 import vista.GestionUsuarios;
 import vista.ListasCompra;
+import vista.MenuPrincipal;
 import vista.PrepararCompra;
 import vista.Recetario;
 import vista.VentanaPrincipal;
@@ -148,13 +149,75 @@ private static boolean nuevoProducto=false;
 
 	@Override
 	public void mouseEntered(MouseEvent e) { // al tener el raton encima
-
+		if (e.getSource() == Almacen.getBtn_Buscar()) {
+			Almacen.getBtn_Buscar().setBackground(VentanaPrincipal.getAzulOscuro());
+			Almacen.getBtn_Buscar().setForeground(VentanaPrincipal.getAzulClaro());;
+		}
+		if (e.getSource() == Almacen.getBtn_Eliminar()) {
+			Almacen.getBtn_Eliminar().setBackground(VentanaPrincipal.getAzulOscuro());
+			Almacen.getBtn_Eliminar().setForeground(VentanaPrincipal.getAzulClaro());;
+		}
+		if (e.getSource() == Almacen.getBtn_Modificar()) {
+			Almacen.getBtn_Modificar().setBackground(VentanaPrincipal.getAzulOscuro());
+			Almacen.getBtn_Modificar().setForeground(VentanaPrincipal.getAzulClaro());;
+		}
+		if (e.getSource() == Almacen.getBtn_Nuevo()) {
+			Almacen.getBtn_Nuevo().setBackground(VentanaPrincipal.getAzulOscuro());
+			Almacen.getBtn_Nuevo().setForeground(VentanaPrincipal.getAzulClaro());;
+		}
+		if (e.getSource() == Almacen.getBtn_Realizar_Lista_Compra()) {
+			Almacen.getBtn_Realizar_Lista_Compra().setBackground(VentanaPrincipal.getAzulOscuro());
+			Almacen.getBtn_Realizar_Lista_Compra().setForeground(VentanaPrincipal.getAzulClaro());;
+		}
+		if (e.getSource() == Almacen.getBtn_todos_los_Productos()) {
+			Almacen.getBtn_todos_los_Productos().setBackground(VentanaPrincipal.getAzulOscuro());
+			Almacen.getBtn_todos_los_Productos().setForeground(VentanaPrincipal.getAzulClaro());;
+		}
+		if (e.getSource() == Almacen.getBtn_Ver_Listas_Compras()) {
+			Almacen.getBtn_Ver_Listas_Compras().setBackground(VentanaPrincipal.getAzulOscuro());
+			Almacen.getBtn_Ver_Listas_Compras().setForeground(VentanaPrincipal.getAzulClaro());;
+		}
+		if (e.getSource() == Almacen.getBtn_Volver()) {
+			Almacen.getBtn_Volver().setBackground(VentanaPrincipal.getAzulOscuro());
+			Almacen.getBtn_Volver().setForeground(VentanaPrincipal.getAzulClaro());;
+		}
 		
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) { //al salir el raton de encima
-
+		if (e.getSource() == Almacen.getBtn_Buscar()) {
+			Almacen.getBtn_Buscar().setBackground(VentanaPrincipal.getAzulClaro());
+			Almacen.getBtn_Buscar().setForeground(VentanaPrincipal.getAzulOscuro());;
+		}
+		if (e.getSource() == Almacen.getBtn_Eliminar()) {
+			Almacen.getBtn_Eliminar().setBackground(VentanaPrincipal.getAzulClaro());
+			Almacen.getBtn_Eliminar().setForeground(VentanaPrincipal.getAzulOscuro());;
+		}
+		if (e.getSource() == Almacen.getBtn_Modificar()) {
+			Almacen.getBtn_Modificar().setBackground(VentanaPrincipal.getAzulClaro());
+			Almacen.getBtn_Modificar().setForeground(VentanaPrincipal.getAzulOscuro());;
+		}
+		if (e.getSource() == Almacen.getBtn_Nuevo()) {
+			Almacen.getBtn_Nuevo().setBackground(VentanaPrincipal.getAzulClaro());
+			Almacen.getBtn_Nuevo().setForeground(VentanaPrincipal.getAzulOscuro());;
+		}
+		if (e.getSource() == Almacen.getBtn_Realizar_Lista_Compra()) {
+			Almacen.getBtn_Realizar_Lista_Compra().setBackground(VentanaPrincipal.getAzulClaro());
+			Almacen.getBtn_Realizar_Lista_Compra().setForeground(VentanaPrincipal.getAzulOscuro());;
+		}
+		if (e.getSource() == Almacen.getBtn_todos_los_Productos()) {
+			Almacen.getBtn_todos_los_Productos().setBackground(VentanaPrincipal.getAzulClaro());
+			Almacen.getBtn_todos_los_Productos().setForeground(VentanaPrincipal.getAzulOscuro());;
+		}
+		if (e.getSource() == Almacen.getBtn_Ver_Listas_Compras()) {
+			Almacen.getBtn_Ver_Listas_Compras().setBackground(VentanaPrincipal.getAzulClaro());
+			Almacen.getBtn_Ver_Listas_Compras().setForeground(VentanaPrincipal.getAzulOscuro());;
+		}
+		if (e.getSource() == Almacen.getBtn_Volver()) {
+			Almacen.getBtn_Volver().setBackground(VentanaPrincipal.getAzulClaro());
+			Almacen.getBtn_Volver().setForeground(VentanaPrincipal.getAzulOscuro());;
+		}
 		
 	}
 

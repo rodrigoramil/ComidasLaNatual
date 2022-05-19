@@ -85,6 +85,10 @@ public class GestionUsuarios extends JPanel {
 		btn_eliminar.addActionListener(controlador);
 		btn_volver.addActionListener(controlador);
 		tabla.addMouseListener(controlador);
+		btn_Modificar.addMouseListener(controlador);
+		btn_nuevo.addMouseListener(controlador);
+		btn_eliminar.addMouseListener(controlador);
+		btn_volver.addMouseListener(controlador);
 	}
 	
 	public static void listarUsuarios (ArrayList<ModeloGestionUsuarios> arrayList) {

@@ -43,13 +43,9 @@ public class Receta extends JPanel {
 	private static ArrayList<ModeloReceta> arrayIngredientes;
 	private static JTextField precio_receta;
 	private static JLabel lbl_iprecio;
-	
-	//**************
+	private static String dato;
 	private static Receta receta;
 
-	private static String dato;
-	//**************
-	
 	public Receta() {		
 		super();
 		inicializarComponentes();
@@ -58,11 +54,10 @@ public class Receta extends JPanel {
 	}
 
 	public void inicializarComponentes() {
-		//**************
+
 		arrayIngredientes = new ArrayList<ModeloReceta>();
-		//**************
-		panelReceta = VentanaPrincipal.parametrosPanel(800,600);
-		
+
+		panelReceta = VentanaPrincipal.parametrosPanel(800,600);	
 		
 		precio_receta = VentanaPrincipal.parametrosJTextField(580, 40, 60, 20);
 		precio_receta.setFont(new Font("Manche Condensed",Font.BOLD,(int)(14*VentanaPrincipal.getCordenadaY())));
@@ -111,7 +106,6 @@ public class Receta extends JPanel {
 		panelReceta.add(btn_borrar_ingrediente);
 		
 		btn_guardar = VentanaPrincipal.parametrosJButton("Guardar",600, 520, 120, 40);
-		btn_guardar.setBackground(Color.ORANGE);
 		panelReceta.add(btn_guardar);
 		
 		
@@ -139,9 +133,8 @@ public class Receta extends JPanel {
 	
 
 	private static void establecerManejador() {
-	//**************
+
 		ControladorReceta controlador = new ControladorReceta(receta);	
-	//**************
 		
 		btn_nuevo_ingrediente.addActionListener(controlador);
 		btn_modificar_cantidad.addActionListener(controlador);
@@ -150,10 +143,12 @@ public class Receta extends JPanel {
 		btn_volver.addActionListener(controlador);
 		precio_receta.addActionListener(controlador);
 		nombre_receta.addActionListener(controlador);
-
-	//*****************
 		tabla.addMouseListener(controlador);
-	//******************
+		btn_nuevo_ingrediente.addMouseListener(controlador);
+		btn_modificar_cantidad.addMouseListener(controlador);
+		btn_borrar_ingrediente.addMouseListener(controlador);
+		btn_guardar.addMouseListener(controlador);
+		btn_volver.addMouseListener(controlador);
 	}
 	
 	

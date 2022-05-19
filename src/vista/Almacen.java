@@ -96,7 +96,16 @@ public class Almacen extends JPanel {
 		btn_Modificar.addActionListener(controlador);
 		btn_Eliminar.addActionListener(controlador);
 		btn_Nuevo.addActionListener(controlador);
+		
 		tabla.addMouseListener(controlador);
+		btn_todos_los_Productos.addMouseListener(controlador);
+		btn_Buscar.addMouseListener(controlador);
+		btn_Volver.addMouseListener(controlador);
+		btn_Realizar_Lista_Compra.addMouseListener(controlador);
+		btn_Ver_Listas_Compras.addMouseListener(controlador);
+		btn_Modificar.addMouseListener(controlador);
+		btn_Eliminar.addMouseListener(controlador);
+		btn_Nuevo.addMouseListener(controlador);
 		
 	}
 

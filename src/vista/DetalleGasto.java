@@ -86,6 +86,9 @@ public class DetalleGasto extends JPanel {
 		btn_Guardar.addActionListener(controlador);
 		btn_Imprimir.addActionListener(controlador);
 		tabla.addMouseListener(controlador);
+		btn_Volver.addMouseListener(controlador);
+		btn_Guardar.addMouseListener(controlador);
+		btn_Imprimir.addMouseListener(controlador);
 	}
 
 
