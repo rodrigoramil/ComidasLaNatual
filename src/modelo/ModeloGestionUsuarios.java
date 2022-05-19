@@ -11,12 +11,20 @@ public class ModeloGestionUsuarios implements Serializable{
 	String contrasena;
 	String rol;
 
+	public ModeloGestionUsuarios(int IdUsuario,String nombreUsuario, String rol) {
+		super();
+		this.IdUsuario = IdUsuario;
+		this.nombreUsuario = nombreUsuario;
+		this.rol = rol;
+	}
+	
 	public ModeloGestionUsuarios(String nombreUsuario, String contrasena, String rol) {
 		super();
 		this.nombreUsuario = nombreUsuario;
 		this.contrasena = contrasena;
 		this.rol = rol;
 	}
+	
 	public ModeloGestionUsuarios(int IdUsuario,String nombreUsuario, String contrasena, String rol) {
 		super();
 		this.IdUsuario = IdUsuario;
@@ -24,6 +32,7 @@ public class ModeloGestionUsuarios implements Serializable{
 		this.contrasena = contrasena;
 		this.rol = rol;
 	}
+	
 	public int getIdUsuario() {
 		return IdUsuario;
 	}

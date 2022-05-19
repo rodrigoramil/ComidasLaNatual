@@ -6,11 +6,13 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.SQLException;
 
+import javax.swing.JOptionPane;
 import javax.swing.table.TableColumn;
 
 import modelo.ModeloReceta;
 import modelo_bbdd.BbddProductosAlmacen;
 import modelo_bbdd.BbddReceta;
+import modelo_bbdd.BbddRecetario;
 import vista.BuscarComidaBebida;
 import vista.ProductosAlmacen;
 import vista.Receta;
@@ -32,6 +34,7 @@ public class ControladorReceta implements ActionListener, MouseListener  {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == Receta.getBtn_volver()) {
 			Recetario.getBtn_modificar_receta().setEnabled(false);
+			Recetario.getBtn_eliminar_receta().setEnabled(false);
 			if (ControladorBuscarComidaBebida.getDesdeVentas()) {
 				VentanaPrincipal.getPanelReceta().setVisible(false);
 				VentanaPrincipal.getPanelBuscarComidaBebida().setVisible(true);
@@ -56,31 +59,78 @@ public class ControladorReceta implements ActionListener, MouseListener  {
 			VentanaPrincipal.getPanelReceta().setVisible(false);
 			
 			ProductosAlmacen.listarProductos(BbddProductosAlmacen.listarProductosAlmacen());
-//			BbddProductosAlmacen.listarProductosAlmacen();
 			
 		}
 		
 		if (e.getSource() == Receta.getBtn_modificar_cantidad()) {
-			
+			float cantidad = 0;
+			String respuesta = JOptionPane.showInputDialog("¿Que cantidad desea añadir?");
+			if (respuesta != null) {
+				if (!respuesta.equals("")) {
+					try {	
+						cantidad = Float.parseFloat(respuesta);
+					} catch (NumberFormatException e2) {
+						cantidad=1;
+						JOptionPane.showMessageDialog(panelReceta, "No ha introducido un número, por defecto se a modificado a uno");
+					}
+				}
+				else {
+					cantidad=1;				
+				}
+				
+				try {
+					BbddReceta.editarIngrediente(cantidad);
+					Receta.listarReceta(BbddReceta.listarRecetas());			
+				} catch (SQLException e1) {
+					JOptionPane.showMessageDialog(panelReceta, "Error al realizar la accion con la Base de Datos");
+				}
+				
+			}	
+
 		}
 		
 		if (e.getSource() == Receta.getBtn_borrar_ingrediente()) {
 			
+			 // si = 0 / no = 1 / cancelar = 2 / X = -1
+			int respuestaEliminar = JOptionPane.showConfirmDialog(panelReceta, "¿Esta seguro de que quiere eliminar este ingrediente?");
+
+			if (respuestaEliminar == 0) {
+				try {
+					BbddReceta.borrarIngrediente();
+					Receta.listarReceta(BbddReceta.listarRecetas());				
+				} catch (SQLException e1) {
+					JOptionPane.showMessageDialog(panelReceta, "Error al realizar la accion con la Base de Datos");
+					e1.printStackTrace();
+				}
+			}
+			
+			
+
 		}
 		
 		if (e.getSource() == Receta.getBtn_guardar()) {
 			Recetario.getBtn_modificar_receta().setEnabled(false);
+			Recetario.getBtn_eliminar_receta().setEnabled(false);
+			VentanaPrincipal.getPanelReceta().setVisible(false);
+			VentanaPrincipal.getPanelRecetario().setVisible(true);
+			
 			try {
-				BbddReceta.insertarReceta();
-				System.out.println("Se ha creado una nueva receta");
+				if (ControladorRecetario.isNuevaReceta()) {
+					BbddRecetario.insertarNuevaReceta();
+					Recetario.listarRecetas(BbddRecetario.listarRecetas());					
+				} else {
+					BbddRecetario.modificarReceta();
+					Recetario.listarRecetas(BbddRecetario.listarRecetas());
+				}				
+				
 			} catch (SQLException e1) {				
+				JOptionPane.showMessageDialog(panelReceta, "Error al realizar la accion con la Base de Datos");
+			} catch (NumberFormatException e1) {
+				JOptionPane.showMessageDialog(panelReceta, "Error por no haber introducido un número en el precio");
 				e1.printStackTrace();
 			}
 
 		}
-		
-		
-		
 	}
 
 	

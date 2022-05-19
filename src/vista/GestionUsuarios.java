@@ -8,6 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import controlador.ControladorGestionUsuarios;
+import modelo.ModeloGestionUsuarios;
 import modelo.ModeloReceta;
 import modelo.ModeloUsuario;
 import modelo_bbdd.BbddLogin;
@@ -31,7 +32,7 @@ public class GestionUsuarios extends JPanel {
 	private static JButton btn_volver;
 	private static JTable tabla;
     private static JScrollPane scroll;
-	private static ArrayList<ModeloUsuario> arrayUsuarios;    
+	private static ArrayList<ModeloGestionUsuarios> arrayUsuarios;    
 	private static GestionUsuarios gestionUsuarios;
 
 	private static String dato;
@@ -45,7 +46,7 @@ public class GestionUsuarios extends JPanel {
 
 	public void inicializarComponentes() {
 		
-		arrayUsuarios = new ArrayList<ModeloUsuario>();
+		arrayUsuarios = new ArrayList<ModeloGestionUsuarios>();
 		
 		panelGestionUsuarios = VentanaPrincipal.parametrosPanel(800,600);
 		
@@ -75,9 +76,9 @@ public class GestionUsuarios extends JPanel {
 		
 	}
 	
-	private void establecerManejador() {
+	private static void establecerManejador() {
 		
-		ControladorGestionUsuarios controlador = new ControladorGestionUsuarios(this);
+		ControladorGestionUsuarios controlador = new ControladorGestionUsuarios(gestionUsuarios);
 		
 		btn_Modificar.addActionListener(controlador);
 		btn_nuevo.addActionListener(controlador);
@@ -86,9 +87,9 @@ public class GestionUsuarios extends JPanel {
 		tabla.addMouseListener(controlador);
 	}
 	
-	public static void listarUsuarios (ArrayList<ModeloUsuario> arrayTabla) {
+	public static void listarUsuarios (ArrayList<ModeloGestionUsuarios> arrayList) {
 		
-        arrayUsuarios = arrayTabla;
+        arrayUsuarios = arrayList;
         
         DefaultTableModel modelo =new DefaultTableModel(){
 		    @Override
@@ -128,16 +129,9 @@ public class GestionUsuarios extends JPanel {
 		return dato;		
 	}
 	 
-	 public static String usuarioSeleccionado() throws NullPointerException {
-		 int indiceSeleccionado = tabla.getSelectedRow();
-		 String usuarioSelecionado = null;
-		 for (int i = 0; i < arrayUsuarios.size(); i++) {
-			if (indiceSeleccionado==i) {
-				usuarioSelecionado = arrayUsuarios.get(i).getNombreUsuario();
-				return usuarioSelecionado;
-			}
-		}
-		return usuarioSelecionado;
+	 public static int indiceTablaSeleccionado() {
+		 int indiceSeleccionado = tabla.getSelectedRow();		 
+		return indiceSeleccionado;
 	 }
 	 
 	 /**

@@ -46,11 +46,11 @@ public class BbddReceta {
 					if (recetaSelecionada==i) {
 						nombreRecetaSeleccionada=Recetario.getArrayRecetas().get(i).getNombreReceta();
 						precioVenta = String.valueOf(Recetario.getArrayRecetas().get(i).getPrecioVenta());
-						elaboracion = Recetario.getArrayRecetas().get(i).getElaboracion();						
+						elaboracion = Recetario.getArrayRecetas().get(i).getElaboracion();
 					}
 				}
 			}
-			// "Select A.IdProducto, A.NombreProducto, R.IdReceta, R.NombreReceta, I.Cantidad, R.Elaboracion, R.PrecioVenta from Recetas R, Ingredientes I, Almacen A where r.NombreReceta=? and R.IdReceta = I.IdReceta and I.IDPRODUCTO = A.IDPRODUCTO"
+			
 			sentenciaRecetas = connection.prepareStatement("Select I.IdReceta, R.NombreReceta, I.IdProducto, A.NombreProducto, I.Cantidad from Ingredientes I, Recetas R, Almacen A where R.NombreReceta=? and R.IdReceta = I.IdReceta and I.IdProducto = A.IdProducto");
 			sentenciaRecetas.setString(1, nombreRecetaSeleccionada);
 			ResultSet rsReceta = sentenciaRecetas.executeQuery();
@@ -69,49 +69,97 @@ public class BbddReceta {
 	}
 
 	
-	
 	public static void addProductoReceta() throws SQLException{
 
 		cantidad = ControladorProductosAlmacen.getCantidad();		
 		datoSelecionado = ProductosAlmacen.datoSeleccionadoTabla();
-		
-	        for (int i = 0; i < ProductosAlmacen.getArrayProductos().size(); i++) {
-				if (ProductosAlmacen.getArrayProductos().get(i).getNombreProducto().equals(datoSelecionado)) {					
-					idProducto = ProductosAlmacen.getArrayProductos().get(i).getIdProducto();
-				}
-			}
-	        
-	        for (ModeloRecetario receta : Recetario.getArrayRecetas()) {
-	        	if (receta.getNombreReceta().equals(nombreRecetaSeleccionada) ) {
-	        		idReceta = receta.getIdReceta();
-				}
-
-			}
 	
+        for (int i = 0; i < ProductosAlmacen.getArrayProductos().size(); i++) {     	
+			if (ProductosAlmacen.getArrayProductos().get(i).getNombreProducto().equals(datoSelecionado)) {					
+				idProducto = ProductosAlmacen.getArrayProductos().get(i).getIdProducto();
+			}
+		}
+
+        for (int i = 0; i < Recetario.getArrayRecetas().size(); i++) {
+			if (Recetario.getArrayRecetas().get(i).getNombreReceta().equals(Recetario.datoSeleccionadoTabla())) {
+				idReceta = Recetario.getArrayRecetas().get(i).getIdReceta();
+			}
+		}   
+  
 		String SQLReceta = "INSERT INTO Ingredientes (IdReceta, IdProducto, Cantidad ) VALUES ( ?, ?, ?)";
 		sentenciaRecetas = connection.prepareStatement(SQLReceta);
 		sentenciaRecetas.setInt(1, idReceta);
 		sentenciaRecetas.setInt(2, idProducto);
 		sentenciaRecetas.setFloat(3, cantidad);
 		sentenciaRecetas.executeUpdate();
-		
 		arrayReceta = listarRecetas();
 			
 	}
 	
-	/*
-	public static void addProductoReceta(int idCliente)  throws SQLException{
+	public static void editarIngrediente(float cantidad) throws SQLException {
+        conexion = new Conexion();
+        
+        connection = conexion.obtenerConexion();
+ 
+        String nombreIngrediente = Receta.datoSeleccionadoTabla();
+        for (int i = 0; i < arrayReceta.size(); i++) {
+			if (arrayReceta.get(i).getNombreProducto().equals(nombreIngrediente)) {
+				idProducto=arrayReceta.get(i).getIdProducto();
+				idReceta = arrayReceta.get(i).getIdReceta();
+			}
+		}
+        sentenciaRecetas= connection.prepareStatement("update Ingredientes set Cantidad = ? where IdReceta = ? and IdProducto = ?");
+    	sentenciaRecetas.setFloat(1, cantidad);
+    	sentenciaRecetas.setInt(2, idReceta);
+    	sentenciaRecetas.setInt(3, idProducto);            
+    	sentenciaRecetas.executeUpdate();
 
-		String SQLPedidoCliente = "INSERT INTO Ingredientes (IdReceta, IdProducto, Cantidad ) VALUES ( ?, ?, ?)";
-		sentenciaRecetas = connection.prepareStatement(SQLPedidoCliente);
-		sentenciaRecetas.setInt(1, idReceta );
-		sentenciaRecetas.setInt(1, idProducto );
-		sentenciaRecetas.setFloat(1, cantidad );
-		sentenciaRecetas.executeUpdate();
-		
-	}	
+    }
 	
-	*/
+	public static void borrarIngrediente () throws SQLException{
+        conexion = new Conexion();
+        connection = conexion.obtenerConexion();
+        
+        String nombreIngrediente = Receta.datoSeleccionadoTabla();
+        for (int i = 0; i < arrayReceta.size(); i++) {
+			if (arrayReceta.get(i).getNombreProducto().equals(nombreIngrediente)) {
+				idProducto=arrayReceta.get(i).getIdProducto();
+				idReceta = arrayReceta.get(i).getIdReceta();
+			}
+		}      
+        	
+        sentenciaRecetas= connection.prepareStatement("DELETE FROM Ingredientes WHERE IdReceta = ? AND IdProducto = ?;");
+    	sentenciaRecetas.setInt(1, idReceta);
+    	sentenciaRecetas.setInt(2, idProducto);            
+    	sentenciaRecetas.executeUpdate();
+
+    }
+	
+
+	public static ArrayList<ModeloReceta> getArrayReceta() {
+		return arrayReceta;
+	}
+
+
+	public static String getNombreRecetaSeleccionada() {
+		return nombreRecetaSeleccionada;
+	}
+
+	public static void setNombreRecetaSeleccionada(String nombreRecetaSeleccionada) {
+		BbddReceta.nombreRecetaSeleccionada = nombreRecetaSeleccionada;
+	}
+
+
+
+	public static String getPrecioVenta() {
+		return precioVenta;
+	}
+
+	public static String getElaboracion() {
+		return elaboracion;
+	}
+
+}
 	
 	
 	
@@ -123,9 +171,7 @@ public class BbddReceta {
 	
 	
 	
-	
-	
-	
+/*	
 	
 	
 	
@@ -169,14 +215,14 @@ public class BbddReceta {
 		sentenciaRecetas.setString(6, elaboracion);
 		sentenciaRecetas.executeUpdate();
 	
-		/*
+		
 		// aqui se busca idreceta al cual asociar los ingredientes
 		String SQLIdReceta = "Select idReceta from recetas where nombreReceta = ?";
 		sentenciaRecetas = connection.prepareStatement(SQLIdReceta);
 		sentenciaRecetas.setString(1, nombreReceta);
 		
 		int bbddIdReceta = sentenciaRecetas.executeUpdate();
-		*/
+		
 		
 		for (int i = 0; i < Receta.getArrayIngredientes().size(); i++) {
 			
@@ -200,7 +246,7 @@ public class BbddReceta {
 		}
 		
 		
-	/*	
+	
 		//con el idreceta, agregamos ingredientes
 		String SQLIngrediente = "insert into ingredientes(IdReceta, IdProducto, Cantidad) values (?,?,?))";
 		sentenciaRecetas = connection.prepareStatement(SQLIngrediente);
@@ -208,9 +254,9 @@ public class BbddReceta {
 		sentenciaRecetas.setInt(2, idReceta);
 		sentenciaRecetas.setFloat(3, cantidad);
 		sentenciaRecetas.executeUpdate();
-	*/
+	
 	}
-	/*
+	
 	public static ArrayList<ModeloReceta> listarIngredientes() {
 		conexion = new Conexion();
 		connection = conexion.obtenerConexion();
@@ -269,32 +315,3 @@ public class BbddReceta {
 	
 	*/
 	
-	
-
-	public static ArrayList<ModeloReceta> getArrayReceta() {
-		return arrayReceta;
-	}
-
-
-	public static String getNombreRecetaSeleccionada() {
-		return nombreRecetaSeleccionada;
-	}
-
-	public static void setNombreRecetaSeleccionada(String nombreRecetaSeleccionada) {
-		BbddReceta.nombreRecetaSeleccionada = nombreRecetaSeleccionada;
-	}
-
-
-
-	public static String getPrecioVenta() {
-		return precioVenta;
-	}
-
-	public static String getElaboracion() {
-		return elaboracion;
-	}
-	
-	
-	
-
-}

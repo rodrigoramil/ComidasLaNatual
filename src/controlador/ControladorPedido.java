@@ -89,29 +89,26 @@ public class ControladorPedido  implements ActionListener, MouseListener {
 		}
 		
 		if (e.getSource() == Pedido.getBtn_Eliminar()) {
-			
-			
-			int idReceta = 0;
-			
-			
-			String ComidaBebidaSeleccionada = Pedido.datoSeleccionadoTabla();
-			
-			for (int i = 0; i < BbddPedido.getArrayPedido().size(); i++) {
-				if (BbddPedido.getArrayPedido().get(i).getNombreReceta().equals(ComidaBebidaSeleccionada)) {
-					idReceta = BbddPedido.getArrayPedido().get(i).getIdReceta();
-					
+			 // si = 0 / no = 1 / cancelar = 2 / X = -1
+			int respuestaEliminar = JOptionPane.showConfirmDialog(panelPedido, "¿Esta seguro de que quiere eliminar la receta selecionada?");
+			if (respuestaEliminar == 0) {				
+				int idReceta = 0;			
+				String ComidaBebidaSeleccionada = Pedido.datoSeleccionadoTabla();			
+				for (int i = 0; i < BbddPedido.getArrayPedido().size(); i++) {
+					if (BbddPedido.getArrayPedido().get(i).getNombreReceta().equals(ComidaBebidaSeleccionada)) {
+						idReceta = BbddPedido.getArrayPedido().get(i).getIdReceta();
+					}
+				}			
+				try {
+					BbddPedido.borrarComidaBebida(idReceta);
+				} catch (SQLException e1) {
+					JOptionPane.showMessageDialog(panelPedido, "Error al borrar el producto selecionado");
+					e1.printStackTrace();
 				}
+				Pedido.listarPedido(BbddPedido.listarPedido());
 			}
 			
-
 			
-			try {
-				BbddPedido.borrarComidaBebida(idReceta);
-			} catch (SQLException e1) {
-				JOptionPane.showMessageDialog(panelPedido, "Error al borrar el producto selecionado");
-				e1.printStackTrace();
-			}
-			Pedido.listarPedido(BbddPedido.listarPedido());
 			
 			
 			

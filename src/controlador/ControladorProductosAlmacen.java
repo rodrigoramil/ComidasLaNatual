@@ -46,8 +46,7 @@ public class ControladorProductosAlmacen  implements ActionListener, MouseListen
 				}
 				else {
 					cantidad=1;				
-				}
-				
+				}				
 				try {
 					BbddReceta.addProductoReceta();
 					Receta.listarReceta(BbddReceta.listarRecetas());			

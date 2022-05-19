@@ -28,6 +28,7 @@ public class Recetario extends JPanel {
 	private static JTextField caja_nombre_receta;
 	private static JButton btn_cambiar_estado;
 	private static JButton btn_modificar_receta;
+	private static JButton btn_eliminar_receta;
 	private static JButton btn_nueva_receta;
 	private static JButton btn_ver_recetas;
 	private static JButton btn_listadoRecetas;
@@ -73,8 +74,11 @@ public class Recetario extends JPanel {
 		btn_nueva_receta = VentanaPrincipal.parametrosJButton("Nuevo",200, 520, 120, 20);
 		panelRecetario.add(btn_nueva_receta);
 		
-		btn_modificar_receta = VentanaPrincipal.parametrosJButton("Modificar",350, 520, 120, 20);
+		btn_modificar_receta = VentanaPrincipal.parametrosJButton("Modificar",340, 520, 120, 20);
 		panelRecetario.add(btn_modificar_receta);
+		
+		btn_eliminar_receta= VentanaPrincipal.parametrosJButton("Eliminar",480, 520, 120, 20);
+		panelRecetario.add(btn_eliminar_receta);
 		
 		btn_cambiar_estado = VentanaPrincipal.parametrosJButton("Cambiar Estado",630, 520, 120, 20);
 		panelRecetario.add(btn_cambiar_estado);
@@ -93,6 +97,7 @@ public class Recetario extends JPanel {
 		caja_nombre_receta.addActionListener(controlador);
 		btn_cambiar_estado.addActionListener(controlador);
 		btn_modificar_receta.addActionListener(controlador);
+		btn_eliminar_receta.addActionListener(controlador);
 		btn_nueva_receta.addActionListener(controlador);
 		btn_ver_recetas.addActionListener(controlador);
 		btn_listadoRecetas.addActionListener(controlador);
@@ -236,6 +241,10 @@ public class Recetario extends JPanel {
 
 	public static JTable getTabla() {
 		return tabla;
+	}
+
+	public static JButton getBtn_eliminar_receta() {
+		return btn_eliminar_receta;
 	}
 
 }

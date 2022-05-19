@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import modelo.ModeloRecetario;
+import vista.Receta;
 import vista.Recetario;
 
 public class BbddRecetario {
@@ -46,7 +47,6 @@ public class BbddRecetario {
 	}	
 	
 	public static void updateDisponibilidadReceta() {		
-		System.out.println("esta entrando por en editar"); //-> BORRAR
         conexion = new Conexion();
         connection = conexion.obtenerConexion();
         
@@ -56,8 +56,7 @@ public class BbddRecetario {
 				if (arrayRecetario.get(i).getNombreReceta().equals(datoSelecionado)) {
 					idReceta = arrayRecetario.get(i).getIdReceta();
 				}
-			}
-	
+			}	
 	        try {        	
 	        	sentenciaRecetas= connection.prepareStatement("update Recetas set IdDisponibilidad = ? where IdReceta = ?");
 	        	sentenciaRecetas.setInt(1, idDisponibilidad);
@@ -72,6 +71,79 @@ public class BbddRecetario {
 	}
 	
 	
+	public static void insertarNuevaReceta() throws SQLException , NumberFormatException{
+		int idTipo = 2;
+		int idDisponibilidad = 3;
+		String nombreReceta = Receta.getNombre_receta().getText();
+		float precioVenta = 0;
+		precioVenta = Float.parseFloat(Receta.getPrecio_receta().getText());	
+		String elaboracion = Receta.getTexto_elaboracion().getText();		
+		
+		conexion = new Conexion();
+		connection = conexion.obtenerConexion();
+		String SQLReceta = "Insert into recetas(IdTipo, IdDisponibilidad, NombreReceta, PrecioVenta, Elaboracion) values ( ?, ?, ?, ?, ? )";
+		sentenciaRecetas = connection.prepareStatement(SQLReceta);
+		sentenciaRecetas.setInt(1, idTipo);
+		sentenciaRecetas.setInt(2, idDisponibilidad);
+		sentenciaRecetas.setString(3, nombreReceta);
+		sentenciaRecetas.setFloat(4, precioVenta);
+		sentenciaRecetas.setString(5, elaboracion);
+		sentenciaRecetas.executeUpdate();
+
+		
+		
+	}
+	
+	public static void modificarReceta() throws SQLException , NumberFormatException {
+				
+		int idReceta;
+		String nombreReceta = Receta.getNombre_receta().getText();
+		float precioVenta = 0;
+		precioVenta = Float.parseFloat(Receta.getPrecio_receta().getText());	
+		String elaboracion = Receta.getTexto_elaboracion().getText();	
+		
+		
+        conexion = new Conexion();        
+        connection = conexion.obtenerConexion(); 
+        
+        System.out.println(Recetario.recetaSeleccionada());
+        System.out.println(nombreReceta);
+        
+        for (int i = 0; i < BbddRecetario.getarrayRecetario().size(); i++) {
+			if (BbddRecetario.getarrayRecetario().get(i).getNombreReceta().equals(nombreReceta) ||
+					Recetario.recetaSeleccionada()==BbddRecetario.getarrayRecetario().get(i).getIdReceta()) {
+				idReceta=BbddRecetario.getarrayRecetario().get(i).getIdReceta();
+				sentenciaRecetas= connection.prepareStatement("update recetas set NombreReceta = ?, PrecioVenta = ?, Elaboracion= ? where IdReceta = ?");
+				sentenciaRecetas.setString(1, nombreReceta);
+				sentenciaRecetas.setFloat(2, precioVenta);
+				sentenciaRecetas.setString(3, elaboracion);
+				sentenciaRecetas.setInt(4, idReceta);
+				sentenciaRecetas.executeUpdate();
+			}
+		}
+
+	}
+	
+	
+	public static void borrarReceta() throws SQLException {
+        conexion = new Conexion();
+        connection = conexion.obtenerConexion();
+        
+        String nombreReceta = Recetario.datoSeleccionadoTabla();
+        for (int i = 0; i < arrayRecetario.size(); i++) {
+			if (arrayRecetario.get(i).getNombreReceta().equals(nombreReceta)) {
+				idReceta = arrayRecetario.get(i).getIdReceta();
+			}
+		}    
+        sentenciaRecetas= connection.prepareStatement("DELETE FROM Ingredientes WHERE IdReceta = ?;");
+    	sentenciaRecetas.setInt(1, idReceta);         
+    	sentenciaRecetas.executeUpdate();
+        	
+        sentenciaRecetas= connection.prepareStatement("DELETE FROM Recetas WHERE IdReceta = ?;");
+    	sentenciaRecetas.setInt(1, idReceta);         
+    	sentenciaRecetas.executeUpdate();
+		
+	}
 	
 	
 	
@@ -107,5 +179,9 @@ public class BbddRecetario {
 	public static void setIdReceta(int idReceta) {
 		BbddRecetario.idReceta = idReceta;
 	}
+
+
+
+
 
 }

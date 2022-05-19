@@ -2,9 +2,11 @@ package controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
+import modelo_bbdd.BbddGestionUsuario;
 import modelo_bbdd.BbddLogin;
 import modelo_bbdd.BbddVentas;
 import vista.Cliente;
@@ -22,8 +24,8 @@ public class ControladorUsuario implements ActionListener {
 	private boolean rolAdmin;
 	private boolean rolCocina;
 	private boolean rolVenta;
-	private String pass1;
-	private String pass2;
+	private String pass1="";
+	private String pass2="";
 	
 	
 	
@@ -38,8 +40,9 @@ public class ControladorUsuario implements ActionListener {
 			VentanaPrincipal.getPanelUsuario().setVisible(false);
 			GestionUsuarios.getTabla().clearSelection();
 			ControladorGestionUsuarios.setNuevoUsuario(false);
+			GestionUsuarios.getBtn_Modificar().setEnabled(false);
+			GestionUsuarios.getBtn_eliminar().setEnabled(false);
 		}
-		
 		
 		if (e.getSource() == Usuario.getBtn_Aceptar()) {
 
@@ -63,11 +66,18 @@ public class ControladorUsuario implements ActionListener {
 					else if (rolVenta) {
 						rolUsuario= "Venta";
 					}
-					BbddLogin.nuevoUsuario(nombreUsuario, pass1, rolUsuario );
-
+					try {
+						BbddGestionUsuario.insertarUsuarios(nombreUsuario, pass1, rolUsuario);
+						GestionUsuarios.listarUsuarios(BbddGestionUsuario.listarUsuarios());
+					} catch (SQLException e1) {
+						JOptionPane.showMessageDialog(panelUsuario, "Error con la Base de Datos");
+					}
+					cambiarVentana();
 				}
 				else {
 					JOptionPane.showMessageDialog(panelUsuario, "Las contraseñas introducidas no coinciden");
+					Usuario.getCaja_pass_1().setText("");
+					Usuario.getCaja_pass_2().setText("");
 				}
 				
 				
@@ -82,23 +92,36 @@ public class ControladorUsuario implements ActionListener {
 					else if (rolVenta) {
 						rolUsuario= "Venta";
 					}
-					BbddLogin.edotarUsuario(nombreUsuario, pass1, rolUsuario );
-
+					try {
+						
+						BbddGestionUsuario.editarUsuario(nombreUsuario, nombreUsuario, rolUsuario);
+						GestionUsuarios.listarUsuarios(BbddGestionUsuario.listarUsuarios());
+					} catch (SQLException e1) {
+						JOptionPane.showMessageDialog(panelUsuario, "Error con la Base de Datos");
+					}
+					cambiarVentana();
 				}
 				else {
 					JOptionPane.showMessageDialog(panelUsuario, "Las contraseñas introducidas no coinciden");
+					Usuario.getCaja_pass_1().setText("");
+					Usuario.getCaja_pass_2().setText("");
 				}			
 			}
-			VentanaPrincipal.getPanelUsuario().setVisible(false);
-			VentanaPrincipal.getPanelGestionUsuarios().setVisible(true);
-			Usuario.getCaja_nombre().setText("");
-			Usuario.getCaja_pass_1().setText("");
-			Usuario.getCaja_pass_2().setText("");
-			GestionUsuarios.getTabla().clearSelection();	
-			ControladorGestionUsuarios.setNuevoUsuario(false);
+
 		}
 
 	}
 	
 
+	public void cambiarVentana() {
+		GestionUsuarios.getBtn_Modificar().setEnabled(false);
+		GestionUsuarios.getBtn_eliminar().setEnabled(false);
+		VentanaPrincipal.getPanelUsuario().setVisible(false);
+		VentanaPrincipal.getPanelGestionUsuarios().setVisible(true);
+		Usuario.getCaja_nombre().setText("");
+		Usuario.getCaja_pass_1().setText("");
+		Usuario.getCaja_pass_2().setText("");
+		GestionUsuarios.getTabla().clearSelection();	
+		ControladorGestionUsuarios.setNuevoUsuario(false);
+	}
 }

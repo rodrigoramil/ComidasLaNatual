@@ -42,7 +42,7 @@ public class BbddLogin {
 		return estado;
 	}
 	
-	
+	/*
 	public static ArrayList<ModeloUsuario> listarUsuarios() {
 		conexion = new Conexion();
 		connection = conexion.obtenerConexion();
@@ -64,14 +64,14 @@ public class BbddLogin {
 		}
 		return arrayUsuarios;			
 	}
-	
+	*/
 
-
+/*
 
 	public static void nuevoUsuario(String nombreUsuario, String pass, String rolUsuario) {
 		String passcifrado =Base64.getEncoder().encodeToString(pass.getBytes());
 		
-		/* Crear la sentencia SQL con un INSERT */
+
 		
 		
 		System.out.println("Se ha creado el nuevo Usuario "+nombreUsuario+" con el rol de "+rolUsuario);
@@ -81,7 +81,7 @@ public class BbddLogin {
 	public static void edotarUsuario(String nombreUsuario, String pass, String rolUsuario) {
 		String passcifrado =Base64.getEncoder().encodeToString(pass.getBytes());
 		
-		/* Crear la sentencia SQL con un UPDATE */
+
 		
 		
 		
@@ -89,7 +89,7 @@ public class BbddLogin {
 		System.out.println("Se ha modificado el Usuario "+nombreUsuario+" ahora tiene el rol de "+rolUsuario);
 	}
 
-	
+	*/
 	
 	
 	
