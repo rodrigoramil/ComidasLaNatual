@@ -12,7 +12,7 @@ import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import controlador.ControladorDetalleGasto;
-import modelo.ModeloPRUEBA;
+import modelo.ModeloListasCompra;
 
 
 public class DetalleGasto extends JPanel {
@@ -33,7 +33,7 @@ public class DetalleGasto extends JPanel {
     private static JScrollPane scroll;
     private static DetalleGasto detalleGasto;
 	private static String dato;
-	private static ArrayList<ModeloPRUEBA> arrayDetalleGasto;
+	private static ArrayList<ModeloListasCompra> arrayDetalleGasto;
 
 	public DetalleGasto() {
 		super();
@@ -42,7 +42,7 @@ public class DetalleGasto extends JPanel {
 	}
 
 	public void inicializarComponentes() {
-		arrayDetalleGasto = new ArrayList<ModeloPRUEBA>();
+		arrayDetalleGasto = new ArrayList<ModeloListasCompra>();
 		panelDetalleGasto = VentanaPrincipal.parametrosPanel(800,600);
 		
 		lbl_Num_Lista = VentanaPrincipal.parametrosJlabel("Lista de la compra N\u00BA 5",50, 5, 300, 40);
@@ -92,7 +92,7 @@ public class DetalleGasto extends JPanel {
 	}
 
 
-	public static void listarDetalleGasto (ArrayList<ModeloPRUEBA> arrayTabla) {
+	public static void listarDetalleGasto (ArrayList<ModeloListasCompra> arrayTabla) {
 		arrayDetalleGasto = arrayTabla;
         DefaultTableModel modelo =new DefaultTableModel(){
 		    @Override
@@ -107,10 +107,10 @@ public class DetalleGasto extends JPanel {
         
         Object filaDato[] = new Object[4];     
         for (int i = 0; i < arrayDetalleGasto.size(); i++) {
-        	filaDato[0] = arrayDetalleGasto.get(i).getReceta();
-        	filaDato[1] = arrayDetalleGasto.get(i).getEstado();
-        	filaDato[2] = arrayDetalleGasto.get(i).getReceta();
-        	filaDato[3] = arrayDetalleGasto.get(i).getEstado();
+        	filaDato[0] = arrayDetalleGasto.get(i).getIdCompraProductos();
+        	filaDato[1] = arrayDetalleGasto.get(i).getCompraHecha();
+        	filaDato[2] = arrayDetalleGasto.get(i).getCompraHecha();
+        	filaDato[3] = arrayDetalleGasto.get(i).getCompraHecha();
         	modelo.addRow(filaDato);
     	}
         tabla.setModel(modelo);
@@ -140,7 +140,7 @@ public class DetalleGasto extends JPanel {
 		return dato;		
 	}
 
-	 public static int detalleSeleccionado() throws NullPointerException {			// <-- modificar el nombre del metodo
+	 public static int detalleSeleccionado() throws NullPointerException {	
 		 int indiceSeleccionado = tabla.getSelectedRow();
 		 return indiceSeleccionado;	
 	 }

@@ -18,18 +18,18 @@ public class BbddCalculoGanancias {
 	private static Conexion conexion = null;
 	private static PreparedStatement sentenciaRecetas = null;
 	private static ArrayList<ModeloCalculoGanancias> arrayCalculoGanancias = null;
-	private static Double sumaGanancias;
+	private static float sumaGanancias;
 	
 	public static ArrayList<ModeloCalculoGanancias>  listarCalculoGanancias() {
 		conexion = new Conexion();
 		connection = conexion.obtenerConexion();		
 		arrayCalculoGanancias = new ArrayList<ModeloCalculoGanancias>();		
 		try {
-			sentenciaRecetas = connection.prepareStatement("Select G.IdPedido, G.FechaPedido, G.GananciaPedido, T.NombreUsuario from Ganancias G, Trabajousuariosganancias T where T.IdPedido = G.IdPedido");
+			sentenciaRecetas = connection.prepareStatement("Select G.IdPedido, G.FechaPedido, G.GananciaPedido, U.NombreUsuario from Ganancias G, Trabajousuariosganancias T, Usuarios U where T.IdPedido = G.IdPedido AND U.IdUsuario=T.IdUsuario;");
 			ResultSet rs = sentenciaRecetas.executeQuery();			
 
 			while (rs.next()) {
-				ModeloCalculoGanancias modelo = new ModeloCalculoGanancias(rs.getInt("IdPedido"), rs.getDate("FechaPedido"), rs.getFloat("GananciaPedido"), rs.getString("NombreUsuario"));
+				ModeloCalculoGanancias modelo = new ModeloCalculoGanancias(rs.getInt("IdPedido"), rs.getString("FechaPedido"), rs.getFloat("GananciaPedido"), rs.getString("NombreUsuario"));
 				arrayCalculoGanancias.add(modelo);
 			}
 			
@@ -40,18 +40,18 @@ public class BbddCalculoGanancias {
 		return arrayCalculoGanancias;			
 	}
 	
-	public static Double sumaGanancias () {
-		conexion = new Conexion(); // se ha de asociar al Lbl total ganancias 
+	
+	// Metodo el método falla al guardar el resultado en la variable
+	public static Float sumaGanancias () {
+		conexion = new Conexion();
 		connection = conexion.obtenerConexion();		
 		arrayCalculoGanancias = new ArrayList<ModeloCalculoGanancias>();		
 		try {
-			sentenciaRecetas = connection.prepareStatement("select sum(gananciaPedido) from ganancias");
+			sentenciaRecetas = connection.prepareStatement("select SUM(GananciaPedido) from Ganancias");
 			ResultSet rs = sentenciaRecetas.executeQuery();			
-
-			// falla al meterlo en una variable
 			while (rs.next()) {
-				sumaGanancias = rs.getDouble("GananciaPedido");
-
+				sumaGanancias = rs.getFloat("GananciaPedido");
+				System.out.println(sumaGanancias);
 			}
 			
 		} catch (SQLException e) {
@@ -60,6 +60,7 @@ public class BbddCalculoGanancias {
 		}
 		return sumaGanancias;			
 	}
+	
 	
 	
 	public static void addGanancia(float ganancia) throws SQLException {
@@ -78,7 +79,7 @@ public class BbddCalculoGanancias {
 		return arrayCalculoGanancias;
 	}
 
-	public static Double getSumaGanancias() {
+	public static Float getSumaGanancias() {
 		return sumaGanancias;
 	}
 

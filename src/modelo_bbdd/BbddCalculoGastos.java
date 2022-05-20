@@ -15,7 +15,7 @@ public class BbddCalculoGastos {
 	private static PreparedStatement sentenciaRecetas = null;
 	private static ArrayList<ModeloCalculoGastos> arrayCalculoGastos = null;
 	
-	public static void listarCalculoGasto() {
+	public static ArrayList<ModeloCalculoGastos> listarCalculoGasto() {
 		conexion = new Conexion();
 		connection = conexion.obtenerConexion();		
 		arrayCalculoGastos = new ArrayList<ModeloCalculoGastos>();		
@@ -25,7 +25,7 @@ public class BbddCalculoGastos {
 
 			while (rs.next()) {
 				
-				ModeloCalculoGastos modelo = new ModeloCalculoGastos(rs.getInt("IdCompraProductos"), rs.getBoolean("CompraHecha"), rs.getDate("FechaCompra"), rs.getFloat("GastoCompra"));
+				ModeloCalculoGastos modelo = new ModeloCalculoGastos(rs.getInt("IdCompraProductos"), rs.getBoolean("CompraHecha"), rs.getString("FechaCompra"), rs.getFloat("GastoCompra"));
 				arrayCalculoGastos.add(modelo);
 				
 			}
@@ -33,7 +33,8 @@ public class BbddCalculoGastos {
 		} catch (SQLException e) {
 			System.out.println("Error en la consulta a Base de Datos");
 			System.out.println(e.getMessage());
-		}			
+		}
+		return arrayCalculoGastos;			
 	}
 	
 	public static void sumaGasto(float gastoCompra) {

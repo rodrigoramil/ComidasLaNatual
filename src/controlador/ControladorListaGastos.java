@@ -5,6 +5,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import modelo_bbdd.BbddCalculoGanancias;
+import modelo_bbdd.BbddCalculoGastos;
+import vista.CalculoGanancias;
+import vista.CalculoGastos;
 import vista.ListaGastos;
 import vista.MenuPrincipal;
 import vista.VentanaPrincipal;
@@ -35,6 +39,12 @@ private ListaGastos panelListaGastos;
 		if (e.getSource() == ListaGastos.getBtn_Calcular_Gastos()) {
 			VentanaPrincipal.getPanelListaGastos().setVisible(false);
 			VentanaPrincipal.getPanelCalculoGastos().setVisible(true);
+			CalculoGastos.listarGastos(BbddCalculoGastos.listarCalculoGasto());
+			float sumaGanancias = 0;
+			for (int i = 0; i < BbddCalculoGastos.getCalculoGastos().size(); i++) {
+				sumaGanancias = sumaGanancias+BbddCalculoGastos.getCalculoGastos().get(i).getGastoCompra();
+			}			
+			CalculoGastos.getLbl_Cuenta_Gastos().setText(String.valueOf(sumaGanancias)+" €");
 		}
 		
 	}

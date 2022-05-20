@@ -59,7 +59,7 @@ public class Facturar extends JPanel {
 		arrayFacturas = new ArrayList<ModeloPedido>();
 		panelFacturar = VentanaPrincipal.parametrosPanel(800,600);
 		
-		lbl_mesa = VentanaPrincipal.parametrosJlabel("Mesa 1",50, 15, 300, 40);
+		lbl_mesa = VentanaPrincipal.parametrosJlabel("",50, 15, 300, 40);
 		lbl_mesa.setFont(new Font("Manche Condensed",Font.BOLD,(int)(15*VentanaPrincipal.getCordenadaY())));
 		lbl_mesa.setForeground(Color.orange);
 		panelFacturar.add(lbl_mesa);
@@ -129,6 +129,7 @@ public class Facturar extends JPanel {
 		btn_volver.addMouseListener(controlador);
 		btn_pagado.addMouseListener(controlador);
 		btn_imprimir_factura.addMouseListener(controlador);
+		lbl_mesa.addMouseListener(controlador);
 	}
 	
 	public static void factura (ArrayList<ModeloPedido> arrayTabla) {
@@ -167,9 +168,7 @@ public class Facturar extends JPanel {
         tabla.getColumnModel().getColumn(1).setResizable(false);
         tabla.getColumnModel().getColumn(2).setResizable(false);
         tabla.getColumnModel().getColumn(3).setResizable(false);
-        
-        
-        
+
     }
 	
 	
@@ -295,6 +294,14 @@ public class Facturar extends JPanel {
 
 	public static ArrayList<ModeloPedido> getArrayFacturas() {
 		return arrayFacturas;
+	}
+
+	public static JLabel getLbl_mesa() {
+		return lbl_mesa;
+	}
+
+	public static void setLbl_mesa(JLabel lbl_mesa) {
+		Facturar.lbl_mesa = lbl_mesa;
 	}	
 	
 	

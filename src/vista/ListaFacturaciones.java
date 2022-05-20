@@ -57,8 +57,7 @@ public class ListaFacturaciones extends JPanel {
 		panelListaFacturaciones.add(scroll);
 	    
 		panelListaFacturaciones.setVisible(false);
-		
-		
+
 	}
 
 	public static void establecerManejador() {			

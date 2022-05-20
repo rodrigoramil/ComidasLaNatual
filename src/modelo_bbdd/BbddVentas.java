@@ -8,8 +8,6 @@ import java.util.ArrayList;
 
 import controlador.ControladorGestionPedidos;
 import modelo.ModeloCliente;
-import modelo.ModeloPRUEBA;
-import modelo.ModeloPedido;
 
 public class BbddVentas {
 
@@ -85,7 +83,7 @@ public class BbddVentas {
 		sentencia = connection.prepareStatement(SQL);
 		
 		sentencia.setString(1, nombre);
-		sentencia.setInt(2, Integer.parseInt(telefono));
+		sentencia.setString(2, telefono);
 		sentencia.executeUpdate();
 	}
 

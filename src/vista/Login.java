@@ -43,6 +43,7 @@ public class Login extends JPanel {
 		
 		
 		jtf_Entrada_Nombre = VentanaPrincipal.parametrosJTextField(115, 80, 160, 20);
+		jtf_Entrada_Nombre.setHorizontalAlignment(SwingConstants.CENTER);
 		panelLogin.add(jtf_Entrada_Nombre);												//añadimos al panel
 		
 		//inicializamos CONTRASEÑA

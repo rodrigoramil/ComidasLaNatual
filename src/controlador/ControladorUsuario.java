@@ -97,7 +97,7 @@ public class ControladorUsuario implements ActionListener, MouseListener {
 					}
 					try {
 						
-						BbddGestionUsuario.editarUsuario(nombreUsuario, nombreUsuario, rolUsuario);
+						BbddGestionUsuario.editarUsuario(nombreUsuario, pass1, rolUsuario);
 						GestionUsuarios.listarUsuarios(BbddGestionUsuario.listarUsuarios());
 					} catch (SQLException e1) {
 						JOptionPane.showMessageDialog(panelUsuario, "Error con la Base de Datos");

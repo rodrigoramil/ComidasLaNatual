@@ -7,7 +7,7 @@ public class ModeloCalculoGanancias implements Serializable {
 	private static final long serialVersionUID = 6193645767751334541L;
 	
 	int idPedido;
-	Date fechaPedido;
+	String fechaPedido;
 	float gananciaPedido;
 	String usuario;
 	/**
@@ -16,7 +16,7 @@ public class ModeloCalculoGanancias implements Serializable {
 	 * @param gananciaPedido
 	 * @param usuario
 	 */
-	public ModeloCalculoGanancias(int idPedido, Date fechaPedido, float gananciaPedido, String usuario) {
+	public ModeloCalculoGanancias(int idPedido, String fechaPedido, float gananciaPedido, String usuario) {
 		super();
 		this.idPedido = idPedido;
 		this.fechaPedido = fechaPedido;
@@ -35,10 +35,10 @@ public class ModeloCalculoGanancias implements Serializable {
 	public void setIdPedido(int idPedido) {
 		this.idPedido = idPedido;
 	}
-	public Date getFechaPedido() {
+	public String getFechaPedido() {
 		return fechaPedido;
 	}
-	public void setFechaPedido(Date fechaPedido) {
+	public void setFechaPedido(String fechaPedido) {
 		this.fechaPedido = fechaPedido;
 	}
 	public float getGananciaPedido() {
@@ -58,5 +58,5 @@ public class ModeloCalculoGanancias implements Serializable {
 		return "ModeloCalculoGanancias [idPedido=" + idPedido + ", fechaPedido=" + fechaPedido + ", gananciaPedido="
 				+ gananciaPedido + ", usuario=" + usuario + "]";
 	}
-	
+		
 }

@@ -79,7 +79,7 @@ public class CreacionBBDD {
 		stmt.execute("CREATE TABLE IF NOT EXISTS PedidoCliente(IdPedido INT NOT NULL AUTO_INCREMENT, IdCliente INT NOT NULL, constraint fkIdCliente foreign key(IdCliente) references Cliente(IdCliente), PRIMARY KEY(IdPedido))ENGINE=INNODB;");
 	}
 	public void crearTablaGasto() throws SQLException {
-		stmt.execute("CREATE TABLE IF NOT EXISTS Gasto(IdCompraProductos INT NOT NULL AUTO_INCREMENT, CompraHecha boolean NOT NULL, FechaCompra datetime NOT NULL, GastoCompra real not null, PRIMARY KEY(IdCompraProductos))ENGINE=INNODB;");
+		stmt.execute("CREATE TABLE IF NOT EXISTS Gasto(IdCompraProductos INT NOT NULL AUTO_INCREMENT, CompraHecha boolean NOT NULL, FechaCompra datetime NOT NULL, GastoCompra FLOAT not null, PRIMARY KEY(IdCompraProductos))ENGINE=INNODB;");
 	}
 	public void crearTablaUnidadMedidaProducto() throws SQLException {
 		stmt.execute("CREATE TABLE IF NOT EXISTS UnidadMedidaProducto(IdUnidadMedida INT NOT NULL AUTO_INCREMENT,UnidadMedida ENUM('Kg','Ud','L') NOT NULL , PRIMARY KEY(IdUnidadMedida))ENGINE=INNODB;");		
@@ -91,7 +91,7 @@ public class CreacionBBDD {
 		stmt.execute("CREATE TABLE IF NOT EXISTS DisponibilidadReceta(IdDisponibilidad INT NOT NULL AUTO_INCREMENT,Estado ENUM('Disponible', 'No Disponible','En Elaboración') NOT NULL,PRIMARY KEY(IdDisponibilidad))ENGINE=INNODB;");			
 	}
 	public void crearTablaRecetas() throws SQLException {
-		stmt.execute("CREATE TABLE IF NOT EXISTS Recetas(IdReceta INT NOT NULL AUTO_INCREMENT,IdTipo int NOT NULL,IdDisponibilidad int NOT NULL,NombreReceta VARCHAR(45) NOT NULL,PrecioVenta Float NOT NULL,Elaboracion text NOT NULL,PRIMARY KEY(IdReceta))ENGINE=INNODB;");
+		stmt.execute("CREATE TABLE IF NOT EXISTS Recetas(IdReceta INT NOT NULL AUTO_INCREMENT, IdTipo int NOT NULL, IdDisponibilidad int NOT NULL, NombreReceta VARCHAR(45) NOT NULL, PrecioVenta Float NULL, Elaboracion text NULL, PRIMARY KEY(IdReceta))ENGINE=INNODB;");
 	}
 	public void crearTablaGanancias() throws SQLException {
 		stmt.execute("CREATE TABLE IF NOT EXISTS Ganancias(IdPedido INT NOT NULL AUTO_INCREMENT, FechaPedido DATETIME NOT NULL, GananciaPedido FLOAT NULL, constraint fkIdPedido foreign key(IdPedido) references PedidoCliente(IdPedido))ENGINE=INNODB;");
@@ -109,7 +109,7 @@ public class CreacionBBDD {
 		stmt.execute("CREATE TABLE IF NOT EXISTS TrabajoUsuariosGanancias(IdUsuario INT NOT NULL, IdPedido INT NOT NULL , constraint fkIdUsuarioGanancia foreign key(IdUsuario) references Usuarios(IdUsuario), constraint fkIdPedidoGanancias foreign key(IdPedido) references PedidoCliente(IdPedido) )ENGINE=INNODB;");
 	}
 	public void crearTablaCompraProductos() throws SQLException {
-		stmt.execute("CREATE TABLE IF NOT EXISTS CompraProductos( IdCompraProductos INT NOT NULL , IdProducto INT NOT NULL , CantidadCompraProducto float not null, PrecioCompraProducto float, PrecioUnitarioProducto float, constraint fkIdCompraProductosGastos  foreign key(IdCompraProductos) references Gasto(IdCompraProductos),constraint fkIdProductoAlmacen foreign key(IdProducto) references Almacen(IdProducto))ENGINE=INNODB;");
+		stmt.execute("CREATE TABLE IF NOT EXISTS CompraProductos( IdCompraProductos INT NOT NULL , IdProducto INT NOT NULL , CantidadCompraProducto float NOT NULL, PrecioCompraProducto float NULL, PrecioUnitarioProducto float NULL, constraint fkIdCompraProductosGastos  foreign key(IdCompraProductos) references Gasto(IdCompraProductos),constraint fkIdProductoAlmacen foreign key(IdProducto) references Almacen(IdProducto))ENGINE=INNODB;");
 	}
 	public void crearTablaIngredientes() throws SQLException {
 		stmt.execute("CREATE TABLE IF NOT EXISTS Ingredientes( IdReceta INT NOT NULL ,IdProducto INT NOT NULL , Cantidad float not null, constraint fkIdReceta foreign key(IdReceta) references Recetas(IdReceta), constraint fkIdIdProductoAlmacenes foreign key(IdProducto) references Almacen(IdProducto) )ENGINE=INNODB;");
@@ -146,7 +146,7 @@ public class CreacionBBDD {
 			
 			// Usuario Admin para la primera vez que se instala la apliación			
 			stmt.execute("INSERT IGNORE INTO Usuarios(NombreUsuario, Contrasena, Rol) values('Admin','','Administrador')");
-			
+			/*
 			// Ingredientes y receta e prueba
 			stmt.execute("INSERT IGNORE INTO  Almacen (NombreProducto, Cantidad, IdUnidadMedida, CantidadMinima, CantidadMaxima, IdTipo) VALUES ('Huevos', 24, 1, 6, 32, 1)");
 			stmt.execute("INSERT IGNORE INTO  Almacen (NombreProducto, Cantidad, IdUnidadMedida, CantidadMinima, CantidadMaxima, IdTipo) VALUES ('Cebollas', 8, 1, 5, 15, 1)");
@@ -161,7 +161,7 @@ public class CreacionBBDD {
 			stmt.execute("INSERT IGNORE INTO  ingredientes (IdReceta,IdProducto, Cantidad) values (1, 3, 5)");
 			stmt.execute("INSERT IGNORE INTO  ingredientes (IdReceta,IdProducto, Cantidad) values (1, 4, 0.500)");
 			stmt.execute("INSERT IGNORE INTO  ingredientes (IdReceta,IdProducto, Cantidad) values (1, 5, 0.005)");
-			
+			*/
 		}
 	}		
 }

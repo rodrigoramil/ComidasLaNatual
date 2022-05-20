@@ -22,7 +22,6 @@ public class BbddLogin {
 		String estado = "";
 		conexion = new Conexion();
 		connection = conexion.obtenerConexion();
-
 		try {
 			String pass_cifrado =Base64.getEncoder().encodeToString(entrada_pass.getBytes());
 			sentencia = connection.prepareStatement("SELECT NombreUsuario, Contrasena, Rol FROM Usuarios WHERE NombreUsuario= ? AND Contrasena = ?");

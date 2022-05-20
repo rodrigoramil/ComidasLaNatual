@@ -12,9 +12,7 @@ import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 import controlador.ControladorDetalleFactura;
-import modelo.ModeloAlmacen;
-import modelo.ModeloPRUEBA;
-import modelo_bbdd.BbddVentas;
+import modelo.ModeloPedido;
 
 public class DetalleFactura extends JPanel {
 
@@ -36,7 +34,7 @@ public class DetalleFactura extends JPanel {
     private static JScrollPane scroll;
     private static String dato;
     private static DetalleFactura detalleFactura;
-	private static ArrayList<ModeloPRUEBA> arrayDetalleFactura;	
+	private static ArrayList<ModeloPedido> arrayDetalleFactura;	
 
 	public DetalleFactura() {
 		super();
@@ -46,7 +44,7 @@ public class DetalleFactura extends JPanel {
 
 	public void inicializarComponentes() {
 		
-		arrayDetalleFactura = new ArrayList<ModeloPRUEBA>();
+		arrayDetalleFactura = new ArrayList<ModeloPedido>();
 		
 		panelDetalleFactura = VentanaPrincipal.parametrosPanel(800,600);
 
@@ -105,7 +103,7 @@ public class DetalleFactura extends JPanel {
 
 	}
 	
-	public static void listarDetalleFactura (ArrayList<ModeloPRUEBA> arrayTabla) {
+	public static void listarDetalleFactura (ArrayList<ModeloPedido> arrayTabla) {
 					
         arrayDetalleFactura = arrayTabla;	
         DefaultTableModel modelo =new DefaultTableModel(){
@@ -121,10 +119,11 @@ public class DetalleFactura extends JPanel {
         
         Object filaDato[] = new Object[4];     
         for (int i = 0; i < arrayDetalleFactura.size(); i++) {
-        	filaDato[0] = arrayDetalleFactura.get(i).getReceta();
-        	filaDato[1] = arrayDetalleFactura.get(i).getEstado();
-        	filaDato[2] = arrayDetalleFactura.get(i).getReceta();
-        	filaDato[3] = arrayDetalleFactura.get(i).getEstado();
+        	filaDato[0] = arrayDetalleFactura.get(i).getNombreReceta();
+        	filaDato[1] = arrayDetalleFactura.get(i).getPrecioVenta();
+        	filaDato[2] = arrayDetalleFactura.get(i).getCantidadRecetaVenta();
+        	float sumaFinal =arrayDetalleFactura.get(i).getPrecioVenta()*arrayDetalleFactura.get(i).getCantidadRecetaVenta();
+        	filaDato[3] = sumaFinal;
         	modelo.addRow(filaDato);
     	}
         tabla.setModel(modelo);

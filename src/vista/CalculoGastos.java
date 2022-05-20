@@ -12,7 +12,8 @@ import controlador.ControladorCalculoGastos;
 import java.awt.Font;
 import java.util.ArrayList;
 import javax.swing.JButton;
-import modelo.ModeloPRUEBA;
+
+import modelo.ModeloCalculoGastos;
 
 public class CalculoGastos extends JPanel {
 
@@ -33,7 +34,7 @@ public class CalculoGastos extends JPanel {
 	private static JTable tabla;
     private static JScrollPane scroll;
     private static CalculoGastos calculoGastos;
-	private static ArrayList<ModeloPRUEBA> arrayGastos;
+	private static ArrayList<ModeloCalculoGastos> arrayGastos;
 
 	private static String dato;
     
@@ -45,7 +46,7 @@ public class CalculoGastos extends JPanel {
 
 	public void inicializarComponentes() {
 		
-		arrayGastos = new ArrayList<ModeloPRUEBA>();
+		arrayGastos = new ArrayList<ModeloCalculoGastos>();
 		
 		panelCalculoGastos = VentanaPrincipal.parametrosPanel(800,600);
 		
@@ -66,12 +67,12 @@ public class CalculoGastos extends JPanel {
 		caja_Hasta = VentanaPrincipal.parametrosJTextField(150, 200, 120, 20);
 		panelCalculoGastos.add(caja_Hasta);
 		
-		lbl_Gastos = VentanaPrincipal.parametrosJlabel("Total gastos",40, 360, 200, 40);
+		lbl_Gastos = VentanaPrincipal.parametrosJlabel("Total gastos",140, 360, 200, 40);
 		lbl_Gastos.setFont(new Font("Manche Condensed",Font.BOLD,(int)(20*VentanaPrincipal.getCordenadaY())));
 		panelCalculoGastos.add(lbl_Gastos);
 				
 		
-		lbl_Cuenta_Gastos = VentanaPrincipal.parametrosJlabel("0,00 \u20AC",40, 400, 200, 40);
+		lbl_Cuenta_Gastos = VentanaPrincipal.parametrosJlabel("",140, 400, 200, 40);
 		lbl_Cuenta_Gastos.setFont(new Font("Manche Condensed",Font.BOLD,(int)(20*VentanaPrincipal.getCordenadaY())));
 		panelCalculoGastos.add(lbl_Cuenta_Gastos);
 
@@ -101,7 +102,7 @@ public class CalculoGastos extends JPanel {
 	}
 
 	
-	public static void listarGastos (ArrayList<ModeloPRUEBA> arrayTabla) {
+	public static void listarGastos (ArrayList<ModeloCalculoGastos> arrayTabla) {
 		arrayGastos = arrayTabla;
         DefaultTableModel modelo =new DefaultTableModel(){
 		    @Override
@@ -115,9 +116,9 @@ public class CalculoGastos extends JPanel {
         
         Object filaDato[] = new Object[3];     
         for (int i = 0; i < arrayGastos.size(); i++) {
-        	filaDato[0] = arrayGastos.get(i).getReceta();
-        	filaDato[1] = arrayGastos.get(i).getEstado();
-        	filaDato[2] = arrayGastos.get(i).getEstado();
+        	filaDato[0] = arrayGastos.get(i).getIdCompraProductos();
+        	filaDato[1] = arrayGastos.get(i).getFechaCompra();
+        	filaDato[2] = arrayGastos.get(i).getGastoCompra();
         	modelo.addRow(filaDato);
     	}
         tabla.setModel(modelo);

@@ -116,8 +116,8 @@ public class ControladorPedido  implements ActionListener, MouseListener {
 		
 		if (e.getSource() == Pedido.getBtn_Facturar()) {
 			VentanaPrincipal.getPanelPedido().setVisible(false);
-			VentanaPrincipal.getPanelFacturar().setVisible(true);	
-			
+			VentanaPrincipal.getPanelFacturar().setVisible(true);			
+			Facturar.getLbl_mesa().setText(Pedido.getLbl_Num_Mesa().getText());
 			Facturar.factura(BbddPedido.listarPedido());
 			Facturar.calcularFactura();
 			

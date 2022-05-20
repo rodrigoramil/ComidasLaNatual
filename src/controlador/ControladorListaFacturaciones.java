@@ -4,9 +4,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.text.DecimalFormat;
 
 import modelo_bbdd.BbddCalculoGanancias;
+import modelo_bbdd.BbddPedido;
 import vista.CalculoGanancias;
+import vista.DetalleFactura;
 import vista.ListaFacturaciones;
 import vista.MenuPrincipal;
 import vista.VentanaPrincipal;
@@ -29,7 +32,27 @@ private ListaFacturaciones panelListaFacturaciones;
 		
 		if (e.getSource() == ListaFacturaciones.getBtn_Ver()) {
 			VentanaPrincipal.getPanelListaFacturaciones().setVisible(false);
-			VentanaPrincipal.getPanelDetalleFactura().setVisible(true);	
+			VentanaPrincipal.getPanelDetalleFactura().setVisible(true);
+			double totalFactura = 0;
+			double totalFacturaIva = 0;
+			int idPedidoTabla= Integer.parseInt(ListaFacturaciones.datoSeleccionadoTabla());
+			for (int i = 0; i < BbddCalculoGanancias.getArrayCalculoGanancias().size(); i++) {
+				if (BbddCalculoGanancias.getArrayCalculoGanancias().get(i).getIdPedido()== idPedidoTabla) {
+					BbddPedido.setIdPedido(idPedidoTabla);
+					DetalleFactura.listarDetalleFactura(BbddPedido.listarPedido());
+					totalFacturaIva = BbddCalculoGanancias.getArrayCalculoGanancias().get(i).getGananciaPedido();
+				}
+			}			
+			totalFactura = totalFacturaIva-totalFacturaIva*0.21;
+			DecimalFormat dosDecimales = new DecimalFormat("#.00");
+			
+			DetalleFactura.getLbl_Cantidad_Total().setText(String.valueOf(dosDecimales.format(totalFactura))+" €");
+			DetalleFactura.getLbl_Cantidad_Total_IVA().setText(String.valueOf(dosDecimales.format(totalFacturaIva))+" €");
+			
+			
+			
+			
+			
 		}
 		
 		if (e.getSource() == ListaFacturaciones.getBtn_Calcular_Ganancias()) {
@@ -37,7 +60,12 @@ private ListaFacturaciones panelListaFacturaciones;
 			VentanaPrincipal.getPanelCalculoGanancias().setVisible(true);	
 			
 			CalculoGanancias.listarGanancias(BbddCalculoGanancias.listarCalculoGanancias());
-			CalculoGanancias.getLbl_Calculo_Ganancias().setText(String.valueOf(BbddCalculoGanancias.sumaGanancias()));
+			
+			float sumaGanancias = 0;
+			for (int i = 0; i < BbddCalculoGanancias.getArrayCalculoGanancias().size(); i++) {
+				sumaGanancias = sumaGanancias+BbddCalculoGanancias.getArrayCalculoGanancias().get(i).getGananciaPedido();
+			}			
+			CalculoGanancias.getLbl_Calculo_Ganancias().setText(String.valueOf(sumaGanancias)+" €");
 		}
 		
 		

@@ -33,9 +33,9 @@ public class ControladorCliente implements ActionListener, MouseListener{
 		if (e.getSource() == Cliente.getBtn_Aceptar()) {			
 			GestionPedidos.getBtn_Editar_Cliente().setEnabled(false);
 			boolean nuevoCliente = ControladorGestionPedidos.getNuevoCliente(); //  -> true		
-
+			String cajaTextoTlf="";
 			String cajaTextoNombre = Cliente.getTfd_nombre().getText();
-			String cajaTextoTlf = Cliente.getTfd_telefono().getText();
+			cajaTextoTlf = Cliente.getTfd_telefono().getText();
 			
 			if (nuevoCliente) {				
 				System.out.println("Nuevo Cliente");		
@@ -45,7 +45,7 @@ public class ControladorCliente implements ActionListener, MouseListener{
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				
+				ControladorGestionPedidos.setMesa(false);
 				GestionPedidos.creaListaClientes();
 				ControladorGestionPedidos.setNuevoCliente(false);				
 			} else {
@@ -65,7 +65,7 @@ public class ControladorCliente implements ActionListener, MouseListener{
 			
 			VentanaPrincipal.getPanelCliente().setVisible(false);
 			VentanaPrincipal.getPanelGestionPedidos().setVisible(true);
-			BbddVentas.listarClientes();
+	//		BbddVentas.listarClientes();
 			GestionPedidos.getListaCliente().clearSelection();
 			
 

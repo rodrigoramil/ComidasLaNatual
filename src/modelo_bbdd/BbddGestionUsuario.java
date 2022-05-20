@@ -65,8 +65,7 @@ public class BbddGestionUsuario {
 		listarUsuarios();
         conexion = new Conexion();
         connection = conexion.obtenerConexion();
-        String passcifrada =Base64.getEncoder().encodeToString(pass.getBytes());
-		     
+        String passcifrada =Base64.getEncoder().encodeToString(pass.getBytes()); 
         for (int i = 0; i < arrayUsuarios.size(); i++) {        	
 			if (arrayUsuarios.get(i).getNombreUsuario().equals(GestionUsuarios.datoSeleccionadoTabla())) {
 				idUsuario = arrayUsuarios.get(i).getIdUsuario();

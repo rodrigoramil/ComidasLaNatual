@@ -26,7 +26,8 @@ public class ControladorDetalleFactura implements ActionListener, MouseListener{
 		
 		if (e.getSource() == DetalleFactura.getBtn_Volver()) {
 			VentanaPrincipal.getPanelDetalleFactura().setVisible(false);
-			VentanaPrincipal.getPanelListaFacturaciones().setVisible(true);			
+			VentanaPrincipal.getPanelListaFacturaciones().setVisible(true);	
+			
 		}
 		if (e.getSource() == DetalleFactura.getBtn_Imprimir()) {
 			

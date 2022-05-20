@@ -20,8 +20,7 @@ public class ModeloListaGastos implements Serializable  {
 	 * @param gastoCompra
 	 * @param nombreUsuario
 	 */
-	public ModeloListaGastos(int idCompraProductos, String fechaCompra, boolean compraHecha, float gastoCompra,
-			String nombreUsuario) {
+	public ModeloListaGastos(int idCompraProductos, String fechaCompra, boolean compraHecha, float gastoCompra,	String nombreUsuario) {
 		super();
 		this.idCompraProductos = idCompraProductos;
 		this.fechaCompra = fechaCompra;

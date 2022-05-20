@@ -83,16 +83,17 @@ public class BbddReceta {
         for (int i = 0; i < Recetario.getArrayRecetas().size(); i++) {
 			if (Recetario.getArrayRecetas().get(i).getNombreReceta().equals(Recetario.datoSeleccionadoTabla())) {
 				idReceta = Recetario.getArrayRecetas().get(i).getIdReceta();
+				String SQLReceta = "INSERT INTO Ingredientes (IdReceta, IdProducto, Cantidad ) VALUES ( ?, ?, ?)";
+				sentenciaRecetas = connection.prepareStatement(SQLReceta);
+				sentenciaRecetas.setInt(1, idReceta);
+				sentenciaRecetas.setInt(2, idProducto);
+				sentenciaRecetas.setFloat(3, cantidad);
+				sentenciaRecetas.executeUpdate();
+				arrayReceta = listarRecetas();
 			}
 		}   
   
-		String SQLReceta = "INSERT INTO Ingredientes (IdReceta, IdProducto, Cantidad ) VALUES ( ?, ?, ?)";
-		sentenciaRecetas = connection.prepareStatement(SQLReceta);
-		sentenciaRecetas.setInt(1, idReceta);
-		sentenciaRecetas.setInt(2, idProducto);
-		sentenciaRecetas.setFloat(3, cantidad);
-		sentenciaRecetas.executeUpdate();
-		arrayReceta = listarRecetas();
+
 			
 	}
 	

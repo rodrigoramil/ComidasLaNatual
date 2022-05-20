@@ -290,10 +290,4 @@ public class Receta extends JPanel {
 		return precio_receta;
 	}
 
-	
-	
-	
-	
-	
-
 }

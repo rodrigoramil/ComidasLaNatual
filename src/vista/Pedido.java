@@ -114,7 +114,8 @@ public class Pedido extends JPanel {
         for (int i = 0; i < arrayPedidos.size(); i++) {
         	filaDato[0] = arrayPedidos.get(i).getNombreReceta();
         	filaDato[1] = arrayPedidos.get(i).getCantidadRecetaVenta();
-        	filaDato[2] = arrayPedidos.get(i).getPrecioVenta(); 
+        	float sumaPrecio = arrayPedidos.get(i).getCantidadRecetaVenta()*arrayPedidos.get(i).getPrecioVenta();
+        	filaDato[2] = sumaPrecio; 
         	modelo.addRow(filaDato);
     	}
         tabla.setModel(modelo);

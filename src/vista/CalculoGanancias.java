@@ -61,12 +61,12 @@ public class CalculoGanancias extends JPanel {
 		tfd_hasta = VentanaPrincipal.parametrosJTextField(150, 200, 120, 20);
 		panelCalculoGanancias.add(tfd_hasta);
 		
-		lbl_Total_Ganancias = VentanaPrincipal.parametrosJlabel("Total Ganancias",40, 360, 200, 40);
+		lbl_Total_Ganancias = VentanaPrincipal.parametrosJlabel("Total Ganancias",140, 360, 200, 40);
 		lbl_Total_Ganancias.setFont(new Font("Manche Condensed",Font.BOLD,(int)(20*VentanaPrincipal.getCordenadaY())));
 		panelCalculoGanancias.add(lbl_Total_Ganancias);
 				
 		
-		lbl_Calculo_Ganancias = VentanaPrincipal.parametrosJlabel("284,76 \u20AC",40, 400, 200, 40);
+		lbl_Calculo_Ganancias = VentanaPrincipal.parametrosJlabel("",140, 400, 200, 40);
 		lbl_Calculo_Ganancias.setFont(new Font("Manche Condensed",Font.BOLD,(int)(20*VentanaPrincipal.getCordenadaY())));
 		panelCalculoGanancias.add(lbl_Calculo_Ganancias);
 
