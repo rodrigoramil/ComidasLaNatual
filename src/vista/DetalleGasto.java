@@ -2,21 +2,17 @@ package vista;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
-import javax.swing.JList;
-
+import javax.swing.JOptionPane;
 
 import java.awt.Color;
 import java.awt.Font;
-
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import controlador.ControladorDetalleGasto;
-import modelo.ModeloPRUEBA;
-import modelo_bbdd.BbddVentas;
+import modelo.ModeloListasCompra;
 
 
 public class DetalleGasto extends JPanel {
@@ -35,25 +31,18 @@ public class DetalleGasto extends JPanel {
 	private static JButton btn_Imprimir;
 	private static JTable tabla;
     private static JScrollPane scroll;
-    
-	private static int ancho = 800;
-	private static int alto = 600;
-	private static int posicionPanel_x = 100;
-	private static int posicionPanel_y = 50;
+    private static DetalleGasto detalleGasto;
+	private static String dato;
+	private static ArrayList<ModeloListasCompra> arrayDetalleGasto;
 
-	private static ArrayList<ModeloPRUEBA> arrayDetalleGasto;
-	
-
-    
 	public DetalleGasto() {
 		super();
 		inicializarComponentes();
 		establecerManejador();		
-		listarDetalleGasto();
 	}
 
 	public void inicializarComponentes() {
-		
+		arrayDetalleGasto = new ArrayList<ModeloListasCompra>();
 		panelDetalleGasto = VentanaPrincipal.parametrosPanel(800,600);
 		
 		lbl_Num_Lista = VentanaPrincipal.parametrosJlabel("Lista de la compra N\u00BA 5",50, 5, 300, 40);
@@ -77,37 +66,40 @@ public class DetalleGasto extends JPanel {
 		
 		btn_Imprimir = VentanaPrincipal.parametrosJButton("Imprimir",480, 550, 120, 20);
 		panelDetalleGasto.add(btn_Imprimir);
-				
-		
-		
+
 		tabla = new JTable();
-		scroll = VentanaPrincipal.parametrosJScrollPane(50, 100, 700, 400);
-		scroll.setViewportView(tabla);	    
+		scroll = VentanaPrincipal.parametrosJScrollPane(50, 100, 700, 400); 
+		scroll.setViewportView(tabla);
 		panelDetalleGasto.add(scroll);
 	    
 		panelDetalleGasto.setVisible(false);
 	
 	}
 	
-	public void establecerManejador() {			
-		ControladorDetalleGasto controlador = new ControladorDetalleGasto(this);
-		
-		tabla.addMouseListener(controlador);
+	public static void establecerManejador() {			
+		ControladorDetalleGasto controlador = new ControladorDetalleGasto(detalleGasto);
+
 		lbl_Total.addMouseListener(controlador);
 		lbl_detalle_lista.addMouseListener(controlador);
 		lbl_Num_Lista.addMouseListener(controlador);
 		btn_Volver.addActionListener(controlador);
 		btn_Guardar.addActionListener(controlador);
 		btn_Imprimir.addActionListener(controlador);
-
+		tabla.addMouseListener(controlador);
+		btn_Volver.addMouseListener(controlador);
+		btn_Guardar.addMouseListener(controlador);
+		btn_Imprimir.addMouseListener(controlador);
 	}
 
 
-	public static void listarDetalleGasto () {
-		arrayDetalleGasto = new ArrayList<ModeloPRUEBA>();			// <-- modificar el tipo de array al modelo objeto que corresponda
-        BbddVentas.listarClientes();								// <-- modificar el método para que llame a la sentencia SQL que corresponda y y cargue los datos
-        arrayDetalleGasto = BbddVentas.getArrayRecetas();			// <-- crear y modificar el metodo GET que trae los datos del array que corresponda
-        DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
+	public static void listarDetalleGasto (ArrayList<ModeloListasCompra> arrayTabla) {
+		arrayDetalleGasto = arrayTabla;
+        DefaultTableModel modelo =new DefaultTableModel(){
+		    @Override
+		    public boolean isCellEditable(int row, int column) {	
+		       return false;
+		    }
+		};
         modelo.addColumn("PRODUCTOS");
         modelo.addColumn("CANTIDAD");
         modelo.addColumn("GASTO");
@@ -115,24 +107,45 @@ public class DetalleGasto extends JPanel {
         
         Object filaDato[] = new Object[4];     
         for (int i = 0; i < arrayDetalleGasto.size(); i++) {
-        	filaDato[0] = arrayDetalleGasto.get(i).getReceta();		// <-- llamar el dato que corresponda del objeto modelo
-        	filaDato[1] = arrayDetalleGasto.get(i).getEstado();  	// <-- llamar el dato que corresponda del objeto modelo
-        	filaDato[2] = arrayDetalleGasto.get(i).getReceta();		// <-- llamar el dato que corresponda del objeto modelo
-        	filaDato[3] = arrayDetalleGasto.get(i).getEstado();  	// <-- llamar el dato que corresponda del objeto modelo
+        	filaDato[0] = arrayDetalleGasto.get(i).getIdCompraProductos();
+        	filaDato[1] = arrayDetalleGasto.get(i).getCompraHecha();
+        	filaDato[2] = arrayDetalleGasto.get(i).getCompraHecha();
+        	filaDato[3] = arrayDetalleGasto.get(i).getCompraHecha();
         	modelo.addRow(filaDato);
     	}
         tabla.setModel(modelo);
         modelo.fireTableDataChanged();
+        tabla = VentanaPrincipal.formatoTabla(tabla);
+        
+        tabla.getColumnModel().getColumn(0).setPreferredWidth(550);
+        tabla.getColumnModel().getColumn(1).setPreferredWidth(50);
+        tabla.getColumnModel().getColumn(2).setPreferredWidth(50);
+        tabla.getColumnModel().getColumn(3).setPreferredWidth(50);
+        tabla.getColumnModel().getColumn(0).setResizable(false);
+        tabla.getColumnModel().getColumn(1).setResizable(false);
+        tabla.getColumnModel().getColumn(2).setResizable(false);
+        tabla.getColumnModel().getColumn(3).setResizable(false);
     }
 	
+	/**
+	 * Da el dato de la celda selecionada en la columna 0 
+	 * @return
+	 */
+	 public static String datoSeleccionadoTabla() {	
+		try {
+			dato=String.valueOf(tabla.getModel().getValueAt(tabla.getSelectedRow(),0));
+		} catch (ArrayIndexOutOfBoundsException e) {
+			JOptionPane.showMessageDialog(panelDetalleGasto, "Debes de selecionar algo de la lista antes");
+		}
+		return dato;		
+	}
 
-	 public static int productoSeleccionado() throws NullPointerException {			// <-- modificar el nombre del metodo
+	 public static int detalleSeleccionado() throws NullPointerException {	
 		 int indiceSeleccionado = tabla.getSelectedRow();
 		 return indiceSeleccionado;	
 	 }
 	
-	
-	
+
 	public static JPanel getPanelDetalleGasto() {
 		return panelDetalleGasto;
 	}
@@ -173,6 +186,9 @@ public class DetalleGasto extends JPanel {
 		DetalleGasto.lbl_detalle_lista = lbl_detalle_lista;
 	}
 
-	
+	public static JTable getTabla() {
+		return tabla;
+	}
+
 	
 }

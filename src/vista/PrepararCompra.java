@@ -2,23 +2,16 @@ package vista;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
-import javax.swing.JList;
-
+import javax.swing.JOptionPane;
 import java.awt.Color;
 import java.awt.Font;
-
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import controlador.ControladorPrepararCompra;
-import modelo.ModeloPRUEBA;
 import modelo.ModeloPrepararCompra;
-import modelo_bbdd.BbddAlmacen;
-import modelo_bbdd.BbddPrepararCompra;
-import modelo_bbdd.BbddVentas;
 
 
 public class PrepararCompra extends JPanel {
@@ -34,30 +27,27 @@ public class PrepararCompra extends JPanel {
 	private static JButton btn_volver;
 	private static JButton btn_Guardar;
 	private static JButton btn_Imprimir;
-	
-	private static int ancho = 800;
-	private static int alto = 600;
-	private static int posicionPanel_x = 100;
-	private static int posicionPanel_y = 50;
 	private static JTable tabla;
     private static JScrollPane scroll;
-
+    private static PrepararCompra prepararCompra;
 	private static ArrayList<ModeloPrepararCompra> arrayPrepararCompra;
+
+	private static String dato;
 
 
 	public PrepararCompra() {
 		super();
 		inicializarComponentes();
 		establecerManejador();		
-		listarProductos();
 	}
 
 	
 	public void inicializarComponentes() {
+		arrayPrepararCompra = new ArrayList<ModeloPrepararCompra>();
 		
 		panelPrepararCompra = VentanaPrincipal.parametrosPanel(800,600);
 		
-		lblNewLabel = VentanaPrincipal.parametrosJlabel("Lista de la compra N\u00BAx",150, 30, 300, 40);
+		lblNewLabel = VentanaPrincipal.parametrosJlabel("LISTA DE LA COMPRA",150, 30, 300, 40);
 		lblNewLabel.setFont(new Font("Manche Condensed",Font.BOLD,(int)(15*VentanaPrincipal.getCordenadaY())));
 		lblNewLabel.setForeground(Color.orange);
 		panelPrepararCompra.add(lblNewLabel);
@@ -76,45 +66,66 @@ public class PrepararCompra extends JPanel {
 		
 		tabla = new JTable();
 		scroll = VentanaPrincipal.parametrosJScrollPane(50, 100, 700, 400);
-		scroll.setViewportView(tabla);	    
+		scroll.setViewportView(tabla);
 		panelPrepararCompra.add(scroll);
-	    
-		panelPrepararCompra.setVisible(false);
-	    
-	    
+	    panelPrepararCompra.setVisible(false);
 	}
 	
 	
-	public void establecerManejador() {			
-		ControladorPrepararCompra controlador = new ControladorPrepararCompra(this);
+	public static void establecerManejador() {			
+		ControladorPrepararCompra controlador = new ControladorPrepararCompra(prepararCompra);
 		
-		tabla.addMouseListener(controlador);
 		btn_volver.addActionListener(controlador);
 		btn_Guardar.addActionListener(controlador);
 		btn_Imprimir.addActionListener(controlador);
-
+		tabla.addMouseListener(controlador);
+		btn_volver.addMouseListener(controlador);
+		btn_Guardar.addMouseListener(controlador);
+		btn_Imprimir.addMouseListener(controlador);
 		
 	}
 
-	public static void listarProductos () {
-		arrayPrepararCompra = new ArrayList<ModeloPrepararCompra>();
-        BbddPrepararCompra.listarPrepararCompra();
-        arrayPrepararCompra = BbddPrepararCompra.getArrayPrepararCompra();
-        DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
+	public static void listarProductos (ArrayList<ModeloPrepararCompra> arrayTabla) {
+
+        arrayPrepararCompra = arrayTabla;	
+        DefaultTableModel modelo =new DefaultTableModel(){
+		    @Override
+		    public boolean isCellEditable(int row, int column) {	
+		       return false;
+		    }
+		}; 
+		
         modelo.addColumn("PRODUCTOS");
         modelo.addColumn("CANTIDAD A COMPRAR");
         
         Object filaDato[] = new Object[2];     
         for (int i = 0; i < arrayPrepararCompra.size(); i++) {
         	filaDato[0] = arrayPrepararCompra.get(i).getProducto();
-        	filaDato[1] = arrayPrepararCompra.get(i).getCantidadCompra();
+        	filaDato[1] = arrayPrepararCompra.get(i).getCantidadMaxima()-arrayPrepararCompra.get(i).getCantidadCompra();
         	modelo.addRow(filaDato);
     	}
         tabla.setModel(modelo);
         modelo.fireTableDataChanged();
+        tabla = VentanaPrincipal.formatoTabla(tabla);
+        tabla.getColumnModel().getColumn(0).setPreferredWidth(550);
+        tabla.getColumnModel().getColumn(1).setPreferredWidth(150);
+        tabla.getColumnModel().getColumn(0).setResizable(false);
+        tabla.getColumnModel().getColumn(1).setResizable(false);
     }
 	
-
+	/**
+	 * Da el dato de la celda selecionada en la columna 0 
+	 * @return
+	 */
+	 public static String datoSeleccionadoTabla() {	
+		try {
+			dato=String.valueOf(tabla.getModel().getValueAt(tabla.getSelectedRow(),0));
+		} catch (ArrayIndexOutOfBoundsException e) {
+			JOptionPane.showMessageDialog(panelPrepararCompra, "Debes de selecionar algo de la lista antes");
+		}
+		return dato;		
+	}
+	 
 	 public static int indiceSeleccionado() throws NullPointerException {
 		 int indiceSeleccionado = tabla.getSelectedRow();
 		 return indiceSeleccionado;	
@@ -138,10 +149,8 @@ public class PrepararCompra extends JPanel {
 	}
 
 
-	
-	
-	
-	
-	
+	public static JTable getTabla() {
+		return tabla;
+	}
 	
 }

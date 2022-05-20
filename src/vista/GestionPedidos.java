@@ -1,29 +1,23 @@
 package vista;
 
-
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.border.EmptyBorder;
+import javax.swing.SwingConstants;
 
+import java.awt.Color;
 import java.awt.Font;
-import java.awt.Toolkit;
 import java.util.ArrayList;
 
+import javax.swing.DefaultListCellRenderer.UIResource;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
-
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
-
-import javax.swing.JTable;
 import javax.swing.UIManager;
-
 import controlador.ControladorGestionPedidos;
 import modelo.ModeloCliente;
 import modelo_bbdd.BbddVentas;
-
-
 
 public class GestionPedidos extends JPanel {
 
@@ -88,9 +82,11 @@ public class GestionPedidos extends JPanel {
 		panelGestionPedidos.add(btn_Mesa_8);
 
 		lbl_mesa = VentanaPrincipal.parametrosJlabel("En mesa",180, 30, 120, 40);
+		lbl_mesa.setFont(new Font("Manche Condensed",Font.BOLD,(int)(20*VentanaPrincipal.getCordenadaY())));
 		panelGestionPedidos.add(lbl_mesa);
 		
 		lbl_Para_llevar = VentanaPrincipal.parametrosJlabel("Para llevar", 450, 30, 120,40);
+		lbl_Para_llevar.setFont(new Font("Manche Condensed",Font.BOLD,(int)(20*VentanaPrincipal.getCordenadaY())));
 		panelGestionPedidos.add(lbl_Para_llevar);	
 		
 		btn_Nuevo_Cliente = VentanaPrincipal.parametrosJButton("Nuevo Cliente",450, 80, 220,40);
@@ -109,6 +105,8 @@ public class GestionPedidos extends JPanel {
 		panelGestionPedidos.add(btn_Ver_Pedido);
 
 		listaCliente = new JList();
+		listaCliente.setFont(new Font("Manche Condensed",Font.BOLD,(int)(16*VentanaPrincipal.getCordenadaY())));
+		listaCliente.setBackground(VentanaPrincipal.getAzulClaro());
 		listaCliente.setLayout(null);
 		listaCliente.setVisible(true);		
 		
@@ -146,21 +144,21 @@ public class GestionPedidos extends JPanel {
 		btn_Ver_Pedido.addActionListener(controlador);		
 		btn_volver.addActionListener(controlador);
 	
-	
 	}
 
 
-	
 	public static ArrayList<ModeloCliente> creaListaClientes() {
 		BbddVentas.listarClientes();
 		array_clientes = BbddVentas.getArrayClientes();
 		modeloListaCliente = new DefaultListModel();
 		for (ModeloCliente c : array_clientes) {
-			if (c.getId()>=9) {
-				modeloListaCliente.addElement(c.getNombre());
-			}
+			modeloListaCliente.addElement(c.getNombre());
+		
 		}	
-
+		//se alinean las celdas al centro
+		UIResource posicion = new UIResource();
+		posicion.setHorizontalAlignment(SwingConstants.CENTER);
+		listaCliente.setCellRenderer(posicion);
 		listaCliente.setModel(modeloListaCliente);
 		return array_clientes;
 	}
@@ -222,7 +220,6 @@ public class GestionPedidos extends JPanel {
 	public static JPanel getPanelGestionPedidos() {
 		return panelGestionPedidos;
 	}
-
 
 	public static JList getListaCliente() {
 		return listaCliente;

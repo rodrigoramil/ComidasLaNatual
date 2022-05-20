@@ -2,15 +2,13 @@ package vista;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.border.EmptyBorder;
 import javax.swing.JTable;
 import java.util.ArrayList;
 import javax.swing.JButton;
-import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import controlador.ControladorListaFacturaciones;
-import modelo.ModeloPRUEBA;
-import modelo_bbdd.BbddVentas;
+import modelo.ModeloCalculoGanancias;
 
 
 public class ListaFacturaciones extends JPanel {
@@ -21,70 +19,67 @@ public class ListaFacturaciones extends JPanel {
 	private static final long serialVersionUID = 7034925440369387336L;
 	
 	private static JPanel panelListaFacturaciones;
-
 	private static JButton btn_Volver;
 	private static JButton btn_Ver;
 	private static JButton btn_Calcular_Ganancias;
 	private static JTable tabla;
     private static JScrollPane scroll;
-    
-	private static int ancho = 800;
-	private static int alto = 600;
-	private static int posicionPanel_x = 100;
-	private static int posicionPanel_y = 50;
+    private static ListaFacturaciones listaFacturaciones;
+	private static ArrayList<ModeloCalculoGanancias> arrayListaFacturaciones;
 
-	private static ArrayList<ModeloPRUEBA> arrayListaFacturaciones;
-
+	private static String dato;
+	
+	
 	public ListaFacturaciones() {
 		super();
 		inicializarComponentes();
-		establecerManejador();		
-		listarFacturaciones();
+		establecerManejador();
 	}
 
 	public static void inicializarComponentes() {
+			
+		arrayListaFacturaciones = new ArrayList<ModeloCalculoGanancias>();	
 		
 		panelListaFacturaciones = VentanaPrincipal.parametrosPanel(800,600);
 		
 		btn_Volver = VentanaPrincipal.parametrosJButton("Volver", 710, 20, 70, 20);
 		panelListaFacturaciones.add(btn_Volver);
-				
-		
-		
-		
+
 		btn_Ver = VentanaPrincipal.parametrosJButton("Ver",200, 550, 120, 20);
 		panelListaFacturaciones.add(btn_Ver);
 		
 		btn_Calcular_Ganancias = VentanaPrincipal.parametrosJButton("Calcular Ganancias",480, 550, 120, 20);
 		panelListaFacturaciones.add(btn_Calcular_Ganancias);
-				
-		
-		
+
 		tabla = new JTable();
 		scroll = VentanaPrincipal.parametrosJScrollPane(50, 100, 700, 400);
 		scroll.setViewportView(tabla);	    
 		panelListaFacturaciones.add(scroll);
 	    
 		panelListaFacturaciones.setVisible(false);
-		
-		
+
 	}
 
-	public void establecerManejador() {			
-		ControladorListaFacturaciones controlador = new ControladorListaFacturaciones(this);
-		
-		tabla.addMouseListener(controlador);
+	public static void establecerManejador() {			
+		ControladorListaFacturaciones controlador = new ControladorListaFacturaciones(listaFacturaciones);		
 		btn_Volver.addActionListener(controlador);
 		btn_Ver.addActionListener(controlador);
 		btn_Calcular_Ganancias.addActionListener(controlador);
-		
+		tabla.addMouseListener(controlador);
+		btn_Volver.addMouseListener(controlador);
+		btn_Ver.addMouseListener(controlador);
+		btn_Calcular_Ganancias.addMouseListener(controlador);
 	}
 	
-	public static void listarFacturaciones () {
-		arrayListaFacturaciones = new ArrayList<ModeloPRUEBA>();			// <-- modificar el tipo de array al modelo objeto que corresponda
-        BbddVentas.listarClientes();							// <-- modificar el método para que llame a la sentencia SQL que corresponda y y cargue los datos
-        arrayListaFacturaciones = BbddVentas.getArrayRecetas();			// <-- crear y modificar el metodo GET que trae los datos del array que corresponda
-        DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
+	public static void listarFacturaciones (ArrayList<ModeloCalculoGanancias> arrayTabla) {
+
+        arrayListaFacturaciones = arrayTabla;
+        DefaultTableModel modelo =new DefaultTableModel(){
+ 		    @Override
+ 		    public boolean isCellEditable(int row, int column) {	
+ 		       return false;
+ 		    }
+ 		};
         modelo.addColumn("Nº");
         modelo.addColumn("FECHA-HORA");
         modelo.addColumn("GANANCIA");
@@ -92,17 +87,39 @@ public class ListaFacturaciones extends JPanel {
         
         Object filaDato[] = new Object[4];     
         for (int i = 0; i < arrayListaFacturaciones.size(); i++) {
-        	filaDato[0] = arrayListaFacturaciones.get(i).getReceta();	// <-- llamar el dato que corresponda del objeto modelo
-        	filaDato[1] = arrayListaFacturaciones.get(i).getEstado();  	// <-- llamar el dato que corresponda del objeto modelo
-        	filaDato[2] = arrayListaFacturaciones.get(i).getEstado();  	// <-- llamar el dato que corresponda del objeto modelo
-        	filaDato[3] = arrayListaFacturaciones.get(i).getEstado();  	// <-- llamar el dato que corresponda del objeto modelo
+        	filaDato[0] = arrayListaFacturaciones.get(i).getIdPedido();
+        	filaDato[1] = arrayListaFacturaciones.get(i).getFechaPedido();
+        	filaDato[2] = arrayListaFacturaciones.get(i).getGananciaPedido();
+        	filaDato[3] = arrayListaFacturaciones.get(i).getUsuario();
         	modelo.addRow(filaDato);
     	}
         tabla.setModel(modelo);
         modelo.fireTableDataChanged();
+        tabla = VentanaPrincipal.formatoTabla(tabla);
+        
+        tabla.getColumnModel().getColumn(0).setPreferredWidth(100);
+        tabla.getColumnModel().getColumn(1).setPreferredWidth(200);
+        tabla.getColumnModel().getColumn(2).setPreferredWidth(200);
+        tabla.getColumnModel().getColumn(3).setPreferredWidth(200);
+        tabla.getColumnModel().getColumn(0).setResizable(false);
+        tabla.getColumnModel().getColumn(1).setResizable(false);
+        tabla.getColumnModel().getColumn(2).setResizable(false);
+        tabla.getColumnModel().getColumn(3).setResizable(false);
     }
 	
-
+	/**
+	 * Da el dato de la celda selecionada en la columna 0 
+	 * @return
+	 */
+	 public static String datoSeleccionadoTabla() {	
+		try {
+			dato=String.valueOf(tabla.getModel().getValueAt(tabla.getSelectedRow(),0));
+		} catch (ArrayIndexOutOfBoundsException e) {
+			JOptionPane.showMessageDialog(panelListaFacturaciones, "Debes de selecionar algo de la lista antes");
+		}
+		return dato;		
+	}
+	 
 	 public static int productoSeleccionado() throws NullPointerException {
 		 int indiceSeleccionado = tabla.getSelectedRow();
 		 return indiceSeleccionado;	

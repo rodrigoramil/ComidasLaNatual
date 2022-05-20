@@ -20,7 +20,6 @@ public class Contabilidad extends JPanel {
 		super();
 		inicializarComponentes();
 		establecerManejador();		
-	
 	}
 	
 	
@@ -36,11 +35,8 @@ public class Contabilidad extends JPanel {
 		
 		btn_Facturacion = VentanaPrincipal.parametrosJButton("Facturacion",140,220,120, 40);
 		panelContabilidad.add(btn_Facturacion);
-		
-	
 
 		panelContabilidad.setVisible(false);
-
 
 	}
 
@@ -50,6 +46,9 @@ public class Contabilidad extends JPanel {
 		btn_Gastos.addActionListener(controlador);
 		btn_Facturacion.addActionListener(controlador);
 		btn_volver.addActionListener(controlador);
+		btn_Gastos.addMouseListener(controlador);
+		btn_Facturacion.addMouseListener(controlador);
+		btn_volver.addMouseListener(controlador);
 		
 	}
 

@@ -53,6 +53,7 @@ public class ControladorLogin implements  MouseListener{
 
 			} else if (estado.equals("Venta")) {
 				cambiarMenuPrincipal ();
+				MenuPrincipal.getBtn_Recetario().setEnabled(false);
 				MenuPrincipal.getBtn_Almacen().setEnabled(false);
 				MenuPrincipal.getBtn_Gestion_Usuario().setEnabled(false);
 				MenuPrincipal.getBtn_Contabilidad().setEnabled(false);
@@ -60,7 +61,6 @@ public class ControladorLogin implements  MouseListener{
 			}else {
 				JOptionPane.showMessageDialog(panelLogin, "Error de credenciales");
 			}
-			System.out.println(estado);
 		}
 		borrarCajaTexto();
 		if (e.getSource() == panelLogin.getBtn_Borrar()) {

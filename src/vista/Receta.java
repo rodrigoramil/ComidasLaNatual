@@ -2,10 +2,9 @@ package vista;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
-
 import java.awt.Color;
 import java.awt.Font;
 import java.util.ArrayList;
@@ -14,9 +13,12 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
+
 import controlador.ControladorReceta;
 import modelo.ModeloReceta;
 import modelo_bbdd.BbddReceta;
+import modelo_bbdd.BbddRecetario;
 
 public class Receta extends JPanel {
 
@@ -36,31 +38,42 @@ public class Receta extends JPanel {
 	private static JButton btn_volver;
 	private static JTextField nombre_receta;
 	private static JTable tabla;
-
     private static JScrollPane scroll;
-
-	private static int ancho = 800;
-	private static int alto = 600;
-	private static int posicionPanel_x = 100;
-	private static int posicionPanel_y = 50;
-
+    private static JScrollPane scrollTexto;
 	private static ArrayList<ModeloReceta> arrayIngredientes;
+	private static JTextField precio_receta;
+	private static JLabel lbl_iprecio;
+	private static String dato;
+	private static Receta receta;
 
-
-	
 	public Receta() {		
 		super();
 		inicializarComponentes();
 		establecerManejador();		
-		listarRecetas();
+
 	}
 
 	public void inicializarComponentes() {
 
-		panelReceta = VentanaPrincipal.parametrosPanel(800,600);
+		arrayIngredientes = new ArrayList<ModeloReceta>();
+
+		panelReceta = VentanaPrincipal.parametrosPanel(800,600);	
 		
+		precio_receta = VentanaPrincipal.parametrosJTextField(580, 40, 60, 20);
+		precio_receta.setFont(new Font("Manche Condensed",Font.BOLD,(int)(14*VentanaPrincipal.getCordenadaY())));
+		precio_receta.setBackground(VentanaPrincipal.getAzulClaro());
+		precio_receta.setText("0,00");
+		precio_receta.setHorizontalAlignment(SwingConstants.CENTER);
+		panelReceta.add(precio_receta);
 		
-		nombre_receta = VentanaPrincipal.parametrosJTextField(175, 30, 450, 40);
+		lbl_iprecio = VentanaPrincipal.parametrosJlabel("Precio:",450, 33, 200, 30);
+		lbl_iprecio.setFont(new Font("Manche Condensed",Font.BOLD,(int)(15*VentanaPrincipal.getCordenadaY())));
+		lbl_iprecio.setHorizontalAlignment(SwingConstants.CENTER);
+		lbl_iprecio.setForeground(Color.ORANGE);
+		panelReceta.add(lbl_iprecio);
+
+		
+		nombre_receta = VentanaPrincipal.parametrosJTextField(50, 30, 400, 40);
 		nombre_receta.setFont(new Font("Manche Condensed",Font.BOLD,(int)(20*VentanaPrincipal.getCordenadaY())));
 		nombre_receta.setBackground(VentanaPrincipal.getAzulClaro());
 		nombre_receta.setText("Nombre de la receta");
@@ -93,7 +106,6 @@ public class Receta extends JPanel {
 		panelReceta.add(btn_borrar_ingrediente);
 		
 		btn_guardar = VentanaPrincipal.parametrosJButton("Guardar",600, 520, 120, 40);
-		btn_guardar.setBackground(Color.ORANGE);
 		panelReceta.add(btn_guardar);
 		
 		
@@ -105,57 +117,92 @@ public class Receta extends JPanel {
 		texto_elaboracion = new JTextArea();
 		texto_elaboracion.setFont(VentanaPrincipal.getFuente());
 		texto_elaboracion.setBorder(null);
-		texto_elaboracion.setBounds(
+		texto_elaboracion.setLineWrap(true); //las líneas se ajustarán si son demasiado largas
+		texto_elaboracion.setWrapStyleWord(true);//líneas se ajustarán en los límites de palabra, no de los caracteres
+		
+		scrollTexto = new JScrollPane(texto_elaboracion);
+		scrollTexto.setBounds(
 				Math.round(450*VentanaPrincipal.getCordenadaX()), 		//posicion HORIZONTAL
 				Math.round(100*VentanaPrincipal.getCordenadaY()),		//posicion VERTICAL
 				Math.round(300*VentanaPrincipal.getCordenadaX()), 		//tamaño HORIZONTAL
 				Math.round(400*VentanaPrincipal.getCordenadaY())); 		//tamaño VERTICAL
-		panelReceta.add(texto_elaboracion);
-			
+		scrollTexto.setVisible(true);
+		panelReceta.add(scrollTexto);
 		panelReceta.setVisible(false);
 	}
 	
 
-	private void establecerManejador() {
-		ControladorReceta controlador = new ControladorReceta(this);
+	private static void establecerManejador() {
+
+		ControladorReceta controlador = new ControladorReceta(receta);	
 		
-		texto_elaboracion.addMouseListener(controlador);
 		btn_nuevo_ingrediente.addActionListener(controlador);
 		btn_modificar_cantidad.addActionListener(controlador);
 		btn_borrar_ingrediente.addActionListener(controlador);
 		btn_guardar.addActionListener(controlador);
 		btn_volver.addActionListener(controlador);
+		precio_receta.addActionListener(controlador);
 		nombre_receta.addActionListener(controlador);
 		tabla.addMouseListener(controlador);
+		btn_nuevo_ingrediente.addMouseListener(controlador);
+		btn_modificar_cantidad.addMouseListener(controlador);
+		btn_borrar_ingrediente.addMouseListener(controlador);
+		btn_guardar.addMouseListener(controlador);
+		btn_volver.addMouseListener(controlador);
 	}
 	
 	
 	
-	public static void listarRecetas () {
-		arrayIngredientes = new ArrayList<ModeloReceta>();
-		BbddReceta.listarRecetas();
-		arrayIngredientes = BbddReceta.getArrayVentanaReceta();
-        DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
+	public static void listarReceta (ArrayList<ModeloReceta> arrayTabla) {
+		
+		arrayIngredientes = arrayTabla;
+		
+		nombre_receta.setText(BbddReceta.getNombreRecetaSeleccionada());
+		precio_receta.setText(BbddReceta.getPrecioVenta());
+		texto_elaboracion.setText(BbddReceta.getElaboracion());
+        DefaultTableModel modelo =new DefaultTableModel(){
+		    @Override
+		    public boolean isCellEditable(int row, int column) {	
+		       return false;
+		    }
+		};        
         modelo.addColumn("NOMBRE");
-        modelo.addColumn("CANTIDAD");
-        
-        Object filaDato[] = new Object[2];     
+        modelo.addColumn("CANTIDAD");        
+        Object filaDato[] = new Object[2];  
         for (int i = 0; i < arrayIngredientes.size(); i++) {
-        	filaDato[0] = arrayIngredientes.get(i).getIngrediente();
+        	filaDato[0] = arrayIngredientes.get(i).getNombreProducto();
         	filaDato[1] = arrayIngredientes.get(i).getCantidad();  
         	modelo.addRow(filaDato);
-    	}
+        }
+   
         tabla.setModel(modelo);
-        modelo.fireTableDataChanged();
+        modelo.fireTableDataChanged();        
+        tabla = VentanaPrincipal.formatoTabla(tabla);
+        
+        tabla.getColumnModel().getColumn(0).setPreferredWidth(550);
+        tabla.getColumnModel().getColumn(1).setPreferredWidth(150);
+        tabla.getColumnModel().getColumn(0).setResizable(false);
+        tabla.getColumnModel().getColumn(1).setResizable(false);
+        
     }
-
-
-	 public static int recetaSeleccionado() throws NullPointerException {
+	
+	/**
+	 * Da el dato de la celda selecionada en la columna 0 
+	 * @return
+	 */
+	 public static String datoSeleccionadoTabla() {	
+		try {
+			dato=String.valueOf(tabla.getModel().getValueAt(tabla.getSelectedRow(),0));
+		} catch (ArrayIndexOutOfBoundsException e) {
+			JOptionPane.showMessageDialog(panelReceta, "Debes de selecionar algo de la lista antes");
+		}
+		return dato;		
+	}
+	 
+	 public static int recetaSeleccionada() throws NullPointerException {
 		 int indiceSeleccionado = tabla.getSelectedRow();
 		 return indiceSeleccionado;	
 	 }
-	
-	
 	
 	/**
 	 * Gets y Sets
@@ -227,10 +274,20 @@ public class Receta extends JPanel {
 		Receta.nombre_receta = nombre_receta;
 	}
 
-	
-	
-	
-	
-	
+	public static JTable getTabla() {
+		return tabla;
+	}
+
+	public static ArrayList<ModeloReceta> getArrayIngredientes() {
+		return arrayIngredientes;
+	}
+
+	public static void setArrayIngredientes(ArrayList<ModeloReceta> arrayIngredientes) {
+		Receta.arrayIngredientes = arrayIngredientes;
+	}
+
+	public static JTextField getPrecio_receta() {
+		return precio_receta;
+	}
 
 }

@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import modelo.ModeloPrepararCompra;
+import modelo.ModeloReceta;
 
 public class BbddPrepararCompra {
 	
@@ -22,16 +23,17 @@ public class BbddPrepararCompra {
 	
 	
 	
-	public static void listarPrepararCompra() {
+	public static ArrayList<ModeloPrepararCompra>  listarPrepararCompra() {
 		conexion = new Conexion();
 		connection = conexion.obtenerConexion();		
 		arrayPrepararCompra = new ArrayList<ModeloPrepararCompra>();		
 		try {
-			sentenciaRecetas = connection.prepareStatement("Select A.NombreProducto, C.CantidadCompraProducto from Almacen A, Compraproductos C  where A.IdProducto = C.IdProducto");
+//			sentenciaRecetas = connection.prepareStatement("Select A.NombreProducto, C.CantidadCompraProducto from Almacen A, Compraproductos C  where A.IdProducto = C.IdProducto");
+			sentenciaRecetas = connection.prepareStatement("Select NombreProducto, Cantidad, CantidadMaxima from Almacen");
 			ResultSet rs = sentenciaRecetas.executeQuery();			
 
 			while (rs.next()) {
-				ModeloPrepararCompra recetas = new ModeloPrepararCompra (rs.getString("NombreProducto"), rs.getFloat("CantidadCompraProducto"));
+				ModeloPrepararCompra recetas = new ModeloPrepararCompra (rs.getString("NombreProducto"), rs.getFloat("Cantidad"), rs.getFloat("CantidadMaxima"));
 				arrayPrepararCompra.add(recetas);
 			}
 			
@@ -39,6 +41,7 @@ public class BbddPrepararCompra {
 			System.out.println("Error al listar las recetas SentenciasSQL");
 			System.out.println(e.getMessage());
 		}
+		return arrayPrepararCompra;
 			
 	}
 
