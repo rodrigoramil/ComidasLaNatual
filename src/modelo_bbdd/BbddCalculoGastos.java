@@ -6,25 +6,28 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import modelo.ModeloCalculoGanancias;
+import modelo.ModeloCalculoGastos;
 
 
-public class BbddCalculoGanancias {
+public class BbddCalculoGastos {
 	private static Connection connection = null;
 	private static Conexion conexion = null;
 	private static PreparedStatement sentenciaRecetas = null;
-	private static ArrayList<ModeloCalculoGanancias> arrayCalculoGanancias = null;
+	private static ArrayList<ModeloCalculoGastos> arrayCalculoGastos = null;
 	
-	public static void listarCalculoGanancias() {
+	public static void listarCalculoGasto() {
 		conexion = new Conexion();
 		connection = conexion.obtenerConexion();		
-		arrayCalculoGanancias = new ArrayList<ModeloCalculoGanancias>();		
+		arrayCalculoGastos = new ArrayList<ModeloCalculoGastos>();		
 		try {
-			sentenciaRecetas = connection.prepareStatement("Select IdPedido, FechaPedido, GananciaPedido from ganancias");
+			sentenciaRecetas = connection.prepareStatement("Select IdCompraProductos, CompraHecha, FechaCompra, GastoCompra from gasto");
 			ResultSet rs = sentenciaRecetas.executeQuery();			
 
 			while (rs.next()) {
-				ModeloCalculoGanancias modelo = new ModeloCalculoGanancias(rs.getInt("IdPedido"), rs.getString("FechaPedido"), rs.getFloat("GananciaPedido"));
-				arrayCalculoGanancias.add(modelo);
+				
+				ModeloCalculoGastos modelo = new ModeloCalculoGastos(rs.getInt("IdCompraProductos"), rs.getBoolean("CompraHecha"), rs.getDate("FechaCompra"), rs.getFloat("GastoCompra"));
+				arrayCalculoGastos.add(modelo);
+				
 			}
 			
 		} catch (SQLException e) {
@@ -33,17 +36,17 @@ public class BbddCalculoGanancias {
 		}			
 	}
 	
-	public static void sumaGanancias(float GananciaPedido) {
+	public static void sumaGasto(float gastoCompra) {
 		conexion = new Conexion(); // se ha de asociar al Lbl total ganancias 
 		connection = conexion.obtenerConexion();		
-		arrayCalculoGanancias = new ArrayList<ModeloCalculoGanancias>();		
+		//arrayCalculoGanancias = new ArrayList<ModeloCalculoGanancias>();		
 		try {
-			sentenciaRecetas = connection.prepareStatement("select sum(gananciaPedido) from ganancias");
+			sentenciaRecetas = connection.prepareStatement("select sum(gastoCompra) from gasto");
 			ResultSet rs = sentenciaRecetas.executeQuery();			
 
 			while (rs.next()) {
-				ModeloCalculoGanancias modelo = new ModeloCalculoGanancias( rs.getFloat("GananciaPedido"));
-				arrayCalculoGanancias.add(modelo);
+				ModeloCalculoGastos modelo = new ModeloCalculoGastos( rs.getFloat("GananciaPedido"));
+				arrayCalculoGastos.add(modelo);
 			}
 			
 		} catch (SQLException e) {
@@ -52,8 +55,8 @@ public class BbddCalculoGanancias {
 		}			
 	}
 	
-	public static ArrayList<ModeloCalculoGanancias> getArrayCalculoGanancias() {
-		return arrayCalculoGanancias;
+	public static ArrayList<ModeloCalculoGastos> getCalculoGastos() {
+		return arrayCalculoGastos;
 	}
 	
 }

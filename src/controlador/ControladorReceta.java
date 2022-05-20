@@ -4,13 +4,18 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.sql.SQLException;
 
+import modelo.ModeloReceta;
+import modelo_bbdd.BbddReceta;
+import vista.BuscarComidaBebida;
 import vista.Receta;
 import vista.VentanaPrincipal;
 
 public class ControladorReceta implements ActionListener, MouseListener  {
 
 	private Receta panelReceta;
+	private static int indiceSeleccionado;
 
 	public ControladorReceta(Receta panelReceta) {
 		this.panelReceta = panelReceta;
@@ -35,7 +40,6 @@ public class ControladorReceta implements ActionListener, MouseListener  {
 			} else {
 				VentanaPrincipal.getPanelReceta().setVisible(false);
 				VentanaPrincipal.getPanelRecetario().setVisible(true);
-				
 			}
 			
 			
@@ -56,10 +60,47 @@ public class ControladorReceta implements ActionListener, MouseListener  {
 		}
 		
 		if (e.getSource() == Receta.getBtn_guardar()) {
+			try {
+				BbddReceta.insertarReceta();
+				System.out.println("Se ha creado una nueva receta");
+			} catch (SQLException e1) {				
+				e1.printStackTrace();
+			}
+			
 			VentanaPrincipal.getPanelRecetario().setVisible(true);
 			VentanaPrincipal.getPanelReceta().setVisible(false);
-		}
+			
+//			System.out.println(Receta.getArrayIngredientes().get(indiceSeleccionado).getNombreReceta());
+//			System.out.println(Receta.getArrayIngredientes().get(indiceSeleccionado).getNombreProducto());
+		/*	
+			for (int i = 0; i < Receta.getArrayIngredientes().size(); i++) {
+				
+//				System.out.println(Receta.getArrayIngredientes().get(i).getNombreReceta()+" <-------RECETA");
+//				System.out.println(Receta.getArrayIngredientes().get(i).getNombreProducto());
+				
+				System.out.println(Receta.getArrayIngredientes().get(i).getIdProducto());
+				System.out.println(Receta.getArrayIngredientes().get(i).getIdReceta());
+				System.out.println(Receta.getArrayIngredientes().get(i).getCantidad());
+				System.out.println(Receta.getArrayIngredientes().get(i).getElaboracion());
+				System.out.println(Receta.getArrayIngredientes().get(i).getNombreReceta());
+				System.out.println(Receta.getArrayIngredientes().get(i).getNombreProducto());
+				System.out.println(Receta.getArrayIngredientes().get(i).getPrecioVenta());
+				
 
+				Receta.getArrayIngredientes().get(i).getIdProducto();
+				Receta.getArrayIngredientes().get(i).getIdReceta();
+				Receta.getArrayIngredientes().get(i).getCantidad();
+				Receta.getArrayIngredientes().get(i).getElaboracion();
+				Receta.getArrayIngredientes().get(i).getNombreReceta();
+				Receta.getArrayIngredientes().get(i).getNombreProducto();
+				Receta.getArrayIngredientes().get(i).getPrecioVenta();
+			
+			}
+			
+			*/
+			
+		}
+		
 		
 		
 	}
@@ -69,11 +110,45 @@ public class ControladorReceta implements ActionListener, MouseListener  {
 	@Override
 	public void mouseClicked(MouseEvent e) { // Al hacer clic con el raton
 
+		if (e.getSource() == Receta.getBtn_guardar()) {
+
+			
+			for (int i = 0; i < Receta.getArrayIngredientes().size(); i++) {			
+				System.out.println(Receta.getArrayIngredientes().get(i).getNombreReceta()+" <-------RECETA");
+				System.out.println(Receta.getArrayIngredientes().get(i).getNombreProducto());
+
 		
+			}
+		
+		}
+
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) { // Al pulsar raton
+		
+//		indiceSeleccionado = Receta.getTabla().getSelectedRow();
+//		System.out.println("indiceSeleccionado -> "+indiceSeleccionado);
+/*		
+		for (int i = 0; i < Receta.getArrayIngredientes().size(); i++) {
+
+		int idProducto = Receta.getArrayIngredientes().get(i).getIdProducto();
+		String nombreProducto = Receta.getArrayIngredientes().get(i).getNombreProducto();
+		int idReceta = Receta.getArrayIngredientes().get(i).getIdReceta();
+		String nombreReceta = Receta.getArrayIngredientes().get(i).getNombreReceta();
+		float cantidad = Receta.getArrayIngredientes().get(i).getCantidad();
+		String elaboracion = Receta.getArrayIngredientes().get(i).getElaboracion();
+		
+			if (indiceSeleccionado==i) {				
+				System.out.println(idProducto);
+				System.out.println(nombreProducto);
+				System.out.println(idReceta);
+				System.out.println(nombreReceta);
+				System.out.println(cantidad);
+				System.out.println(elaboracion);
+			}
+		}
+		*/	 
 
 		
 	}
@@ -94,6 +169,12 @@ public class ControladorReceta implements ActionListener, MouseListener  {
 	public void mouseExited(MouseEvent e) { //al salir el raton de encima
 
 		
+	}
+
+
+
+	public static int getIndiceSeleccionado() {
+		return indiceSeleccionado;
 	}
 
 

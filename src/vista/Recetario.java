@@ -55,7 +55,6 @@ public class Recetario extends JPanel {
 		
 		panelRecetario = VentanaPrincipal.parametrosPanel(800,600);
 		
-
 		btn_listadoRecetas = VentanaPrincipal.parametrosJButton("Lista de todas las recetas",50, 30, 150, 20);
 		panelRecetario.add(btn_listadoRecetas);
 		
@@ -120,10 +119,10 @@ public class Recetario extends JPanel {
         	modelo.addRow(filaDato);
     	}
         tabla.setModel(modelo);
-
         modelo.fireTableDataChanged();
         tabla = VentanaPrincipal.formatoTabla(tabla);
     }
+
 
 	
 

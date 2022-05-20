@@ -48,6 +48,7 @@ public class CreacionBBDD {
 		  crearTablaCompraProductos();
 		  crearTablaIngredientes();
 		  crearDatosBase();
+
 		  System.out.println("Se ha generado la base de datos");
 		  
 		} catch (SQLException e) {
@@ -92,7 +93,7 @@ public class CreacionBBDD {
 	}
 	
 	public void crearTablaUsuarios() throws SQLException {
-		stmt.execute("CREATE TABLE IF NOT EXISTS Usuarios (NombreUsuario VARCHAR(45) NOT NULL, Contrasena VARCHAR(45) NOT NULL, Rol ENUM('Administrador', 'Cocina', 'Venta') NOT NULL, PRIMARY KEY(NombreUsuario))ENGINE=INNODB;");
+		stmt.execute("CREATE TABLE IF NOT EXISTS Usuarios (IdUsuario INT NOT NULL AUTO_INCREMENT,NombreUsuario VARCHAR(45) NOT NULL, Contrasena VARCHAR(45) NOT NULL, Rol ENUM('Administrador', 'Cocina', 'Venta') NOT NULL, PRIMARY KEY(NombreUsuario))ENGINE=INNODB;");
 	}
 	
 	public void crearTablaGanancias() throws SQLException {
@@ -158,12 +159,6 @@ public class CreacionBBDD {
 			stmt.execute("INSERT IGNORE INTO UnidadMedidaProducto(UnidadMedida) values('L')");
 				
 		}
-		
-		
-		
-	
-	// crear sentencia para crear en la tabla CLIENTE si no existen las MESAS 1,2,3,4,5,6,7,8
 	}		
-
 }
 

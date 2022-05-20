@@ -34,6 +34,13 @@ public class ModeloAlmacen implements Serializable {
 		this.tipo = tipo;
 	}
 	/**
+	 * 
+	 */
+	public ModeloAlmacen() {
+		super();
+
+	}
+	/**
 	 * @param f 
 	 * @param string 
 	 * 

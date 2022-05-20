@@ -5,14 +5,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
-
 import javax.swing.JOptionPane;
-
-import javax.swing.JTable;
-
-import modelo.ModeloComidaBebida;
-import modelo_bbdd.BbddComidaBebida;
-
 import vista.BuscarComidaBebida;
 import vista.Receta;
 import vista.VentanaPrincipal;
@@ -21,19 +14,15 @@ public class ControladorBuscarComidaBebida implements ActionListener, MouseListe
 
 	private BuscarComidaBebida panelBuscarComidaBebida;
 	private int cantidad;
-
 	private ArrayList<String> arrayBebida;
 	private static int indiceSeleccionado;
 	private static boolean buscar = false;
 	private static boolean comida = false;
 	private static boolean bebida = false;
-
 	private static boolean desdeVentas;
 
-	
 	public ControladorBuscarComidaBebida(BuscarComidaBebida panelBuscarComidaBebida) {
 		this.panelBuscarComidaBebida = panelBuscarComidaBebida;
-	
 	}	
 	
 	@Override
@@ -60,9 +49,6 @@ public class ControladorBuscarComidaBebida implements ActionListener, MouseListe
 					cantidad=1;
 				}
 			}
-
-			System.out.println("cantidad añadida --> "+cantidad);
-			
 
 			VentanaPrincipal.getPanelBuscarComidaBebida().setVisible(false);
 			VentanaPrincipal.getPanelPedido().setVisible(true);
@@ -132,7 +118,6 @@ public class ControladorBuscarComidaBebida implements ActionListener, MouseListe
 
 		
 	}
-
 	
 	
 	public static boolean getDesdeVentas() {

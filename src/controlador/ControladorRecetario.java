@@ -42,20 +42,30 @@ public class ControladorRecetario implements ActionListener, MouseListener  {
 			VentanaPrincipal.getPanelRecetario().setVisible(false);
 			VentanaPrincipal.getPanelReceta().setVisible(true);
 			
-			Receta.listarRecetas();
+			Receta.listarRecetas(BbddReceta.getArrayVentanaReceta());
+			
+			if (BbddReceta.getArrayVentanaReceta().isEmpty()) {
+				Receta.getTexto_elaboracion().setText("");
+				Receta.getPrecio_receta().setText("");
+			}
+			
+			
+			
 		}
 		
 		if (e.getSource() == Recetario.getBtn_nueva_receta()) {
 			System.out.println("nuevaReceta");
-			//implementar desabilitar boton cuando el usuario tenga rol venta
 			VentanaPrincipal.getPanelRecetario().setVisible(false);
 			VentanaPrincipal.getPanelReceta().setVisible(true);
+			Receta.getNombre_receta().setText("");
+			Receta.getTexto_elaboracion().setText("");
+			
+			
 			
 		}		
 		
 		if (e.getSource() == Recetario.getBtn_modificar_receta()) {
 			System.out.println("modificarReceta");
-			//implementar desabilitar boton cuando el usuario tenga rol venta 
 			VentanaPrincipal.getPanelRecetario().setVisible(false);
 			VentanaPrincipal.getPanelReceta().setVisible(true);
 		}

@@ -44,17 +44,7 @@ public class BbddAlmacen {
 			sentenciaAlmacen.setInt(3, idUnidadMedida);
 			sentenciaAlmacen.setFloat(4, cantidadMinima);
 			sentenciaAlmacen.setFloat(5, cantidadMaxima);
-			sentenciaAlmacen.setInt(6, idTipoProducto); 
-			
-//******************************* BORRAR ***************************************************************************			
-			System.out.println("nombre es: "+nombreProducto);
-			System.out.println("cantidadActual es:"+cantidadActual);
-			System.out.println("idUnidadMedida es:"+idUnidadMedida);
-			System.out.println("cantidadMinima es:"+cantidadMinima);
-			System.out.println("cantidadMaxima es:"+cantidadMaxima);
-			System.out.println("idTipoProducto es:"+idTipoProducto);
-//******************************* BORRAR ***************************************************************************	
-			
+			sentenciaAlmacen.setInt(6, idTipoProducto); 		
 			sentenciaAlmacen.executeUpdate();
 
 	}
@@ -69,7 +59,7 @@ public class BbddAlmacen {
 		
 		
 	}
-	
+
 
 	public static ArrayList<ModeloAlmacen> getArrayAlmacen() {
 		return arrayAlmacen;

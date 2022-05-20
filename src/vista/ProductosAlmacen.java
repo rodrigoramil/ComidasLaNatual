@@ -30,9 +30,8 @@ public class ProductosAlmacen extends JPanel {
 	private static JButton btn_volver;
 	private static JTable tabla;
     private static JScrollPane scroll;
+    private static ArrayList<ModeloProductosAlmacen> arrayProductos;
 
-private static ArrayList<ModeloProductosAlmacen> arrayProductos;
-    
 	public ProductosAlmacen() {
 		super();
 		inicializarComponentes();				
@@ -93,8 +92,7 @@ private static ArrayList<ModeloProductosAlmacen> arrayProductos;
 		scroll.setViewportView(tabla);
         DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
         modelo.addColumn("PRODUCTOS");
-        modelo.addColumn("STOCK ACTUAL");
-        
+        modelo.addColumn("STOCK ACTUAL");        
         Object filaDato[] = new Object[2];     
         for (int i = 0; i < arrayProductos.size(); i++) {
         	filaDato[0] = arrayProductos.get(i).getProductos();
@@ -104,26 +102,6 @@ private static ArrayList<ModeloProductosAlmacen> arrayProductos;
         tabla.setModel(modelo);
         modelo.fireTableDataChanged();
         tabla = VentanaPrincipal.formatoTabla(tabla);
-        
-        
-//        arrayProductos = new ArrayList<ModeloPRUEBA>();
-//        BbddVentas.listarClientes();					
-//        arrayProductos = BbddVentas.getArrayRecetas();
-//		tabla = new JTable();
-//		scroll.setViewportView(tabla);
-//        DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
-//        modelo.addColumn("PRODUCTOS");
-//        modelo.addColumn("STOCK ACTUAL");
-//        
-//        Object filaDato[] = new Object[2];     
-//        for (int i = 0; i < arrayProductos.size(); i++) {
-//        	filaDato[0] = arrayProductos.get(i).getReceta();
-//        	filaDato[1] = arrayProductos.get(i).getEstado();
-//        	modelo.addRow(filaDato);
-//    	}
-//        tabla.setModel(modelo);
-//        modelo.fireTableDataChanged();
-//        tabla = VentanaPrincipal.formatoTabla(tabla);
     }
 	
 
@@ -176,10 +154,5 @@ private static ArrayList<ModeloProductosAlmacen> arrayProductos;
 	public static JButton getBtn_volver() {
 		return btn_volver;
 	}
-	
-	
-	
-	
-	
 	
 }

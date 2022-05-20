@@ -8,7 +8,9 @@ import javax.swing.JLabel;
 import javax.swing.JButton;
 import controlador.ControladorPedido;
 import modelo.ModeloPRUEBA;
-import modelo_bbdd.BbddVentas;
+import modelo.ModeloPedido;
+import modelo_bbdd.BbddPedido;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.util.ArrayList;
@@ -28,10 +30,10 @@ public class Pedido extends JPanel {
 	private static JButton btn_Nuevo;
 	private static JButton btn_Eliminar;
 	private static JButton btn_Facturar;
-	private static JTable tabla;
+	private static JTable tablaPedidos = new JTable();
     private static JScrollPane scroll;
-
-	private static ArrayList<ModeloPRUEBA> arrayPedidos;
+    
+	private static ArrayList<ModeloPedido> arrayPedidos;
     
     
     public Pedido() {
@@ -71,7 +73,7 @@ public class Pedido extends JPanel {
 		btn_Facturar.setBackground(Color.ORANGE);
 		panelPedido.add(btn_Facturar);
 		
-		tabla = new JTable();
+		tablaPedidos = new JTable();
 		scroll = VentanaPrincipal.parametrosJScrollPane(50, 100, 700, 400);    
 	    panelPedido.add(scroll);
 	    
@@ -94,31 +96,32 @@ public class Pedido extends JPanel {
 	}
 
 	public static void pedidos () {
-		arrayPedidos = new ArrayList<ModeloPRUEBA>();
-        BbddVentas.listarClientes();
-        arrayPedidos = BbddVentas.getArrayRecetas();
-		tabla = new JTable();
-		scroll.setViewportView(tabla);
-        DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
+		arrayPedidos = new ArrayList<ModeloPedido>();
+        //BbddVentas.listarClientes();
+		BbddPedido.listarPedidos(1); // tenemos que añadir aqui el int para cliente
+        //arrayPedidos = BbddVentas.getArrayRecetas();
+		arrayPedidos = BbddPedido.getArrayPedidos();
+		scroll.setViewportView(tablaPedidos);
+        DefaultTableModel modelo = (DefaultTableModel) tablaPedidos.getModel();
         modelo.addColumn("COMIDA/BEBIDA");
         modelo.addColumn("CANTIDAD");
         modelo.addColumn("PRECIO");
         
         Object filaDato[] = new Object[3];     
         for (int i = 0; i < arrayPedidos.size(); i++) {
-        	filaDato[0] = arrayPedidos.get(i).getReceta();
-        	filaDato[1] = arrayPedidos.get(i).getEstado();
-        	filaDato[2] = arrayPedidos.get(i).getEstado(); 
+        	filaDato[0] = arrayPedidos.get(i).getComidaBebida();
+        	filaDato[1] = arrayPedidos.get(i).getCantidad();
+        	filaDato[2] = arrayPedidos.get(i).getPrecio(); 
         	modelo.addRow(filaDato);
     	}
-        tabla.setModel(modelo);
+        tablaPedidos.setModel(modelo);
         modelo.fireTableDataChanged();
-        tabla = VentanaPrincipal.formatoTabla(tabla);
+        tablaPedidos = VentanaPrincipal.formatoTabla(tablaPedidos);
     }
 	
 
 	 public static int productoSeleccionado() throws NullPointerException {
-		 int indiceSeleccionado = tabla.getSelectedRow();
+		 int indiceSeleccionado = tablaPedidos.getSelectedRow();
 		 return indiceSeleccionado;	
 	 }
  
