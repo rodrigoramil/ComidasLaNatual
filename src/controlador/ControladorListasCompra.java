@@ -5,7 +5,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import vista.Almacen;
 import vista.ListasCompra;
+import vista.MenuPrincipal;
 import vista.VentanaPrincipal;
 
 public class ControladorListasCompra implements ActionListener, MouseListener {
@@ -23,6 +25,8 @@ private ListasCompra panelListasCompra;
 		if (e.getSource() == ListasCompra.getBtn_Volver()) {			
 			VentanaPrincipal.getPanelListasCompra().setVisible(false);
 			VentanaPrincipal.getPanelAlmacen().setVisible(true);
+			Almacen.getBtn_Modificar().setEnabled(false);
+			Almacen.getBtn_Eliminar().setEnabled(false);
 		}
 		
 		if (e.getSource() == ListasCompra.getBtn_Ver()) {
@@ -60,13 +64,27 @@ private ListasCompra panelListasCompra;
 
 	@Override
 	public void mouseEntered(MouseEvent e) { // al tener el raton encima
-
+		if (e.getSource() == ListasCompra.getBtn_Ver()) {
+			ListasCompra.getBtn_Ver().setBackground(VentanaPrincipal.getAzulOscuro());
+			ListasCompra.getBtn_Ver().setForeground(VentanaPrincipal.getAzulClaro());;
+		}
+		if (e.getSource() == ListasCompra.getBtn_Volver()) {
+			ListasCompra.getBtn_Volver().setBackground(VentanaPrincipal.getAzulOscuro());
+			ListasCompra.getBtn_Volver().setForeground(VentanaPrincipal.getAzulClaro());;
+		}
 		
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) { //al salir el raton de encima
-
+		if (e.getSource() == ListasCompra.getBtn_Ver()) {
+			ListasCompra.getBtn_Ver().setBackground(VentanaPrincipal.getAzulClaro());
+			ListasCompra.getBtn_Ver().setForeground(VentanaPrincipal.getAzulOscuro());;
+		}
+		if (e.getSource() == ListasCompra.getBtn_Volver()) {
+			ListasCompra.getBtn_Volver().setBackground(VentanaPrincipal.getAzulClaro());
+			ListasCompra.getBtn_Volver().setForeground(VentanaPrincipal.getAzulOscuro());;
+		}
 		
 	}
 

@@ -1,21 +1,33 @@
 package controlador;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
+import modelo_bbdd.BbddComidaBebida;
+import modelo_bbdd.BbddPedido;
+import vista.BuscarComidaBebida;
+import vista.Facturar;
 import vista.GestionPedidos;
+import vista.MenuPrincipal;
 import vista.Pedido;
+import vista.Recetario;
 import vista.VentanaPrincipal;
 
 public class ControladorPedido  implements ActionListener, MouseListener {
 
 	private Pedido panelPedido;
-	private int cantidad;
-
+	private static int cantidad;
+	private static float total;
+	private static double totalIva;
+	private static double abonado = 0;
+	private static double aDevolver;
+	
 	public ControladorPedido (Pedido panelPedido) {
 		this.panelPedido = panelPedido;
 	}	
@@ -29,15 +41,14 @@ public class ControladorPedido  implements ActionListener, MouseListener {
 			GestionPedidos.getBtn_Editar_Cliente().setEnabled(false);
 			GestionPedidos.getBtn_Ver_Pedido().setEnabled(false);
 		}
-		if (e.getSource() == Pedido.getBtn_Guardar()) {
-			VentanaPrincipal.getPanelGestionPedidos().setVisible(true);
-			VentanaPrincipal.getPanelPedido().setVisible(false);
-			GestionPedidos.getBtn_Editar_Cliente().setEnabled(false);
-			GestionPedidos.getBtn_Ver_Pedido().setEnabled(false);
-		}
+
 		if (e.getSource() == Pedido.getBtn_Nuevo()) {
 			VentanaPrincipal.getPanelPedido().setVisible(false);
 			VentanaPrincipal.getPanelBuscarComidaBebida().setVisible(true);	
+			
+			BuscarComidaBebida.listarPedido(BbddComidaBebida.listarComidaBebida());
+
+			
 		}
 		
 		if (e.getSource() == Pedido.getBtn_Modificar()) {
@@ -60,18 +71,56 @@ public class ControladorPedido  implements ActionListener, MouseListener {
 			
 			
 			
-			
-			
-			
+			int idReceta = 0;			
+			String ComidaBebidaSeleccionada = Pedido.datoSeleccionadoTabla();			
+			for (int i = 0; i < BbddPedido.getArrayPedido().size(); i++) {
+				if (BbddPedido.getArrayPedido().get(i).getNombreReceta().equals(ComidaBebidaSeleccionada)) {
+					idReceta = BbddPedido.getArrayPedido().get(i).getIdReceta();					
+				}
+			}
+
+			try {
+				BbddPedido.editarPedido(idReceta, cantidad);
+			} catch (SQLException e1) {
+				JOptionPane.showMessageDialog(panelPedido, "Error al modificar la cantidad del producto selecionado");
+				e1.printStackTrace();
+			}
+			Pedido.listarPedido(BbddPedido.listarPedido());
+			Pedido.getBtn_Modificar().setEnabled(false);
+			Pedido.getBtn_Eliminar().setEnabled(false);		
 		}
 		
+		
 		if (e.getSource() == Pedido.getBtn_Eliminar()) {
-			
+			 // si = 0 / no = 1 / cancelar = 2 / X = -1
+			int respuestaEliminar = JOptionPane.showConfirmDialog(panelPedido, "¿Esta seguro de que quiere eliminar la receta selecionada?");
+			if (respuestaEliminar == 0) {				
+				int idReceta = 0;			
+				String ComidaBebidaSeleccionada = Pedido.datoSeleccionadoTabla();			
+				for (int i = 0; i < BbddPedido.getArrayPedido().size(); i++) {
+					if (BbddPedido.getArrayPedido().get(i).getNombreReceta().equals(ComidaBebidaSeleccionada)) {
+						idReceta = BbddPedido.getArrayPedido().get(i).getIdReceta();
+					}
+				}			
+				try {
+					BbddPedido.borrarComidaBebida(idReceta);
+				} catch (SQLException e1) {
+					JOptionPane.showMessageDialog(panelPedido, "Error al borrar el producto selecionado");
+					e1.printStackTrace();
+				}
+				Pedido.listarPedido(BbddPedido.listarPedido());
+			}
+			Pedido.getBtn_Modificar().setEnabled(false);
+			Pedido.getBtn_Eliminar().setEnabled(false);
 		}
 		
 		if (e.getSource() == Pedido.getBtn_Facturar()) {
 			VentanaPrincipal.getPanelPedido().setVisible(false);
-			VentanaPrincipal.getPanelFacturar().setVisible(true);	
+			VentanaPrincipal.getPanelFacturar().setVisible(true);			
+			Facturar.getLbl_mesa().setText(Pedido.getLbl_Num_Mesa().getText());
+			Facturar.factura(BbddPedido.listarPedido());
+			Facturar.calcularFactura();
+			
 		}
 		
 	}
@@ -88,7 +137,11 @@ public class ControladorPedido  implements ActionListener, MouseListener {
 
 	@Override
 	public void mousePressed(MouseEvent e) { // Al pulsar raton
-
+		
+		if (e.getSource() == Pedido.getTabla()) {			
+			Pedido.getBtn_Modificar().setEnabled(true);
+			Pedido.getBtn_Eliminar().setEnabled(true);
+		}
 		
 	}
 
@@ -100,16 +153,72 @@ public class ControladorPedido  implements ActionListener, MouseListener {
 
 	@Override
 	public void mouseEntered(MouseEvent e) { // al tener el raton encima
-
-		
+		if (e.getSource() == Pedido.getBtn_Eliminar()) {
+			Pedido.getBtn_Eliminar().setBackground(VentanaPrincipal.getAzulOscuro());
+			Pedido.getBtn_Eliminar().setForeground(VentanaPrincipal.getAzulClaro());;
+		}
+		if (e.getSource() == Pedido.getBtn_Facturar()) {
+			Pedido.getBtn_Facturar().setBackground(VentanaPrincipal.getAzulOscuro());
+			Pedido.getBtn_Facturar().setForeground(VentanaPrincipal.getAzulClaro());;
+		}
+		if (e.getSource() == Pedido.getBtn_Modificar()) {
+			Pedido.getBtn_Modificar().setBackground(VentanaPrincipal.getAzulOscuro());
+			Pedido.getBtn_Modificar().setForeground(VentanaPrincipal.getAzulClaro());;
+		}
+		if (e.getSource() == Pedido.getBtn_Nuevo()) {
+			Pedido.getBtn_Nuevo().setBackground(VentanaPrincipal.getAzulOscuro());
+			Pedido.getBtn_Nuevo().setForeground(VentanaPrincipal.getAzulClaro());;
+		}
+		if (e.getSource() == Pedido.getBtn_Volver()) {
+			Pedido.getBtn_Volver().setBackground(VentanaPrincipal.getAzulOscuro());
+			Pedido.getBtn_Volver().setForeground(VentanaPrincipal.getAzulClaro());;
+		}
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) { //al salir el raton de encima
-
-		
+		if (e.getSource() == Pedido.getBtn_Eliminar()) {
+			Pedido.getBtn_Eliminar().setBackground(VentanaPrincipal.getAzulClaro());
+			Pedido.getBtn_Eliminar().setForeground(VentanaPrincipal.getAzulOscuro());;
+		}
+		if (e.getSource() == Pedido.getBtn_Facturar()) {
+			Pedido.getBtn_Facturar().setBackground(Color.ORANGE);
+			Pedido.getBtn_Facturar().setForeground(VentanaPrincipal.getAzulOscuro());;
+		}
+		if (e.getSource() == Pedido.getBtn_Modificar()) {
+			Pedido.getBtn_Modificar().setBackground(VentanaPrincipal.getAzulClaro());
+			Pedido.getBtn_Modificar().setForeground(VentanaPrincipal.getAzulOscuro());;
+		}
+		if (e.getSource() == Pedido.getBtn_Nuevo()) {
+			Pedido.getBtn_Nuevo().setBackground(VentanaPrincipal.getAzulClaro());
+			Pedido.getBtn_Nuevo().setForeground(VentanaPrincipal.getAzulOscuro());;
+		}
+		if (e.getSource() == Pedido.getBtn_Volver()) {
+			Pedido.getBtn_Volver().setBackground(VentanaPrincipal.getAzulClaro());
+			Pedido.getBtn_Volver().setForeground(VentanaPrincipal.getAzulOscuro());;
+		}
 	}
 
-		
+	public static double getAbonado() {
+		return abonado;
+	}
+
+	public static void setAbonado(double abonado) {
+		ControladorPedido.abonado = abonado;
+	}
+
+	public static double getaDevolver() {
+		return aDevolver;
+	}
+
+	public static void setaDevolver(double aDevolver) {
+		ControladorPedido.aDevolver = aDevolver;
+	}
+
+	public static double getTotalIva() {
+		return totalIva;
+	}
+
+	
 	
 }

@@ -1,22 +1,20 @@
 package controlador;
 
-import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.print.PrinterException;
-
 import javax.swing.JOptionPane;
 
+import vista.Almacen;
+import vista.MenuPrincipal;
 import vista.PrepararCompra;
 import vista.VentanaPrincipal;
 
 public class ControladorPrepararCompra implements ActionListener, MouseListener  {
 
-	
-
-private PrepararCompra panelPrepararCompra;
+	private PrepararCompra panelPrepararCompra;
 	
 	public ControladorPrepararCompra(PrepararCompra panelPrepararCompra) {
 		this.panelPrepararCompra = panelPrepararCompra;
@@ -28,17 +26,20 @@ private PrepararCompra panelPrepararCompra;
 		if (e.getSource() == PrepararCompra.getBtn_volver()) {
 			VentanaPrincipal.getPanelAlmacen().setVisible(true);
 			VentanaPrincipal.getPanelPrepararCompra().setVisible(false);
+			Almacen.getBtn_Modificar().setEnabled(false);
+			Almacen.getBtn_Eliminar().setEnabled(false);
 		}
 		
 		if (e.getSource() == PrepararCompra.getBtn_Guardar()) {
 			VentanaPrincipal.getPanelAlmacen().setVisible(true);
 			VentanaPrincipal.getPanelPrepararCompra().setVisible(false);
+			Almacen.getBtn_Modificar().setEnabled(false);
+			Almacen.getBtn_Eliminar().setEnabled(false);
 		}
 		
 		if (e.getSource() == PrepararCompra.getBtn_Imprimir()) {
 			
-			try {
-				
+			try {				
 				panelPrepararCompra.getTabla().print();
 				
 			} catch (PrinterException e1) {
@@ -78,14 +79,34 @@ private PrepararCompra panelPrepararCompra;
 
 	@Override
 	public void mouseEntered(MouseEvent e) { // al tener el raton encima
-
-		
+		if (e.getSource() == PrepararCompra.getBtn_Guardar()) {
+			PrepararCompra.getBtn_Guardar().setBackground(VentanaPrincipal.getAzulOscuro());
+			PrepararCompra.getBtn_Guardar().setForeground(VentanaPrincipal.getAzulClaro());;
+		}
+		if (e.getSource() == PrepararCompra.getBtn_Imprimir()) {
+			PrepararCompra.getBtn_Imprimir().setBackground(VentanaPrincipal.getAzulOscuro());
+			PrepararCompra.getBtn_Imprimir().setForeground(VentanaPrincipal.getAzulClaro());;
+		}
+		if (e.getSource() == PrepararCompra.getBtn_volver()) {
+			PrepararCompra.getBtn_volver().setBackground(VentanaPrincipal.getAzulOscuro());
+			PrepararCompra.getBtn_volver().setForeground(VentanaPrincipal.getAzulClaro());;
+		}
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) { //al salir el raton de encima
-
-		
+		if (e.getSource() == PrepararCompra.getBtn_Guardar()) {
+			PrepararCompra.getBtn_Guardar().setBackground(VentanaPrincipal.getAzulClaro());
+			PrepararCompra.getBtn_Guardar().setForeground(VentanaPrincipal.getAzulOscuro());;
+		}
+		if (e.getSource() == PrepararCompra.getBtn_Imprimir()) {
+			PrepararCompra.getBtn_Imprimir().setBackground(VentanaPrincipal.getAzulClaro());
+			PrepararCompra.getBtn_Imprimir().setForeground(VentanaPrincipal.getAzulOscuro());;
+		}
+		if (e.getSource() == PrepararCompra.getBtn_volver()) {
+			PrepararCompra.getBtn_volver().setBackground(VentanaPrincipal.getAzulClaro());
+			PrepararCompra.getBtn_volver().setForeground(VentanaPrincipal.getAzulOscuro());;
+		}
 	}
 
 	

@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Base64;
 import javax.swing.JOptionPane;
+
+import modelo.ModeloReceta;
 import modelo.ModeloUsuario;
 import vista.VentanaPrincipal;
 
@@ -20,7 +22,6 @@ public class BbddLogin {
 		String estado = "";
 		conexion = new Conexion();
 		connection = conexion.obtenerConexion();
-
 		try {
 			String pass_cifrado =Base64.getEncoder().encodeToString(entrada_pass.getBytes());
 			sentencia = connection.prepareStatement("SELECT NombreUsuario, Contrasena, Rol FROM Usuarios WHERE NombreUsuario= ? AND Contrasena = ?");
@@ -40,8 +41,8 @@ public class BbddLogin {
 		return estado;
 	}
 	
-	
-	public static void listarUsuarios() {
+	/*
+	public static ArrayList<ModeloUsuario> listarUsuarios() {
 		conexion = new Conexion();
 		connection = conexion.obtenerConexion();
 		arrayUsuarios = new ArrayList<ModeloUsuario>();
@@ -60,16 +61,16 @@ public class BbddLogin {
 			JOptionPane.showMessageDialog(VentanaPrincipal.getPanelLogin(), "Error al acceder a los Usuarios de la Base de Datos");
 			System.out.println("Error al acceder a los Usuarios de la Base de Datos");
 		}
-			
+		return arrayUsuarios;			
 	}
-	
+	*/
 
-
+/*
 
 	public static void nuevoUsuario(String nombreUsuario, String pass, String rolUsuario) {
 		String passcifrado =Base64.getEncoder().encodeToString(pass.getBytes());
 		
-		/* Crear la sentencia SQL con un INSERT */
+
 		
 		
 		System.out.println("Se ha creado el nuevo Usuario "+nombreUsuario+" con el rol de "+rolUsuario);
@@ -79,7 +80,7 @@ public class BbddLogin {
 	public static void edotarUsuario(String nombreUsuario, String pass, String rolUsuario) {
 		String passcifrado =Base64.getEncoder().encodeToString(pass.getBytes());
 		
-		/* Crear la sentencia SQL con un UPDATE */
+
 		
 		
 		
@@ -87,7 +88,7 @@ public class BbddLogin {
 		System.out.println("Se ha modificado el Usuario "+nombreUsuario+" ahora tiene el rol de "+rolUsuario);
 	}
 
-	
+	*/
 	
 	
 	

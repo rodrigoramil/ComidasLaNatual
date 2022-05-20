@@ -46,6 +46,9 @@ public class Contabilidad extends JPanel {
 		btn_Gastos.addActionListener(controlador);
 		btn_Facturacion.addActionListener(controlador);
 		btn_volver.addActionListener(controlador);
+		btn_Gastos.addMouseListener(controlador);
+		btn_Facturacion.addMouseListener(controlador);
+		btn_volver.addMouseListener(controlador);
 		
 	}
 

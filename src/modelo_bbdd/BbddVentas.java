@@ -6,9 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import controlador.ControladorGestionPedidos;
 import modelo.ModeloCliente;
-import modelo.ModeloPRUEBA;
-import vista.Cliente;
 
 public class BbddVentas {
 
@@ -16,15 +15,24 @@ public class BbddVentas {
 	private static Conexion conexion = null;
 	private static PreparedStatement sentencia = null;
 	private static ArrayList<ModeloCliente> arrayClientes = null;
-	private static ArrayList<ModeloPRUEBA> arrayRecetas=null; // <---- BORRAR
 
-	public static void listarClientes() {
+	public static ArrayList<ModeloCliente> listarClientes() {
 		conexion = new Conexion();
 		connection = conexion.obtenerConexion();
 		arrayClientes = new ArrayList<ModeloCliente>();
-		arrayRecetas = new ArrayList<ModeloPRUEBA>();  // <---- BORRAR
+
 		try {
-			sentencia = connection.prepareStatement("Select * from cliente where nombreCliente not like '%Mesa %'  order by IdCliente");
+			
+			if (!ControladorGestionPedidos.isMesa()) {
+				sentencia = connection.prepareStatement("Select * from cliente where nombreCliente not like '%Mesa %'  order by IdCliente");
+				ControladorGestionPedidos.setMesa(true);
+			} else {				
+				sentencia = connection.prepareStatement("Select * from cliente order by IdCliente");
+				
+			}
+			
+			
+			
 			ResultSet rs = sentencia.executeQuery();
 
 			while (rs.next()) {
@@ -42,6 +50,7 @@ public class BbddVentas {
 			System.out.println("Error en gestionPedidosClientes SentenciasSQL");
 			System.out.println(e.getMessage());
 		}
+		return arrayClientes;
 	}
 
     
@@ -73,15 +82,35 @@ public class BbddVentas {
 		sentencia = connection.prepareStatement(SQL);
 		
 		sentencia.setString(1, nombre);
-		sentencia.setInt(2, Integer.parseInt(telefono));
+		sentencia.setString(2, telefono);
 		sentencia.executeUpdate();
 	}
-
-
-	public static ArrayList<ModeloPRUEBA> getArrayRecetas() {
-		return arrayRecetas;
-	}
 	
+	public void cumpruebaMesas() throws SQLException  {
+		conexion = new Conexion();
+        connection = conexion.obtenerConexion();
+        
+        
+        for (int i = 0; i < 8; i++) {
+        	String mesa = "Mesa "+1;
+			if (!arrayClientes.get(i).getNombre().equals(mesa)) {
+				 try {
+					sentencia = connection.prepareStatement("INSERT INTO PERSONAS (NombreCliente, Telefono) VALUES (?, ?)");             
+					sentencia.setString(1, mesa);            
+					sentencia.executeQuery();
+				
+				
+				} catch (SQLException e) {
+					System.out.println("Error en gestionPedidosClientes SentenciasSQL");
+					System.out.println(e.getMessage());
+				}
+			}
+		}
+
+   }
+		
+
+
   	public static ArrayList<ModeloCliente> getArrayClientes() {
 		return arrayClientes;
 	}

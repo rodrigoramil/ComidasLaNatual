@@ -9,24 +9,27 @@ public class ModeloAlmacen implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1522571376895366509L;
-	
+	int idProducto;
 	String nombreProducto;	
 	float cantidadActual;
 	int unidadMedida;
 	float cantidadMinima;
 	float cantidadMaxima;
-	int tipo;	
+	int tipo;
 	/**
+	 * @param idProducto
 	 * @param nombreProducto
-	 * @param tipo
 	 * @param cantidadActual
 	 * @param unidadMedida
 	 * @param cantidadMinima
 	 * @param cantidadMaxima
+	 * @param tipo
 	 */
-	public ModeloAlmacen(String nombreProducto, float cantidadActual, int unidadMedida, float cantidadMinima, float cantidadMaxima, int tipo) {
+	public ModeloAlmacen(int idProducto, String nombreProducto, float cantidadActual, int unidadMedida,
+			float cantidadMinima, float cantidadMaxima, int tipo) {
 		super();
-		this.nombreProducto = nombreProducto;		
+		this.idProducto = idProducto;
+		this.nombreProducto = nombreProducto;
 		this.cantidadActual = cantidadActual;
 		this.unidadMedida = unidadMedida;
 		this.cantidadMinima = cantidadMinima;
@@ -38,25 +41,18 @@ public class ModeloAlmacen implements Serializable {
 	 */
 	public ModeloAlmacen() {
 		super();
-
 	}
-	/**
-	 * @param f 
-	 * @param string 
-	 * 
-	 */
-	
+	public int getIdProducto() {
+		return idProducto;
+	}
+	public void setIdProducto(int idProducto) {
+		this.idProducto = idProducto;
+	}
 	public String getNombreProducto() {
 		return nombreProducto;
 	}
 	public void setNombreProducto(String nombreProducto) {
 		this.nombreProducto = nombreProducto;
-	}
-	public int getTipo() {
-		return tipo;
-	}
-	public void setTipo(int tipo) {
-		this.tipo = tipo;
 	}
 	public float getCantidadActual() {
 		return cantidadActual;
@@ -82,11 +78,17 @@ public class ModeloAlmacen implements Serializable {
 	public void setCantidadMaxima(float cantidadMaxima) {
 		this.cantidadMaxima = cantidadMaxima;
 	}
+	public int getTipo() {
+		return tipo;
+	}
+	public void setTipo(int tipo) {
+		this.tipo = tipo;
+	}
 	@Override
 	public String toString() {
-		return "ModeloAlmacen [nombreProducto=" + nombreProducto + ", tipo=" + tipo + ", cantidadActual="
+		return "ModeloAlmacen [idProducto=" + idProducto + ", nombreProducto=" + nombreProducto + ", cantidadActual="
 				+ cantidadActual + ", unidadMedida=" + unidadMedida + ", cantidadMinima=" + cantidadMinima
-				+ ", cantidadMaxima=" + cantidadMaxima + "]";
-	}
-
+				+ ", cantidadMaxima=" + cantidadMaxima + ", tipo=" + tipo + "]";
+	}	
+	
 }

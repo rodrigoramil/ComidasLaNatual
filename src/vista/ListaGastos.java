@@ -5,10 +5,10 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import controlador.ControladorListaGastos;
 import modelo.ModeloListaGastos;
-import modelo_bbdd.BbddListaGastos;
 
 public class ListaGastos extends JPanel {
 
@@ -21,22 +21,22 @@ public class ListaGastos extends JPanel {
 	private static JButton btn_Volver;
 	private static JButton btn_Ver;
 	private static JButton btn_Calcular_Gastos;
-
 	private static JTable tabla;
     private static JScrollPane scroll;
-
+    private static ListaGastos listaGastos;
 	private static ArrayList<ModeloListaGastos> arrayListaGastos;
+
+	private static String dato;
 
 	public ListaGastos() {
 		super();
 		inicializarComponentes();		
 		establecerManejador();
-		listarGastos();
 	}
 
 	
 	public void inicializarComponentes() {
-		
+		arrayListaGastos = new ArrayList<ModeloListaGastos>();
 		
 		panelListaGastos = VentanaPrincipal.parametrosPanel(800,600);
 		
@@ -50,31 +50,34 @@ public class ListaGastos extends JPanel {
 		panelListaGastos.add(btn_Calcular_Gastos);
 
 		tabla = new JTable();
-		scroll = VentanaPrincipal.parametrosJScrollPane(50, 100, 700, 400);	    
-		panelListaGastos.add(scroll);
-	    
+		scroll = VentanaPrincipal.parametrosJScrollPane(50, 100, 700, 400);	
+		scroll.setViewportView(tabla);
+		panelListaGastos.add(scroll);	    
 		panelListaGastos.setVisible(false);
 		
 				
 	}
 	
-	public void establecerManejador() {			
-		ControladorListaGastos controlador = new ControladorListaGastos(this);
-
+	public static void establecerManejador() {			
+		ControladorListaGastos controlador = new ControladorListaGastos(listaGastos);
 		btn_Volver.addActionListener(controlador);
 		btn_Ver.addActionListener(controlador);
 		btn_Calcular_Gastos.addActionListener(controlador);
-		
+		tabla.addMouseListener(controlador);
+		btn_Volver.addMouseListener(controlador);
+		btn_Ver.addMouseListener(controlador);
+		btn_Calcular_Gastos.addMouseListener(controlador);
 	}
 
-	public static void listarGastos () {
-
-		arrayListaGastos = new ArrayList<ModeloListaGastos>();
-		BbddListaGastos.listarListaGastos();					
-		arrayListaGastos = BbddListaGastos.getArrayListaGastos();
-		tabla = new JTable();
-		scroll.setViewportView(tabla);
-        DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
+	public static void listarGastos (ArrayList<ModeloListaGastos> arrayTabla) {
+				
+		arrayListaGastos = arrayTabla;
+        DefaultTableModel modelo =new DefaultTableModel(){
+		    @Override
+		    public boolean isCellEditable(int row, int column) {	
+		       return false;
+		    }
+		};
         modelo.addColumn("Nº");
         modelo.addColumn("FECHA");
         modelo.addColumn("COMPRA HECHA");
@@ -97,9 +100,33 @@ public class ListaGastos extends JPanel {
         tabla.setModel(modelo);
         modelo.fireTableDataChanged();
         tabla = VentanaPrincipal.formatoTabla(tabla);
+        
+        tabla.getColumnModel().getColumn(0).setPreferredWidth(100);
+        tabla.getColumnModel().getColumn(1).setPreferredWidth(150);
+        tabla.getColumnModel().getColumn(2).setPreferredWidth(150);
+        tabla.getColumnModel().getColumn(3).setPreferredWidth(150);
+        tabla.getColumnModel().getColumn(4).setPreferredWidth(150);
+        tabla.getColumnModel().getColumn(0).setResizable(false);
+        tabla.getColumnModel().getColumn(1).setResizable(false);
+        tabla.getColumnModel().getColumn(2).setResizable(false);
+        tabla.getColumnModel().getColumn(3).setResizable(false);
+        tabla.getColumnModel().getColumn(4).setResizable(false);
+        
     }
 	
-
+	/**
+	 * Da el dato de la celda selecionada en la columna 0 
+	 * @return
+	 */
+	 public static String datoSeleccionadoTabla() {	
+		try {
+			dato=String.valueOf(tabla.getModel().getValueAt(tabla.getSelectedRow(),0));
+		} catch (ArrayIndexOutOfBoundsException e) {
+			JOptionPane.showMessageDialog(panelListaGastos, "Debes de selecionar algo de la lista antes");
+		}
+		return dato;		
+	}
+	 
 	 public static int indiceSeleccionado() throws NullPointerException {
 		 int indiceSeleccionado = tabla.getSelectedRow();
 		 return indiceSeleccionado;	

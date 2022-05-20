@@ -28,17 +28,17 @@ public class Cliente extends JPanel {
 
 		lbl_nombre = VentanaPrincipal.parametrosJlabel("Nombre",15, 100, 90,30);
 		lbl_nombre.setHorizontalAlignment(SwingConstants.RIGHT);
-		panelcliente.add(lbl_nombre); 												//añadimos al panel
+		panelcliente.add(lbl_nombre); 												
 		
 		tfd_nombre = VentanaPrincipal.parametrosJTextField(120, 100, 250, 30);
-		panelcliente.add(tfd_nombre);												//añadimos al panel
+		panelcliente.add(tfd_nombre);												
 
 		lbl_telefono = VentanaPrincipal.parametrosJlabel("Telefono",15, 200, 90,30);
 		lbl_telefono.setHorizontalAlignment(SwingConstants.RIGHT);
 		panelcliente.add(lbl_telefono);
 		
 		tfd_telefono = VentanaPrincipal.parametrosJTextField(120,200,250,30);
-		panelcliente.add(tfd_telefono);												//añadimos al panel
+		panelcliente.add(tfd_telefono);												
 		
 		btn_Aceptar = VentanaPrincipal.parametrosJButton("Aceptar",140,300,120, 40);
 		panelcliente.add(btn_Aceptar);
@@ -56,6 +56,8 @@ public class Cliente extends JPanel {
 		
 		btn_Aceptar.addActionListener(controlador);
 		btn_volver.addActionListener(controlador);
+		btn_Aceptar.addMouseListener(controlador);
+		btn_volver.addMouseListener(controlador);
 	}
 
 	public static JButton getBtn_Aceptar() {

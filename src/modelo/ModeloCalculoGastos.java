@@ -8,9 +8,9 @@ public class ModeloCalculoGastos implements Serializable {
 	
 	int IdCompraProductos;
 	boolean comprahecha;
-	Date fechaCompra;
+	String fechaCompra;
 	float gastoCompra;
-	public ModeloCalculoGastos(int idCompraProductos, boolean comprahecha, Date fechaCompra, float gastoCompra) {
+	public ModeloCalculoGastos(int idCompraProductos, boolean comprahecha, String fechaCompra, float gastoCompra) {
 		super();
 		IdCompraProductos = idCompraProductos;
 		this.comprahecha = comprahecha;
@@ -32,10 +32,10 @@ public class ModeloCalculoGastos implements Serializable {
 	public void setComprahecha(boolean comprahecha) {
 		this.comprahecha = comprahecha;
 	}
-	public Date getFechaCompra() {
+	public String getFechaCompra() {
 		return fechaCompra;
 	}
-	public void setFechaCompra(Date fechaCompra) {
+	public void setFechaCompra(String fechaCompra) {
 		this.fechaCompra = fechaCompra;
 	}
 	public float getGastoCompra() {

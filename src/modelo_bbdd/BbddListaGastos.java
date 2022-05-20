@@ -15,12 +15,12 @@ public class BbddListaGastos {
 	private static PreparedStatement sentenciaRecetas = null;
 	private static ArrayList<ModeloListaGastos> arrayListaGastos = null;
 	
-	public static void listarListaGastos() {
+	public static ArrayList<ModeloListaGastos> listarListaGastos() {
 		conexion = new Conexion();
 		connection = conexion.obtenerConexion();		
 		arrayListaGastos = new ArrayList<ModeloListaGastos>();		
 		try {
-			sentenciaRecetas = connection.prepareStatement("select G.IdCompraProductos,G.FechaCompra, G.CompraHecha, G.GastoCompra, U.NombreUsuario  from Gasto G, TrabajoUsuariosGastos T, Usuarios U where U.NombreUsuario=T.NombreUsuario AND T.IdCompraProductos=G.IdCompraProductos");
+			sentenciaRecetas = connection.prepareStatement("select G.IdCompraProductos, G.FechaCompra, G.CompraHecha, G.GastoCompra, U.NombreUsuario  from Gasto G, TrabajoUsuariosGastos T, Usuarios U where U.IdUsuario=T.IdUsuario AND T.IdCompraProductos=G.IdCompraProductos");
 			ResultSet rs = sentenciaRecetas.executeQuery();			
 
 			while (rs.next()) {
@@ -31,7 +31,8 @@ public class BbddListaGastos {
 		} catch (SQLException e) {
 			System.out.println("Error al listar las recetas SentenciasSQL");
 			System.out.println(e.getMessage());
-		}			
+		}
+		return arrayListaGastos;			
 	}
 
 	public static ArrayList<ModeloListaGastos> getArrayListaGastos() {
