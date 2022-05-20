@@ -63,7 +63,7 @@ public class VentanaPrincipal extends JFrame {
 		setSize(resolucionX, resolucionY);
 		setExtendedState(MAXIMIZED_BOTH); //PANTALLA COMPLETA
 		setLocationRelativeTo(null); // ventana en el centro de la pantalla
-//		setIconImage(Toolkit.getDefaultToolkit().getImage("img/imagenicono.jpg"));		
+		setIconImage(Toolkit.getDefaultToolkit().getImage("img/icono-comida-sana.png"));		
 		setVisible(true);
 		
 		try {
