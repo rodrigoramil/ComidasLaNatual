@@ -33,3 +33,4 @@ Un usuario con el rol de Administrador, podrá acceder a todas las secciones de 
 
 - Además de lo anterior, y debido a que la aplicación necesita de un Servidor de Base de Datos MySQL, se deberá de instarla alguna aplicación que facilite este servicio. Por su fácil instalación y manejo se propone la instalación de XAMPP, el cual podemos descargarnos mediante este [link](www.apachefriends.org).
 
+- El auto-instalable de la aplicación puede descargarla en el siguente enlace [link](https://github.com/rodrigoramil/ComidasLaNatural/raw/main/Instalador/AppComidasLaNatural.msi).
