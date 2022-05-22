@@ -7,18 +7,12 @@ import java.awt.event.MouseListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
-
-import modelo.ModeloPedido;
-import modelo_bbdd.BbddAlmacen;
-import modelo_bbdd.BbddCalculoGanancias;
 import modelo_bbdd.BbddComidaBebida;
 import modelo_bbdd.BbddPedido;
 import modelo_bbdd.BbddReceta;
 import modelo_bbdd.BbddRecetario;
 import modelo_bbdd.BbddVentas;
 import vista.BuscarComidaBebida;
-import vista.GestionPedidos;
-import vista.MenuPrincipal;
 import vista.Pedido;
 import vista.Receta;
 import vista.VentanaPrincipal;
