@@ -5,8 +5,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.print.PrinterException;
+import java.sql.SQLException;
+
 import javax.swing.JOptionPane;
 
+import modelo_bbdd.BbddAlmacen;
+import modelo_bbdd.BbddListaGastos;
 import vista.Almacen;
 import vista.MenuPrincipal;
 import vista.PrepararCompra;
@@ -35,6 +39,21 @@ public class ControladorPrepararCompra implements ActionListener, MouseListener 
 			VentanaPrincipal.getPanelPrepararCompra().setVisible(false);
 			Almacen.getBtn_Modificar().setEnabled(false);
 			Almacen.getBtn_Eliminar().setEnabled(false);
+
+			try {
+				BbddListaGastos.addGasto();
+				BbddAlmacen.listarProductosAlmacen();
+				for (int i = 0; i < BbddAlmacen.getArrayAlmacen().size(); i++) {
+					int idProducto = BbddAlmacen.listarProductosAlmacen().get(i).getIdProducto();
+					float cantidadCompraProducto = BbddAlmacen.listarProductosAlmacen().get(i).getCantidadMaxima()-BbddAlmacen.listarProductosAlmacen().get(i).getCantidadActual();
+					BbddListaGastos.addCompraProductos(idProducto,cantidadCompraProducto);
+				}
+				
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			
+			
 		}
 		
 		if (e.getSource() == PrepararCompra.getBtn_Imprimir()) {

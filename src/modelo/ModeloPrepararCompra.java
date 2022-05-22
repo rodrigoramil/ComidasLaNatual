@@ -9,17 +9,17 @@ public class ModeloPrepararCompra implements Serializable {
 	private static final long serialVersionUID = 81027022915327052L;
 	
 	private String Producto;
-	private float cantidadCompra;
+	private float cantidadActual;
 	private float CantidadMaxima;
 	/**
 	 * @param producto
-	 * @param cantidadCompra
+	 * @param cantidadActual
 	 * @param cantidadMaxima
 	 */
-	public ModeloPrepararCompra(String producto, float cantidadCompra, float cantidadMaxima) {
+	public ModeloPrepararCompra(String producto, float cantidadActual, float cantidadMaxima) {
 		super();
 		Producto = producto;
-		this.cantidadCompra = cantidadCompra;
+		this.cantidadActual = cantidadActual;
 		CantidadMaxima = cantidadMaxima;
 	}
 	/**
@@ -34,11 +34,11 @@ public class ModeloPrepararCompra implements Serializable {
 	public void setProducto(String producto) {
 		Producto = producto;
 	}
-	public float getCantidadCompra() {
-		return cantidadCompra;
+	public float getCantidadActual() {
+		return cantidadActual;
 	}
-	public void setCantidadCompra(float cantidadCompra) {
-		this.cantidadCompra = cantidadCompra;
+	public void setCantidadActual(float cantidadActual) {
+		this.cantidadActual = cantidadActual;
 	}
 	public float getCantidadMaxima() {
 		return CantidadMaxima;
@@ -48,9 +48,8 @@ public class ModeloPrepararCompra implements Serializable {
 	}
 	@Override
 	public String toString() {
-		return "ModeloPrepararCompra [Producto=" + Producto + ", cantidadCompra=" + cantidadCompra + ", CantidadMaxima="
+		return "ModeloPrepararCompra [Producto=" + Producto + ", cantidadActual=" + cantidadActual + ", CantidadMaxima="
 				+ CantidadMaxima + "]";
 	}
-	
 	
 }

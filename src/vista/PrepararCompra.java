@@ -101,7 +101,7 @@ public class PrepararCompra extends JPanel {
         Object filaDato[] = new Object[2];     
         for (int i = 0; i < arrayPrepararCompra.size(); i++) {
         	filaDato[0] = arrayPrepararCompra.get(i).getProducto();
-        	filaDato[1] = arrayPrepararCompra.get(i).getCantidadMaxima()-arrayPrepararCompra.get(i).getCantidadCompra();
+        	filaDato[1] = arrayPrepararCompra.get(i).getCantidadMaxima()-arrayPrepararCompra.get(i).getCantidadActual();
         	modelo.addRow(filaDato);
     	}
         tabla.setModel(modelo);

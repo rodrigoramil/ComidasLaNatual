@@ -52,6 +52,7 @@ public class ControladorBuscarComidaBebida implements ActionListener, MouseListe
 		if (e.getSource() == BuscarComidaBebida.getBtn_anadir()) {
 			cantidad=0;
 			String respuesta = JOptionPane.showInputDialog("¿Que cantidad desea añadir?");
+			System.out.println(respuesta);
 			if (respuesta != null) {
 				if (!respuesta.equals("")) {
 					try {	
@@ -64,32 +65,40 @@ public class ControladorBuscarComidaBebida implements ActionListener, MouseListe
 				else {
 					cantidad=1;
 				}
-			}
-			String ComidaBebidaSeleccionada = BuscarComidaBebida.datoSeleccionadoTabla();
-			
-			for (int i = 0; i < BbddComidaBebida.getArrayComidaBebida().size(); i++) {
-				if (BbddComidaBebida.getArrayComidaBebida().get(i).getNombreReceta().equals(ComidaBebidaSeleccionada)) {
-					idReceta = BbddComidaBebida.getArrayComidaBebida().get(i).getIdReceta();					
-				}
-			}
-					
-			for (int i = 0; i < BbddVentas.listarClientes().size(); i++) {
-				if (BbddVentas.getArrayClientes().get(i).getNombre().equals(Pedido.getLbl_Num_Mesa().getText())) {
-					idCliente = BbddVentas.getArrayClientes().get(i).getId();					
-				}				
-			}
-
-			try {
-				BbddPedido.addComidaBebida(idCliente, idReceta, cantidad);
-				Pedido.listarPedido(BbddPedido.listarPedido());
+				String ComidaBebidaSeleccionada = BuscarComidaBebida.datoSeleccionadoTabla();
 				
-			} catch (SQLException e1) {
-				JOptionPane.showMessageDialog(panelBuscarComidaBebida, "Error al añadir el producto selecionado");
+				for (int i = 0; i < BbddComidaBebida.getArrayComidaBebida().size(); i++) {
+					if (BbddComidaBebida.getArrayComidaBebida().get(i).getNombreReceta().equals(ComidaBebidaSeleccionada)) {
+						idReceta = BbddComidaBebida.getArrayComidaBebida().get(i).getIdReceta();					
+					}
+				}
+						
+				for (int i = 0; i < BbddVentas.listarClientes().size(); i++) {
+					if (BbddVentas.getArrayClientes().get(i).getNombre().equals(Pedido.getLbl_Num_Mesa().getText())) {
+						idCliente = BbddVentas.getArrayClientes().get(i).getId();					
+					}				
+				}
+
+				try {
+					BbddPedido.addComidaBebida(idCliente, idReceta, cantidad);
+					BbddPedido.listarTodosPedidos();
+					for (int i = 0; i < BbddPedido.getArrayPedido().size(); i++) {		
+						if (idCliente==BbddPedido.getArrayPedido().get(i).getIdCliente()) {
+							ControladorGestionPedidos.setIdPedido(BbddPedido.getArrayPedido().get(i).getIdPedido());
+						}
+					}
+					Pedido.listarPedido(BbddPedido.listarPedido());
+					
+				} catch (SQLException e1) {
+					JOptionPane.showMessageDialog(panelBuscarComidaBebida, "Error al añadir el producto selecionado");
+				}
+				VentanaPrincipal.getPanelBuscarComidaBebida().setVisible(false);
+				VentanaPrincipal.getPanelPedido().setVisible(true);
 			}
-			VentanaPrincipal.getPanelBuscarComidaBebida().setVisible(false);
-			VentanaPrincipal.getPanelPedido().setVisible(true);
+			
+			
 		}
-		
+
 		if (e.getSource() == BuscarComidaBebida.getBtn_bebidas_disponibles()) {
 			bebida = true;
 			BuscarComidaBebida.listarPedido(BbddComidaBebida.getArrayComidaBebida());			

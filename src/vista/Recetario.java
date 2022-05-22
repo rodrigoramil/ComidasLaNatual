@@ -31,7 +31,7 @@ public class Recetario extends JPanel {
 	private static JButton btn_eliminar_receta;
 	private static JButton btn_nueva_receta;
 	private static JButton btn_ver_recetas;
-	private static JButton btn_listadoRecetas;
+	private static JButton btn_listar_todo;
 	private static JButton btn_buscar;
 	private static JButton btn_volver;
 	private static JScrollPane scroll;    
@@ -55,8 +55,8 @@ public class Recetario extends JPanel {
 		
 		panelRecetario = VentanaPrincipal.parametrosPanel(800,600);
 		
-		btn_listadoRecetas = VentanaPrincipal.parametrosJButton("Lista de todas las recetas",50, 30, 150, 20);
-		panelRecetario.add(btn_listadoRecetas);
+		btn_listar_todo = VentanaPrincipal.parametrosJButton("Lista de todo",50, 30, 150, 20);
+		panelRecetario.add(btn_listar_todo);
 		
 		btn_volver = VentanaPrincipal.parametrosJButton("Volver", 710, 20, 70, 20);
 		panelRecetario.add(btn_volver);
@@ -100,7 +100,7 @@ public class Recetario extends JPanel {
 		btn_eliminar_receta.addActionListener(controlador);
 		btn_nueva_receta.addActionListener(controlador);
 		btn_ver_recetas.addActionListener(controlador);
-		btn_listadoRecetas.addActionListener(controlador);
+		btn_listar_todo.addActionListener(controlador);
 		btn_buscar.addActionListener(controlador);
 		btn_volver.addActionListener(controlador);
 		tabla.addMouseListener(controlador);
@@ -109,7 +109,7 @@ public class Recetario extends JPanel {
 		btn_eliminar_receta.addMouseListener(controlador);
 		btn_nueva_receta.addMouseListener(controlador);
 		btn_ver_recetas.addMouseListener(controlador);
-		btn_listadoRecetas.addMouseListener(controlador);
+		btn_listar_todo.addMouseListener(controlador);
 		btn_buscar.addMouseListener(controlador);
 		btn_volver.addMouseListener(controlador);
 
@@ -215,14 +215,10 @@ public class Recetario extends JPanel {
 
 	public static void setBtn_ver_recetas(JButton btn_ver_recetas) {
 		Recetario.btn_ver_recetas = btn_ver_recetas;
-	}
+	}	
 
-	public static JButton getBtn_listadoRecetas() {
-		return btn_listadoRecetas;
-	}
-
-	public static void setBtn_listadoRecetas(JButton btn_listadoRecetas) {
-		Recetario.btn_listadoRecetas = btn_listadoRecetas;
+	public static JButton getBtn_listar_todo() {
+		return btn_listar_todo;
 	}
 
 	public static JButton getBtn_buscar() {

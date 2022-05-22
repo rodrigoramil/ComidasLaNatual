@@ -45,7 +45,7 @@ public class BbddGestionUsuario {
 			JOptionPane.showMessageDialog(VentanaPrincipal.getPanelLogin(), "Error al acceder a los Usuarios de la Base de Datos");
 			System.out.println("Error al acceder a los Usuarios de la Base de Datos");
 		}
-		return arrayUsuarios;			
+		return arrayUsuarios;
 	}
 	
 

@@ -44,8 +44,9 @@ public class ControladorFacturar implements ActionListener, MouseListener, KeyLi
 			VentanaPrincipal.getPanelGestionPedidos().setVisible(true);
 			Facturar.getCaja_abonado().setText("");
 			try {
+				totalIva = (float) Facturar.calcularFactura();
 				BbddCalculoGanancias.addGanancia(totalIva);				
-				// BbddPedido.borrarPedido(); <--- da fallo
+				BbddPedido.borrarPedido();
 				JOptionPane.showMessageDialog(panelFacturar, "Factura pagada");
 			} catch (SQLException | NullPointerException e1) {
 				JOptionPane.showMessageDialog(panelFacturar, "Error al guardar el pago");

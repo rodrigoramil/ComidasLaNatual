@@ -117,6 +117,14 @@ public class ControladorReceta implements ActionListener, MouseListener  {
 			
 			try {
 				if (ControladorRecetario.isNuevaReceta()) {
+
+					String[] opcionEscogida = {"Bebida", "Comida"};
+			        int x = JOptionPane.showOptionDialog(null, 
+			        		"¿De que tipo es?",
+			                "Tipo de producto",
+			                JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcionEscogida, opcionEscogida[0]);
+			        x = x+1;
+			        BbddRecetario.setIdTipo(x);
 					BbddRecetario.insertarNuevaReceta();
 					Recetario.listarRecetas(BbddRecetario.listarRecetas());					
 				} else {

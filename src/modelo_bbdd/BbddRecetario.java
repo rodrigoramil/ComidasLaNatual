@@ -5,10 +5,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import controlador.ControladorRecetario;
 import modelo.ModeloRecetario;
 import vista.Receta;
 import vista.Recetario;
-
 public class BbddRecetario {
 
 	private static Connection connection = null;
@@ -18,6 +18,7 @@ public class BbddRecetario {
 	private static int idDisponibilidad;
 	private static int idReceta;
 	private static String datoSelecionado;
+	private static int idTipo;
 
 
 	public static ArrayList<ModeloRecetario>  listarRecetas() {
@@ -35,10 +36,19 @@ public class BbddRecetario {
 						rs.getFloat("PrecioVenta"),
 						rs.getString("Tipo"),
 						rs.getString("Estado"),
-						rs.getString("Elaboracion"));				
-				arrayRecetario.add(recetas);				
-			}
+						rs.getString("Elaboracion"));
 
+				if (ControladorRecetario.isListarTodo()) {
+					arrayRecetario.add(recetas);
+						
+				} else if (!ControladorRecetario.isListarTodo()){
+					if (recetas.getTipo().equals("Comida")) {
+						arrayRecetario.add(recetas);	
+					}									
+				}			
+			}
+			ControladorRecetario.setListarTodo(false);
+			
 		} catch (SQLException e) {
 			System.out.println("Error en gestionPedidosClientes SentenciasSQL");
 			System.out.println(e.getMessage());
@@ -48,35 +58,39 @@ public class BbddRecetario {
 	
 	public static void updateDisponibilidadReceta() {		
         conexion = new Conexion();
-        connection = conexion.obtenerConexion();
-        
+        connection = conexion.obtenerConexion();        
 		datoSelecionado = Recetario.datoSeleccionadoTabla();        
         if (idDisponibilidad > 0) {
 	        for (int i = 0; i < arrayRecetario.size(); i++) {
 				if (arrayRecetario.get(i).getNombreReceta().equals(datoSelecionado)) {
 					idReceta = arrayRecetario.get(i).getIdReceta();
+			        try {        	
+			        	sentenciaRecetas= connection.prepareStatement("update Recetas set IdDisponibilidad = ? where IdReceta = ?");
+			        	sentenciaRecetas.setInt(1, idDisponibilidad);
+			            sentenciaRecetas.setInt(2, idReceta);
+			            sentenciaRecetas.executeUpdate();      
+			            listarRecetas();
+			        } catch (SQLException e) {
+			        	System.out.println("Error en editarCliente SentenciasSQL");
+			            System.out.println(e.getMessage());        
+			        }
 				}
-			}	
-	        try {        	
-	        	sentenciaRecetas= connection.prepareStatement("update Recetas set IdDisponibilidad = ? where IdReceta = ?");
-	        	sentenciaRecetas.setInt(1, idDisponibilidad);
-	            sentenciaRecetas.setInt(2, idReceta);
-	            sentenciaRecetas.executeUpdate();      
-	            listarRecetas();
-	        } catch (SQLException e) {
-	        	System.out.println("Error en editarCliente SentenciasSQL");
-	            System.out.println(e.getMessage());        
-	        }
+			}
         }			
 	}
 	
 	
 	public static void insertarNuevaReceta() throws SQLException , NumberFormatException{
-		int idTipo = 2;
 		int idDisponibilidad = 3;
 		String nombreReceta = Receta.getNombre_receta().getText();
 		float precioVenta = 0;
-		precioVenta = Float.parseFloat(Receta.getPrecio_receta().getText());	
+
+		try {
+			precioVenta = Float.parseFloat(Receta.getPrecio_receta().getText());
+		} catch (NumberFormatException e) {
+			precioVenta = 0;
+		}
+
 		String elaboracion = Receta.getTexto_elaboracion().getText();		
 		
 		conexion = new Conexion();
@@ -89,9 +103,6 @@ public class BbddRecetario {
 		sentenciaRecetas.setFloat(4, precioVenta);
 		sentenciaRecetas.setString(5, elaboracion);
 		sentenciaRecetas.executeUpdate();
-
-		
-		
 	}
 	
 	public static void modificarReceta() throws SQLException , NumberFormatException {
@@ -101,17 +112,12 @@ public class BbddRecetario {
 		float precioVenta = 0;
 		precioVenta = Float.parseFloat(Receta.getPrecio_receta().getText());	
 		String elaboracion = Receta.getTexto_elaboracion().getText();	
-		
-		
+
         conexion = new Conexion();        
         connection = conexion.obtenerConexion(); 
         
-        System.out.println(Recetario.recetaSeleccionada());
-        System.out.println(nombreReceta);
-        
         for (int i = 0; i < BbddRecetario.getarrayRecetario().size(); i++) {
-			if (BbddRecetario.getarrayRecetario().get(i).getNombreReceta().equals(nombreReceta) ||
-					Recetario.recetaSeleccionada()==BbddRecetario.getarrayRecetario().get(i).getIdReceta()) {
+			if (BbddRecetario.getarrayRecetario().get(i).getNombreReceta().equals(Recetario.datoSeleccionadoTabla())) {
 				idReceta=BbddRecetario.getarrayRecetario().get(i).getIdReceta();
 				sentenciaRecetas= connection.prepareStatement("update recetas set NombreReceta = ?, PrecioVenta = ?, Elaboracion= ? where IdReceta = ?");
 				sentenciaRecetas.setString(1, nombreReceta);
@@ -180,8 +186,13 @@ public class BbddRecetario {
 		BbddRecetario.idReceta = idReceta;
 	}
 
+	public static int getIdTipo() {
+		return idTipo;
+	}
 
-
+	public static void setIdTipo(int idTipo) {
+		BbddRecetario.idTipo = idTipo;
+	}
 
 
 }

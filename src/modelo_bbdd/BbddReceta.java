@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import controlador.ControladorBuscarComidaBebida;
 import controlador.ControladorProductosAlmacen;
+import controlador.ControladorRecetario;
 import modelo.ModeloProductosAlmacen;
 import modelo.ModeloReceta;
 import modelo.ModeloRecetario;
@@ -79,7 +80,7 @@ public class BbddReceta {
 				idProducto = ProductosAlmacen.getArrayProductos().get(i).getIdProducto();
 			}
 		}
-
+        
         for (int i = 0; i < Recetario.getArrayRecetas().size(); i++) {
 			if (Recetario.getArrayRecetas().get(i).getNombreReceta().equals(Recetario.datoSeleccionadoTabla())) {
 				idReceta = Recetario.getArrayRecetas().get(i).getIdReceta();
@@ -92,9 +93,6 @@ public class BbddReceta {
 				arrayReceta = listarRecetas();
 			}
 		}   
-  
-
-			
 	}
 	
 	public static void editarIngrediente(float cantidad) throws SQLException {

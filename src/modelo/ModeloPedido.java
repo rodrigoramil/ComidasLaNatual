@@ -33,6 +33,12 @@ public class ModeloPedido implements Serializable {
 		this.idPedido = idPedido;
 		this.idCliente = idCliente;
 	}
+	public ModeloPedido(int idPedido, int idCliente, String nombreCliente) {
+		super();
+		this.idPedido = idPedido;
+		this.idCliente = idCliente;
+		this.nombreCliente = nombreCliente;
+	}
 	/**
 	 * 
 	 */

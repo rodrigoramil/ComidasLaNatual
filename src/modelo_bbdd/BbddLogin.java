@@ -16,10 +16,11 @@ public class BbddLogin {
 	private static Connection connection = null;
 	private static Conexion conexion = null;
 	private static PreparedStatement sentencia = null;
-	private static ArrayList<ModeloUsuario> arrayUsuarios = null;
-		
+	private static String usuario;	
+	
 	public static String iniciar_Sesion(String entrada_usuario, String entrada_pass) {
 		String estado = "";
+		usuario = entrada_usuario;
 		conexion = new Conexion();
 		connection = conexion.obtenerConexion();
 		try {
@@ -40,59 +41,9 @@ public class BbddLogin {
 		}
 		return estado;
 	}
-	
-	/*
-	public static ArrayList<ModeloUsuario> listarUsuarios() {
-		conexion = new Conexion();
-		connection = conexion.obtenerConexion();
-		arrayUsuarios = new ArrayList<ModeloUsuario>();
-		try {
-			
-			sentencia = connection.prepareStatement("select NombreUsuario, Rol from Usuarios;");
-			ResultSet rs = sentencia.executeQuery();			
-			while (rs.next()) {				
-				ModeloUsuario usuario = new ModeloUsuario(
-						rs.getString("NombreUsuario"),
-						rs.getString("Rol"));
-				arrayUsuarios.add(usuario);				
-			}
-		} catch (SQLException | NullPointerException e) {
-			
-			JOptionPane.showMessageDialog(VentanaPrincipal.getPanelLogin(), "Error al acceder a los Usuarios de la Base de Datos");
-			System.out.println("Error al acceder a los Usuarios de la Base de Datos");
-		}
-		return arrayUsuarios;			
-	}
-	*/
 
-/*
-
-	public static void nuevoUsuario(String nombreUsuario, String pass, String rolUsuario) {
-		String passcifrado =Base64.getEncoder().encodeToString(pass.getBytes());
-		
-
-		
-		
-		System.out.println("Se ha creado el nuevo Usuario "+nombreUsuario+" con el rol de "+rolUsuario);
+	public static String getUsuario() {
+		return usuario;
 	}
 
-
-	public static void edotarUsuario(String nombreUsuario, String pass, String rolUsuario) {
-		String passcifrado =Base64.getEncoder().encodeToString(pass.getBytes());
-		
-
-		
-		
-		
-		
-		System.out.println("Se ha modificado el Usuario "+nombreUsuario+" ahora tiene el rol de "+rolUsuario);
-	}
-
-	*/
-	
-	
-	
-	public static ArrayList<ModeloUsuario> getArrayUsuarios() {
-		return arrayUsuarios;
-	}
 }

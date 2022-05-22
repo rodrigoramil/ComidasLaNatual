@@ -23,6 +23,7 @@ public class ControladorRecetario implements ActionListener, MouseListener  {
 
 	
 	private Recetario panelRecetario;
+	private static boolean listarTodo = false;
 	private static boolean nuevaReceta;
 	private static boolean verDesdeRecetario;
 	
@@ -38,8 +39,9 @@ public class ControladorRecetario implements ActionListener, MouseListener  {
 			VentanaPrincipal.getPanelRecetario().setVisible(false);
 		}
 		
-		if (e.getSource() == Recetario.getBtn_listadoRecetas()) {
-			System.out.println("listadoRecetas");
+		if (e.getSource() == Recetario.getBtn_listar_todo()) {
+			listarTodo = true;
+			Recetario.listarRecetas(BbddRecetario.listarRecetas());
 		}
 		
 		if (e.getSource() == Recetario.getBtn_buscar()) {
@@ -70,12 +72,18 @@ public class ControladorRecetario implements ActionListener, MouseListener  {
 			Receta.getNombre_receta().setText("");
 			Receta.getTexto_elaboracion().setText("");
 			Receta.getPrecio_receta().setText("");
+			Receta.getBtn_nuevo_ingrediente().setEnabled(false);
+			Receta.getBtn_modificar_cantidad().setEnabled(false);
+			Receta.getBtn_borrar_ingrediente().setEnabled(false);
 			nuevaReceta = true;
 		}		
 		
 		if (e.getSource() == Recetario.getBtn_modificar_receta()) {
 			VentanaPrincipal.getPanelRecetario().setVisible(false);
 			VentanaPrincipal.getPanelReceta().setVisible(true);
+			Receta.getBtn_nuevo_ingrediente().setEnabled(true);
+			Receta.getBtn_modificar_cantidad().setEnabled(true);
+			Receta.getBtn_borrar_ingrediente().setEnabled(true);
 			nuevaReceta = false;
 			Receta.listarReceta(BbddReceta.listarRecetas());
 			
@@ -116,9 +124,6 @@ public class ControladorRecetario implements ActionListener, MouseListener  {
 	                JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcionEscogida, opcionEscogida[0]);
 	        
 	        BbddRecetario.setIdDisponibilidad(x+1);
-	        
-	        System.out.println(x+1); // 0="Disponible", 1="NO disponible", 2="En elaboración", -1=cancelar en X
-
 	        BbddRecetario.updateDisponibilidadReceta();
 	        Recetario.listarRecetas(BbddRecetario.getarrayRecetario());
 	        
@@ -168,9 +173,9 @@ public class ControladorRecetario implements ActionListener, MouseListener  {
 			Recetario.getBtn_eliminar_receta().setBackground(VentanaPrincipal.getAzulOscuro());
 			Recetario.getBtn_eliminar_receta().setForeground(VentanaPrincipal.getAzulClaro());;
 		}
-		if (e.getSource() == Recetario.getBtn_listadoRecetas()) {
-			Recetario.getBtn_listadoRecetas().setBackground(VentanaPrincipal.getAzulOscuro());
-			Recetario.getBtn_listadoRecetas().setForeground(VentanaPrincipal.getAzulClaro());;
+		if (e.getSource() == Recetario.getBtn_listar_todo()) {
+			Recetario.getBtn_listar_todo().setBackground(VentanaPrincipal.getAzulOscuro());
+			Recetario.getBtn_listar_todo().setForeground(VentanaPrincipal.getAzulClaro());;
 		}
 		if (e.getSource() == Recetario.getBtn_modificar_receta()) {
 			Recetario.getBtn_modificar_receta().setBackground(VentanaPrincipal.getAzulOscuro());
@@ -204,9 +209,9 @@ public class ControladorRecetario implements ActionListener, MouseListener  {
 			Recetario.getBtn_eliminar_receta().setBackground(VentanaPrincipal.getAzulClaro());
 			Recetario.getBtn_eliminar_receta().setForeground(VentanaPrincipal.getAzulOscuro());;
 		}
-		if (e.getSource() == Recetario.getBtn_listadoRecetas()) {
-			Recetario.getBtn_listadoRecetas().setBackground(VentanaPrincipal.getAzulClaro());
-			Recetario.getBtn_listadoRecetas().setForeground(VentanaPrincipal.getAzulOscuro());;
+		if (e.getSource() == Recetario.getBtn_listar_todo()) {
+			Recetario.getBtn_listar_todo().setBackground(VentanaPrincipal.getAzulClaro());
+			Recetario.getBtn_listar_todo().setForeground(VentanaPrincipal.getAzulOscuro());;
 		}
 		if (e.getSource() == Recetario.getBtn_modificar_receta()) {
 			Recetario.getBtn_modificar_receta().setBackground(VentanaPrincipal.getAzulClaro());
@@ -249,6 +254,14 @@ public class ControladorRecetario implements ActionListener, MouseListener  {
 
 	public void setNuevaReceta(boolean nuevaReceta) {
 		ControladorRecetario.nuevaReceta = nuevaReceta;
+	}
+
+	public static boolean isListarTodo() {
+		return listarTodo;
+	}
+
+	public static void setListarTodo(boolean listarTodo) {
+		ControladorRecetario.listarTodo = listarTodo;
 	}
 	
 }
