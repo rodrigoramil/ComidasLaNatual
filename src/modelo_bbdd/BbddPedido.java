@@ -74,7 +74,7 @@ public class BbddPedido {
 		idPedido = ControladorGestionPedidos.getIdPedido();
 		if (idPedido==0) {
 			addPedido(idCliente);
-			idPedido = todosPedidos().size()+1;
+			idPedido = todosPedidos().size();
 		}
 		
 		String SQLPedidos = "INSERT INTO Pedidos (IdReceta, IdPedido, CantidadRecetaVenta ) VALUES ( ?, ?, ?)";
