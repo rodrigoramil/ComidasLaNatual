@@ -34,13 +34,15 @@ public class Almacen extends JPanel {
 	private static Almacen almacen;
 	private static String dato;
 	
-	public Almacen() {
-		
+	public Almacen() {		
 		super();
 		inicializarComponentes();		
 		establecerManejador();		
 	}
-
+	
+	/**
+	 * Método que inicializa los componentes que contiene el JPanel 
+	 */
 	public void inicializarComponentes() {
 		arrayAlmacen = new ArrayList<ModeloAlmacen>();
 		
@@ -82,7 +84,9 @@ public class Almacen extends JPanel {
 	    panelAlmacen.setVisible(false);
 
 	}
-	
+	/**
+	 * Método para poder interactuar con los elementos
+	 */
 	public static void establecerManejador() {	
 		
 		ControladorAlmacen controlador = new ControladorAlmacen(almacen);	
@@ -110,7 +114,10 @@ public class Almacen extends JPanel {
 	}
 
 	
-
+/**
+ * Método para crear la tabla
+ * @param arrayTabla. Contiene los datos de la tabla.
+ */
 	public static void listarProductos (ArrayList<ModeloAlmacen> arrayTabla) {
 
         arrayAlmacen = arrayTabla;	
@@ -149,7 +156,7 @@ public class Almacen extends JPanel {
 	
 	/**
 	 * Da el dato de la celda selecionada en la columna 0 
-	 * @return
+	 * @return Devuelve la cadena de texto de la primera columna.
 	 */
 	 public static String datoSeleccionadoTabla() {	
 		try {

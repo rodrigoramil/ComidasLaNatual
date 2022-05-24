@@ -49,11 +49,7 @@ public class ControladorCliente implements ActionListener, MouseListener{
 				GestionPedidos.creaListaClientes();
 				ControladorGestionPedidos.setNuevoCliente(false);				
 			} else {
-				System.out.println("Editar Cliente");
-				System.out.println(BbddVentas.getArrayClientes());
-				System.out.println("Id: "+BbddVentas.getArrayClientes().get(GestionPedidos.clienteSeleccionado()).getId());
-				System.out.println("Nombre: "+BbddVentas.getArrayClientes().get(GestionPedidos.clienteSeleccionado()).getNombre());
-				
+				ControladorGestionPedidos.setMesa(false);	
 				String nombre = BbddVentas.getArrayClientes().get(GestionPedidos.clienteSeleccionado()).getNombre();
 				String tlf = BbddVentas.getArrayClientes().get(GestionPedidos.clienteSeleccionado()).getTelefono();
 				Cliente.getTfd_nombre().setText(nombre);

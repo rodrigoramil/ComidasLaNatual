@@ -22,28 +22,23 @@ public class BbddVentas {
 		arrayClientes = new ArrayList<ModeloCliente>();
 
 		try {
-			
 			if (!ControladorGestionPedidos.isMesa()) {
 				sentencia = connection.prepareStatement("Select * from cliente where nombreCliente not like '%Mesa %'  order by IdCliente");
 				ControladorGestionPedidos.setMesa(true);
-			} else {				
+			} else {
 				sentencia = connection.prepareStatement("Select * from cliente order by IdCliente");
 				
 			}
-			
-			
-			
+
 			ResultSet rs = sentencia.executeQuery();
 
 			while (rs.next()) {
 				
 				ModeloCliente cliente = new ModeloCliente(
-						rs.getInt("IdCliente"), 
-						rs.getString("NombreCliente"),
-						rs.getString("Telefono"));
+					rs.getInt("IdCliente"), 
+					rs.getString("NombreCliente"),
+					rs.getString("Telefono"));
 				arrayClientes.add(cliente);
-				
-				
 			}
 
 		} catch (SQLException e) {
@@ -65,9 +60,7 @@ public class BbddVentas {
             sentencia.setString(2, telefono);
             sentencia.setInt(3, id);
             sentencia.executeUpdate();
-//          
-            listarClientes();            
-//
+
         } catch (SQLException e) {
         	System.out.println("Error en editarCliente SentenciasSQL");
             System.out.println(e.getMessage());
